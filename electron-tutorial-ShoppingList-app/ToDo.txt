@@ -1,0 +1,3 @@
+Stefano
+    - pagina di login
+    - impostare parte CRM
