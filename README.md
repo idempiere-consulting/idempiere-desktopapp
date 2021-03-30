@@ -16,6 +16,8 @@ npm install --save electron
   
 ## Script di creazione dell'eseguibile:
 
+npm install electron-packager --save-dev
+
 ### Linux
 
 electron-packager . electron-tutorial-app --overwrite --asar=true --platform=linux --arch=x64 --icon=assets/icons/png/1024x1024.png --prune=true --out=release-builds
