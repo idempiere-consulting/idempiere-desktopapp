@@ -1,9 +1,62 @@
-<html>
-  <head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/js/bootstrap.min.js">
     <title>Idempiere App</title>
+</head>
+<body>
+    <div class="row">
+        <div style="height: 48px;" class="col-12 bg-primary"></div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col align-self-center crm-div" id="crm-div">
+                <button style="width: 200px; margin-top: 16px;" id="CRM" class="btn btn-primary">CRM</button>
+            </div>
+            <div class="w-100"></div>
+            <div class="col align-self-center">
+                <button style="width: 200px; margin-top: 16px;" class="btn btn-primary">SERVICE</button>
+            </div>
+            <div class="w-100"></div>
+            <div class="col align-self-center">
+                <button style="width: 200px; margin-top: 16px;" class="btn btn-primary">CONTABILITA'</button>
+            </div>
+            <div class="w-100"></div>
+            <div class="col align-self-center">
+                <button style="width: 200px; margin-top: 16px;" class="btn btn-primary">ACQUISTI</button>
+            </div>
+            <div class="w-100"></div>
+            <div class="col align-self-center">
+                <button style="width: 200px; margin-top: 16px;" class="btn btn-primary">MAGAZZINO</button>
+            </div>
+            <div class="w-100"></div>
+            <div class="col align-self-center">
+                <button style="width: 200px; margin-top: 16px;" class="btn btn-primary">PRODUZIONE</button>
+            </div>
+            <div class="w-100"></div>
+            <div class="col align-self-center">
+                <button style="width: 200px; margin-top: 16px;" class="btn btn-primary">CONTEGGIO ORE</button>
+            </div>
+        </div>
+    </div>
     
-  </head>
-  <body>
-  <h1>Main</h1>
-  </body>
+    <script>
+        const electron = require('electron');
+        const {ipcRenderer} = electron;
+        
+        const crm = document.getElementById('CRM');
+        crm.addEventListener('click', viewCRMPage);
+        
+        function viewCRMPage(e){
+            e.preventDefault();
+            const page = 1;
+            //console.log(page);
+            ipcRenderer.send('page:change', page);
+        }
+    </script>
+</body>
 </html>

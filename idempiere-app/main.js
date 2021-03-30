@@ -58,6 +58,22 @@ function viewMainWindow(){
 
 }
 
+ipcMain.on('page:change', function(e, page){
+    //console.log(page);
+    switch(page){
+        case 1:
+            mainWindow.loadURL(url.format({
+            pathname: path.join(__dirname, 'CRMWindow.html'),
+            protocol: 'file:',
+            slashes: true
+            }));
+            
+            break;
+    }
+        
+});
+
+
 const mainMenuTemplate = [
     {
         label: 'View',

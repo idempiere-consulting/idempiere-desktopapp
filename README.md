@@ -1,6 +1,6 @@
 # idempiere-desktopapp
 
-## Installazione:
+## Installazione
 
 mkdir folder
 
@@ -14,7 +14,7 @@ npm install --save electron
     "start": "electron ."
   },
   
-## Script di creazione dell'eseguibile:
+## Script di creazione dell'eseguibile
 
 npm install electron-packager --save-dev
 
