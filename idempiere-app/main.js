@@ -5,6 +5,7 @@ const path = require ('path');
 const { app, BrowserWindow, Menu, ipcMain } = electron;
 
 let mainWindow;
+var internetConn = navigator.onLine();
 
 app.on('ready', function(){
     // create new window
@@ -55,7 +56,6 @@ function viewMainWindow(){
         slashes: true
     }));
     
-
 }
 
 ipcMain.on('page:change', function(e, page){
@@ -67,7 +67,6 @@ ipcMain.on('page:change', function(e, page){
             protocol: 'file:',
             slashes: true
             }));
-            
             break;
     }
         
