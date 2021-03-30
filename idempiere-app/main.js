@@ -5,7 +5,7 @@ const path = require ('path');
 const { app, BrowserWindow, Menu, ipcMain } = electron;
 
 let mainWindow;
-var internetConn = navigator.onLine();
+//var internetConn = navigator.onLine();
 
 app.on('ready', function(){
     // create new window
@@ -19,7 +19,7 @@ app.on('ready', function(){
     });
     //load html file into the window
     mainWindow.loadURL(url.format({
-        pathname: path.join(__dirname, 'mainWindow.html'),
+        pathname: path.join(__dirname, 'loginWindow.html'),
         protocol: 'file:',
         slashes: true
     }));
@@ -58,6 +58,7 @@ function viewMainWindow(){
     
 }
 
+//carica la pagina selezionata su schermo
 ipcMain.on('page:change', function(e, page){
     //console.log(page);
     switch(page){
@@ -68,9 +69,17 @@ ipcMain.on('page:change', function(e, page){
             slashes: true
             }));
             break;
+        case 2:
+            mainWindow.loadURL(url.format({
+            pathname: path.join(__dirname, 'mainWindow.html'),
+            protocol: 'file:',
+            slashes: true
+            }));
+            break;
     }
         
 });
+
 
 
 const mainMenuTemplate = [
@@ -89,6 +98,21 @@ const mainMenuTemplate = [
                     viewMainWindow();
                 }
             },
+            {
+                label: 'Quit',
+                accellerator: process.platform == 'darwin' ? 'Command+Q' : 'Control+Q',
+                click(){
+                    app.quit();
+                }
+            }
+        ]
+    }
+];
+
+const LoginMenuTemplate = [
+    {
+        label: 'App',
+        submenu: [
             {
                 label: 'Quit',
                 accellerator: process.platform == 'darwin' ? 'Command+Q' : 'Control+Q',
