@@ -56,7 +56,6 @@ function viewMainWindow(){
         slashes: true
     }));
     
-
 }
 
 ipcMain.on('page:change', function(e, page){
@@ -68,7 +67,6 @@ ipcMain.on('page:change', function(e, page){
             protocol: 'file:',
             slashes: true
             }));
-            
             break;
     }
         
