@@ -5,6 +5,7 @@ const path = require ('path');
 const { app, BrowserWindow, Menu, ipcMain } = electron;
 
 let mainWindow;
+var internetConn = navigator.onLine();
 
 app.on('ready', function(){
     // create new window
