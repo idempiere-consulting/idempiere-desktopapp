@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/js/bootstrap.min.js">
+    <script href="./node_modules/jquery.js"></script>
+    <title>Idempiere App</title>
+    <style>
+        body{background:#f9f9f9;}
+#wrapper{padding:90px 15px;}
+.navbar-expand-lg .navbar-nav.side-nav{flex-direction: column;}
+.card{margin-bottom: 15px; border-radius:0; box-shadow: 0 3px 5px rgba(0,0,0,.1); }
+.header-top{box-shadow: 0 3px 5px rgba(0,0,0,.1)}
+.leftmenutrigger{display: none}
+@media(min-width:992px) {
+.leftmenutrigger{display: block;display: block;margin: 7px 20px 4px 0;cursor: pointer;}
+#wrapper{padding: 90px 15px 15px 15px; }
+.navbar-nav.side-nav.open {left:0;}
+.navbar-nav.side-nav{background: #585f66;box-shadow: 2px 1px 2px rgba(0,0,0,.1);position:fixed;top:56px;flex-direction: column!important;left:-220px;width:200px;overflow-y:auto;bottom:0;overflow-x:hidden;padding-bottom:40px}
+}
+.animate{-webkit-transition:all .3s ease-in-out;-moz-transition:all .3s ease-in-out;-o-transition:all .3s ease-in-out;-ms-transition:all .3s ease-in-out;transition:all .3s ease-in-out}
+    </style>
+</head>
+<body>
+ 
+        <div class="row justify-content-center">
+            <button style="margin-top: 16px;" class=" col-4 align-self-center btn btn-primary" id="CRM">CRM</button>
+            <div class="w-100"></div>
+            <button style="margin-top: 16px;" class=" col-4 align-self-center btn btn-primary">SERVICE</button>
+            <div class="w-100"></div>
+            <button style="margin-top: 16px;" class=" col-4 align-self-center btn btn-primary">CONTABILITA'</button>
+            <div class="w-100"></div>
+            <button style="margin-top: 16px;" class=" col-4 align-self-center btn btn-primary">ACQUISTI</button>
+            <div class="w-100"></div>
+            <button style="margin-top: 16px;" class=" col-4 align-self-center btn btn-primary">MAGAZZINO</button>
+            <div class="w-100"></div>
+            <button style="margin-top: 16px;" class=" col-4 align-self-center btn btn-primary">PRODUZIONE</button>
+            <div class="w-100"></div>
+            <button style="margin-top: 16px;" class=" col-4 align-self-center btn btn-primary">CONTEGGIO ORE</button>   
+        </div>
+    </div>
+    
+    <script>
+        
+        const electron = require('electron');
+        const {ipcRenderer} = electron;
+        
+        const crm = document.getElementById('CRM');
+        crm.addEventListener('click', viewCRMPage);
+        
+        function viewCRMPage(e){
+            e.preventDefault();
+            const page = 1;
+            //console.log(page);
+            ipcRenderer.send('page:change', page);
+        }
+    </script>
+</body>
+</html>

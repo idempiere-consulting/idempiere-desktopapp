@@ -64,7 +64,7 @@ ipcMain.on('page:change', function(e, page){
     switch(page){
         case 1:
             mainWindow.loadURL(url.format({
-            pathname: path.join(__dirname, 'CRMWindow.html'),
+            pathname: path.join(__dirname, 'CRM_LeadsWindow.html'),
             protocol: 'file:',
             slashes: true
             }));
@@ -72,6 +72,41 @@ ipcMain.on('page:change', function(e, page){
         case 2:
             mainWindow.loadURL(url.format({
             pathname: path.join(__dirname, 'mainWindow.html'),
+            protocol: 'file:',
+            slashes: true
+            }));
+            break;
+    }
+        
+});
+
+ipcMain.on('page:CRM', function(e, page){
+    //console.log(page);
+    switch(page){
+        case 1:
+            mainWindow.loadURL(url.format({
+            pathname: path.join(__dirname, 'CRM_LeadsWindow.html'),
+            protocol: 'file:',
+            slashes: true
+            }));
+            break;
+        case 2:
+            mainWindow.loadURL(url.format({
+            pathname: path.join(__dirname, 'CRM_OpportunitàWindow.html'),
+            protocol: 'file:',
+            slashes: true
+            }));
+            break;
+        case 3:
+            mainWindow.loadURL(url.format({
+            pathname: path.join(__dirname, 'CRM_BachecaWindow.html'),
+            protocol: 'file:',
+            slashes: true
+            }));
+            break;
+        case 4:
+            mainWindow.loadURL(url.format({
+            pathname: path.join(__dirname, 'CRM_AppuntamentiWindow.html'),
             protocol: 'file:',
             slashes: true
             }));
