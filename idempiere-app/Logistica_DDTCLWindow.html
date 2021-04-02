@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Idempiere App</title>
+    <link rel="stylesheet" href="assets/css/mainWindow.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+  </head>
+  <body>
+
+    <input type="checkbox" id="check">
+    <!--header area start-->
+    <header>
+      <label for="check">
+        <i style=" left: 325px" class="fas fa-bars" id="sidebar_btn"></i>
+      </label>
+      <label>
+        <i style=" left: 380px" class="fas fa-arrow-alt-circle-left" id="back_btn"></i>
+      </label>
+      <div class="left_area">
+        <h3>Logistica > <span>Crea DDT CL</span></h3>
+      </div>
+      <div class="right_area">
+        <a href="#" class="logout_btn">Logout</a>
+      </div>
+    </header>
+    <!--header area end-->
+    <!--sidebar start-->
+    <div class="sidebar">
+      <center>
+        <img src="assets/images/logo.png" class="profile_image" alt="" width="200" height="200">
+        <h4>Admin</h4>
+      </center>
+      <a href="#" id="Prodotti"><i class="fas fa-clipboard-list"></i><span>Prodotti/Giac</span></a>
+      <a href="#" id="DDTCL"><i class="fas fa-file-signature"></i><span>Crea DDT CL</span></a>
+      <a href="#" id="DDT"><i class="fas fa-file-signature"></i><span>Crea DDT</span></a>
+      <a href="#" id="Viaggi"><i class="fas fa-truck-moving"></i><span>Lista Viaggi</span></a>
+    </div>
+    <!--sidebar end-->
+
+    <div class="content"></div>
+    
+    <script>
+        const electron = require('electron');
+        const {ipcRenderer} = electron;
+        
+        
+        const back = document.getElementById('back_btn');
+        const prod = document.getElementById('Prodotti');
+        const DDTCL = document.getElementById('DDTCL');
+        const DDT = document.getElementById('DDT');
+        const viag = document.getElementById('Viaggi');
+        
+        back.addEventListener('click', viewMainPage);
+        prod.addEventListener('click', viewProdottoPage);
+        DDTCL.addEventListener('click', viewDDTCLPage);
+        DDT.addEventListener('click', viewDDTPage);
+        viag.addEventListener('click', viewViaggiPage);
+        
+        function viewMainPage(e){
+            e.preventDefault();
+            const page = 2;
+            //console.log(page);
+            ipcRenderer.send('page:change', page);
+        }
+        
+        function viewProdottoPage(e){
+            e.preventDefault();
+            const page = 1;
+            //console.log(page);
+            ipcRenderer.send('page:Logistica', page);
+        }
+        
+        function viewDDTCLPage(e){
+            e.preventDefault();
+            const page = 2;
+            //console.log(page);
+            ipcRenderer.send('page:Logistica', page);
+        }
+        
+        function viewDDTPage(e){
+            e.preventDefault();
+            const page = 3;
+            //console.log(page);
+            ipcRenderer.send('page:Logistica', page);
+        }
+        
+        function viewViaggiPage(e){
+            e.preventDefault();
+            const page = 4;
+            //console.log(page);
+            ipcRenderer.send('page:Logistica', page);
+        }
+    
+    </script>
+
+  </body>
+</html>

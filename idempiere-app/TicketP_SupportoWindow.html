@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Idempiere App</title>
+    <link rel="stylesheet" href="assets/css/mainWindow.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+  </head>
+  <body>
+
+    <input type="checkbox" id="check">
+    <!--header area start-->
+    <header>
+      <label for="check">
+        <i style=" left: 260px" class="fas fa-bars" id="sidebar_btn"></i>
+      </label>
+      <label>
+        <i style=" left: 315px" class="fas fa-arrow-alt-circle-left" id="back_btn"></i>
+      </label>
+      <div class="left_area">
+        <h3>Ticket > <span>Supporto</span></h3>
+      </div>
+      <div class="right_area">
+        <a href="#" class="logout_btn">Logout</a>
+      </div>
+    </header>
+    <!--header area end-->
+    <!--sidebar start-->
+    <div class="sidebar">
+      <center>
+        <img src="assets/images/logo.png" class="profile_image" alt="" width="200" height="200">
+        <h4>Admin</h4>
+      </center>
+      <a href="#" id="Supporto"><i class="fas fa-question-circle"></i><span>Supporto</span></a>
+      <a href="#" id="Sessione"><i class="fas fa-desktop"></i><span>Rich. Sessione</span></a>
+    </div>
+    <!--sidebar end-->
+
+    <div class="content"></div>
+    
+    <script>
+        const electron = require('electron');
+        const {ipcRenderer} = electron;
+        
+        
+        const back = document.getElementById('back_btn');
+        const supp = document.getElementById('Supporto');
+        const sess = document.getElementById('Sessione');
+        
+        
+        back.addEventListener('click', viewMainPage);
+        supp.addEventListener('click', viewSupportoPage);
+        sess.addEventListener('click', viewSessionePage);
+        
+        
+        function viewMainPage(e){
+            e.preventDefault();
+            const page = 2;
+            //console.log(page);
+            ipcRenderer.send('page:change', page);
+        }
+        
+        function viewSupportoPage(e){
+            e.preventDefault();
+            const page = 1;
+            //console.log(page);
+            ipcRenderer.send('page:TicketP', page);
+        }
+        
+        function viewSessionePage(e){
+            e.preventDefault();
+            const page = 2;
+            //console.log(page);
+            ipcRenderer.send('page:TicketP', page);
+        }
+        
+        
+    
+    </script>
+
+  </body>
+</html>

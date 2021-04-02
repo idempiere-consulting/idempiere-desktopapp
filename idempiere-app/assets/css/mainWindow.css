@@ -104,6 +104,22 @@ label #sidebar_btn:hover{
   color: #19B3D3;
 }
 
+label #back_btn{
+  z-index: 1;
+  color: #fff;
+  position: fixed;
+  cursor: pointer;
+  left: 345px;
+  font-size: 20px;
+  margin: 5px 0;
+  transition: 0.5s;
+  transition-property: color;
+}
+
+label #back_btn:hover{
+  color: #19B3D3;
+}
+
 #check:checked ~ .sidebar{
   left: -190px;
 }
@@ -133,5 +149,27 @@ label #sidebar_btn:hover{
 
 #check{
   display: none;
+}
+
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
 }
       

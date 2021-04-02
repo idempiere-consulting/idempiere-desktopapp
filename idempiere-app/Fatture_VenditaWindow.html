@@ -12,13 +12,13 @@
     <!--header area start-->
     <header>
       <label for="check">
-        <i style=" left: 185px" class="fas fa-bars" id="sidebar_btn"></i>
+        <i style=" left: 250px" class="fas fa-bars" id="sidebar_btn"></i>
       </label>
       <label>
-        <i style=" left: 240px" class="fas fa-arrow-alt-circle-left" id="back_btn"></i>
+        <i style=" left: 305px" class="fas fa-arrow-alt-circle-left" id="back_btn"></i>
       </label>
       <div class="left_area">
-        <h3>CRM > <span>Leads</span></h3>
+        <h3>Fatture > <span>Vendita</span></h3>
       </div>
       <div class="right_area">
         <a href="#" class="logout_btn">Logout</a>
@@ -31,10 +31,8 @@
         <img src="assets/images/logo.png" class="profile_image" alt="" width="200" height="200">
         <h4>Admin</h4>
       </center>
-      <a href="#" id="Leads"><i class="fas fa-user"></i><span>Leads</span></a>
-      <a href="#" id="Opportunità"><i class="fas fa-hand-holding-usd"></i><span>Opportunità</span></a>
-      <a href="#" id="Bacheca"><i class="fas fa-list-alt"></i><span>Bacheca</span></a>
-      <a href="#" id="Appuntamenti"><i class="fas fa-address-book"></i><span>Appuntamenti</span></a>
+      <a href="#" id="Acquisto"><i class="fas fa-money-bill-wave"></i><span>Acquisto</span></a>
+      <a href="#" id="Vendita"><i class="fas fa-cash-register"></i><span>Vendita</span></a>
     </div>
     <!--sidebar end-->
 
@@ -44,42 +42,27 @@
         const electron = require('electron');
         const {ipcRenderer} = electron;
         
-        const leads = document.getElementById('Leads');
-        const opp = document.getElementById('Opportunità');
-        const bach = document.getElementById('Bacheca');
-        const appnt = document.getElementById('Appuntamenti');
+        const acq = document.getElementById('Acquisto');
+        const vend = document.getElementById('Vendita');
         const back = document.getElementById('back_btn');
         
-        leads.addEventListener('click', viewLeadsPage);
-        opp.addEventListener('click', viewOppPage);
-        bach.addEventListener('click', viewBachPage);
-        appnt.addEventListener('click', viewAppntPage);
+        acq.addEventListener('click', viewAcquistoPage);
+        vend.addEventListener('click', viewVenditaPage);
         back.addEventListener('click', viewMainPage);
         
-        function viewLeadsPage(e){
+        function viewAcquistoPage(e){
             e.preventDefault();
             const page = 1;
             //console.log(page);
-            ipcRenderer.send('page:CRM', page);
+            ipcRenderer.send('page:Fattura', page);
         }
-        function viewOppPage(e){
+        function viewVenditaPage(e){
             e.preventDefault();
             const page = 2;
             //console.log(page);
-            ipcRenderer.send('page:CRM', page);
+            ipcRenderer.send('page:Fattura', page);
         }
-        function viewBachPage(e){
-            e.preventDefault();
-            const page = 3;
-            //console.log(page);
-            ipcRenderer.send('page:CRM', page);
-        }
-        function viewAppntPage(e){
-            e.preventDefault();
-            const page = 4;
-            //console.log(page);
-            ipcRenderer.send('page:CRM', page);
-        }
+
         function viewMainPage(e){
             e.preventDefault();
             const page = 2;

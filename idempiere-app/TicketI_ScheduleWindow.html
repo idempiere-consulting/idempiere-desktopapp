@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Idempiere App</title>
+    <link rel="stylesheet" href="assets/css/mainWindow.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+  </head>
+  <body>
+
+    <input type="checkbox" id="check">
+    <!--header area start-->
+    <header>
+      <label for="check">
+        <i style=" left: 325px" class="fas fa-bars" id="sidebar_btn"></i>
+      </label>
+      <label>
+        <i style=" left: 380px" class="fas fa-arrow-alt-circle-left" id="back_btn"></i>
+      </label>
+      <div class="left_area">
+        <h3>Ticket > <span>Da Schedulare</span></h3>
+      </div>
+      <div class="right_area">
+        <a href="#" class="logout_btn">Logout</a>
+      </div>
+    </header>
+    <!--header area end-->
+    <!--sidebar start-->
+    <div class="sidebar">
+      <center>
+        <img src="assets/images/logo.png" class="profile_image" alt="" width="200" height="200">
+        <h4>Admin</h4>
+      </center>
+      <a href="#" id="HelpDesk"><i class="fas fa-question-circle"></i><span>HelpDesk</span></a>
+      <a href="#" id="Dettaglio"><i class="fas fa-search"></i><span>Dett. Ticket</span></a>
+      <a href="#" id="Task"><i class="fas fa-tasks"></i><span>Task</span></a>
+      <a href="#" id="Schedulare"><i class="fas fa-calendar-alt"></i><span>Da Schedulare</span></a>
+      <a href="#" id="Ore"><i class="fas fa-clock"></i><span>Ore</span></a>
+    </div>
+    <!--sidebar end-->
+
+    <div class="content"></div>
+    
+    <script>
+        const electron = require('electron');
+        const {ipcRenderer} = electron;
+        
+        
+        const back = document.getElementById('back_btn');
+        const help = document.getElementById('HelpDesk');
+        const dett = document.getElementById('Dettaglio');
+        const task = document.getElementById('Task');
+        const sched = document.getElementById('Schedulare');
+        const ore = document.getElementById('Ore');
+        
+        
+        back.addEventListener('click', viewMainPage);
+        help.addEventListener('click', viewHelpDeskPage);
+        dett.addEventListener('click', viewDettaglioPage);
+        task.addEventListener('click', viewTaskPage);
+        sched.addEventListener('click', viewSchedulePage);
+        ore.addEventListener('click', viewOrePage);
+        
+        
+        function viewMainPage(e){
+            e.preventDefault();
+            const page = 2;
+            //console.log(page);
+            ipcRenderer.send('page:change', page);
+        }
+        
+        function viewHelpDeskPage(e){
+            e.preventDefault();
+            const page = 1;
+            //console.log(page);
+            ipcRenderer.send('page:TicketI', page);
+        }
+        
+        function viewDettaglioPage(e){
+            e.preventDefault();
+            const page = 2;
+            //console.log(page);
+            ipcRenderer.send('page:TicketI', page);
+        }
+        
+        function viewTaskPage(e){
+            e.preventDefault();
+            const page = 3;
+            //console.log(page);
+            ipcRenderer.send('page:TicketI', page);
+        }
+        
+        function viewSchedulePage(e){
+            e.preventDefault();
+            const page = 4;
+            //console.log(page);
+            ipcRenderer.send('page:TicketI', page);
+        }
+        
+        function viewOrePage(e){
+            e.preventDefault();
+            const page = 5;
+            //console.log(page);
+            ipcRenderer.send('page:TicketI', page);
+        }
+        
+        
+    
+    </script>
+
+  </body>
+</html>

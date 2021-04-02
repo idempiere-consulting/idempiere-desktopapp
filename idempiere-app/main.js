@@ -14,9 +14,11 @@ app.on('ready', function(){
         height:700,
         webPreferences:{
             nodeIntegration:true,
-            contextIsolation: false
+            contextIsolation: false,
+            backgroundColor: '#2e2c29',
         }
     });
+    mainWindow.maximize();
     //load html file into the window
     mainWindow.loadURL(url.format({
         pathname: path.join(__dirname, 'loginWindow.html'),
@@ -76,6 +78,48 @@ ipcMain.on('page:change', function(e, page){
             slashes: true
             }));
             break;
+        case 3:
+            mainWindow.loadURL(url.format({
+            pathname: path.join(__dirname, 'ServiceU_OrdinidiLavoroWindow.html'),
+            protocol: 'file:',
+            slashes: true
+            }));
+            break;
+        case 4:
+            mainWindow.loadURL(url.format({
+            pathname: path.join(__dirname, 'Fatture_AcquistiWindow.html'),
+            protocol: 'file:',
+            slashes: true
+            }));
+            break;
+        case 5:
+            mainWindow.loadURL(url.format({
+            pathname: path.join(__dirname, 'ServiceP_AnomaliaWindow.html'),
+            protocol: 'file:',
+            slashes: true
+            }));
+            break;
+        case 6:
+            mainWindow.loadURL(url.format({
+            pathname: path.join(__dirname, 'TicketP_SupportoWindow.html'),
+            protocol: 'file:',
+            slashes: true
+            }));
+            break;
+        case 7:
+            mainWindow.loadURL(url.format({
+            pathname: path.join(__dirname, 'TicketI_HelpDeskWindow.html'),
+            protocol: 'file:',
+            slashes: true
+            }));
+            break;
+        case 10:
+            mainWindow.loadURL(url.format({
+            pathname: path.join(__dirname, 'Logistica_ProdottiWindow.html'),
+            protocol: 'file:',
+            slashes: true
+            }));
+            break;
     }
         
 });
@@ -107,6 +151,174 @@ ipcMain.on('page:CRM', function(e, page){
         case 4:
             mainWindow.loadURL(url.format({
             pathname: path.join(__dirname, 'CRM_AppuntamentiWindow.html'),
+            protocol: 'file:',
+            slashes: true
+            }));
+            break;
+    }
+        
+});
+
+ipcMain.on('page:ServiceU', function(e, page){
+    //console.log(page);
+    switch(page){
+        case 1:
+            mainWindow.loadURL(url.format({
+            pathname: path.join(__dirname, 'ServiceU_OrdinidiLavoroWindow.html'),
+            protocol: 'file:',
+            slashes: true
+            }));
+            break;
+        case 2:
+            mainWindow.loadURL(url.format({
+            pathname: path.join(__dirname, 'ServiceU_CalendarioWindow.html'),
+            protocol: 'file:',
+            slashes: true
+            }));
+            break;
+        case 3:
+            mainWindow.loadURL(url.format({
+            pathname: path.join(__dirname, 'ServiceU_AnomalieWindow.html'),
+            protocol: 'file:',
+            slashes: true
+            }));
+            break;
+    }
+        
+});
+
+ipcMain.on('page:ServiceP', function(e, page){
+    //console.log(page);
+    switch(page){
+        case 1:
+            mainWindow.loadURL(url.format({
+            pathname: path.join(__dirname, 'ServiceP_AnomaliaWindow.html'),
+            protocol: 'file:',
+            slashes: true
+            }));
+            break;
+        case 2:
+            mainWindow.loadURL(url.format({
+            pathname: path.join(__dirname, 'ServiceP_ManutenzioneWindow.html'),
+            protocol: 'file:',
+            slashes: true
+            }));
+            break;
+    }
+        
+});
+
+ipcMain.on('page:TicketP', function(e, page){
+    //console.log(page);
+    switch(page){
+        case 1:
+            mainWindow.loadURL(url.format({
+            pathname: path.join(__dirname, 'TicketP_SupportoWindow.html'),
+            protocol: 'file:',
+            slashes: true
+            }));
+            break;
+        case 2:
+            mainWindow.loadURL(url.format({
+            pathname: path.join(__dirname, 'TicketP_SessioneWindow.html'),
+            protocol: 'file:',
+            slashes: true
+            }));
+            break;
+    }
+        
+});
+
+ipcMain.on('page:TicketI', function(e, page){
+    //console.log(page);
+    switch(page){
+        case 1:
+            mainWindow.loadURL(url.format({
+            pathname: path.join(__dirname, 'TicketI_HelpDeskWindow.html'),
+            protocol: 'file:',
+            slashes: true
+            }));
+            break;
+        case 2:
+            mainWindow.loadURL(url.format({
+            pathname: path.join(__dirname, 'TicketI_DettaglioWindow.html'),
+            protocol: 'file:',
+            slashes: true
+            }));
+            break;
+        case 3:
+            mainWindow.loadURL(url.format({
+            pathname: path.join(__dirname, 'TicketI_TaskWindow.html'),
+            protocol: 'file:',
+            slashes: true
+            }));
+            break;
+        case 4:
+            mainWindow.loadURL(url.format({
+            pathname: path.join(__dirname, 'TicketI_ScheduleWindow.html'),
+            protocol: 'file:',
+            slashes: true
+            }));
+            break;
+        case 5:
+            mainWindow.loadURL(url.format({
+            pathname: path.join(__dirname, 'TicketI_OreWindow.html'),
+            protocol: 'file:',
+            slashes: true
+            }));
+            break;
+    }
+        
+});
+
+ipcMain.on('page:Fattura', function(e, page){
+    //console.log(page);
+    switch(page){
+        case 1:
+            mainWindow.loadURL(url.format({
+            pathname: path.join(__dirname, 'Fatture_AcquistiWindow.html'),
+            protocol: 'file:',
+            slashes: true
+            }));
+            break;
+        case 2:
+            mainWindow.loadURL(url.format({
+            pathname: path.join(__dirname, 'Fatture_VenditaWindow.html'),
+            protocol: 'file:',
+            slashes: true
+            }));
+            break;
+    }
+        
+});
+
+ipcMain.on('page:Logistica', function(e, page){
+    //console.log(page);
+    switch(page){
+        case 1:
+            mainWindow.loadURL(url.format({
+            pathname: path.join(__dirname, 'Logistica_ProdottiWindow.html'),
+            protocol: 'file:',
+            slashes: true
+            }));
+            break;
+        case 2:
+            mainWindow.loadURL(url.format({
+            pathname: path.join(__dirname, 'Logistica_DDTCLWindow.html'),
+            protocol: 'file:',
+            slashes: true
+            }));
+            break;
+        case 3:
+            mainWindow.loadURL(url.format({
+            pathname: path.join(__dirname, 'Logistica_DDTWindow.html'),
+            protocol: 'file:',
+            slashes: true
+            }));
+            break;
+        case 4:
+            mainWindow.loadURL(url.format({
+            pathname: path.join(__dirname, 'Logistica_ViaggiWindow.html'),
             protocol: 'file:',
             slashes: true
             }));

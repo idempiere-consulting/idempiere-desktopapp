@@ -23,21 +23,23 @@
     </header>
     <!--header area end-->
     <!--sidebar start-->
-    <div class="sidebar">
+    <div class="sidebar" style= "overflow-y: auto;">
       <center>
         <img src="assets/images/logo.png" class="profile_image" alt="" width="200" height="200">
         <h4>Admin</h4>
       </center>
       <a href="#" id="CRM"><i class="fas fa-users"></i><span>CRM</span></a>
-      <a href="#"><i class="fas fa-hands-helping"></i><span>Service</span></a>
-      <a href="#"><i class="fas fa-file-invoice-dollar"></i><span>Fatture</span></a>
+      <a href="#" id="ServiceU"><i class="fas fa-hands-helping"></i><span>Service (U)</span></a>
+      <a href="#" id="ServiceP"><i class="fas fa-hands-helping"></i><span>Service (P)</span></a>
+      <a href="#" id="Fatture"><i class="fas fa-file-invoice-dollar"></i><span>Fatture</span></a>
       <a href="#"><i class="fas fa-clipboard-list"></i><span>Ordini di Vendita</span></a>
-      <a href="#"><i class="fas fa-ticket-alt"></i><span>Ticket</span></a>
+      <a href="#" id="TicketP"><i class="fas fa-ticket-alt"></i><span>Ticket (P)</span></a>
+      <a href="#" id="TicketI"><i class="fas fa-ticket-alt"></i><span>Ticket (I)</span></a>
       <a href="#"><i class="fas fa-sign-out-alt"></i><span>Conto Lavoro</span></a>
       <a href="#"><i class="fas fa-shopping-cart"></i><span>Acquisti</span></a>
       <a href="#"><i class="fas fa-clock"></i><span>Task / Ore</span></a>
       <a href="#"><i class="fas fa-industry"></i><span>Produzione</span></a>
-      <a href="#"><i class="fas fa-boxes"></i><span>Magazzino</span></a>
+      <a href="#" id="Logistica"><i class="fas fa-boxes"></i><span>Logistica</span></a>
       <a href="#"><i class="fas fa-cog"></i><span>Impostazioni</span></a>
     </div>
     <!--sidebar end-->
@@ -51,9 +53,69 @@
         const crm = document.getElementById('CRM');
         crm.addEventListener('click', viewCRMPage);
         
+        const serviceU = document.getElementById('ServiceU');
+        serviceU.addEventListener('click', viewServiceUPage);
+        
+        const serviceP = document.getElementById('ServiceP');
+        serviceP.addEventListener('click', viewServicePPage);
+        
+        const fatture = document.getElementById('Fatture');
+        fatture.addEventListener('click', viewFatturePage);
+        
+        const logistica = document.getElementById('Logistica');
+        logistica.addEventListener('click', viewLogisticaPage);
+        
+        const ticketP = document.getElementById('TicketP');
+        ticketP.addEventListener('click', viewTicketPPage);
+        
+        const ticketI = document.getElementById('TicketI');
+        ticketI.addEventListener('click', viewTicketIPage);
+        //7
         function viewCRMPage(e){
             e.preventDefault();
             const page = 1;
+            //console.log(page);
+            ipcRenderer.send('page:change', page);
+        }
+        
+        function viewServiceUPage(e){
+            e.preventDefault();
+            const page = 3;
+            //console.log(page);
+            ipcRenderer.send('page:change', page);
+        }
+        
+        function viewServicePPage(e){
+            e.preventDefault();
+            const page = 5;
+            //console.log(page);
+            ipcRenderer.send('page:change', page);
+        }
+        
+        function viewFatturePage(e){
+            e.preventDefault();
+            const page = 4;
+            //console.log(page);
+            ipcRenderer.send('page:change', page);
+        }
+        
+        function viewTicketPPage(e){
+            e.preventDefault();
+            const page = 6;
+            //console.log(page);
+            ipcRenderer.send('page:change', page);
+        }
+        
+        function viewTicketIPage(e){
+            e.preventDefault();
+            const page = 7;
+            //console.log(page);
+            ipcRenderer.send('page:change', page);
+        }
+        
+        function viewLogisticaPage(e){
+            e.preventDefault();
+            const page = 10;
             //console.log(page);
             ipcRenderer.send('page:change', page);
         }

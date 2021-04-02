@@ -18,7 +18,7 @@
         <i style=" left: 240px" class="fas fa-arrow-alt-circle-left" id="back_btn"></i>
       </label>
       <div class="left_area">
-        <h3>CRM > <span>Leads</span></h3>
+        <h3>Ticket > <span>Ore</span></h3>
       </div>
       <div class="right_area">
         <a href="#" class="logout_btn">Logout</a>
@@ -31,10 +31,11 @@
         <img src="assets/images/logo.png" class="profile_image" alt="" width="200" height="200">
         <h4>Admin</h4>
       </center>
-      <a href="#" id="Leads"><i class="fas fa-user"></i><span>Leads</span></a>
-      <a href="#" id="Opportunità"><i class="fas fa-hand-holding-usd"></i><span>Opportunità</span></a>
-      <a href="#" id="Bacheca"><i class="fas fa-list-alt"></i><span>Bacheca</span></a>
-      <a href="#" id="Appuntamenti"><i class="fas fa-address-book"></i><span>Appuntamenti</span></a>
+      <a href="#" id="HelpDesk"><i class="fas fa-question-circle"></i><span>HelpDesk</span></a>
+      <a href="#" id="Dettaglio"><i class="fas fa-search"></i><span>Dett. Ticket</span></a>
+      <a href="#" id="Task"><i class="fas fa-tasks"></i><span>Task</span></a>
+      <a href="#" id="Schedulare"><i class="fas fa-calendar-alt"></i><span>Da Schedulare</span></a>
+      <a href="#" id="Ore"><i class="fas fa-clock"></i><span>Ore</span></a>
     </div>
     <!--sidebar end-->
 
@@ -44,48 +45,66 @@
         const electron = require('electron');
         const {ipcRenderer} = electron;
         
-        const leads = document.getElementById('Leads');
-        const opp = document.getElementById('Opportunità');
-        const bach = document.getElementById('Bacheca');
-        const appnt = document.getElementById('Appuntamenti');
+        
         const back = document.getElementById('back_btn');
+        const help = document.getElementById('HelpDesk');
+        const dett = document.getElementById('Dettaglio');
+        const task = document.getElementById('Task');
+        const sched = document.getElementById('Schedulare');
+        const ore = document.getElementById('Ore');
         
-        leads.addEventListener('click', viewLeadsPage);
-        opp.addEventListener('click', viewOppPage);
-        bach.addEventListener('click', viewBachPage);
-        appnt.addEventListener('click', viewAppntPage);
+        
         back.addEventListener('click', viewMainPage);
+        help.addEventListener('click', viewHelpDeskPage);
+        dett.addEventListener('click', viewDettaglioPage);
+        task.addEventListener('click', viewTaskPage);
+        sched.addEventListener('click', viewSchedulePage);
+        ore.addEventListener('click', viewOrePage);
         
-        function viewLeadsPage(e){
-            e.preventDefault();
-            const page = 1;
-            //console.log(page);
-            ipcRenderer.send('page:CRM', page);
-        }
-        function viewOppPage(e){
-            e.preventDefault();
-            const page = 2;
-            //console.log(page);
-            ipcRenderer.send('page:CRM', page);
-        }
-        function viewBachPage(e){
-            e.preventDefault();
-            const page = 3;
-            //console.log(page);
-            ipcRenderer.send('page:CRM', page);
-        }
-        function viewAppntPage(e){
-            e.preventDefault();
-            const page = 4;
-            //console.log(page);
-            ipcRenderer.send('page:CRM', page);
-        }
+        
         function viewMainPage(e){
             e.preventDefault();
             const page = 2;
             //console.log(page);
             ipcRenderer.send('page:change', page);
         }
+        
+        function viewHelpDeskPage(e){
+            e.preventDefault();
+            const page = 1;
+            //console.log(page);
+            ipcRenderer.send('page:TicketI', page);
+        }
+        
+        function viewDettaglioPage(e){
+            e.preventDefault();
+            const page = 2;
+            //console.log(page);
+            ipcRenderer.send('page:TicketI', page);
+        }
+        
+        function viewTaskPage(e){
+            e.preventDefault();
+            const page = 3;
+            //console.log(page);
+            ipcRenderer.send('page:TicketI', page);
+        }
+        
+        function viewSchedulePage(e){
+            e.preventDefault();
+            const page = 4;
+            //console.log(page);
+            ipcRenderer.send('page:TicketI', page);
+        }
+        
+        function viewOrePage(e){
+            e.preventDefault();
+            const page = 5;
+            //console.log(page);
+            ipcRenderer.send('page:TicketI', page);
+        }
+        
+        
     
     </script>
 
