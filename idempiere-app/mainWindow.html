@@ -50,6 +50,10 @@
         const electron = require('electron');
         const {ipcRenderer} = electron;
         
+        const authToken = ipcRenderer.sendSync('send:token', 'ping');
+        
+        console.log(authToken);
+        
         const crm = document.getElementById('CRM');
         crm.addEventListener('click', viewCRMPage);
         
@@ -82,7 +86,8 @@
             e.preventDefault();
             const page = 3;
             //console.log(page);
-            ipcRenderer.send('page:change', page);
+            //ipcRenderer.send('page:change', page);
+            console.log(authToken);
         }
         
         function viewServicePPage(e){
@@ -119,6 +124,7 @@
             //console.log(page);
             ipcRenderer.send('page:change', page);
         }
+        
     
     </script>
   </body>

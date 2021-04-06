@@ -92,7 +92,7 @@
 					</div>
 				</div>
 				<div class="d-flex justify-content-center form_container">
-					<form>
+					<form id="loginForm">
 						<div class="input-group mb-3">
 							<div class="input-group-append">
 								<span class="input-group-text"><i class="fas fa-user"></i></span>
@@ -123,20 +123,174 @@
 	<script>
         const electron = require('electron');
         const {ipcRenderer} = electron;
-        
         const btn = document.getElementById('login');
         btn.addEventListener('click', authLogin);
         
+        
+        
         function authLogin(e){
             e.preventDefault();
-            var flag = true;
+            var flag = false;
+            const user = document.getElementById('input_user').value;
+            const pass = document.getElementById('input_pass').value;
+            var clientId = 0;
+            var token1 = '';
+            // terzo login 'http://173.249.60.71:3580/api/v1/auth/organizations?client='+data.roles[0].id'&role='+data.roles[0].name
+            //secondo login http://173.249.60.71:3580/api/v1/auth/roles?client='+data.clients[0].id  
+            //primo login http://173.249.60.71:3580/api/v1/auth/tokens
+            fetch('http://173.249.60.71:3580/api/v1/auth/tokens',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    userName: user,
+                    password: pass
+                })
+            }).then(res => {
+                return res.json()
+                })
+                .then(data => {
+                    console.log(data);
+                
+                    token1 = data.token;
+                    clientId = data.clients[0].id;
+                    authRoles(token1, clientId);
+                    
+                })
+                .catch(error => console.log('ERROR login tokens'))
+                
+              
             
-            if(flag){
+                
+                
+            
+            /*if(flag){
                 var page = 2;
                 ipcRenderer.send('page:change', page);
                 
-            }
+            }*/
         }
+        
+        function authRoles(token1, clientId){
+            
+            fetch('http://173.249.60.71:3580/api/v1/auth/roles?client='+clientId ,{
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token1
+                }
+            }).then(res => {
+                return res.json()
+                })
+                .then(data => {
+                    console.log(data);
+                
+                    const roleId = data.roles[0].id;
+                    authOrganization(clientId, roleId, token1);
+                    
+                })
+                .catch(error => console.log('ERROR login role'))
+            
+        }
+        
+        function authOrganization(clientId, roleId, token1){
+            
+                fetch('http://173.249.60.71:3580/api/v1/auth/organizations?client='+clientId+'&role='+roleId ,{
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token1
+                }
+            }).then(res => {
+                return res.json()
+                })
+                .then(data => {
+                    console.log(data);
+                    
+                    const organizationId = data.organizations[1].id;
+                    authWarehouse(clientId, roleId, organizationId, token1);
+                    
+                    
+                })
+                .catch(error => console.log('ERROR login organizations'))
+        
+        }
+        
+        function authWarehouse(clientId, roleId, organizationId, token1){
+            
+            fetch('http://173.249.60.71:3580/api/v1/auth/warehouses?client='+clientId+'&role='+roleId+'&organization='+organizationId ,{
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token1
+                }
+            }).then(res => {
+                return res.json()
+                })
+                .then(data => {
+                    console.log(data);
+                
+                    const warehouseId = data.warehouses[0].id;
+                    authLanguage(clientId, roleId, organizationId, warehouseId, token1);
+                })
+                .catch(error => console.log('ERROR login warehouse'))
+        
+        }
+        
+        function authLanguage(clientId, roleId, organizationId, warehouseId, token1){
+            
+            fetch('http://173.249.60.71:3580/api/v1/auth/language?client='+clientId ,{
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token1
+                }
+            }).then(res => {
+                return res.json()
+                })
+                .then(data => {
+                    console.log(data);
+                    const language = data.AD_Language;
+                    authToken(clientId, roleId, organizationId, warehouseId, language, token1);
+                    
+                })
+                .catch(error => console.log('ERROR login language'))
+            
+        }
+        
+        function authToken(clientId, roleId, organizationId, warehouseId, language, token1){
+        
+            fetch('http://173.249.60.71:3580/api/v1/auth/tokens' ,{
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token1
+                },
+                body: JSON.stringify({
+                    clientId: clientId,
+                    roleId: roleId,
+                    organizationId: organizationId,
+                    warehouseId: warehouseId,
+                    language: language
+                })
+            }).then(res => {
+                return res.json()
+                })
+                .then(data => {
+                    console.log(data);
+                    const authToken = data.token;
+                    if(authToken !== ''){
+                        ipcRenderer.send('save:token', authToken);
+                        const page = 2;
+                        ipcRenderer.send('page:change', page);
+                    }
+                })
+                .catch(error => console.log('ERROR login auth'))
+        }
+        
+        
+        
 	</script>
 	
 </body>

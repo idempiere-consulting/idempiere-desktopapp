@@ -4,6 +4,7 @@ const path = require ('path');
 
 const { app, BrowserWindow, Menu, ipcMain } = electron;
 
+let authToken;
 let mainWindow;
 //var internetConn = navigator.onLine();
 
@@ -44,7 +45,6 @@ function viewCRMWindow(){
         protocol: 'file:',
         slashes: true
     }));
-    
 
 }
 
@@ -59,6 +59,12 @@ function viewMainWindow(){
     }));
     
 }
+
+ipcMain.on('save:token', function(e, token){
+    authToken = token;
+    //console.log(authToken);
+    //console.log('1223');
+});
 
 //carica la pagina selezionata su schermo
 ipcMain.on('page:change', function(e, page){
@@ -123,6 +129,12 @@ ipcMain.on('page:change', function(e, page){
     }
         
 });
+
+ipcMain.on('send:token', function(event, arg) {
+  console.log(arg);  // prints "ping"
+  event.returnValue = authToken;
+});
+
 
 ipcMain.on('page:CRM', function(e, page){
     //console.log(page);
