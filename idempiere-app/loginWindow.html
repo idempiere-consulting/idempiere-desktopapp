@@ -132,6 +132,8 @@
             e.preventDefault();
             var flag = false;
             const user = document.getElementById('input_user').value;
+            myStorage = window.localStorage;
+            myStorage.setItem('userName', JSON.stringify(user));
             const pass = document.getElementById('input_pass').value;
             var clientId = 0;
             var token1 = '';
@@ -152,13 +154,17 @@
                 })
                 .then(data => {
                     console.log(data);
-                
+                    ipcRenderer.send('save:user', user);
                     token1 = data.token;
                     clientId = data.clients[0].id;
                     authRoles(token1, clientId);
                     
                 })
-                .catch(error => console.log('ERROR login tokens'))
+                .catch(error => {
+                console.log('ERROR login tokens');
+                alert("Username o password sbagliata!");
+                
+                })
                 
               
             
@@ -282,6 +288,7 @@
                     const authToken = data.token;
                     if(authToken !== ''){
                         ipcRenderer.send('save:token', authToken);
+                        
                         const page = 2;
                         ipcRenderer.send('page:change', page);
                     }

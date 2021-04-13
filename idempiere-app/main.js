@@ -6,6 +6,8 @@ const { app, BrowserWindow, Menu, ipcMain } = electron;
 
 let authToken;
 let mainWindow;
+let userName;
+let userBPartner;
 //var internetConn = navigator.onLine();
 
 app.on('ready', function(){
@@ -66,10 +68,35 @@ ipcMain.on('save:token', function(e, token){
     //console.log('1223');
 });
 
+ipcMain.on('delete:token', function(e){
+    authToken = '';
+    //console.log(authToken);
+    //console.log('1223');
+});
+
+ipcMain.on('save:user', function(e, user){
+    userName = user;
+    //console.log(authToken);
+    //console.log('1223');
+});
+
+ipcMain.on('save:bpartner', function(e, bp){
+    userBPartner = bp;
+    console.log(userBPartner);
+    //console.log('1223');
+});
+
 //carica la pagina selezionata su schermo
 ipcMain.on('page:change', function(e, page){
     //console.log(page);
     switch(page){
+        case 0:
+            mainWindow.loadURL(url.format({
+            pathname: path.join(__dirname, 'loginWindow.html'),
+            protocol: 'file:',
+            slashes: true
+            }));
+            break;
         case 1:
             mainWindow.loadURL(url.format({
             pathname: path.join(__dirname, 'CRM_LeadsWindow.html'),
@@ -131,8 +158,18 @@ ipcMain.on('page:change', function(e, page){
 });
 
 ipcMain.on('send:token', function(event, arg) {
-  console.log(arg);  // prints "ping"
+  //console.log(arg);  
   event.returnValue = authToken;
+});
+
+ipcMain.on('send:user', function(event, arg) {
+  //console.log(arg);  
+  event.returnValue = userName;
+});
+
+ipcMain.on('send:bp', function(event, arg) {
+  //console.log(arg);  
+  event.returnValue = userBPartner;
 });
 
 
@@ -233,6 +270,13 @@ ipcMain.on('page:TicketP', function(e, page){
         case 2:
             mainWindow.loadURL(url.format({
             pathname: path.join(__dirname, 'TicketP_SessioneWindow.html'),
+            protocol: 'file:',
+            slashes: true
+            }));
+            break;
+        case 3:
+            mainWindow.loadURL(url.format({
+            pathname: path.join(__dirname, 'TicketP_TicketWindow.html'),
             protocol: 'file:',
             slashes: true
             }));

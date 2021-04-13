@@ -136,6 +136,9 @@ label #back_btn:hover{
 
 .content{
   margin-left: 250px;
+  padding-top: 130px;
+  padding-left: 90px;
+  padding-right: 90px;
   background: url(ERP.jpg) no-repeat;
   background-position: center;
   background-size: cover;
@@ -172,4 +175,347 @@ label #back_btn:hover{
 ::-webkit-scrollbar-thumb:hover {
   background: #555; 
 }
+
+.table-sortable th {
+  cursor: pointer;
+}
+
+.table-sortable .th-sort-asc::after {
+  content: "\25b4";
+}
+
+.table-sortable .th-sort-desc::after {
+  content: "\25be";
+}
+
+.table-sortable .th-sort-asc::after,
+.table-sortable .th-sort-desc::after {
+  margin-left: 5px;
+}
+
+.table-sortable .th-sort-asc,
+.table-sortable .th-sort-desc {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+table { 
+  border-collapse: collapse;
+  width: 100%;
+  color: #fff;
+  background: #22242A;
+}
+th, td {
+  padding: 0.25rem;
+  text-align: center;
+  border: 1px solid #2f323a;
+  width: 16%;
+}
+tbody tr:nth-child(odd) {
+  background: #2f323a;
+}
+
+th{
+    color: #19B3D3;
+}
+
+#myInput {
+  background-image: url('searchicon24.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 50%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  margin: auto;
+  border: 1px solid #19B3D3;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  
+}
+
+#myInputPhone {
+  background-image: url('searchicon24.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 50%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  margin: auto;
+  border: 1px solid #19B3D3;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  
+}
+
+#myInputMail {
+  background-image: url('searchicon24.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 50%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  margin: auto;
+  border: 1px solid #19B3D3;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  
+}
+
+#myInputSalesRep {
+  background-image: url('searchicon24.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 50%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  margin: auto;
+  border: 1px solid #19B3D3;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  
+}
+
+#myInputCampaign {
+  background-image: url('searchicon24.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 50%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  margin: auto;
+  border: 1px solid #19B3D3;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  
+}
+
+#myInputBP {
+  background-image: url('searchicon24.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 50%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  margin: auto;
+  border: 1px solid #19B3D3;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  
+}
+
+#myInputOppAmt {
+  background-image: url('searchicon24.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 50%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  margin: auto;
+  border: 1px solid #19B3D3;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  
+}
+
+#myInputDescription {
+  background-image: url('searchicon24.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 50%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  margin: auto;
+  border: 1px solid #19B3D3;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  
+}
+
+#myInputDoc {
+  background-image: url('searchicon24.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 50%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  margin: auto;
+  border: 1px solid #19B3D3;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  
+}
+
+#myInputClient {
+  background-image: url('searchicon24.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 50%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  margin: auto;
+  border: 1px solid #19B3D3;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  
+}
+
+#myInputRes {
+  background-image: url('searchicon24.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 50%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  margin: auto;
+  border: 1px solid #19B3D3;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  
+}
+
+#myInputDate {
+  background-image: url('searchicon24.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 50%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  margin: auto;
+  border: 1px solid #19B3D3;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  
+}
+
+
+#myTable th, td {
+    width: 16%;
+}
+
+#iconLinkWebUrl {
+    color: #19B3D3;
+}
+
+#myTableOrd th, td {
+    width: 20%;
+}
+
+#myTable1 th, td {
+    width: 20%;
+}
+
+#myTable2 th, td {
+    width: 16%;
+}
+
+#fname{
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+
+#lname{
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+
+#priority{
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+
+#requestType{
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+
+#riepilogo{
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+
+#riepilogo {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+
+#explain{
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+
+#Document{
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+
+
+#createPage{
+  background-color: #22242A;
+  border-radius: 5px;
+  padding: 20px;
+  width: 50%;
+  margin: 0 auto;
+}
+
+#sendBtn {
+  background-color: #19B3D3;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.formLabel {
+    color: #19B3D3;
+}
+
+
       

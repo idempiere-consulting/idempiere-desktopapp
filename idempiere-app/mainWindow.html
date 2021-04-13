@@ -18,7 +18,7 @@
         <h3>Idempiere <span>Consulting</span></h3>
       </div>
       <div class="right_area">
-        <a href="#" class="logout_btn">Logout</a>
+        <a href="#" id="logout_btn" class="logout_btn">Logout</a>
       </div>
     </header>
     <!--header area end-->
@@ -51,8 +51,9 @@
         const {ipcRenderer} = electron;
         
         const authToken = ipcRenderer.sendSync('send:token', 'ping');
-        
         console.log(authToken);
+        
+        getUserData();
         
         const crm = document.getElementById('CRM');
         crm.addEventListener('click', viewCRMPage);
@@ -74,6 +75,9 @@
         
         const ticketI = document.getElementById('TicketI');
         ticketI.addEventListener('click', viewTicketIPage);
+        
+        const logout = document.getElementById('logout_btn');
+        logout.addEventListener('click', viewLoginPage);
         //7
         function viewCRMPage(e){
             e.preventDefault();
@@ -86,8 +90,7 @@
             e.preventDefault();
             const page = 3;
             //console.log(page);
-            //ipcRenderer.send('page:change', page);
-            console.log(authToken);
+            ipcRenderer.send('page:change', page);
         }
         
         function viewServicePPage(e){
@@ -123,6 +126,43 @@
             const page = 10;
             //console.log(page);
             ipcRenderer.send('page:change', page);
+        }
+        
+        function viewLoginPage(e){
+            e.preventDefault();
+            const page = 0;
+            //console.log(page);
+            ipcRenderer.send('delete:token');
+            ipcRenderer.send('page:change', page);
+        }
+        
+        function getUserData(){
+            
+            const userName = ipcRenderer.sendSync('send:user', 'ping');
+            console.log(userName);
+            
+            fetch(`http://173.249.60.71:3580/api/v1/models/ad_user?$filter=Name eq '`+userName+`'` ,{
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + authToken
+                }
+            }).then(res => {
+                return res.json()
+                })
+                .then(data => {
+                    console.log(data);
+                    a = data['records'];
+                    
+                    a.forEach((record) => {
+                        var bp = record.C_BPartner_ID;
+                        
+                        ipcRenderer.send('save:bpartner', bp['identifier']);
+                        
+                    });
+                    
+                })
+                .catch(error => console.log(error))
         }
         
     

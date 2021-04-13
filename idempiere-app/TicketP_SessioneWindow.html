@@ -33,6 +33,7 @@
       </center>
       <a href="#" id="Supporto"><i class="fas fa-question-circle"></i><span>Supporto</span></a>
       <a href="#" id="Sessione"><i class="fas fa-desktop"></i><span>Rich. Sessione</span></a>
+      <a href="#" id="Ticket"><i class="fas fa-file-signature"></i><span>Crea Ticket</span></a>
     </div>
     <!--sidebar end-->
 
@@ -46,11 +47,12 @@
         const back = document.getElementById('back_btn');
         const supp = document.getElementById('Supporto');
         const sess = document.getElementById('Sessione');
-        
+        const tick = document.getElementById('Ticket');
         
         back.addEventListener('click', viewMainPage);
         supp.addEventListener('click', viewSupportoPage);
         sess.addEventListener('click', viewSessionePage);
+        tick.addEventListener('click', viewTicketPage);
         
         
         function viewMainPage(e){
@@ -70,6 +72,13 @@
         function viewSessionePage(e){
             e.preventDefault();
             const page = 2;
+            //console.log(page);
+            ipcRenderer.send('page:TicketP', page);
+        }
+        
+        function viewTicketPage(e){
+            e.preventDefault();
+            const page = 3;
             //console.log(page);
             ipcRenderer.send('page:TicketP', page);
         }

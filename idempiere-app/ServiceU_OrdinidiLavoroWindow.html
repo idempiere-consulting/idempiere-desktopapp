@@ -5,6 +5,7 @@
     <title>Idempiere App</title>
     <link rel="stylesheet" href="assets/css/mainWindow.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
   </head>
   <body>
 
@@ -37,11 +38,43 @@
     </div>
     <!--sidebar end-->
 
-    <div class="content"></div>
+    <div class="content">
+        <table id = "myTable1">
+        <thead>
+            <tr>
+                <th><input type="text" id="myInputDoc" onkeyup="filterDoc()" placeholder="Filtra per Doc" title="Scrivi un nome"></th>
+                <th><input type="text" id="myInputClient" onkeyup="filterClient()" placeholder="Filtra per Cliente" title="Scrivi un nome"></th>
+                <th><input type="text" id="myInputDescription" onkeyup="filterDesc()" placeholder="Filtra per Desc." title="Scrivi un nome"></th>
+                <th><input type="text" id="myInputRes" onkeyup="filterRes()" placeholder="Filtra per Risorsa" title="Scrivi un nome"></th>
+                <th><input type="text" id="myInputDate" onkeyup="filterDate()" placeholder="Filtra per Data" title="Scrivi un nome"></th>
+                <th></th>
+            </tr>
+        </thead>
+        </table>
+        <table id="myTableOrd" class="table-sortable">
+        
+    <thead>
+      <tr>
+        <th>N° Documento</th>
+        <th>Cliente</th>
+        <th>Descrizione</th>
+        <th>Risorsa</th>
+        <th>Data Intervento</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody id ="opportunityBody">
+    </tbody>
+  </table>
+    </div>
     
     <script>
         const electron = require('electron');
         const {ipcRenderer} = electron;
+        
+        const authToken = ipcRenderer.sendSync('send:token', 'ping');
+        
+        getWorkOrders();
         
         
         const back = document.getElementById('back_btn');
@@ -81,6 +114,142 @@
             //console.log(page);
             ipcRenderer.send('page:ServiceU', page);
         }
+        
+        function getWorkOrders(){
+            
+            fetch('http://173.249.60.71:3580/api/v1/windows/work-order-wo25' ,{
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + authToken
+                }
+            }).then(res => {
+                return res.json()
+                })
+                .then(data => {
+                    console.log(data);
+                    
+                    //var pData = JSON.parse(data)
+                    
+                    a = data['window-records'];
+                    //console.log(a);
+                    a.forEach((record) => {
+                        var table = document.getElementById('opportunityBody');
+                        var bPartner = record.C_BPartner_ID;
+                        //console.log(leadStatus);
+                        var ris = record.S_Resource_ID
+                        
+                        var row = `<tr class="dataRow">
+							<td>${record.DocumentNo}</td>
+							<td>${bPartner['identifier']}</td>
+							<td>${record.Description}</td>
+							<td>${ris['identifier']}</td>
+							<td>${record.DateWorkStart}</td>
+							<td><a href="#" id="iconLinkWebUrl"><i class="fas fa-external-link-alt"></i></td>
+					  </tr>`;
+					  
+					  table.innerHTML += row;
+                    });
+                    
+                    
+                })
+                .catch(error => console.log(error))
+        }
+        
+            function filterDoc() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInputDoc");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTableOrd");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+
+function filterClient() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInputClient");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTableOrd");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+
+function filterDesc() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInputDescription");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTableOrd");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[2];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+
+function filterRes() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInputRes");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTableOrd");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[3];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+
+function filterDate() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInputDate");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTableOrd");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[4];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
     
     </script>
 
