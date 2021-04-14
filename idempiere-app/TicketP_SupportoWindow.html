@@ -70,12 +70,12 @@
         <table class="myTable2">
         <thead>
             <tr>
-                <th><input type="text" id="myInput" onkeyup="filterNames()" placeholder="Filtra per Nome" title="Scrivi un nome"></th>
-                <th><input type="text" id="myInputPhone" onkeyup="filterPhone()" placeholder="Filtra per Tel" title="Scrivi un nome"></th>
-                <th><input type="text" id="myInputMail" onkeyup="filterMail()" placeholder="Filtra per Mail" title="Scrivi un nome"></th>
+                <th><input type="text" id="myInput" onkeyup="filterBP()" placeholder="Filtra per BPartner" title="Scrivi un nome"></th>
+                <th><input type="text" id="myInputPhone" onkeyup="filterAcc()" placeholder="Filtra per Utente" title="Scrivi un nome"></th>
+                <th><input type="text" id="myInputMail" onkeyup="filterReq()" placeholder="Filtra per Richiesta" title="Scrivi un nome"></th>
                 <th></th>
-                <th><input type="text" id="myInputSalesRep" onkeyup="filterSalesRep()" placeholder="Filtra per Agente" title="Scrivi un nome"></th>
-                <th><input type="text" id="myInputCampaign" onkeyup="filterCampaign()" placeholder="Filtra per Camp." title="Scrivi un nome"></th>
+                <th><input type="text" id="myInputSalesRep" onkeyup="filterSumm()" placeholder="Filtra per Riepilogo" title="Scrivi un nome"></th>
+                <th><input type="text" id="myInputCampaign" onkeyup="filterDate()" placeholder="Filtra per Data" title="Scrivi un nome"></th>
                 <th></th>
             </tr>
         </thead>
@@ -209,7 +209,101 @@
 	  }
 	});
 });
-     
+
+function filterAcc() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInputPhone");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+
+function filterBP() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+
+function filterReq() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInputMail");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[2];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+
+function filterSumm() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInputSalesRep");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[4];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+
+function filterDate() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInputCampaign");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[5];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
         
         
     

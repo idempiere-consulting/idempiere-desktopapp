@@ -21,7 +21,7 @@
         <h3>Ticket > <span>Da Schedulare</span></h3>
       </div>
       <div class="right_area">
-        <a href="#" class="logout_btn">Logout</a>
+        <a href="#" id="logout_btn" class="logout_btn">Logout</a>
       </div>
     </header>
     <!--header area end-->
@@ -52,6 +52,17 @@
         const task = document.getElementById('Task');
         const sched = document.getElementById('Schedulare');
         const ore = document.getElementById('Ore');
+        
+        const logout = document.getElementById('logout_btn');
+        logout.addEventListener('click', viewLoginPage);
+        
+        function viewLoginPage(e){
+            e.preventDefault();
+            const page = 0;
+            //console.log(page);
+            ipcRenderer.send('delete:token');
+            ipcRenderer.send('page:change', page);
+        }
         
         
         back.addEventListener('click', viewMainPage);

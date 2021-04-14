@@ -21,7 +21,7 @@
         <h3>Logistica > <span>Crea DDT</span></h3>
       </div>
       <div class="right_area">
-        <a href="#" class="logout_btn">Logout</a>
+        <a href="#" id="logout_btn" class="logout_btn">Logout</a>
       </div>
     </header>
     <!--header area end-->
@@ -56,6 +56,17 @@
         DDTCL.addEventListener('click', viewDDTCLPage);
         DDT.addEventListener('click', viewDDTPage);
         viag.addEventListener('click', viewViaggiPage);
+        
+        const logout = document.getElementById('logout_btn');
+        logout.addEventListener('click', viewLoginPage);
+        
+        function viewLoginPage(e){
+            e.preventDefault();
+            const page = 0;
+            //console.log(page);
+            ipcRenderer.send('delete:token');
+            ipcRenderer.send('page:change', page);
+        }
         
         function viewMainPage(e){
             e.preventDefault();

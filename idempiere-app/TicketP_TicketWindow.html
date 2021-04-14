@@ -38,7 +38,7 @@
     <!--sidebar end-->
 
     <div class="content">
-    <div id="createPage">
+    <div id="createPage" "overflow-y: auto;">
         <form>
 
             <label class="formLabel" for="fname">Utente</label>
@@ -105,7 +105,7 @@
         reqSel.addEventListener('change', function(){
             caseDiv.innerHTML = "";
             if(reqSel.value == 'Anomalia'){
-                var text = `<label class="formLabel" for="explain">Spiega cosa stavi facendo</label>
+                var text = `<label class="formLabel" for="explain">Descrivi il problema</label>
                             <textarea id="explain" name="explain" placeholder="Scrivi qualcosa..." style="height:200px"></textarea>`;
                 
                 caseDiv.innerHTML += text;
@@ -115,13 +115,18 @@
                 
                 caseDiv.innerHTML += text;
                 
-                text = `<label class="formLabel" for="explain">Bloccante? A pagamento se si mente al riguardo</label><label>
-                            <input type="Radio" name="LeadStatus"  value="Y"/>
-                            <span style="color : #19B3D3">Sì</span></label>
-                        <label>
-                            <input type="Radio" name="LeadStatus"  value="N"/>
-                            <span style="color : #19B3D3">No</span></label>`
+                text = `<label class="formLabel" for="explain2">Dettaglio errore a video</label>
+                        <textarea id="explain2" name="explain2" placeholder="Scrivi qualcosa..." style="height:200px"></textarea>`;
                 caseDiv.innerHTML += text;
+                
+                text = `<label class="formLabel" for="explain3">Azione che si stava facendo</label>
+                        <textarea id="explain3" name="explain3" placeholder="Scrivi qualcosa..." style="height:200px"></textarea>`;
+                caseDiv.innerHTML += text;
+                
+                text = `<label class="formLabel" for="explain4">E' bloccante?</label>
+                        <textarea id="explain4" name="explain4" placeholder="Scrivi qualcosa..." style="height:200px"></textarea>`;
+                caseDiv.innerHTML += text;
+                
             }
             
             if(reqSel.value == 'Nuova Richiesta Funzionalità/Sviluppo'){
@@ -182,19 +187,14 @@
                 
                 case "Anomalia":
                     const doc = document.getElementById('Document').value;
-                    const radio = document.getElementsByName('LeadStatus');
-                    for (var i = 0, length = radio.length; i < length; i++) {
-                        if (radios[i].checked) {
-                            const radioval = radios[i].value;
-                            break;
-                        }
-                    }
-                    
+                    const explain2 = document.getElementById('explain2').value;
+                    const explain3 = document.getElementById('explain3').value;
+                    const explain4 = document.getElementById('explain4').value;
                     BodyData = {
                                     "C_BPartner_ID" : { "identifier": BP },
                                     "AD_User_ID" : { "identifier": UserName },
                                     "AD_Client_ID" : { "identifier": "DEMO" },
-                                    "R_RequestType_ID" : { "id": 1000002 },
+                                    "R_RequestType_ID" : { "id": 1000000 },
                                     "Priority" : { "id": prio },
                                     "SalesRep_ID": { "identifier": "DEMOAdmin"},
                                     "AD_Role_ID": {"id": 1000000 },
@@ -204,8 +204,9 @@
                                     "ConfidentialType" : { "id" : "C" },
                                     "RequestAmt": 0,
                                     "Summary" : explain,
-                                    "DocN" : doc,
-                                    "IsBlocker" : radioval
+                                    "Description" : doc,
+                                    "Name" : explain2,
+                                    "Help" : explain3
                                 };
                     break;
                 case "Altro":
