@@ -5,7 +5,7 @@
     <title>Idempiere App</title>
     <link rel="stylesheet" href="assets/css/mainWindow.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
   </head>
   <body>
 
@@ -103,6 +103,7 @@
         
         const authToken = ipcRenderer.sendSync('send:token', 'ping');
         const userBPartner = ipcRenderer.sendSync('send:bp', 'ping');
+        const ip = ipcRenderer.sendSync('send:ip', 'ping');
         //console.log(userBPartner);
         getTickets();
         
@@ -149,7 +150,7 @@
         
         function getTickets(){
             
-            fetch('http://173.249.60.71:3580/api/v1/windows/request' ,{
+            fetch('http://'+ip+'/api/v1/windows/request' ,{
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -193,6 +194,7 @@
         }
         
         //test jquery filter
+        
         $("input[type=radio]").change(function(){
 	var filter = this.value;
 	if (filter == "All")
@@ -203,12 +205,14 @@
 	  $this = $(this);
 	  if (!matchFound){
 		  if ($this.html() == filter){
-			matchFound = true;
+			//matchFound = true;
 			$this.parent().css( "visibility", "visible" );
 		  }
 	  }
 	});
 });
+
+
 
 function filterAcc() {
   var input, filter, table, tr, td, i, txtValue;

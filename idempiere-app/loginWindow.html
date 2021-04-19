@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/js/bootstrap.min.js">
+    <script src="http://rezitech.github.io/stash/stash.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
     <title>Idempiere App</title>
     <style>
@@ -14,7 +15,10 @@
 			margin: 0;
 			padding: 0;
 			height: 100%;
-			background: #2e2c29 !important;
+            background: url(assets/css/abstract2.jpg) no-repeat;
+            background-position: center;
+            background-size: cover;
+            background-attachment: fixed;
 		}
 		.user_card {
 			height: 400px;
@@ -99,21 +103,27 @@
 							</div>
 							<input type="text" name="" id="input_user" class="form-control input_user" value="" placeholder="username">
 						</div>
-						<div class="input-group mb-2">
+						<div class="input-group mb-3">
 							<div class="input-group-append">
 								<span class="input-group-text"><i class="fas fa-key"></i></span>
 							</div>
 							<input type="password" name="" id="input_pass" class="form-control input_pass" value="" placeholder="password">
 						</div>
+						<div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-globe"></i></span>
+							</div>
+							<input type="text" name="" id="input_ip" class="form-control input_pass" value="" placeholder="indirizzo ip">
+						</div>
 						<div class="form-group">
 							<div class="custom-control custom-checkbox">
 								<input type="checkbox" class="custom-control-input" id="customControlInline">
-								<label class="custom-control-label" for="customControlInline">Remember me</label>
+								<label style="color: white" class="custom-control-label" for="customControlInline">Remember me</label>
 							</div>
 						</div>
 							<div class="d-flex justify-content-center mt-3 login_container">
-				 	<button type="button" name="button" id="login" class="btn login_btn">Login</button>
-				   </div>
+                        <button type="button" name="button" id="login" class="btn login_btn">Login</button>
+                            </div>
 					</form>
 				</div>
 			</div>
@@ -125,22 +135,31 @@
         const {ipcRenderer} = electron;
         const btn = document.getElementById('login');
         btn.addEventListener('click', authLogin);
+        var ip;
+        if(stash.get('username')!= undefined){
+            document.getElementById("input_user").value = stash.get('username'); 
+        }
         
+        if(stash.get('password')!= undefined){
+            document.getElementById("input_pass").value = stash.get('password'); 
+        }
         
+        if(stash.get('ip')!= undefined){
+            document.getElementById("input_ip").value = stash.get('ip'); 
+        }
         
         function authLogin(e){
             e.preventDefault();
             var flag = false;
             const user = document.getElementById('input_user').value;
-            myStorage = window.localStorage;
-            myStorage.setItem('userName', JSON.stringify(user));
             const pass = document.getElementById('input_pass').value;
+            ip = document.getElementById('input_ip').value;
             var clientId = 0;
             var token1 = '';
             // terzo login 'http://173.249.60.71:3580/api/v1/auth/organizations?client='+data.roles[0].id'&role='+data.roles[0].name
             //secondo login http://173.249.60.71:3580/api/v1/auth/roles?client='+data.clients[0].id  
             //primo login http://173.249.60.71:3580/api/v1/auth/tokens
-            fetch('http://173.249.60.71:3580/api/v1/auth/tokens',{
+            fetch('http://'+ip+'/api/v1/auth/tokens',{
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -154,6 +173,12 @@
                 })
                 .then(data => {
                     console.log(data);
+                    if(document.getElementById("customControlInline").checked == true){
+                        stash.set('username', user);
+                        stash.set('password', pass);
+                        stash.set('ip', ip);
+                    }
+                    
                     ipcRenderer.send('save:user', user);
                     token1 = data.token;
                     clientId = data.clients[0].id;
@@ -180,7 +205,7 @@
         
         function authRoles(token1, clientId){
             
-            fetch('http://173.249.60.71:3580/api/v1/auth/roles?client='+clientId ,{
+            fetch('http://'+ip+'/api/v1/auth/roles?client='+clientId ,{
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -202,7 +227,7 @@
         
         function authOrganization(clientId, roleId, token1){
             
-                fetch('http://173.249.60.71:3580/api/v1/auth/organizations?client='+clientId+'&role='+roleId ,{
+                fetch('http://'+ip+'/api/v1/auth/organizations?client='+clientId+'&role='+roleId ,{
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -225,7 +250,7 @@
         
         function authWarehouse(clientId, roleId, organizationId, token1){
             
-            fetch('http://173.249.60.71:3580/api/v1/auth/warehouses?client='+clientId+'&role='+roleId+'&organization='+organizationId ,{
+            fetch('http://'+ip+'/api/v1/auth/warehouses?client='+clientId+'&role='+roleId+'&organization='+organizationId ,{
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -237,7 +262,7 @@
                 .then(data => {
                     console.log(data);
                 
-                    const warehouseId = data.warehouses[0].id;
+                    const warehouseId = data.warehouses[3].id;
                     authLanguage(clientId, roleId, organizationId, warehouseId, token1);
                 })
                 .catch(error => console.log('ERROR login warehouse'))
@@ -246,7 +271,7 @@
         
         function authLanguage(clientId, roleId, organizationId, warehouseId, token1){
             
-            fetch('http://173.249.60.71:3580/api/v1/auth/language?client='+clientId ,{
+            fetch('http://'+ip+'/api/v1/auth/language?client='+clientId ,{
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -267,7 +292,7 @@
         
         function authToken(clientId, roleId, organizationId, warehouseId, language, token1){
         
-            fetch('http://173.249.60.71:3580/api/v1/auth/tokens' ,{
+            fetch('http://'+ip+'/api/v1/auth/tokens' ,{
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -288,6 +313,7 @@
                     const authToken = data.token;
                     if(authToken !== ''){
                         ipcRenderer.send('save:token', authToken);
+                        ipcRenderer.send('save:ip', ip);
                         
                         const page = 2;
                         ipcRenderer.send('page:change', page);

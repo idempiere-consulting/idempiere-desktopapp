@@ -60,7 +60,7 @@
             <select id="requestType" name="requestType">
                 <option value=""></option>
                 <option value="Anomalia">Anomalia</option>
-                <option value="Rich formazione"> Richiesta di Formazione</option>
+                <option value="Richiesta di formazione">Richiesta di formazione</option>
                 <option value="Nuova Richiesta Funzionalità/Sviluppo">Nuova Richiesta Funzionalità/Sviluppo</option>
                 <option value="Altro">Altro</option>
             </select>
@@ -80,7 +80,9 @@
         const authToken = ipcRenderer.sendSync('send:token', 'ping');
         const userBPartner = ipcRenderer.sendSync('send:bp', 'ping');
         const userName = ipcRenderer.sendSync('send:user', 'ping');
-        
+        const ip = ipcRenderer.sendSync('send:ip', 'ping');
+        var ul;
+        var selectedDate;
         
         document.getElementById("fname").value = userName;
         document.getElementById("lname").value = userBPartner;
@@ -106,7 +108,7 @@
             caseDiv.innerHTML = "";
             if(reqSel.value == 'Anomalia'){
                 var text = `<label class="formLabel" for="explain">Descrivi il problema</label>
-                            <textarea id="explain" name="explain" placeholder="Scrivi qualcosa..." style="height:200px"></textarea>`;
+                            <textarea id="explain" name="explain" placeholder="Es: Utilizzando il processo XDF20 volevo creare la fattura " style="height:200px"></textarea>`;
                 
                 caseDiv.innerHTML += text;
                 
@@ -116,18 +118,66 @@
                 caseDiv.innerHTML += text;
                 
                 text = `<label class="formLabel" for="explain2">Dettaglio errore a video</label>
-                        <textarea id="explain2" name="explain2" placeholder="Scrivi qualcosa..." style="height:200px"></textarea>`;
+                        <textarea id="explain2" name="explain2" placeholder="Es: Nessuno/Documento non trovato" style="height:200px"></textarea>`;
                 caseDiv.innerHTML += text;
                 
                 text = `<label class="formLabel" for="explain3">Azione che si stava facendo</label>
-                        <textarea id="explain3" name="explain3" placeholder="Scrivi qualcosa..." style="height:200px"></textarea>`;
+                        <textarea id="explain3" name="explain3" placeholder="Es: Creazione fattura processo XDF20" style="height:200px"></textarea>`;
                 caseDiv.innerHTML += text;
                 
-                text = `<label class="formLabel" for="explain4">E' bloccante?</label>
-                        <textarea id="explain4" name="explain4" placeholder="Scrivi qualcosa..." style="height:200px"></textarea>`;
+                text = `<label class="formLabel" for="explain4">E' urgente/bloccante?</label>
+                        <textarea id="explain4" name="explain4" placeholder="Es: Non è bloccante dovrei fare la fattura entro qualche giorno" style="height:200px"></textarea>`;
                 caseDiv.innerHTML += text;
                 
             }
+            if(reqSel.value == 'Richiesta di formazione'){
+                
+                fetch('http://173.249.60.71:3580/api/v1/models/lit_resourcefreeslot_v' ,{
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + authToken
+                }
+            }).then(res => {
+                return res.json()
+                })
+                .then(data => {
+                    console.log(data);
+                    
+                    a = data['records']
+                    
+                    var text = `<label class="formLabel" for="">Seleziona data e ora per la sessione<label><ul></ul>`;
+                    caseDiv.innerHTML += text;
+                    ul = document.querySelector('ul');
+                    
+                    a.forEach((record) => {
+                    
+                        const li = document.createElement('li');
+                        li.setAttribute("data-value", record.date_slot);
+                        var d = new Date(record.date_slot)
+                        var M = d.getUTCMonth()+1;
+                        const itemText = document.createTextNode(' '+d.getUTCFullYear()+'-'+M+'-'+d.getUTCDate()+'   Ore '+d.getUTCHours()+':00');
+                        li.appendChild(itemText);
+                        ul.appendChild(li);
+                    
+                    });
+                    //console.log("qwerty");
+                    
+                    
+                    text = `<label class="formLabel" for="explain">Cosa vorresti vedere in questa sessione?<label>
+                            <textarea id="explain" name="explain" placeholder="Scrivi qualcosa..." style="height:200px"></textarea>`;
+                
+                    caseDiv.innerHTML += text;
+                    
+                    ul = document.querySelector('ul');
+                    ul.addEventListener("click", selectItem);
+                    
+                    
+                })
+                .catch(error => console.log(error))
+        
+            }
+            
             
             if(reqSel.value == 'Nuova Richiesta Funzionalità/Sviluppo'){
                 var text = `<label class="formLabel" for="explain">Spiega cosa vorresti che sia sviluppato su Idempiere</label>
@@ -186,6 +236,7 @@
             switch (Request){
                 
                 case "Anomalia":
+                
                     const doc = document.getElementById('Document').value;
                     const explain2 = document.getElementById('explain2').value;
                     const explain3 = document.getElementById('explain3').value;
@@ -206,10 +257,29 @@
                                     "Summary" : explain,
                                     "Description" : doc,
                                     "Name" : explain2,
-                                    "Help" : explain3
+                                    "Help" : explain3,
+                                    "Name2" : explain4
                                 };
+                                
+                    fetch('http://'+ip+'/api/v1/windows/request' ,{
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + authToken
+                    },
+                    body: JSON.stringify(BodyData)
+                    }).then(res => {
+                        return res.json()
+                    })
+                    .then(data => {
+                        console.log(data);
+                        alert("Ticket inviato!");
+                    })
+                    .catch(error => console.log(error))
+                    
                     break;
                 case "Altro":
+                
                     BodyData = {
                                     "C_BPartner_ID" : { "identifier": BP },
                                     "AD_User_ID" : { "identifier": UserName },
@@ -225,8 +295,26 @@
                                     "RequestAmt": 0,
                                     "Summary" : explain
                                 };
+                                
+                    fetch('http://'+ip+'/api/v1/windows/request' ,{
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + authToken
+                    },
+                    body: JSON.stringify(BodyData)
+                    }).then(res => {
+                        return res.json()
+                    })
+                    .then(data => {
+                        console.log(data);
+                        alert("Ticket inviato!");
+                    })
+                    .catch(error => console.log(error))
+                    
                     break;
                 case "Nuova Richiesta Funzionalità/Sviluppo":
+                
                     BodyData = {
                                     "C_BPartner_ID" : { "identifier": BP },
                                     "AD_User_ID" : { "identifier": UserName },
@@ -242,27 +330,76 @@
                                     "RequestAmt": 0,
                                     "Summary" : explain
                                 };
+                                
+                    fetch('http://'+ip+'/api/v1/windows/request' ,{
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + authToken
+                    },
+                    body: JSON.stringify(BodyData)
+                    }).then(res => {
+                        return res.json()
+                    })
+                    .then(data => {
+                        console.log(data);
+                        alert("Ticket inviato!");
+                    })
+                    .catch(error => console.log(error))
+                    
                     break;
+                case "Richiesta di formazione":
+                
+                    BodyData = {
+                                    "C_BPartner_ID" : { "identifier": BP },
+                                    "AD_Client_ID" : { "identifier": "DEMO" },
+                                    "AD_User_ID": {"identifier": userName},
+                                    "AD_Org_ID" : { "id": 1000000 },
+                                    "S_Resource_ID": {"id": 1000001},
+                                    "Name" : Request,
+                                    "Description": explain,
+                                    "AssignDateFrom" : selectedDate,
+                                    "PlannedQty": 1
+                                };
+                
+                    fetch('http://'+ip+'/api/v1/windows/resource-assignment' ,{
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + authToken
+                    },
+                    body: JSON.stringify(BodyData)
+                    }).then(res => {
+                        return res.json()
+                    })
+                    .then(data => {
+                        console.log(data);
+                        alert("Richiesta inviata");
+                    })
+                    .catch(error => console.log(error))
+                
                 
             }
             
             
             
-            fetch('http://173.249.60.71:3580/api/v1/windows/request' ,{
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + authToken
-                },
-                body: JSON.stringify(BodyData)
-            }).then(res => {
-                return res.json()
-                })
-                .then(data => {
-                    console.log(data);
-                })
-                .catch(error => console.log(error))
+        }
         
+        function selectItem(e){
+            selectedDate = e.target.getAttribute("data-value");
+            
+            var listitems = document.getElementsByTagName("li");
+            
+            for (var i = 0; i < listitems.length; i++)
+            {
+                if (listitems[i].className == "setTextColorSkyblue")
+                {
+                    listitems[i].className = "setTextColorWhite";
+                    break;
+                }
+            } 
+            e.target.className = "setTextColorSkyblue";
+            console.log(selectedDate);
         }
         
 

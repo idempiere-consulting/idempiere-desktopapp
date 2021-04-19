@@ -8,6 +8,10 @@ let authToken;
 let mainWindow;
 let userName;
 let userBPartner;
+let userClient;
+let userOrg;
+let HDRes;
+let ip;
 //var internetConn = navigator.onLine();
 
 app.on('ready', function(){
@@ -82,7 +86,26 @@ ipcMain.on('save:user', function(e, user){
 
 ipcMain.on('save:bpartner', function(e, bp){
     userBPartner = bp;
-    console.log(userBPartner);
+    //console.log('1223');
+});
+
+ipcMain.on('save:client', function(e, client){
+    userClient = client;
+    //console.log('1223');
+});
+
+ipcMain.on('save:org', function(e, org){
+    userOrg = org;
+    //console.log('1223');
+});
+
+ipcMain.on('save:hdres', function(e, hdres){
+    HDRes = hdres;
+    //console.log('1223');
+});
+
+ipcMain.on('save:ip', function(e, IP){
+    ip = IP;
     //console.log('1223');
 });
 
@@ -146,6 +169,13 @@ ipcMain.on('page:change', function(e, page){
             slashes: true
             }));
             break;
+        case 8:
+            mainWindow.loadURL(url.format({
+            pathname: path.join(__dirname, 'ODV_VediODVWindow.html'),
+            protocol: 'file:',
+            slashes: true
+            }));
+            break;
         case 10:
             mainWindow.loadURL(url.format({
             pathname: path.join(__dirname, 'Logistica_ProdottiWindow.html'),
@@ -170,6 +200,26 @@ ipcMain.on('send:user', function(event, arg) {
 ipcMain.on('send:bp', function(event, arg) {
   //console.log(arg);  
   event.returnValue = userBPartner;
+});
+
+ipcMain.on('send:client', function(event, arg) {
+  //console.log(arg);  
+  event.returnValue = userClient;
+});
+
+ipcMain.on('send:org', function(event, arg) {
+  //console.log(arg);  
+  event.returnValue = userOrg;
+});
+
+ipcMain.on('send:hdres', function(event, arg) {
+  //console.log(arg);  
+  event.returnValue = HDRes;
+});
+
+ipcMain.on('send:ip', function(event, arg) {
+  //console.log(arg);  
+  event.returnValue = ip;
 });
 
 
@@ -319,6 +369,20 @@ ipcMain.on('page:TicketI', function(e, page){
         case 5:
             mainWindow.loadURL(url.format({
             pathname: path.join(__dirname, 'TicketI_OreWindow.html'),
+            protocol: 'file:',
+            slashes: true
+            }));
+            break;
+    }
+        
+});
+
+ipcMain.on('page:ODV', function(e, page){
+    //console.log(page);
+    switch(page){
+        case 1:
+            mainWindow.loadURL(url.format({
+            pathname: path.join(__dirname, 'ODV_VediODVWindow.html'),
             protocol: 'file:',
             slashes: true
             }));

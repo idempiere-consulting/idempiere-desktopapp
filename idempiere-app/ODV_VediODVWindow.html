@@ -13,13 +13,13 @@
     <!--header area start-->
     <header>
       <label for="check">
-        <i style=" left: 355px" class="fas fa-bars" id="sidebar_btn"></i>
+        <i style=" left: 365px" class="fas fa-bars" id="sidebar_btn"></i>
       </label>
       <label>
-        <i style=" left: 410px" class="fas fa-arrow-alt-circle-left" id="back_btn"></i>
+        <i style=" left: 420px" class="fas fa-arrow-alt-circle-left" id="back_btn"></i>
       </label>
       <div class="left_area">
-        <h3>Service > <span>Ordini di Lavoro</span></h3>
+        <h3>Ordini di Vendita > <span>Vedi ODV</span></h3>
       </div>
       <div class="right_area">
         <a href="#" id="logout_btn" class="logout_btn">Logout</a>
@@ -32,9 +32,8 @@
         <img src="assets/images/logo.png" class="profile_image" alt="" width="200" height="200">
         <h4>Admin</h4>
       </center>
-      <a href="#" id="Ordini"><i class="fas fa-tasks"></i><span>Ordini di Lavoro</span></a>
-      <a href="#" id="Calendario"><i class="fas fa-calendar-alt"></i><span>Calendario</span></a>
-      <a href="#" id="Anomalie"><i class="fas fa-exclamation-circle"></i><span>Anomalie</span></a>
+      <a href="#" id="VediODV"><i class="fas fa-clipboard-list"></i><span>Vedi ODV</span></a>
+      <a href="#" id="CreaODV"><i class="fas fa-file-signature"></i><span>Crea ODV</span></a>
     </div>
     <!--sidebar end-->
 
@@ -45,7 +44,7 @@
                 <th><input type="text" id="myInputDoc" onkeyup="filterDoc()" placeholder="Filtra per Doc" title="Scrivi un nome"></th>
                 <th><input type="text" id="myInputClient" onkeyup="filterClient()" placeholder="Filtra per Cliente" title="Scrivi un nome"></th>
                 <th><input type="text" id="myInputDescription" onkeyup="filterDesc()" placeholder="Filtra per Desc." title="Scrivi un nome"></th>
-                <th><input type="text" id="myInputRes" onkeyup="filterRes()" placeholder="Filtra per Risorsa" title="Scrivi un nome"></th>
+                <th><input type="text" id="myInputRes" onkeyup="filterAct()" placeholder="Filtra per Attività" title="Scrivi un nome"></th>
                 <th><input type="text" id="myInputDate" onkeyup="filterDate()" placeholder="Filtra per Data" title="Scrivi un nome"></th>
                 <th><i style="color: #22242A;" class="fas fa-external-link-alt"></i></th>
             </tr>
@@ -58,8 +57,8 @@
         <th>N° Documento</th>
         <th>Cliente</th>
         <th>Descrizione</th>
-        <th>Risorsa</th>
-        <th>Data Intervento</th>
+        <th>Attività</th>
+        <th>Data</th>
         <th></th>
       </tr>
     </thead>
@@ -75,18 +74,14 @@
         const authToken = ipcRenderer.sendSync('send:token', 'ping');
         const ip = ipcRenderer.sendSync('send:ip', 'ping');
         
-        getWorkOrders();
+        getODV();
         
         
         const back = document.getElementById('back_btn');
-        const ord = document.getElementById('Ordini');
-        const cal = document.getElementById('Calendario');
-        const anom = document.getElementById('Anomalie');
+        const ord = document.getElementById('VediODV');
         
         back.addEventListener('click', viewMainPage);
-        ord.addEventListener('click', viewOrdiniPage);
-        cal.addEventListener('click', viewCalendarioPage);
-        anom.addEventListener('click', viewAnomaliePage);
+        ord.addEventListener('click', viewVediODVPage);
         
         const logout = document.getElementById('logout_btn');
         logout.addEventListener('click', viewLoginPage);
@@ -106,30 +101,16 @@
             ipcRenderer.send('page:change', page);
         }
         
-        function viewOrdiniPage(e){
+        function viewVediODVPage(e){
             e.preventDefault();
             const page = 1;
             //console.log(page);
-            ipcRenderer.send('page:ServiceU', page);
+            ipcRenderer.send('page:ODV', page);
         }
         
-        function viewCalendarioPage(e){
-            e.preventDefault();
-            const page = 2;
-            //console.log(page);
-            ipcRenderer.send('page:ServiceU', page);
-        }
-        
-        function viewAnomaliePage(e){
-            e.preventDefault();
-            const page = 3;
-            //console.log(page);
-            ipcRenderer.send('page:ServiceU', page);
-        }
-        
-        function getWorkOrders(){
+        function getODV(){
             
-            fetch('http://'+ip+'/api/v1/windows/work-order-wo25' ,{
+            fetch('http://'+ip+'/api/v1/windows/sales-order' ,{
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -149,14 +130,14 @@
                         var table = document.getElementById('opportunityBody');
                         var bPartner = record.C_BPartner_ID;
                         //console.log(leadStatus);
-                        var ris = record.S_Resource_ID
+                        var act = record.C_Activity_ID
                         
                         var row = `<tr class="dataRow">
 							<td>${record.DocumentNo}</td>
 							<td>${bPartner['identifier']}</td>
-							<td>${record.Description}</td>
-							<td>${ris['identifier']}</td>
-							<td>${record.DateWorkStart}</td>
+							<td></td>
+							<td>basad</td>
+							<td>${record.DateOrdered}</td>
 							<td><a href="#" id="iconLinkWebUrl"><i class="fas fa-external-link-alt"></i></td>
 					  </tr>`;
 					  
@@ -225,7 +206,7 @@ function filterDesc() {
   }
 }
 
-function filterRes() {
+function filterAct() {
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("myInputRes");
   filter = input.value.toUpperCase();

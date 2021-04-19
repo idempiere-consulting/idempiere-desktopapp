@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Idempiere App</title>
     <link rel="stylesheet" href="assets/css/mainWindow.css">
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
   </head>
   <body>
@@ -32,7 +33,7 @@
       <a href="#" id="ServiceU"><i class="fas fa-hands-helping"></i><span>Service (U)</span></a>
       <a href="#" id="ServiceP"><i class="fas fa-hands-helping"></i><span>Service (P)</span></a>
       <a href="#" id="Fatture"><i class="fas fa-file-invoice-dollar"></i><span>Fatture</span></a>
-      <a href="#"><i class="fas fa-clipboard-list"></i><span>Ordini di Vendita</span></a>
+      <a href="#" id="ODV"><i class="fas fa-clipboard-list"></i><span>Ordini di Vendita</span></a>
       <a href="#" id="TicketP"><i class="fas fa-ticket-alt"></i><span>Ticket (P)</span></a>
       <a href="#" id="TicketI"><i class="fas fa-ticket-alt"></i><span>Ticket (I)</span></a>
       <a href="#"><i class="fas fa-sign-out-alt"></i><span>Conto Lavoro</span></a>
@@ -44,16 +45,23 @@
     </div>
     <!--sidebar end-->
 
-    <div class="content"></div>
+    <div class="content">
+        <iframe src="https://app.powerbi.com/reportEmbed?reportId=7204a2ab-38bd-4a48-a517-c6483b9e0f10&autoAuth=true&ctid=3207801d-cc35-4798-9cd6-8af5382cc923&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLXdlc3QtZXVyb3BlLWQtcHJpbWFyeS1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D" width="100%" height="90%%">
+        </iframe>
+
+    </div>
     
     <script>
         const electron = require('electron');
         const {ipcRenderer} = electron;
         
         const authToken = ipcRenderer.sendSync('send:token', 'ping');
+        const ip = ipcRenderer.sendSync('send:ip', 'ping');
         console.log(authToken);
         
         getUserData();
+        
+
         
         const crm = document.getElementById('CRM');
         crm.addEventListener('click', viewCRMPage);
@@ -75,6 +83,9 @@
         
         const ticketI = document.getElementById('TicketI');
         ticketI.addEventListener('click', viewTicketIPage);
+        
+        const odv = document.getElementById('ODV');
+        odv.addEventListener('click', viewODVPage);
         
         const logout = document.getElementById('logout_btn');
         logout.addEventListener('click', viewLoginPage);
@@ -121,6 +132,13 @@
             ipcRenderer.send('page:change', page);
         }
         
+        function viewODVPage(e){
+            e.preventDefault();
+            const page = 8;
+            //console.log(page);
+            ipcRenderer.send('page:change', page);
+        }
+        
         function viewLogisticaPage(e){
             e.preventDefault();
             const page = 10;
@@ -141,7 +159,7 @@
             const userName = ipcRenderer.sendSync('send:user', 'ping');
             console.log(userName);
             
-            fetch(`http://173.249.60.71:3580/api/v1/models/ad_user?$filter=Name eq '`+userName+`'` ,{
+            fetch(`http://`+ip+`/api/v1/models/ad_user?$filter=Name eq '`+userName+`'` ,{
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -156,14 +174,23 @@
                     
                     a.forEach((record) => {
                         var bp = record.C_BPartner_ID;
+                        var org = record.AD_Org_ID
+                        var client = record.AD_Client_ID
                         
                         ipcRenderer.send('save:bpartner', bp['identifier']);
+                        ipcRenderer.send('save:org', org['identifier']);
+                        ipcRenderer.send('save:client', client['identifier']);
                         
                     });
                     
                 })
                 .catch(error => console.log(error))
         }
+        
+
+
+    
+
         
     
     </script>

@@ -115,6 +115,7 @@
         const {ipcRenderer} = electron;
         
         const authToken = ipcRenderer.sendSync('send:token', 'ping');
+        const ip = ipcRenderer.sendSync('send:ip', 'ping');
         
         getOpportunities();
         
@@ -163,7 +164,7 @@
         
         function getOpportunities(){
             
-            fetch('http://173.249.60.71:3580/api/v1/windows/sales-opportunity' ,{
+            fetch('http://'+ip+'/api/v1/windows/sales-opportunity' ,{
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -362,7 +363,6 @@ document.querySelectorAll(".table-sortable th").forEach(headerCell => {
 	  $this = $(this);
 	  if (!matchFound){
 		  if ($this.html() == filter){
-			matchFound = true;
 			$this.parent().css( "visibility", "visible" );
 		  }
 	  }
