@@ -12,6 +12,8 @@ let userClient;
 let userOrg;
 let HDRes;
 let ip;
+let clientId;
+let token1;
 //var internetConn = navigator.onLine();
 
 app.on('ready', function(){
@@ -109,6 +111,16 @@ ipcMain.on('save:ip', function(e, IP){
     //console.log('1223');
 });
 
+ipcMain.on('save:clientid', function(e, clientid){
+    clientId = clientid;
+    //console.log('1223');
+});
+
+ipcMain.on('save:token1', function(e, Token1){
+    token1 = Token1;
+    //console.log('1223');
+});
+
 //carica la pagina selezionata su schermo
 ipcMain.on('page:change', function(e, page){
     //console.log(page);
@@ -183,6 +195,13 @@ ipcMain.on('page:change', function(e, page){
             slashes: true
             }));
             break;
+        case 100:
+            mainWindow.loadURL(url.format({
+            pathname: path.join(__dirname, 'login2Window.html'),
+            protocol: 'file:',
+            slashes: true
+            }));
+            break;
     }
         
 });
@@ -221,6 +240,18 @@ ipcMain.on('send:ip', function(event, arg) {
   //console.log(arg);  
   event.returnValue = ip;
 });
+
+ipcMain.on('send:clientid', function(event, arg) {
+  //console.log(arg);  
+  event.returnValue = clientId;
+});
+
+ipcMain.on('send:token1', function(event, arg) {
+  //console.log(arg);  
+  event.returnValue = token1;
+});
+
+
 
 
 ipcMain.on('page:CRM', function(e, page){

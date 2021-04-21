@@ -110,7 +110,7 @@
         
         function getODV(){
             
-            fetch('http://'+ip+'/api/v1/windows/sales-order' ,{
+            fetch('http://'+ip+'/api/v1/models/c_order' ,{
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -124,19 +124,19 @@
                     
                     //var pData = JSON.parse(data)
                     
-                    a = data['window-records'];
+                    a = data['records'];
                     //console.log(a);
                     a.forEach((record) => {
                         var table = document.getElementById('opportunityBody');
                         var bPartner = record.C_BPartner_ID;
                         //console.log(leadStatus);
-                        var act = record.C_Activity_ID
+                        var act = record.C_Activity_ID;
                         
                         var row = `<tr class="dataRow">
 							<td>${record.DocumentNo}</td>
 							<td>${bPartner['identifier']}</td>
 							<td></td>
-							<td>basad</td>
+							<td>${act['identifier']}</td>
 							<td>${record.DateOrdered}</td>
 							<td><a href="#" id="iconLinkWebUrl"><i class="fas fa-external-link-alt"></i></td>
 					  </tr>`;

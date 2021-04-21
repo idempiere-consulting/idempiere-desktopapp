@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/js/bootstrap.min.js">
+    <script src="http://rezitech.github.io/stash/stash.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+    <title>Idempiere App</title>
+    <style>
+        body,
+		html {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+            background: url(assets/css/abstract2.jpg) no-repeat;
+            background-position: center;
+            background-size: cover;
+            background-attachment: fixed;
+		}
+		.user_card {
+			height: 400px;
+			width: 350px;
+			margin-top: auto;
+			margin-bottom: auto;
+			background: #22242A;
+			position: relative;
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+			padding: 10px;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			border-radius: 5px;
+
+		}
+		.brand_logo_container {
+			position: absolute;
+			height: 170px;
+			width: 170px;
+			top: -75px;
+			border-radius: 50%;
+			background: white;
+			padding: 10px;
+			text-align: center;
+			
+		}
+		.brand_logo {
+			height: 150px;
+			width: 150px;
+			border-radius: 50%;
+			border: 2px solid white;
+		}
+		.form_container {
+			margin-top: 100px;
+		}
+		.login_btn {
+			width: 100%;
+			background: #19B3D3 !important;
+			color: white !important;
+		}
+		.login_btn:focus {
+			box-shadow: none !important;
+			outline: 0px !important;
+		}
+		.login_container {
+			padding: 0 2rem;
+		}
+		.input-group-text {
+			background: #19B3D3 !important;
+			color: white !important;
+			border: 0 !important;
+			border-radius: 0.25rem 0 0 0.25rem !important;
+		}
+		.input_user,
+		.input_pass:focus {
+			box-shadow: none !important;
+			outline: 0px !important;
+		}
+		.custom-checkbox .custom-control-input:checked~.custom-control-label::before {
+			background-color: #19B3D3 !important;
+		}
+    </style>
+</head>
+<body>
+    
+    <div class="container h-100">
+		<div class="d-flex justify-content-center h-100">
+			<div class="user_card">
+				<div class="d-flex justify-content-center">
+					<div class="brand_logo_container">
+						<img src="assets/images/logo.jpg" class="brand_logo" alt="Logo">
+					</div>
+				</div>
+				<div class="d-flex justify-content-center form_container">
+					<form id="loginForm">
+						<div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-user"></i></span>
+							</div>
+							<select id="selectClient" class="form-select" aria-label="Default select example">
+                                <option value="" disabled selected>Seleziona il Client</option>
+                            </select>
+						</div>
+						<div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-user"></i></span>
+							</div>
+							<select id="selectRole" class="form-select" aria-label="Default select example">
+                                <option value="" disabled selected>Seleziona il Ruolo</option>
+                            </select>
+						</div>
+						<div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-user"></i></span>
+							</div>
+							<select id="selectOrg" class="form-select" aria-label="Default select example">
+                                <option value="" disabled selected>Seleziona l'Organizzazione</option>
+                            </select>
+						</div>
+						<div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-user"></i></span>
+							</div>
+							<select id="selectWarehouse" class="form-select" aria-label="Default select example">
+                                <option value="" disabled selected>Seleziona il Magazzino</option>
+                            </select>
+						</div>
+							<div class="d-flex justify-content-center mt-3 login_container">
+                        <button type="button" name="button" id="login" class="btn login_btn">Login</button>
+                            </div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script>
+        const electron = require('electron');
+        const {ipcRenderer} = electron;
+        const btn = document.getElementById('login');
+        const data = ipcRenderer.sendSync('send:clientid', 'ping');
+        const token1 = ipcRenderer.sendSync('send:token1', 'ping');
+        const ip = ipcRenderer.sendSync('send:ip', 'ping');
+        var clientId, roleId, organizationId, warehouseId, language;
+        btn.addEventListener('click', authToken);
+        var selectRole,selectOrg,selectWarehouse, selectLang;
+        
+        var selectClient = document.getElementById("selectClient");
+        
+        var clients = data.clients;
+        var length = clients.length;
+        for (var i = 0; i<length; i++) {
+            var opt = document.createElement('option');
+            opt.value = clients[i].id;
+            opt.innerHTML = clients[i].name;
+            selectClient.appendChild(opt);
+        }
+        
+        selectClient.onchange = function () {
+            clientId= this.options[this.selectedIndex].getAttribute("value");
+            authRoles();
+        };
+
+        
+        
+        function authRoles(){
+            
+            fetch('http://'+ip+'/api/v1/auth/roles?client='+clientId ,{
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token1
+                }
+            }).then(res => {
+                return res.json()
+                })
+                .then(data => {
+                    console.log(data);
+                    selectRole = document.getElementById("selectRole");
+                    var roles = data.roles;
+                    for (var i = 0; i<roles.length; i++) {
+                        var opt = document.createElement('option');
+                        opt.value = roles[i].id;
+                        opt.innerHTML = roles[i].name;
+                        selectRole.appendChild(opt);
+                    }
+                    
+                    selectRole.onchange = function () {
+                        roleId= this.options[this.selectedIndex].getAttribute("value");
+                        authOrganization();
+                    };
+                    
+                    
+                })
+                .catch(error => console.log('ERROR login role'))
+            
+        }
+        
+        function authOrganization(){
+            
+                fetch('http://'+ip+'/api/v1/auth/organizations?client='+clientId+'&role='+roleId ,{
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token1
+                }
+            }).then(res => {
+                return res.json()
+                })
+                .then(data => {
+                    console.log(data);
+                    
+                    selectOrg = document.getElementById("selectOrg");
+                    var orgs = data.organizations;
+                    for (var i = 0; i<orgs.length; i++) {
+                        var opt = document.createElement('option');
+                        opt.value = orgs[i].id;
+                        opt.innerHTML = orgs[i].name;
+                        selectOrg.appendChild(opt);
+                    }
+                    
+                    selectOrg.onchange = function () {
+                        organizationId= this.options[this.selectedIndex].getAttribute("value");
+                        authWarehouse();
+                    };
+                    
+                    
+                })
+                .catch(error => console.log('ERROR login organizations'))
+        
+        }
+        
+        function authWarehouse(){
+            
+            fetch('http://'+ip+'/api/v1/auth/warehouses?client='+clientId+'&role='+roleId+'&organization='+organizationId ,{
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token1
+                }
+            }).then(res => {
+                return res.json()
+                })
+                .then(data => {
+                    console.log(data);
+                    
+                    selectWarehouse = document.getElementById("selectWarehouse");
+                    wh = data.warehouses;
+                    for (var i = 0; i<wh.length; i++) {
+                        var opt = document.createElement('option');
+                        opt.value = wh[i].id;
+                        opt.innerHTML = wh[i].name;
+                        selectWarehouse.appendChild(opt);
+                    }
+                    
+                    selectWarehouse.onchange = function () {
+                        warehouseId= this.options[this.selectedIndex].getAttribute("value");
+                        authLanguage();
+                    };
+                    
+                })
+                .catch(error => console.log('ERROR login warehouse'))
+        
+        }
+        
+        function authLanguage(){
+            
+            fetch('http://'+ip+'/api/v1/auth/language?client='+clientId ,{
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token1
+                }
+            }).then(res => {
+                return res.json()
+                })
+                .then(data => {
+                    console.log(data);
+                    
+                    selectLang = document.getElementById("selectLang");
+                    language = data.AD_Language;
+                    
+                    
+                })
+                .catch(error => console.log('ERROR login language'))
+            
+        }
+        
+        function authToken(){
+        
+            fetch('http://'+ip+'/api/v1/auth/tokens' ,{
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token1
+                },
+                body: JSON.stringify({
+                    clientId: clientId,
+                    roleId: roleId,
+                    organizationId: organizationId,
+                    warehouseId: warehouseId,
+                    language: language
+                })
+            }).then(res => {
+                return res.json()
+                })
+                .then(data => {
+                    console.log(data);
+                    const authToken = data.token;
+                    if(authToken !== ''){
+                        ipcRenderer.send('save:token', authToken);
+                        ipcRenderer.send('save:ip', ip);
+                        
+                        const page = 2;
+                        ipcRenderer.send('page:change', page);
+                    }
+                })
+                .catch(error => console.log('ERROR login auth'))
+        }
+        
+        
+        
+	</script>
+	
+</body>
+</html>
