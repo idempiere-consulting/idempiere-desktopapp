@@ -6,6 +6,7 @@ const { app, BrowserWindow, Menu, ipcMain } = electron;
 
 let authToken;
 let mainWindow;
+let secondaryWindow;
 let userName;
 let userBPartner;
 let userClient;
@@ -14,6 +15,9 @@ let HDRes;
 let ip;
 let clientId;
 let token1;
+let docN;
+let warehouseId;
+let docID_ODV;
 //var internetConn = navigator.onLine();
 
 app.on('ready', function(){
@@ -68,6 +72,52 @@ function viewMainWindow(){
     
 }
 
+function createODV_Detail_SecondaryWindow(){
+    secondaryWindow = new BrowserWindow({
+        width:1000,
+        height:700,
+        webPreferences:{
+            nodeIntegration:true,
+            contextIsolation: false,
+            backgroundColor: '#2e2c29',
+        }
+    });
+    
+    secondaryWindow.loadURL(url.format({
+        pathname: path.join(__dirname, 'ODV_DettaglioRow_SecondaryWindow.html'),
+        protocol: 'file:',
+        slashes: true
+    }));
+    
+    secondaryWindow.on('close', function(){
+        secondaryWindow = null;
+    });
+
+}
+
+function createODV_SendRowLine_SecondaryWindow(){
+    secondaryWindow = new BrowserWindow({
+        width:1000,
+        height:700,
+        webPreferences:{
+            nodeIntegration:true,
+            contextIsolation: false,
+            backgroundColor: '#2e2c29',
+        }
+    });
+    
+    secondaryWindow.loadURL(url.format({
+        pathname: path.join(__dirname, 'ODV_SendRowLine_SecondaryWindow.html'),
+        protocol: 'file:',
+        slashes: true
+    }));
+    
+    secondaryWindow.on('close', function(){
+        secondaryWindow = null;
+    });
+
+}
+
 ipcMain.on('save:token', function(e, token){
     authToken = token;
     //console.log(authToken);
@@ -93,12 +143,12 @@ ipcMain.on('save:bpartner', function(e, bp){
 
 ipcMain.on('save:client', function(e, client){
     userClient = client;
-    //console.log('1223');
+    console.log(userClient);
 });
 
 ipcMain.on('save:org', function(e, org){
     userOrg = org;
-    //console.log('1223');
+    console.log(userOrg);
 });
 
 ipcMain.on('save:hdres', function(e, hdres){
@@ -119,6 +169,29 @@ ipcMain.on('save:clientid', function(e, clientid){
 ipcMain.on('save:token1', function(e, Token1){
     token1 = Token1;
     //console.log('1223');
+});
+
+ipcMain.on('save:docN', function(e, DOCN){
+    docN = DOCN;
+    //console.log(docN);
+});
+
+ipcMain.on('save:docid:ODV', function(e, DOCID){
+    docID_ODV = DOCID;
+    //console.log(docN);
+});
+
+ipcMain.on('save:warehouse', function(e, warehouse){
+    warehouseId = warehouse;
+    console.log(warehouseId);
+});
+
+ipcMain.on('ODV:detailwindow', function(e, token){
+    createODV_Detail_SecondaryWindow();
+});
+
+ipcMain.on('ODV:sendrowlinewindow', function(e, token){
+    createODV_SendRowLine_SecondaryWindow();
 });
 
 //carica la pagina selezionata su schermo
@@ -224,11 +297,13 @@ ipcMain.on('send:bp', function(event, arg) {
 ipcMain.on('send:client', function(event, arg) {
   //console.log(arg);  
   event.returnValue = userClient;
+  console.log(userClient); 
 });
 
 ipcMain.on('send:org', function(event, arg) {
   //console.log(arg);  
   event.returnValue = userOrg;
+  console.log(userOrg); 
 });
 
 ipcMain.on('send:hdres', function(event, arg) {
@@ -249,6 +324,21 @@ ipcMain.on('send:clientid', function(event, arg) {
 ipcMain.on('send:token1', function(event, arg) {
   //console.log(arg);  
   event.returnValue = token1;
+});
+
+ipcMain.on('send:docN', function(event, arg) {
+  //console.log(arg);  
+  event.returnValue = docN;
+});
+
+ipcMain.on('send:warehouse', function(event, arg) {
+  //console.log(arg);  
+  event.returnValue = warehouseId;
+});
+
+ipcMain.on('send:docid:ODV', function(event, arg) {
+  //console.log(arg);  
+  event.returnValue = docID_ODV;
 });
 
 
@@ -330,6 +420,27 @@ ipcMain.on('page:ServiceP', function(e, page){
         case 2:
             mainWindow.loadURL(url.format({
             pathname: path.join(__dirname, 'ServiceP_ManutenzioneWindow.html'),
+            protocol: 'file:',
+            slashes: true
+            }));
+            break;
+    }
+        
+});
+
+ipcMain.on('page:ODV', function(e, page){
+    //console.log(page);
+    switch(page){
+        case 1:
+            mainWindow.loadURL(url.format({
+            pathname: path.join(__dirname, 'ODV_VediODVWindow.html'),
+            protocol: 'file:',
+            slashes: true
+            }));
+            break;
+        case 2:
+            mainWindow.loadURL(url.format({
+            pathname: path.join(__dirname, 'ODV_DettaglioODVWindow.html'),
             protocol: 'file:',
             slashes: true
             }));

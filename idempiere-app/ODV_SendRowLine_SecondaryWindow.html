@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<style>
+body {
+  font-family: Arial;
+  font-size: 17px;
+  padding: 8px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.row {
+  display: -ms-flexbox; /* IE10 */
+  display: flex;
+  -ms-flex-wrap: wrap; /* IE10 */
+  flex-wrap: wrap;
+  margin: 0 -16px;
+}
+
+.col-25 {
+  -ms-flex: 25%; /* IE10 */
+  flex: 25%;
+}
+
+.col-50 {
+  -ms-flex: 50%; /* IE10 */
+  flex: 50%;
+}
+
+.col-75 {
+  -ms-flex: 75%; /* IE10 */
+  flex: 75%;
+}
+
+.col-100 {
+  -ms-flex: 100%; /* IE10 */
+  flex: 100%;
+}
+
+.col-25,
+.col-50,
+.col-75, 
+.col-100 {
+  padding: 0 16px;
+}
+
+.container {
+  background-color: #f2f2f2;
+  padding: 5px 20px 15px 20px;
+  border: 1px solid lightgrey;
+  border-radius: 3px;
+}
+
+input[type=text] {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.input-text {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+label {
+  margin-bottom: 10px;
+  display: block;
+}
+
+.icon-container {
+  margin-bottom: 20px;
+  padding: 7px 0;
+  font-size: 24px;
+}
+
+.btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px;
+  margin: 10px 0;
+  border: none;
+  width: 100%;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 17px;
+}
+
+.btn:hover {
+  background-color: #45a049;
+}
+
+a {
+  color: #2196F3;
+}
+
+hr {
+  border: 1px solid lightgrey;
+}
+
+span {
+  padding: 11px;
+  border-radius: 3px;
+  background-color: #19B3D3;
+  color: white;
+}
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (also change the direction - make the "cart" column go on top) */
+@media (max-width: 800px) {
+  .row {
+    flex-direction: column-reverse;
+  }
+  .col-25 {
+    margin-bottom: 20px;
+  }
+}
+</style>
+</head>
+<body>
+<div class="row">
+  <div class="col-100">
+    <div class="container">
+      <form>
+      
+        <div class="row">
+          <div class="col-50">
+            <h3>Cerca prodotto per</h3>
+            <label for="productcode"><i class="fas fa-box-open"></i> Codice Prodotto</label>
+            <input style="width:85%" type="text" id="productcode" name="codiceprodotto"/><span id="srcCode"><i class="fas fa-search"></i></span>
+            <h3>Oppure</h3>
+            <label for="product"><i class="fas fa-box-open"></i> Nome Prodotto</label>
+            <input style="width:85%" id="product" class="input-text" list="products" name="prodotto"/><span id="srcName"><i class="fas fa-search"></i></span>
+          </div>
+
+          <div class="col-50">
+            <h3>Aggiungi Linea d'Ordine</h3>
+            <label for="codice"><i class="fa fa-folder-open"></i> Codice</label>
+            <input type="text" id="codice" name="codice" placeholder="">
+            <label for="nome"><i class="fa fa-folder-open"></i> Nome</label>
+            <input type="text" id="nome" name="nome" placeholder="">
+            <label for="attributo"><i class="fas fa-address-card"></i> Attributo di Istanza</label>
+            <input id="attributo" class="input-text" name="attributo" list="attributes" placeholder="">
+            <label for="udm"><i class="fas fa-balance-scale"></i> Udm</label>
+            <input type="text" id="udm" name="udm" placeholder="">
+            <label for="qty"><i class="fas fa-weight"></i> Quantità</label>
+            <input type="text" id="qty" name="qty" placeholder="">
+            <label for="desc"><i class="fas fa-comment-alt"></i> Descrizione</label>
+            <input type="text" id="desc" name="desc" placeholder="">
+          </div>
+          
+        </div>
+        <a href="#" style="text-decoration: none;" id="sendLine" class="btn">Registra Linea Ordine</a>
+      </form>
+    </div>
+  </div>
+  
+</div>
+
+<script>
+
+const electron = require('electron');
+const {ipcRenderer} = electron;
+        
+const authToken = ipcRenderer.sendSync('send:token', 'ping');
+const ip = ipcRenderer.sendSync('send:ip', 'ping');
+const client = ipcRenderer.sendSync('send:client', 'ping');
+const org = ipcRenderer.sendSync('send:org', 'ping');
+const warehouseId = ipcRenderer.sendSync('send:warehouse', 'ping');
+
+const codeInput = document.getElementById('productcode');
+const srcCode = document.getElementById('srcCode');
+const srcName = document.getElementById('srcName');
+const sendLine = document.getElementById('sendLine');
+
+var idProd, idUDM, bpID, instAttr_ID, instAttr_Name, keyCode, keyinstAttr, count, flag_=0;
+
+srcCode.addEventListener('click', function (e) {
+    flag_=0;
+        var temp = document.getElementById('productcode').value;
+        if(temp.includes("_")){
+            for (var i = 0; i < temp.length; i++) {
+                if(temp[i] == '_' && flag_==0){
+                    count = i;
+                    flag_=1;
+                }
+            }
+            keyCode= temp.slice(0, count);
+            keyinstAttr = temp.slice(count+1, temp.length);
+            console.log(keyinstAttr);
+        }
+        searchByCode();
+    
+});
+
+codeInput.addEventListener('keypress', function (e) {
+    flag_=0;
+    if (e.key === 'Enter') {
+        var temp = document.getElementById('productcode').value;
+        if(temp.includes("_")){
+            for (var i = 0; i < temp.length; i++) {
+                if(temp[i] == '_' && flag_==0){
+                    count = i;
+                    flag_=1;
+                }
+            }
+            keyCode= temp.slice(0, count);
+            keyinstAttr = temp.slice(count+1, temp.length);
+            console.log(keyinstAttr);
+        }
+        searchByCode();
+    }
+});
+srcName.addEventListener('click', searchByName);
+sendLine.addEventListener('click', sendOrderLine);
+
+getProducts();
+
+function getProducts(){
+    
+    fetch('http://'+ip+'/api/v1/windows/product' ,{
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + authToken
+                }
+            }).then(res => {
+                return res.json()
+                })
+                .then(data => {
+                    console.log(data);
+                    
+                    var optionList = data['window-records'];
+                    
+                    var container = document.getElementById('product'),
+                    i = 0,
+                    len = optionList.length,
+                    dl = document.createElement('datalist');
+                    dl.id = 'products';
+                    for (; i < len; i += 1) {
+                        var option = document.createElement('option');
+                        option.value = optionList[i].Name;
+                        dl.appendChild(option);
+                    }
+                    
+                    container.appendChild(dl);
+                    document.getElementById('productcode').focus();
+                    
+                    
+                })
+                .catch(error => console.log(error))
+
+}
+
+
+function searchByCode(){
+
+var idCode = document.getElementById('productcode').value;
+document.getElementById('productcode').value = '';
+document.getElementById('product').value = '';
+document.getElementById('productcode').value = '';
+document.getElementById('attributo').value = '';
+
+fetch(`http://`+ip+`/api/v1/models/m_product?$filter=Value eq '`+idCode+`'` ,{
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + authToken
+                }
+            }).then(res => {
+                return res.json()
+                })
+                .then(data => {
+                    console.log(data);
+                    a = data['records'];
+                    
+                    a.forEach((record) => {
+                        
+                        document.getElementById('codice').value = record.Value;
+                        document.getElementById('codice').readOnly = true;
+                        document.getElementById('nome').value = record.Name;
+                        document.getElementById('udm').value = record.C_UOM_ID.identifier;
+                        document.getElementById('udm').readOnly = true;
+                        document.getElementById('qty').value = 1; 
+                        idProd = record.id;
+                        idUDM = record.C_UOM_ID.id;
+                        instAttr_ID = record.M_AttributeSet_ID.id;
+                        
+                    });
+                    getInstAttr();
+                    
+                })
+                .catch(error => console.log(error))
+
+}
+
+function searchByName(){
+
+    var idName = document.getElementById('product').value;
+    document.getElementById('productcode').value = '';
+    document.getElementById('product').value = '';
+
+fetch(`http://`+ip+`/api/v1/models/m_product?$filter=Name eq '`+idName+`'` ,{
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + authToken
+                }
+            }).then(res => {
+                return res.json()
+                })
+                .then(data => {
+                    console.log(data);
+                    a = data['records'];
+                    
+                    a.forEach((record) => {
+                        
+                        document.getElementById('codice').value = record.Value;
+                        document.getElementById('codice').readOnly = true;
+                        document.getElementById('nome').value = record.Name;
+                        document.getElementById('udm').value = record.C_UOM_ID.identifier;
+                        document.getElementById('udm').readOnly = true;
+                        document.getElementById('qty').value = 1; 
+                        idProd = record.id;
+                        idUDM = record.C_UOM_ID.id;
+                        instAttr_ID = record.M_AttributeSet_ID.id;
+                        console.log(instAttr_ID);
+                        
+                        
+                    });
+                    getInstAttr();
+                    
+                })
+                .catch(error => console.log(error))
+
+}
+
+function sendOrderLine(){
+    
+    instAttr_Name = document.getElementById('attributo').value;
+    var instAttrSeries = document.querySelectorAll('[value="'+instAttr_Name+'"]');
+    var instAttrSeries_ID = instAttrSeries[0].getAttribute("data-id");
+
+    var Name = document.getElementById('nome').value;
+    var Description = document.getElementById('desc').value;
+    var QtyEntered = document.getElementById('qty').value;
+    var C_UOM_ID = document.getElementById('udm').value;
+    var docID = ipcRenderer.sendSync('send:docid:ODV', 'ping');
+    
+    BodyData = {
+                                   
+                                    "AD_Client_ID" : { "id": client },
+                                    "AD_Org_ID" : { "id": org },
+                                    "M_Product_ID" : { "id": idProd },
+                                    "Name" : Name,
+                                    "Description": Description,
+                                    "M_Warehouse_ID" : { "id": warehouseId },
+                                    "QtyEntered" : QtyEntered,
+                                    "C_UOM_ID": {"id": idUDM },
+                                    "M_AttributeSetInstance_ID": {"id": instAttrSeries_ID},
+                                    "QtyReserved": 0,
+                                    "QtyDelivered": 0,
+                                    "QtyInvoiced": 0
+                                };
+        console.log(BodyData);
+                                
+                    fetch('http://'+ip+'/api/v1/windows/sales-order/tabs/ordine-odv00/'+docID+'/linee-ordine' ,{
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + authToken
+                    },
+                    body: JSON.stringify(BodyData)
+                    }).then(res => {
+                        return res.json()
+                    })
+                    .then(data => {
+                        console.log(data);
+                        alert("Linea Ordine aggiunta!");
+                    })
+                    .catch(error => console.log(error))
+    
+}
+
+function getInstAttr(){
+    
+    fetch(`http://`+ip+`/api/v1/models/m_attributesetinstance?$filter=m_attributeset_id eq `+instAttr_ID ,{
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + authToken
+                }
+            }).then(res => {
+                return res.json()
+                })
+                .then(data => {
+                    console.log(data);
+                    
+                    var optionList = data['records'];
+                    
+                    var container = document.getElementById('attributo'),
+                    i = 0,
+                    len = optionList.length,
+                    dl = document.createElement('datalist');
+                    dl.id = 'attributes';
+                    for (; i < len; i += 1) {
+                        var option = document.createElement('option');
+                        option.value = optionList[i].Description;
+                        option.setAttribute("data-id", optionList[i].id);
+                        dl.appendChild(option);
+                    }
+                    container.appendChild(dl);
+                    if(flag_==1){
+                        container.value = keyinstAttr;
+                    }
+                    
+                })
+                .catch(error => console.log(error))
+
+}
+
+
+
+
+
+
+
+
+</script>
+
+</body>
+</html>

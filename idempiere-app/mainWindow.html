@@ -174,12 +174,10 @@
                     
                     a.forEach((record) => {
                         var bp = record.C_BPartner_ID;
-                        var org = record.AD_Org_ID
-                        var client = record.AD_Client_ID
+                        
                         
                         ipcRenderer.send('save:bpartner', bp['identifier']);
-                        ipcRenderer.send('save:org', org['identifier']);
-                        ipcRenderer.send('save:client', client['identifier']);
+                        
                         
                     });
                     

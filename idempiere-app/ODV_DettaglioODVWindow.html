@@ -19,7 +19,7 @@
         <i style=" left: 420px" class="fas fa-arrow-alt-circle-left" id="back_btn"></i>
       </label>
       <div class="left_area">
-        <h3>Ordini di Vendita > <span>Vedi ODV</span></h3>
+        <h3>Ordini di Vendita > <span>Dett ODV</span></h3>
       </div>
       <div class="right_area">
         <a href="#" id="logout_btn" class="logout_btn">Logout</a>
@@ -41,12 +41,7 @@
         <table id = "myTable1">
         <thead>
             <tr>
-                <th><input type="text" id="myInputDoc" onkeyup="filterDoc()" placeholder="Filtra per Doc" title="Scrivi un nome"></th>
-                <th><input type="text" id="myInputClient" onkeyup="filterClient()" placeholder="Filtra per Cliente" title="Scrivi un nome"></th>
-                <th><input type="text" id="myInputDescription" onkeyup="filterDesc()" placeholder="Filtra per Desc." title="Scrivi un nome"></th>
-                <th><input type="text" id="myInputRes" onkeyup="filterAct()" placeholder="Filtra per Attività" title="Scrivi un nome"></th>
-                <th><input type="text" id="myInputDate" onkeyup="filterDate()" placeholder="Filtra per Data" title="Scrivi un nome"></th>
-                <th><i style="color: #22242A;" class="fas fa-external-link-alt"></i></th>
+                <th>ORDINE DI VENDITA</th>
             </tr>
         </thead>
         </table>
@@ -65,20 +60,49 @@
     <tbody id ="opportunityBody">
     </tbody>
   </table>
+  
+      <table style="margin-top: 200px;" id = "myTable1">
+        <thead>
+            <tr>
+                <th>LINEE ORDINE</th>
+            </tr>
+        </thead>
+        </table>
+        
+        <table id="myTableOrd2" class="table-sortable">
+        
+    <thead>
+      <tr>
+        <th>Prodotto</th>
+        <th>Nome</th>
+        <th>Udm</th>
+        <th>Quantità</th>
+        <th>Attributo di Istanza</th>
+        <th id="addRowLine"><i style="color: green;" class="fas fa-plus"></i></th>
+      </tr>
+    </thead>
+    <tbody id ="opportunityBody2">
+    </tbody>
+  </table>
     </div>
-    
+    </div>
     <script>
         const electron = require('electron');
         const {ipcRenderer} = electron;
         
         const authToken = ipcRenderer.sendSync('send:token', 'ping');
         const ip = ipcRenderer.sendSync('send:ip', 'ping');
-        
+        const docN = ipcRenderer.sendSync('send:docN', 'ping');
+        const addRowLine = document.getElementById('addRowLine');
+        var docID;
         getODV();
+        
         
         
         const back = document.getElementById('back_btn');
         const ord = document.getElementById('VediODV');
+        
+        addRowLine.addEventListener('click', openAddWindow);
         
         back.addEventListener('click', viewMainPage);
         ord.addEventListener('click', viewVediODVPage);
@@ -110,7 +134,7 @@
         
         function getODV(){
             
-            fetch('http://'+ip+'/api/v1/models/c_order' ,{
+            fetch(`http://`+ip+`/api/v1/models/c_order?$filter=DocumentNo eq '`+docN+`'` ,{
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -131,7 +155,10 @@
                         var bPartner = record.C_BPartner_ID;
                         //console.log(leadStatus);
                         var act = record.C_Activity_ID;
-                        
+                        docID = record.id;
+                        ipcRenderer.send('save:docid:ODV', docID);
+                        //console.log(docID);
+                        getODVLines();
                         var row = `<tr style="cursor: pointer;" class="dataRow">
 							<td>${record.DocumentNo}</td>
 							<td>${bPartner['identifier']}</td>
@@ -140,6 +167,53 @@
 							<td>${record.DateOrdered}</td>
 							<td><a href="#" id="iconLinkWebUrl"><i class="fas fa-external-link-alt"></i></td>
 					  </tr>`;
+					  
+					  table.innerHTML += row;
+					  
+					  var table = document.getElementById('myTableOrd');
+                      for(var i = 0; i < table.rows.length; i++) {
+                        table.rows[i].addEventListener('dblclick', function() {
+                                msg = this.cells[0].innerHTML;
+                            ipcRenderer.send('ODV:detailwindow');
+                            //alert(msg);
+                        });
+                      }
+                    });
+                    
+                    
+                })
+                .catch(error => console.log(error))
+        }
+        
+        function getODVLines(){
+        
+            fetch(`http://`+ip+`/api/v1/models/c_order/`+docID+`?$expand=c_orderline` ,{
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + authToken
+                }
+            }).then(res => {
+                return res.json()
+                })
+                .then(data => {
+                    console.log(data);
+                    
+                    //var pData = JSON.parse(data)
+                    
+                    a = data['c_orderline'];
+                    //console.log(a);
+                    a.forEach((record) => {
+                        var table = document.getElementById('opportunityBody2');
+                        
+                        var row = `<tr style="cursor: pointer;" class="dataRow2">
+							<td>${record.M_Product_ID.identifier}</td>
+							<td>${record.Name}</td>
+							<td>${record.C_UOM_ID.identifier}</td>
+							<td>${record.QtyEntered}</td>
+							<td>${record.M_AttributeSetInstance_ID.identifier}</td>
+							<td><a href="#" id="iconLinkWebUrl"><i class="fas fa-external-link-alt"></i></td>
+                            </tr>`;
 					  
 					  table.innerHTML += row;
 					  
@@ -157,102 +231,12 @@
                     
                 })
                 .catch(error => console.log(error))
+        
         }
         
-            function filterDoc() {
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("myInputDoc");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTableOrd");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }       
-  }
-}
-
-function filterClient() {
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("myInputClient");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTableOrd");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[1];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }       
-  }
-}
-
-function filterDesc() {
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("myInputDescription");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTableOrd");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[2];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }       
-  }
-}
-
-function filterAct() {
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("myInputRes");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTableOrd");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[3];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }       
-  }
-}
-
-function filterDate() {
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("myInputDate");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTableOrd");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[4];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }       
-  }
-}
+        function openAddWindow(){
+            ipcRenderer.send('ODV:sendrowlinewindow');
+        }
     
     </script>
 

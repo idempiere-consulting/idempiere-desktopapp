@@ -149,6 +149,8 @@
         btn.addEventListener('click', authToken);
         var selectRole,selectOrg,selectWarehouse, selectLang;
         
+        var idUDM;
+        
         var selectClient = document.getElementById("selectClient");
         
         var clients = data.clients;
@@ -314,6 +316,9 @@
                     if(authToken !== ''){
                         ipcRenderer.send('save:token', authToken);
                         ipcRenderer.send('save:ip', ip);
+                        ipcRenderer.send('save:warehouse', warehouseId);
+                        ipcRenderer.send('save:org', organizationId);
+                        ipcRenderer.send('save:client', clientId);
                         
                         const page = 2;
                         ipcRenderer.send('page:change', page);

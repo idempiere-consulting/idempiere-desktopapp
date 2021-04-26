@@ -402,6 +402,10 @@ th{
     width: 20%;
 }
 
+#myTableOrd2 th, td {
+    width: 20%;
+}
+
 #myTable1 th, td {
     width: 20%;
 }
