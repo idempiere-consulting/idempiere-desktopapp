@@ -176,19 +176,38 @@
                     //console.log(a);
                     a.forEach((record) => {
                         var table = document.getElementById('leadBody');
-                        var leadStatus = record.LeadStatus;
+                        var leadStatus = '';
+                        if(record.LeadStatus == undefined){
+                            leadStatus = '';
+                        }
+                        else{
+                            leadStatus = record.LeadStatus.identifier;
+                        }
                         //console.log(leadStatus);
-                        var salesRep = record.SalesRep_ID;
+                        var salesRep = '';
+                        if(record.SalesRep_ID == undefined){
+                            salesRep = '';
+                        }
+                        else{
+                            salesRep = record.SalesRep_ID.identifier;
+                        }
+                        
                         //console.log(salesRep);
-                        var campaign = record.C_Campaign_ID;
+                        var campaign = '';
+                        if(record.C_Campaign_ID == undefined){
+                            campaign = '';
+                        }
+                        else{
+                            campaign = record.C_Campaign_ID.identifier;
+                        }
                         //console.log(campaign);
                         var row = `<tr class="dataRow"> 
 							<td>${record.Name}</td>
 							<td>${record.Phone}</td>
 							<td>${record.EMail}</td>
-							<td>${leadStatus['identifier']}</td>
-							<td>${salesRep['identifier']}</td>
-							<td>${campaign['identifier']}</td>
+							<td>${leadStatus}</td>
+							<td>${salesRep}</td>
+							<td>${campaign}</td>
 							<td><a href="#" id="iconLinkWebUrl"><i class="fas fa-external-link-alt"></i></td>
 					  </tr>`;
 					  

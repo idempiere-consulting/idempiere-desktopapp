@@ -57,6 +57,7 @@
         
         const authToken = ipcRenderer.sendSync('send:token', 'ping');
         const ip = ipcRenderer.sendSync('send:ip', 'ping');
+        const clientid = ipcRenderer.sendSync('send:client', 'ping');
         console.log(authToken);
         
         getUserData();
@@ -159,7 +160,7 @@
             const userName = ipcRenderer.sendSync('send:user', 'ping');
             console.log(userName);
             
-            fetch(`http://`+ip+`/api/v1/models/ad_user?$filter=Name eq '`+userName+`'` ,{
+            fetch(`http://`+ip+`/api/v1/models/ad_user?$filter= AD_Client_ID eq `+clientid+` and Name eq  '`+userName+`'` ,{
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

@@ -73,7 +73,7 @@
         
         const authToken = ipcRenderer.sendSync('send:token', 'ping');
         const ip = ipcRenderer.sendSync('send:ip', 'ping');
-        
+        const clientid = ipcRenderer.sendSync('send:client', 'ping');
         getODV();
         
         
@@ -110,7 +110,7 @@
         
         function getODV(){
             
-            fetch('http://'+ip+'/api/v1/models/c_order' ,{
+            fetch(`http://`+ip+`/api/v1/models/c_order?$filter= AD_Client_ID eq `+clientid+` and IsSOTrx eq true` ,{
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -130,13 +130,19 @@
                         var table = document.getElementById('opportunityBody');
                         var bPartner = record.C_BPartner_ID;
                         //console.log(leadStatus);
-                        var act = record.C_Activity_ID;
+                        var activity = '';
+                        if(record.C_Activity_ID == undefined){
+                            activity = '';
+                        }
+                        else{
+                            activity = record.C_Activity_ID.identifier;
+                        }
                         
                         var row = `<tr style="cursor: pointer;" class="dataRow">
 							<td>${record.DocumentNo}</td>
 							<td>${bPartner['identifier']}</td>
 							<td></td>
-							<td>${act['identifier']}</td>
+							<td>${activity}</td>
 							<td>${record.DateOrdered}</td>
 							<td><a href="#" id="iconLinkWebUrl"><i class="fas fa-external-link-alt"></i></td>
 					  </tr>`;
