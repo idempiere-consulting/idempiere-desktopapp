@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Idempiere App</title>
+    <link rel="stylesheet" href="assets/css/mainWindow.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+  </head>
+  <body>
+
+    <input type="checkbox" id="check">
+    <!--header area start-->
+    <header>
+      <label for="check">
+        <i style=" left: 375px" class="fas fa-bars" id="sidebar_btn"></i>
+      </label>
+      <label>
+        <i style=" left: 430px" class="fas fa-arrow-alt-circle-left" id="back_btn"></i>
+      </label>
+      <div class="left_area">
+        <h3>Ordini di Vendita > <span>Crea ODV</span></h3>
+      </div>
+      <div class="right_area">
+        <a href="#" id="logout_btn" class="logout_btn">Logout</a>
+      </div>
+    </header>
+    <!--header area end-->
+    <!--sidebar start-->
+    <div class="sidebar">
+      <center>
+        <img src="assets/images/logo.png" class="profile_image" alt="" width="200" height="200">
+        <h4>Admin</h4>
+      </center>
+      <a href="#" id="VediODV"><i class="fas fa-clipboard-list"></i><span>Vedi ODV</span></a>
+      <a href="#" id="CreaODV"><i class="fas fa-file-signature"></i><span>Crea ODV</span></a>
+    </div>
+    <!--sidebar end-->
+
+    <div class="content">
+        <div id="createPage" "overflow-y: auto;">
+        <form>
+
+            <label class="formLabel" for="fname">Business Partner</label>
+            <input type="text" id="fname" name="firstname" placeholder="Il Partner di Fatturazione">
+
+            <label class="formLabel" for="lname">Tipo Documento</label>
+            <input type="text" id="lname" name="lastname" placeholder="Il Tipo Documento Obiettivo per la conversione dei documenti">
+
+            <label class="formLabel" for="priority">Data Ordine</label>
+            <input type="date" id="data1" name="data1" placeholder="">
+            
+            <label class="formLabel" for="requestType">Data Prevista Consegna</label>
+            <input type="date" id="data2" name="data2" placeholder="">
+            
+            <label class="formLabel" for="fname">Listino Prezzi</label>
+            <input type="text" id="explain" name="listino" placeholder="Identificatore unico di un listino prezzi">
+            
+            <label class="formLabel" for="fname">Rappresentante di Vendita</label>
+            <input type="text" id="explain2" name="salesrep" placeholder="">
+            
+            <div style="margin-bottom: 22px;" id="caseRequest">
+            </div>
+
+    <input type="submit" id="sendBtn" value="Submit">
+
+  </form>
+  </div>
+    </div>
+    
+    <script>
+        const electron = require('electron');
+        const {ipcRenderer} = electron;
+        
+        const authToken = ipcRenderer.sendSync('send:token', 'ping');
+        const ip = ipcRenderer.sendSync('send:ip', 'ping');
+        const clientid = ipcRenderer.sendSync('send:client', 'ping');
+        
+        
+        const back = document.getElementById('back_btn');
+        const ord = document.getElementById('VediODV');
+        const creaOrd = document.getElementById('CreaODV');
+        
+        back.addEventListener('click', viewMainPage);
+        ord.addEventListener('click', viewVediODVPage);
+        creaOrd.addEventListener('click', viewCreaODVPage);
+        
+        const logout = document.getElementById('logout_btn');
+        logout.addEventListener('click', viewLoginPage);
+        
+        function viewLoginPage(e){
+            e.preventDefault();
+            const page = 0;
+            //console.log(page);
+            ipcRenderer.send('delete:token');
+            ipcRenderer.send('page:change', page);
+        }
+        
+        function viewMainPage(e){
+            e.preventDefault();
+            const page = 2;
+            //console.log(page);
+            ipcRenderer.send('page:change', page);
+        }
+        
+        function viewVediODVPage(e){
+            e.preventDefault();
+            const page = 1;
+            //console.log(page);
+            ipcRenderer.send('page:ODV', page);
+        }
+        
+        function viewCreaODVPage(e){
+            e.preventDefault();
+            const page = 2;
+            //console.log(page);
+            ipcRenderer.send('page:ODV', page);
+        }
+        
+
+    
+    </script>
+
+  </body>
+</html>

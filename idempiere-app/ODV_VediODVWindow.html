@@ -79,9 +79,11 @@
         
         const back = document.getElementById('back_btn');
         const ord = document.getElementById('VediODV');
+        const creaOrd = document.getElementById('CreaODV');
         
         back.addEventListener('click', viewMainPage);
         ord.addEventListener('click', viewVediODVPage);
+        creaOrd.addEventListener('click', viewCreaODVPage);
         
         const logout = document.getElementById('logout_btn');
         logout.addEventListener('click', viewLoginPage);
@@ -104,6 +106,13 @@
         function viewVediODVPage(e){
             e.preventDefault();
             const page = 1;
+            //console.log(page);
+            ipcRenderer.send('page:ODV', page);
+        }
+        
+        function viewCreaODVPage(e){
+            e.preventDefault();
+            const page = 2;
             //console.log(page);
             ipcRenderer.send('page:ODV', page);
         }

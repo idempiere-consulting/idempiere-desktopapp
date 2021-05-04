@@ -13,7 +13,7 @@ let userClient;
 let userOrg;
 let HDRes;
 let ip;
-let clientId;
+let clientId; //JSON
 let token1;
 let docN;
 let warehouseId;
@@ -429,7 +429,7 @@ ipcMain.on('page:ServiceP', function(e, page){
 });
 
 ipcMain.on('page:ODV', function(e, page){
-    //console.log(page);
+    console.log(page);
     switch(page){
         case 1:
             mainWindow.loadURL(url.format({
@@ -440,7 +440,7 @@ ipcMain.on('page:ODV', function(e, page){
             break;
         case 2:
             mainWindow.loadURL(url.format({
-            pathname: path.join(__dirname, 'ODV_DettaglioODVWindow.html'),
+            pathname: path.join(__dirname, 'ODV_CreaODVWindow.html'),
             protocol: 'file:',
             slashes: true
             }));
