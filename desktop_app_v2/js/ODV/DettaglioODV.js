@@ -87,8 +87,9 @@ function getODVLines() {
 
             a = data['c_orderline'];
             console.log(a);
+            var table = document.getElementById('opportunityBody2');
             a.forEach((record) => {
-                var table = document.getElementById('opportunityBody2');
+
 
                 var MProdcutidentifier = '';
                 var Name = '';
@@ -114,7 +115,6 @@ function getODVLines() {
 
 
                 var row = `<tr class="dataRow2">
-
 							<td>${MProdcutidentifier}</td>
 							<td>${Name}</td>
 							<td>${UOMindentifier}</td>
@@ -129,10 +129,37 @@ function getODVLines() {
                             </td>
 							<td>${MAttributeIdentifier}</td>
                             <td> <a onclick="DeleteODV(${record.id})" href="#" id="trashODV"> <i style="color: #cc0000;" class="fas fa-2x fa-trash-alt"></i>  </a></td>
+                            <td style="">${record.id}</td>
                         </tr>`;
+
 
                 table.innerHTML += row;
             });
+            var switching = true;
+            var shouldSwitch;
+            var x, y, index;
+
+            while (switching) {
+                switching = false;
+                console.log(table.rows.length);
+                for (index = 0; index < table.rows.length; index++) {
+                    shouldSwitch = false;
+                    console.log(table.rows[index]);
+                    x = table.rows[index].cells[6];
+                    y = table.rows[index + 1].cells[6];
+                    if (x.innerHTML < y.innerHTML) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+                if (shouldSwitch) {
+                    table.rows[index].parentNode.insertBefore(table.rows[index + 1], table.rows[index]);
+                    switching = true;
+                }
+            }
+
+
+
         })
         .catch(error => console.log(error))
 
@@ -142,8 +169,8 @@ function getODVLines() {
 // DELETE ODV
 
 function DeleteODV(idProduct) {
-
-    if (confirm("Sei sicuro di voler elimare la linea d'ordine?")) {
+    console.log(idProduct);
+    if (confirm("Sei sicuro di voler eliminare la linea d'ordine?")) {
 
 
         fetch(`http://` + ip + `/api/v1/models/c_orderline/` + idProduct, {
@@ -152,6 +179,8 @@ function DeleteODV(idProduct) {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + authToken
                 }
+            }).then(data => {
+                console.log(data);
             })
             .catch(error => console.log(error))
         location.reload();

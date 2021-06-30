@@ -69,6 +69,9 @@ function getODV() {
                         ipcRenderer.send('page:ODV', 3);
                     });
                 }
+
+
+
             });
 
 
@@ -85,7 +88,8 @@ function filterDoc() {
     for (i = 0; i < tr.length; i++) {
         td = tr[i].getElementsByTagName("td")[0];
         if (td) {
-            txtValue = td.textContent || td.innerText;  console.log(txtValue + filter);
+            txtValue = td.textContent || td.innerText;
+            console.log(txtValue + filter);
             if (txtValue.toUpperCase().indexOf(filter) > -1) {
                 tr[i].style.display = "";
             } else {
