@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Login2</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+
+
+
+    <link rel="stylesheet" type="text/css" href="../../vendor_login/bootstrap_login/css/bootstrap.min.css">
+
+    <link rel="stylesheet" type="text/css" href="../../assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="../../assets/fonts/iconic/css/material-design-iconic-font.min.css">
+
+    <link rel="stylesheet" type="text/css" href="../../vendor_login/animate/animate.css">
+
+    <link rel="stylesheet" type="text/css" href="../../vendor_login/css-hamburgers/hamburgers.min.css">
+
+    <link rel="stylesheet" type="text/css" href="../../vendor_login/animsition/css/animsition.min.css">
+
+    <link rel="stylesheet" type="text/css" href="../../vendor_login/select2/select2.min.css">
+
+    <link rel="stylesheet" type="text/css" href="../../vendor_login/daterangepicker/daterangepicker.css">
+
+    <link rel="stylesheet" type="text/css" href="../../assets/css/util_login.css">
+    <link rel="stylesheet" type="text/css" href="../../assets/css/main_login.css">
+
+</head>
+
+<body>
+
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100 p-t-0 p-b-20">
+                <form class="login100-form validate-form">
+                    <span class="login100-form-avatar">
+						<img src="../../assets/images/logo.png" alt="AVATAR">
+					</span>
+
+                    <div class="Select2">
+                        <select id="selectClient" class="Select2Login m-b-40 m-t-40" aria-label="Default select example">
+                            <option value="" disabled selected>Seleziona il Client</option>
+                        </select>
+                    </div>
+
+                    <div class="Select2">
+                        <select id="selectRole" name="selezionaRuolo" class="Select2Login m-b-40" aria-label="Default select example">
+                            <option value="" disabled selected>Seleziona il Ruolo</option>
+                        </select>
+                    </div>
+
+                    <div class="Select2">
+                        <select name="selezionaOrganizzazione" id="selectOrg" class="Select2Login m-b-40" aria-label="Default select example">
+                            <option value="" disabled selected>Seleziona L'organizzazione</option>
+                        </select>
+                    </div>
+
+                    <div class="Select2">
+                        <select name="selezionaMagazzino" id="selectWarehouse" class="Select2Login m-b-40" aria-label="Default select example">
+                            <option value="" disabled selected>Seleziona il Magazzino</option>
+                        </select>
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                        <button id="btn_login_jslogic" class="login100-form-btn">
+							Login
+						</button>
+                    </div>
+
+                    <div>
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="dropDownSelect1"></div>
+    <script>
+        if (typeof module === 'object') {
+            window.module = module;
+            module = undefined;
+        }
+    </script>
+
+    <script src="../../vendor_login/jquery_login/jquery-3.2.1.min.js"></script>
+
+    <!-- <script src="vendor_login/animsition/js/animsition.min.js"></script>
+
+    <script src="vendor_login/bootstrap_login/js/popper.js"></script>
+    <script src="vendor_login/bootstrap_login/js/bootstrap.min.js"></script>
+
+    <script src="vendor_login/select2/select2.min.js"></script>
+
+    <script src="vendor_login/daterangepicker/moment.min.js"></script>
+    <script src="vendor_login/daterangepicker/daterangepicker.js"></script>
+
+    <script src="vendor_login/countdowntime/countdowntime.js"></script>
+ -->
+
+
+
+
+
+    <script src="http://rezitech.github.io/stash/stash.min.js"></script>
+    <script src="../../assets/js/main_login.js"></script>
+    <script src="../../js/logIn2.js"></script>
+
+
+    <script>
+        if (window.module) module = window.module;
+    </script>
+
+</body>
+
+</html>
+
+<script>
+    const electron = require('electron');
+
+    const {
+        ipcRenderer
+    } = electron;
+    //Take the clients 
+    const clients = ipcRenderer.sendSync('send:clients', 'ping');
+    //Set the bnt event
+    const btn = document.getElementById('btn_login_jslogic');
+    btn.addEventListener('click', authToken());
+
+    //Fill tag select with the infomation in the clients variable 
+    var selectClient = document.getElementById("selectClient");
+    var length = clients.length;
+    for (var i = 0; i < length; i++) {
+        var opt = document.createElement('option');
+        opt.value = clients[i].id;
+        opt.innerHTML = clients[i].name;
+        selectClient.appendChild(opt);
+    }
+
+    //When the select change call the funtion to fill others select 
+    selectClient.onchange = async function() {
+        //Set the clientId selected
+        var clientId = this.options[this.selectedIndex].getAttribute("value");
+        ipcRenderer.sendSync('save:clientId', clientId);
+        console.log(clientId);
+        stash.set('clientid', clientId);
+
+        await authRoles();
+    };
+</script>
