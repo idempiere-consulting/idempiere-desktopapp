@@ -12,7 +12,7 @@ console.log(clientid, authToken, ip);
 
 function getODV() {
 
-    fetch(`http://` + ip + `/api/v1/models/c_order?$filter= AD_Client_ID eq ` + clientid + ` and IsSOTrx eq true and DocStatus eq 'IP' `, {
+    fetch(`http://` + ip + `/api/v1/models/c_order?$filter= AD_Client_ID eq ` + clientid + ` and IsSOTrx eq true `, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

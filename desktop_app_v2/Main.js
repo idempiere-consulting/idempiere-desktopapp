@@ -132,6 +132,7 @@ function createODVWindow() {
 
 }
 
+
 // Crate a new window 
 function showODVDetailsWindow() {
     secondaryWindow = new BrowserWindow({
@@ -445,6 +446,10 @@ ipcMain.on('pageODV:orderLineWindow', function(e, arg) {
 
 ipcMain.on('page:ODV:odv_details_window', function(e, arg) {
     showODVDetailsWindow();
+});
+
+ipcMain.on('page:ODV:odv_create_window', function(e, arg) { 
+    createODVWindow();
 });
 
 
