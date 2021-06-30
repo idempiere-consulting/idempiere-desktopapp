@@ -62,7 +62,11 @@
         
         getUserData();
         
+        const permission = ipcRenderer.sendSync('send:permission', 'ping');
+        console.log(permission);
 
+
+      
         
         const crm = document.getElementById('CRM');
         crm.addEventListener('click', viewCRMPage);
@@ -175,8 +179,8 @@
                     
                     a.forEach((record) => {
                         var bp = record.C_BPartner_ID;
-                        
-                        
+                        var role=record.lit_mobilerole;
+                        ipcRenderer.send('save:permission',role);
                         ipcRenderer.send('save:bpartner', bp['identifier']);
                         
                         

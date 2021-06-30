@@ -1,104 +1,112 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <title>Idempiere App</title>
     <link rel="stylesheet" href="assets/css/mainWindow.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
-  </head>
-  <body>
+</head>
+
+<body>
 
     <input type="checkbox" id="check">
     <!--header area start-->
     <header>
-      <label for="check">
+        <label for="check">
         <i style=" left: 285px" class="fas fa-bars" id="sidebar_btn"></i>
       </label>
-      <label>
+        <label>
         <i style=" left: 340px" class="fas fa-arrow-alt-circle-left" id="back_btn"></i>
       </label>
-      <div class="left_area">
-        <h3>CRM > <span>Appuntamenti</span></h3>
-      </div>
-      <div class="right_area">
-        <a href="#" id="logout_btn" class="logout_btn">Logout</a>
-      </div>
+        <div class="left_area">
+            <h3>CRM > <span>Appuntamenti</span></h3>
+        </div>
+        <div class="right_area">
+            <a href="#" id="logout_btn" class="logout_btn">Logout</a>
+        </div>
     </header>
     <!--header area end-->
     <!--sidebar start-->
     <div class="sidebar">
-      <center>
-        <img src="assets/images/logo.png" class="profile_image" alt="" width="200" height="200">
-        <h4>Admin</h4>
-      </center>
-      <a href="#" id="Leads"><i class="fas fa-user"></i><span>Leads</span></a>
-      <a href="#" id="Opportunità"><i class="fas fa-hand-holding-usd"></i><span>Opportunità</span></a>
-      <a href="#" id="Bacheca"><i class="fas fa-list-alt"></i><span>Bacheca</span></a>
-      <a href="#" id="Appuntamenti"><i class="fas fa-address-book"></i><span>Appuntamenti</span></a>
+        <center>
+            <img src="assets/images/logo.png" class="profile_image" alt="" width="200" height="200">
+            <h4>Admin</h4>
+        </center>
+        <a href="#" id="Leads"><i class="fas fa-user"></i><span>Leads</span></a>
+        <a href="#" id="Opportunità"><i class="fas fa-hand-holding-usd"></i><span>Opportunità</span></a>
+        <a href="#" id="Bacheca"><i class="fas fa-list-alt"></i><span>Bacheca</span></a>
+        <a href="#" id="Appuntamenti"><i class="fas fa-address-book"></i><span>Appuntamenti</span></a>
     </div>
     <!--sidebar end-->
 
     <div class="content"></div>
-    
+
     <script>
         const electron = require('electron');
-        const {ipcRenderer} = electron;
-        
+        const {
+            ipcRenderer
+        } = electron;
+
         const leads = document.getElementById('Leads');
         const opp = document.getElementById('Opportunità');
         const bach = document.getElementById('Bacheca');
         const appnt = document.getElementById('Appuntamenti');
         const back = document.getElementById('back_btn');
-        
+
         leads.addEventListener('click', viewLeadsPage);
         opp.addEventListener('click', viewOppPage);
         bach.addEventListener('click', viewBachPage);
         appnt.addEventListener('click', viewAppntPage);
         back.addEventListener('click', viewMainPage);
-        
+
         const logout = document.getElementById('logout_btn');
         logout.addEventListener('click', viewLoginPage);
-        
-        function viewLoginPage(e){
+
+        function viewLoginPage(e) {
             e.preventDefault();
             const page = 0;
             //console.log(page);
             ipcRenderer.send('delete:token');
             ipcRenderer.send('page:change', page);
         }
-        
-        function viewLeadsPage(e){
+
+        function viewLeadsPage(e) {
             e.preventDefault();
             const page = 1;
             //console.log(page);
             ipcRenderer.send('page:CRM', page);
         }
-        function viewOppPage(e){
+
+        function viewOppPage(e) {
             e.preventDefault();
             const page = 2;
             //console.log(page);
             ipcRenderer.send('page:CRM', page);
         }
-        function viewBachPage(e){
+
+        function viewBachPage(e) {
             e.preventDefault();
             const page = 3;
             //console.log(page);
             ipcRenderer.send('page:CRM', page);
         }
-        function viewAppntPage(e){
+
+        function viewAppntPage(e) {
             e.preventDefault();
             const page = 4;
             //console.log(page);
             ipcRenderer.send('page:CRM', page);
         }
-        function viewMainPage(e){
+
+        function viewMainPage(e) {
             e.preventDefault();
             const page = 2;
             //console.log(page);
             ipcRenderer.send('page:change', page);
         }
-    
     </script>
 
-  </body>
+</body>
+
 </html>
