@@ -110,6 +110,7 @@ function getProducts() {
             len = optionList.length;
             dataListProduct = document.createElement('datalist');
             dataListProduct.id = 'products';
+            dataListProduct.size = '20';
             for (let i = 0; i < len; i += 1) {
                 var option = document.createElement('option');
                 option.value = optionList[i].Name;

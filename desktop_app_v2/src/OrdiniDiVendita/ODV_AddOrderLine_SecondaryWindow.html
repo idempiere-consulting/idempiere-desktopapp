@@ -116,7 +116,7 @@
             border: 1px solid lightgrey;
         }
         
-        .test {
+        .div-quantity {
             display: flex;
             flex-flow: row nowrap;
             justify-content: center;
@@ -124,7 +124,7 @@
             align-content: center;
         }
         
-        .test a {
+        .div-quantity a {
             width: 10%;
             margin-bottom: 20px;
             padding: 12px;
@@ -133,11 +133,11 @@
             text-align: center;
         }
         
-        .test a :hover {
+        .div-quantity a :hover {
             color: red;
         }
         
-        .test input {
+        .div-quantity input {
             text-align: center;
         }
         
@@ -188,12 +188,12 @@
                             <label for="nome"><i class="fa fa-folder-open"></i> Nome</label>
                             <input type="text" id="nome" name="nome" placeholder="">
                             <label for="attributo"><i class="fas fa-address-card"></i> Attributo di Istanza</label>
-                            <input id="attributo" class="input-text" name="attributo" list="attributes" placeholder="">
+                            <input id="attributo" maxlength="15" class="input-text" name="attributo" list="attributes" placeholder="">
                             <label for="udm"><i class="fas fa-balance-scale"></i> Udm</label>
                             <input type="text" id="udm" name="udm" placeholder="">
 
                             <label for="qty"><i class="fas fa-weight"></i> Quantità</label>
-                            <div class="test">
+                            <div class="div-quantity">
                                 <a onclick="lessQty()"><i class="fas fa-minus"></i></a>
                                 <input type="text" id="qty" name="qty" placeholder="" disabled>
                                 <a onclick="plusQty()"><i class="fas fa-plus"></i></a>

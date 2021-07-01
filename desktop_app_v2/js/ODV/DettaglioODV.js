@@ -209,7 +209,7 @@ function updateOrderLine(orderLineId, qtyUpdate) {
 
         })
         .then(data => {
-            //location.reload();
+            location.reload();
 
         })
         .catch(error => console.log(error))

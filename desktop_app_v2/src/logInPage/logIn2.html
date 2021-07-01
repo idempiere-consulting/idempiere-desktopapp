@@ -6,11 +6,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-
-
-
-
-
     <link rel="stylesheet" type="text/css" href="../../vendor_login/bootstrap_login/css/bootstrap.min.css">
 
     <link rel="stylesheet" type="text/css" href="../../assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
@@ -81,9 +76,6 @@
             </div>
         </div>
     </div>
-
-
-    <div id="dropDownSelect1"></div>
     <script>
         if (typeof module === 'object') {
             window.module = module;
@@ -92,23 +84,6 @@
     </script>
 
     <script src="../../vendor_login/jquery_login/jquery-3.2.1.min.js"></script>
-
-    <!-- <script src="vendor_login/animsition/js/animsition.min.js"></script>
-
-    <script src="vendor_login/bootstrap_login/js/popper.js"></script>
-    <script src="vendor_login/bootstrap_login/js/bootstrap.min.js"></script>
-
-    <script src="vendor_login/select2/select2.min.js"></script>
-
-    <script src="vendor_login/daterangepicker/moment.min.js"></script>
-    <script src="vendor_login/daterangepicker/daterangepicker.js"></script>
-
-    <script src="vendor_login/countdowntime/countdowntime.js"></script>
- -->
-
-
-
-
 
     <script src="http://rezitech.github.io/stash/stash.min.js"></script>
     <script src="../../assets/js/main_login.js"></script>
@@ -152,7 +127,6 @@
         ipcRenderer.sendSync('save:clientId', clientId);
         console.log(clientId);
         stash.set('clientid', clientId);
-
         await authRoles();
     };
 </script>
