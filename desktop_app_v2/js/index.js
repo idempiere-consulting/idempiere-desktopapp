@@ -8,24 +8,49 @@ PermessiMenu();
 
 function PermessiMenu() {
     //Declare and set variable 
-    const permission = ipcRender_main.sendSync('send:permission');
+    const permission = ""; // ipcRender_main.sendSync('send:permission');
     const menu = document.getElementsByClassName("macrocategory-permission-menu");
     const array_permission = [];
+    const array_permission_setting = [];
     var temp = "";
+    var temp2 = "";
     //Take the permission for each page
     for (let i = 0; i < permission.length; i++) {
         if (permission[i] != '-') {
-            temp = temp + permission[i];
+
+            if (!isNaN(permission[i])) {
+                temp = temp + permission[i];
+            } else {
+                temp2 = temp2 + permission[i];
+            }
             if ((i + 1) == permission.length) {
                 array_permission.push(temp);
+                if (temp2 != "")
+                    array_permission_setting.push(temp2);
+                else
+                    array_permission_setting.push(" ");
             }
+
+
+
         } else {
             if (temp != "") {
                 array_permission.push(temp);
                 temp = "";
+                if (temp2 != "") {
+                    array_permission_setting.push(temp2);
+                    temp2 = "";
+                } else {
+                    array_permission_setting.push(" ");
+                }
             }
+
         }
     }
+    console.log(array_permission_setting);
+
+    ipcRender_main.send('save:permission_settings', array_permission_setting);
+    console.log(array_permission);
     console.log(menu.length);
     if (array_permission != undefined && menu.length == array_permission.length) {
         for (let index = 0; index < menu.length; index++) {

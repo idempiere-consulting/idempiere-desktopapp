@@ -7,13 +7,11 @@ const authToken = ipcRenderer.sendSync('send:authtoken', 'ping');
 const ip = ipcRenderer.sendSync('send:ip', 'ping');
 const clientid = ipcRenderer.sendSync('send:clientId', 'ping');
 
-
 getODV();
-
 
 //Take the sales order
 function getODV() {
-
+    //and DocStatus eq 'IP' Per gli odv in corso
     fetch(`http://` + ip + `/api/v1/models/c_order?$filter= AD_Client_ID eq ` + clientid + ` and IsSOTrx eq true `, {
             method: 'GET',
             headers: {
@@ -24,8 +22,6 @@ function getODV() {
             return res.json()
         })
         .then(data => {
-
-            //var pData = JSON.parse(data)
 
             a = data['records'];
             //Take each sales order
@@ -61,7 +57,7 @@ function getODV() {
 							<td onkeyup='filterDate()'>${DateOrdered}</td>
 							<td><a href="#" id="iconLinkWebUrl"><i class="fas fa-2x fa-info-circle"></i></td>
 					  </tr>`;
-                //append to table
+                //Append to table
                 table.innerHTML += row;
                 var table = document.getElementById('myTable1');
                 //Cycle to create a event button. It is used to open the page DettaglioODV.html and save the current document that you want to inspect

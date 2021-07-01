@@ -8,7 +8,7 @@ const ip = ipcRender_addOrderLine.sendSync('send:ip', 'ping');
 const client = ipcRender_addOrderLine.sendSync('send:clientId', 'ping');
 const org = ipcRender_addOrderLine.sendSync('send:organizationid', 'ping');
 const warehouseId = ipcRender_addOrderLine.sendSync('send:warehouseid', 'ping');
-
+let setting = ipcRender_addOrderLine.sendSync('send:permission_settings', 'ping');
 //Declare variable
 var idProd, idUDM, instAttr_ID, instAttr_Name, keyCode, keyinstAttr, count, flag_ = 0;
 
@@ -85,9 +85,10 @@ if (srcName != null)
     srcName.addEventListener('click', searchByName);
 
 //Add the order line 
-if (sendLine != null)
-    sendLine.addEventListener('click', sendOrderLine);
-
+if (setting[4] == 'M') {
+    if (sendLine != null)
+        sendLine.addEventListener('click', sendOrderLine);
+}
 getProducts();
 
 //Fill the option for the name search 
@@ -127,7 +128,7 @@ function getProducts() {
 }
 
 //Search the product
-function searchByCode() {
+async function searchByCode() {
 
     var idCode = keyCode;
     document.getElementById('productcode').value = '';
@@ -176,8 +177,12 @@ function searchByCode() {
             if (instAttr_ID != undefined) {
                 document.getElementById('attributo').disabled = false;
                 getInstAttr();
+
             } else {
                 document.getElementById('attributo').disabled = true;
+                if (setting[4] == 'A') {
+                    sendOrderLine();
+                }
             }
 
         })
@@ -248,6 +253,9 @@ function searchByName() {
                 getInstAttr();
             } else {
                 document.getElementById('attributo').disabled = true;
+                if (setting[4] == 'A') {
+                    sendOrderLine();
+                }
             }
 
         })
@@ -401,6 +409,9 @@ function getInstAttr() {
 
             if (flag_ == 1) {
                 container.value = keyinstAttr;
+            }
+            if (setting[4] == 'A') {
+                sendOrderLine();
             }
 
         })

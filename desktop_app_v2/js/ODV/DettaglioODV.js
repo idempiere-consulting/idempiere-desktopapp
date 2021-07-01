@@ -9,6 +9,7 @@ const addOrderLine = document.getElementById('addOrderLine');
 getODV();
 
 if (addOrderLine != null) {
+    console.log(addOrderLine)
     addOrderLine.addEventListener('click', openOrderLineWindow);
 }
 

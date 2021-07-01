@@ -24,6 +24,7 @@ let roleId;
 let organizationId;
 let warehouseId;
 let language;
+let permission_settings = [];
 
 
 //var internetConn = navigator.onLine();
@@ -245,6 +246,11 @@ ipcMain.on('save:permission', function(e, permission) {
 
 });
 
+ipcMain.on('save:permission_settings', function(e, permission_s) {
+    permission_settings = permission_s;
+
+});
+
 
 
 
@@ -306,6 +312,11 @@ ipcMain.on('send:docid:ODV', function(event, arg) {
 
 ipcMain.on('send:permission', function(event, arg) {
     event.returnValue = userPermession;
+});
+
+ipcMain.on('send:permission_settings', function(event, arg) {
+    console.log(permission_settings);
+    event.returnValue = permission_settings;
 });
 
 
@@ -448,7 +459,7 @@ ipcMain.on('page:ODV:odv_details_window', function(e, arg) {
     showODVDetailsWindow();
 });
 
-ipcMain.on('page:ODV:odv_create_window', function(e, arg) { 
+ipcMain.on('page:ODV:odv_create_window', function(e, arg) {
     createODVWindow();
 });
 
