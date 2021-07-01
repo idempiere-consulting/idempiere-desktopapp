@@ -8,7 +8,7 @@ PermessiMenu();
 
 function PermessiMenu() {
     //Declare and set variable 
-    const permission = ""; // ipcRender_main.sendSync('send:permission');
+    const permission = ipcRender_main.sendSync('send:permission');
     const menu = document.getElementsByClassName("macrocategory-permission-menu");
     const array_permission = [];
     const array_permission_setting = [];
