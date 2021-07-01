@@ -141,10 +141,8 @@ function getODVLines() {
 
             while (switching) {
                 switching = false;
-                console.log(table.rows.length);
-                for (index = 0; index < table.rows.length; index++) {
+                for (index = 0; index < table.rows.length - 1; index++) {
                     shouldSwitch = false;
-                    console.log(table.rows[index]);
                     x = table.rows[index].cells[6];
                     y = table.rows[index + 1].cells[6];
                     if (x.innerHTML < y.innerHTML) {
@@ -181,10 +179,9 @@ function DeleteODV(idProduct) {
                 }
             }).then(data => {
                 console.log(data);
+                location.reload();
             })
             .catch(error => console.log(error))
-        location.reload();
-
     } else {
 
     }
@@ -207,10 +204,12 @@ function updateOrderLine(orderLineId, qtyUpdate) {
             },
             body: JSON.stringify(bodyData)
         }).then(res => {
-            return res.json()
+            console.log(res);
+            return res.json();
+
         })
         .then(data => {
-            location.reload();
+            //location.reload();
 
         })
         .catch(error => console.log(error))

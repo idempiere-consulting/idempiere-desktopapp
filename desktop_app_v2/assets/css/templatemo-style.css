@@ -654,7 +654,7 @@ input[type="radio"]+label {
     padding-right: 1rem;
     position: relative;
     min-width: 180px;
-    width: 1    0%;
+    width: 1 0%;
     display: inline-block;
     line-height: 22px;
 }
@@ -1632,16 +1632,15 @@ label {
     color: green;
 }
 
-#trashODV{
+#trashODV {
     color: #cc0000;
 }
 
-#trashODV:hover{
+#trashODV:hover {
     transition: 0.2s;
     color: red;
 }
 
-.filterLeads{
+.filterLeads {
     width: 100%;
 }
-

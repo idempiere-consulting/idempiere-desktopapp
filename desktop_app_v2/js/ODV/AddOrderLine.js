@@ -1,8 +1,3 @@
-/*  const electron = require('electron');
- const {
-     ipcRenderer
- } = electron; */
-
 const electron_addOrderLine = window.require("electron");
 const ipcRender_addOrderLine = electron_addOrderLine.ipcRenderer;
 
@@ -33,11 +28,14 @@ const sendLine = document.getElementById('sendLine');
 
 /* Events buttons */
 
+//Seach code with also instance attribute when the button is clicked
 console.log(srcCode != null);
 if (srcCode != null) {
     srcCode.addEventListener('click', function(e) {
         flag_ = 0;
         var temp = document.getElementById('productcode').value;
+        //If the input type contain a _ you have a attribute instance and it divide in two string
+        //Else the input type have only the product code
         if (temp.includes("_")) {
             for (var i = 0; i < temp.length; i++) {
                 if (temp[i] == '_' && flag_ == 0) {
@@ -51,14 +49,17 @@ if (srcCode != null) {
         } else {
             keyCode = temp;
         }
+        //Call the method searchByCode to call the api for search the information of the product selected
         searchByCode();
 
     });
 }
 console.log(codeInput);
+//Search the product when the user digit the key 'Enter'
 if (codeInput != null) {
     codeInput.addEventListener('keypress', function(e) {
         flag_ = 0;
+        //Same fuction of the srcCode button 
         if (e.key === 'Enter') {
             var temp = document.getElementById('productcode').value;
             if (temp.includes("_")) {
@@ -79,14 +80,17 @@ if (codeInput != null) {
         }
     });
 }
+//Search on base the name
 if (srcName != null)
     srcName.addEventListener('click', searchByName);
 
+//Add the order line 
 if (sendLine != null)
     sendLine.addEventListener('click', sendOrderLine);
 
 getProducts();
 
+//Fill the option for the name search 
 function getProducts() {
 
     fetch('http://' + ip + '/api/v1/windows/product', {
@@ -121,11 +125,10 @@ function getProducts() {
 
 }
 
-
+//Search the product
 function searchByCode() {
 
     var idCode = keyCode;
-    console.log(idCode);
     document.getElementById('productcode').value = '';
     document.getElementById('product').value = '';
     document.getElementById('attributo').value = '';
