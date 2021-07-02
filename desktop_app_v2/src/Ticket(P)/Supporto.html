@@ -17,11 +17,6 @@
     <!-- Bootstrap core CSS -->
     <link href="../../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <!--
-Ramayana CSS Template
-https://templatemo.com/tm-529-ramayana
--->
-
     <!-- Additional CSS Files -->
     <link rel="stylesheet" href="../../assets/css/fontawesome.css">
     <link rel="stylesheet" href="../../assets/css/templatemo-style.css">
@@ -73,6 +68,46 @@ https://templatemo.com/tm-529-ramayana
                 </header>
 
                 <div id="mainContent" class="content">
+                    <table id="myTable" class="table-sortable">
+                        <thead>
+                            <tr>
+                                <th colspan="6">
+                                    <div class="radio-check">
+                                        <label>Priorità:
+                                        <input type="Radio" name="Prio"  value="All" checked="checked"/><span>All</span></label>
+                                        <label><input type="Radio" name="Prio"  value="Minore" /><span>Minore</span></label>
+                                        <label><input type="Radio" name="Prio"  value="Bassa"/><span>Bassa</span></label>
+                                        <label><input type="Radio" name="Prio"  value="Media"/><span>Media</span></label>
+                                        <label><input type="Radio" name="Prio"  value="Alta"/><span>Alta</span></label>
+                                        <label><input type="Radio" name="Prio"  value="Urgente"/><span>Urgente</span></label>
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th><input type="text" id="myInput" onkeyup="filterBP()" placeholder="Filtra per BPartner" title="Scrivi un nome"></th>
+                                <th><input type="text" id="myInputPhone" onkeyup="filterAcc()" placeholder="Filtra per Utente" title="Scrivi un nome"></th>
+                                <th><input type="text" id="myInputMail" onkeyup="filterReq()" placeholder="Filtra per Richiesta" title="Scrivi un nome"></th>
+                                <th><input type="text" id="myInputMail" onkeyup="filterReq()" placeholder="Filtra per Priorità" title="Scrivi un nome"></th>
+                                <th><input type="text" id="myInputSalesRep" onkeyup="filterSumm()" placeholder="Filtra per Riepilogo" title="Scrivi un nome"></th>
+                                <th><input type="text" id="myInputCampaign" onkeyup="filterDate()" placeholder="Filtra per Data" title="Scrivi un nome"></th>
+                            </tr>
+                            <tr>
+                                <th>BPartner</th>
+                                <th>Nome Account</th>
+                                <th>Tipo Richiesta</th>
+                                <th>Priorità</th>
+                                <th>Riepilogo</th>
+                                <th>Data Creazione</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leadBody">
+                        </tbody>
+                    </table>
+
+
+
+
+
 
                 </div>
 
@@ -96,7 +131,7 @@ https://templatemo.com/tm-529-ramayana
                         <li>
                             <span class="opener"><i class="fas fa-users"></i> CRM</span>
                             <ul>
-                                <li><a onclick="Leads()">Leads</a></li>
+                                <li><a href="../CRM/Leads.html">Leads</a></li>
                                 <li><a href="../CRM/opportunità.html">Opportunità</a></li>
                                 <li><a href="../CRM/Bacheca.html">Bacheca</a></li>
                             </ul>
@@ -127,6 +162,8 @@ https://templatemo.com/tm-529-ramayana
                             <span class="opener"><i class="fas fa-clipboard-list"></i> Ordini Di Vendita</span>
                             <ul>
                                 <li><a href="../OrdiniDiVendita/VediODV.html">Vedi ODV</a></li>
+   
+    
                             </ul>
                         </li>
                         <li>
@@ -200,6 +237,7 @@ https://templatemo.com/tm-529-ramayana
     <script src="../../assets/js/owl-carousel.js"></script>
     <script src="../../assets/js/custom.js"></script>
     <script src="../../js/filejscommon.js"></script>
+    <script src="../../js/Ticket(I)/Supporto.js"></script>
 
 
 

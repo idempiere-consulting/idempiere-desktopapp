@@ -1,8 +1,3 @@
-/*  const electron = require('electron');
- const {
-     ipcRenderer
- } = electron; */
-
 const electron_addOrderLine = window.require("electron");
 const ipcRender_addOrderLine = electron_addOrderLine.ipcRenderer;
 
@@ -13,7 +8,7 @@ const ip = ipcRender_addOrderLine.sendSync('send:ip', 'ping');
 const client = ipcRender_addOrderLine.sendSync('send:clientId', 'ping');
 const org = ipcRender_addOrderLine.sendSync('send:organizationid', 'ping');
 const warehouseId = ipcRender_addOrderLine.sendSync('send:warehouseid', 'ping');
-
+let setting = ipcRender_addOrderLine.sendSync('send:permission_settings', 'ping');
 //Declare variable
 var idProd, idUDM, instAttr_ID, instAttr_Name, keyCode, keyinstAttr, count, flag_ = 0;
 
@@ -33,11 +28,14 @@ const sendLine = document.getElementById('sendLine');
 
 /* Events buttons */
 
+//Seach code with also instance attribute when the button is clicked
 console.log(srcCode != null);
 if (srcCode != null) {
     srcCode.addEventListener('click', function(e) {
         flag_ = 0;
         var temp = document.getElementById('productcode').value;
+        //If the input type contain a _ you have a attribute instance and it divide in two string
+        //Else the input type have only the product code
         if (temp.includes("_")) {
             for (var i = 0; i < temp.length; i++) {
                 if (temp[i] == '_' && flag_ == 0) {
@@ -51,14 +49,17 @@ if (srcCode != null) {
         } else {
             keyCode = temp;
         }
+        //Call the method searchByCode to call the api for search the information of the product selected
         searchByCode();
 
     });
 }
 console.log(codeInput);
+//Search the product when the user digit the key 'Enter'
 if (codeInput != null) {
     codeInput.addEventListener('keypress', function(e) {
         flag_ = 0;
+        //Same fuction of the srcCode button 
         if (e.key === 'Enter') {
             var temp = document.getElementById('productcode').value;
             if (temp.includes("_")) {
@@ -79,14 +80,21 @@ if (codeInput != null) {
         }
     });
 }
+//Search on base the name
 if (srcName != null)
     srcName.addEventListener('click', searchByName);
 
-if (sendLine != null)
-    sendLine.addEventListener('click', sendOrderLine);
+//Add order line
+//If the permission setting has a M. 
+//The process to insert a order line is manual(you have to click the button sendLine to insert the orderLine ) 
+if (sendLine != null) {
 
+    if (setting[4] == 'M')
+        sendLine.addEventListener('click', sendOrderLine);
+}
 getProducts();
 
+//Fill the option for the name search 
 function getProducts() {
 
     fetch('http://' + ip + '/api/v1/windows/product', {
@@ -106,6 +114,7 @@ function getProducts() {
             len = optionList.length;
             dataListProduct = document.createElement('datalist');
             dataListProduct.id = 'products';
+            dataListProduct.size = '20';
             for (let i = 0; i < len; i += 1) {
                 var option = document.createElement('option');
                 option.value = optionList[i].Name;
@@ -121,11 +130,10 @@ function getProducts() {
 
 }
 
-
-function searchByCode() {
+//Search the product
+async function searchByCode() {
 
     var idCode = keyCode;
-    console.log(idCode);
     document.getElementById('productcode').value = '';
     document.getElementById('product').value = '';
     document.getElementById('attributo').value = '';
@@ -172,8 +180,12 @@ function searchByCode() {
             if (instAttr_ID != undefined) {
                 document.getElementById('attributo').disabled = false;
                 getInstAttr();
+
             } else {
                 document.getElementById('attributo').disabled = true;
+                if (setting[4] == 'A') {
+                    sendOrderLine();
+                }
             }
 
         })
@@ -244,6 +256,9 @@ function searchByName() {
                 getInstAttr();
             } else {
                 document.getElementById('attributo').disabled = true;
+                if (setting[4] == 'A') {
+                    sendOrderLine();
+                }
             }
 
         })
@@ -351,6 +366,8 @@ function sendOrderLine() {
         })
         .then(data => {
             console.log(data);
+            if (data != null)
+                doNotification(data);
             document.getElementById('codice').value = '';
             document.getElementById('nome').value = '';
             document.getElementById('attributo').value = '';
@@ -358,6 +375,7 @@ function sendOrderLine() {
             document.getElementById('qty').value = '';
             document.getElementById('desc').value = '';
             document.getElementById('productcode').focus();
+
 
 
         })
@@ -397,6 +415,9 @@ function getInstAttr() {
 
             if (flag_ == 1) {
                 container.value = keyinstAttr;
+            }
+            if (setting[4] == 'A') {
+                sendOrderLine();
             }
 
         })

@@ -5,17 +5,15 @@ document.getElementById("span_usernmane_jslogic").innerHTML = ipcRender_2.sendSy
 
 function logOut() {
     if (window.confirm("Se esci al prossimo Login dovrai reinserire nome utente e password, sicuro di voler uscire? ")) {
-        /*stash.cut('username');
-         stash.cut('password');
-         stash.cut('ip');
-         stash.cut('roleid');
-         stash.cut('organizationid');
-         stash.cut('clientid');
-         stash.cut('warehouseid');
-         stash.cut('language');*/
+        stash.cut('username');
+        stash.cut('password');
+        stash.cut('ip');
+        stash.cut('roleid');
+        stash.cut('organizationid');
+        stash.cut('clientid');
+        stash.cut('warehouseid');
+        stash.cut('language');
         ipcRender_2.send('page:change', 0);
-
-    } else {
 
     }
 }

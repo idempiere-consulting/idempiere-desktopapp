@@ -1,25 +1,9 @@
 const electron_main = window.require("electron");
 const ipcRender_main = electron_main.ipcRenderer;
 
-document.getElementById("span_usernmane_jslogic").innerHTML = ipcRender_main.sendSync('send:user');
-
-
 PermessiMenu();
 
-function logOut() {
-    if (window.confirm("Se esci al prossimo Login dovrai reinserire nome utente e password, sicuro di voler uscire? ")) {
-        /*  stash.cut('username');
-         stash.cut('password');
-         stash.cut('ip');
-         stash.cut('roleid');
-         stash.cut('organizationid');
-         stash.cut('clientid');
-         stash.cut('warehouseid');
-         stash.cut('language');*/
-        ipcRender_main.send('page:change', 0);
 
-    } else {}
-}
 
 
 function PermessiMenu() {
@@ -27,21 +11,46 @@ function PermessiMenu() {
     const permission = ipcRender_main.sendSync('send:permission');
     const menu = document.getElementsByClassName("macrocategory-permission-menu");
     const array_permission = [];
+    const array_permission_setting = [];
     var temp = "";
+    var temp2 = "";
     //Take the permission for each page
     for (let i = 0; i < permission.length; i++) {
         if (permission[i] != '-') {
-            temp = temp + permission[i];
+
+            if (!isNaN(permission[i])) {
+                temp = temp + permission[i];
+            } else {
+                temp2 = temp2 + permission[i];
+            }
             if ((i + 1) == permission.length) {
                 array_permission.push(temp);
+                if (temp2 != "")
+                    array_permission_setting.push(temp2);
+                else
+                    array_permission_setting.push(" ");
             }
+
+
+
         } else {
             if (temp != "") {
                 array_permission.push(temp);
                 temp = "";
+                if (temp2 != "") {
+                    array_permission_setting.push(temp2);
+                    temp2 = "";
+                } else {
+                    array_permission_setting.push(" ");
+                }
             }
+
         }
     }
+    console.log(array_permission_setting);
+
+    ipcRender_main.send('save:permission_settings', array_permission_setting);
+    console.log(array_permission);
     console.log(menu.length);
     if (array_permission != undefined && menu.length == array_permission.length) {
         for (let index = 0; index < menu.length; index++) {

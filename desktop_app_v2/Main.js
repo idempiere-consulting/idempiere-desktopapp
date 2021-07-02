@@ -24,6 +24,7 @@ let roleId;
 let organizationId;
 let warehouseId;
 let language;
+let permission_settings = [];
 
 
 //var internetConn = navigator.onLine();
@@ -230,6 +231,9 @@ ipcMain.on('save:authtoken', function(e, authtoken) {
     authToken = authtoken;
 });
 
+ipcMain.on('save:bpartner', function(e, bp) {
+    userBPartner = bp;
+});
 
 ipcMain.on('save:docN', function(e, DOCN) {
     docN = DOCN;
@@ -242,6 +246,11 @@ ipcMain.on('save:docid:ODV', function(e, DOCID) {
 ipcMain.on('save:permission', function(e, permission) {
     userPermession = permission;
     e.returnValue = userPermession;
+
+});
+
+ipcMain.on('save:permission_settings', function(e, permission_s) {
+    permission_settings = permission_s;
 
 });
 
@@ -274,7 +283,6 @@ ipcMain.on('send:changeRole', function(event, arg) {
     event.returnValue = changeUserRole;
 });
 
-
 ipcMain.on('send:roleid', function(event, arg) {
     event.returnValue = roleId;
 });
@@ -287,6 +295,9 @@ ipcMain.on('send:warehouseid', function(event, arg) {
     event.returnValue = warehouseId;
 });
 
+ipcMain.on('send:bp', function(event, arg) {
+    event.returnValue = userBPartner;
+});
 ipcMain.on('send:language', function(event, arg) {
     event.returnValue = language;
 });
@@ -306,6 +317,11 @@ ipcMain.on('send:docid:ODV', function(event, arg) {
 
 ipcMain.on('send:permission', function(event, arg) {
     event.returnValue = userPermession;
+});
+
+ipcMain.on('send:permission_settings', function(event, arg) {
+    console.log(permission_settings);
+    event.returnValue = permission_settings;
 });
 
 
@@ -448,7 +464,7 @@ ipcMain.on('page:ODV:odv_details_window', function(e, arg) {
     showODVDetailsWindow();
 });
 
-ipcMain.on('page:ODV:odv_create_window', function(e, arg) { 
+ipcMain.on('page:ODV:odv_create_window', function(e, arg) {
     createODVWindow();
 });
 

@@ -236,9 +236,11 @@ async function getUserData() {
                 a = data['records'];
                 a.forEach((record) => {
                     ipcRender_login2.sendSync('save:permission', record.lit_mobilerole);
+                    ipcRenderer.send('save:bpartner', record.C_BPartner_ID);
                 });
                 const page = 2;
                 ipcRender_login2.send('page:change', page);
+
 
             })
             .catch(error => console.log(error))
