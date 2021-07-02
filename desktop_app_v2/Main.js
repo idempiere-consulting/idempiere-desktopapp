@@ -231,6 +231,9 @@ ipcMain.on('save:authtoken', function(e, authtoken) {
     authToken = authtoken;
 });
 
+ipcMain.on('save:bpartner', function(e, bp) {
+    userBPartner = bp;
+});
 
 ipcMain.on('save:docN', function(e, DOCN) {
     docN = DOCN;
@@ -280,7 +283,6 @@ ipcMain.on('send:changeRole', function(event, arg) {
     event.returnValue = changeUserRole;
 });
 
-
 ipcMain.on('send:roleid', function(event, arg) {
     event.returnValue = roleId;
 });
@@ -293,6 +295,9 @@ ipcMain.on('send:warehouseid', function(event, arg) {
     event.returnValue = warehouseId;
 });
 
+ipcMain.on('send:bp', function(event, arg) {
+    event.returnValue = userBPartner;
+});
 ipcMain.on('send:language', function(event, arg) {
     event.returnValue = language;
 });

@@ -366,7 +366,8 @@ function sendOrderLine() {
         })
         .then(data => {
             console.log(data);
-            doNotification(data);
+            if (data != null)
+                doNotification(data);
             document.getElementById('codice').value = '';
             document.getElementById('nome').value = '';
             document.getElementById('attributo').value = '';
