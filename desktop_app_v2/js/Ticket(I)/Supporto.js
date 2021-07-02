@@ -31,7 +31,8 @@ function getTickets() {
                 var user = record.AD_User_ID;
                 var req = record.R_RequestType_ID;
                 var prio = record.Priority;
-                var row = `<tr class="dataRow"> 
+                var row = `
+                <tr class="dataRow"> 
                     <td>${bp['identifier']}</td>
                     <td>${user['identifier']}</td>
                     <td>${req['identifier']}</td>
@@ -39,7 +40,7 @@ function getTickets() {
                     <td>${record.Summary}</td>
                     <td>${record.Created.slice(0,10)}</td>
                     <td><a href="#" id="iconLinkWebUrl"><i class="fas fa-external-link-alt"></i></td>
-              </tr>`;
+                </tr>`;
                 if (userBPartner == bp['identifier']) {
                     table.innerHTML += row;
                 }
@@ -48,7 +49,6 @@ function getTickets() {
         .catch(error => console.log(error))
 }
 
-//test jquery filter
 
 $("input[type=radio]").change(function() {
     var filter = this.value;
