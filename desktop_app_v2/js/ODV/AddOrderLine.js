@@ -84,9 +84,12 @@ if (codeInput != null) {
 if (srcName != null)
     srcName.addEventListener('click', searchByName);
 
-//Add the order line 
-if (setting[4] == 'M') {
-    if (sendLine != null)
+//Add order line
+//If the permission setting has a M. 
+//The process to insert a order line is manual(you have to click the button sendLine to insert the orderLine ) 
+if (sendLine != null) {
+
+    if (setting[4] == 'M')
         sendLine.addEventListener('click', sendOrderLine);
 }
 getProducts();
@@ -363,6 +366,7 @@ function sendOrderLine() {
         })
         .then(data => {
             console.log(data);
+            doNotification(data);
             document.getElementById('codice').value = '';
             document.getElementById('nome').value = '';
             document.getElementById('attributo').value = '';
@@ -370,6 +374,7 @@ function sendOrderLine() {
             document.getElementById('qty').value = '';
             document.getElementById('desc').value = '';
             document.getElementById('productcode').focus();
+
 
 
         })

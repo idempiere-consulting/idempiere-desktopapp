@@ -130,7 +130,7 @@ function getODVLines() {
                             </td>
 							<td>${MAttributeIdentifier}</td>
                             <td> <a onclick="DeleteODV(${record.id})" href="#" id="trashODV"> <i style="color: #cc0000;" class="fas fa-2x fa-trash-alt"></i>  </a></td>
-                            <td style="">${record.id}</td>
+                            <td style="display:none">${record.id}</td>
                         </tr>`;
 
 
