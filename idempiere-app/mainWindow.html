@@ -1,201 +1,200 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <title>Idempiere App</title>
     <link rel="stylesheet" href="assets/css/mainWindow.css">
     <script src="https://www.gstatic.com/charts/loader.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
-  </head>
-  <body>
+</head>
+
+<body>
 
     <input type="checkbox" id="check">
     <!--header area start-->
     <header>
-      <label for="check">
+        <label for="check">
         <i class="fas fa-bars" id="sidebar_btn"></i>
       </label>
-      <div class="left_area">
-        <h3>Idempiere <span>Consulting</span></h3>
-      </div>
-      <div class="right_area">
-        <a href="#" id="logout_btn" class="logout_btn">Logout</a>
-      </div>
+        <div class="left_area">
+            <h3>Idempiere <span>Consulting</span></h3>
+        </div>
+        <div class="right_area">
+            <a href="#" id="logout_btn" class="logout_btn">Logout</a>
+        </div>
     </header>
     <!--header area end-->
     <!--sidebar start-->
-    <div class="sidebar" style= "overflow-y: auto;">
-      <center>
-        <img src="assets/images/logo.png" class="profile_image" alt="" width="200" height="200">
-        <h4>Admin</h4>
-      </center>
-      <a href="#" id="CRM"><i class="fas fa-users"></i><span>CRM</span></a>
-      <a href="#" id="ServiceU"><i class="fas fa-hands-helping"></i><span>Service (U)</span></a>
-      <a href="#" id="ServiceP"><i class="fas fa-hands-helping"></i><span>Service (P)</span></a>
-      <a href="#" id="Fatture"><i class="fas fa-file-invoice-dollar"></i><span>Fatture</span></a>
-      <a href="#" id="ODV"><i class="fas fa-clipboard-list"></i><span>Ordini di Vendita</span></a>
-      <a href="#" id="TicketP"><i class="fas fa-ticket-alt"></i><span>Ticket (P)</span></a>
-      <a href="#" id="TicketI"><i class="fas fa-ticket-alt"></i><span>Ticket (I)</span></a>
-      <a href="#"><i class="fas fa-sign-out-alt"></i><span>Conto Lavoro</span></a>
-      <a href="#"><i class="fas fa-shopping-cart"></i><span>Acquisti</span></a>
-      <a href="#"><i class="fas fa-clock"></i><span>Task / Ore</span></a>
-      <a href="#"><i class="fas fa-industry"></i><span>Produzione</span></a>
-      <a href="#" id="Logistica"><i class="fas fa-boxes"></i><span>Logistica</span></a>
-      <a href="#"><i class="fas fa-cog"></i><span>Impostazioni</span></a>
+    <div class="sidebar" style="overflow-y: auto;">
+        <center>
+            <img src="assets/images/logo.png" class="profile_image" alt="" width="200" height="200">
+            <h4>Admin</h4>
+        </center>
+        <a href="#" id="CRM"><i class="fas fa-users"></i><span>CRM</span></a>
+        <a href="#" id="ServiceU"><i class="fas fa-hands-helping"></i><span>Service (U)</span></a>
+        <a href="#" id="ServiceP"><i class="fas fa-hands-helping"></i><span>Service (P)</span></a>
+        <a href="#" id="Fatture"><i class="fas fa-file-invoice-dollar"></i><span>Fatture</span></a>
+        <a href="#" id="ODV"><i class="fas fa-clipboard-list"></i><span>Ordini di Vendita</span></a>
+        <a href="#" id="TicketP"><i class="fas fa-ticket-alt"></i><span>Ticket (P)</span></a>
+        <a href="#" id="TicketI"><i class="fas fa-ticket-alt"></i><span>Ticket (I)</span></a>
+        <a href="#"><i class="fas fa-sign-out-alt"></i><span>Conto Lavoro</span></a>
+        <a href="#"><i class="fas fa-shopping-cart"></i><span>Acquisti</span></a>
+        <a href="#"><i class="fas fa-clock"></i><span>Task / Ore</span></a>
+        <a href="#"><i class="fas fa-industry"></i><span>Produzione</span></a>
+        <a href="#" id="Logistica"><i class="fas fa-boxes"></i><span>Logistica</span></a>
+        <a href="#"><i class="fas fa-cog"></i><span>Impostazioni</span></a>
     </div>
     <!--sidebar end-->
 
     <div class="content">
-        <iframe src="https://app.powerbi.com/reportEmbed?reportId=7204a2ab-38bd-4a48-a517-c6483b9e0f10&autoAuth=true&ctid=3207801d-cc35-4798-9cd6-8af5382cc923&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLXdlc3QtZXVyb3BlLWQtcHJpbWFyeS1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D" width="100%" height="90%%">
+        <iframe src="https://app.powerbi.com/reportEmbed?reportId=7204a2ab-38bd-4a48-a517-c6483b9e0f10&autoAuth=true&ctid=3207801d-cc35-4798-9cd6-8af5382cc923&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLXdlc3QtZXVyb3BlLWQtcHJpbWFyeS1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D"
+            width="100%" height="90%%">
         </iframe>
 
     </div>
-    
+
     <script>
         const electron = require('electron');
-        const {ipcRenderer} = electron;
-        
+        const {
+            ipcRenderer
+        } = electron;
+
         const authToken = ipcRenderer.sendSync('send:token', 'ping');
         const ip = ipcRenderer.sendSync('send:ip', 'ping');
         const clientid = ipcRenderer.sendSync('send:client', 'ping');
         console.log(authToken);
-        
+
         getUserData();
-        
+
         const permission = ipcRenderer.sendSync('send:permission', 'ping');
         console.log(permission);
 
 
-      
-        
+
+
         const crm = document.getElementById('CRM');
         crm.addEventListener('click', viewCRMPage);
-        
+
         const serviceU = document.getElementById('ServiceU');
         serviceU.addEventListener('click', viewServiceUPage);
-        
+
         const serviceP = document.getElementById('ServiceP');
         serviceP.addEventListener('click', viewServicePPage);
-        
+
         const fatture = document.getElementById('Fatture');
         fatture.addEventListener('click', viewFatturePage);
-        
+
         const logistica = document.getElementById('Logistica');
         logistica.addEventListener('click', viewLogisticaPage);
-        
+
         const ticketP = document.getElementById('TicketP');
         ticketP.addEventListener('click', viewTicketPPage);
-        
+
         const ticketI = document.getElementById('TicketI');
         ticketI.addEventListener('click', viewTicketIPage);
-        
+
         const odv = document.getElementById('ODV');
         odv.addEventListener('click', viewODVPage);
-        
+
         const logout = document.getElementById('logout_btn');
         logout.addEventListener('click', viewLoginPage);
         //7
-        function viewCRMPage(e){
+        function viewCRMPage(e) {
             e.preventDefault();
             const page = 1;
             //console.log(page);
             ipcRenderer.send('page:change', page);
         }
-        
-        function viewServiceUPage(e){
+
+        function viewServiceUPage(e) {
             e.preventDefault();
             const page = 3;
             //console.log(page);
             ipcRenderer.send('page:change', page);
         }
-        
-        function viewServicePPage(e){
+
+        function viewServicePPage(e) {
             e.preventDefault();
             const page = 5;
             //console.log(page);
             ipcRenderer.send('page:change', page);
         }
-        
-        function viewFatturePage(e){
+
+        function viewFatturePage(e) {
             e.preventDefault();
             const page = 4;
             //console.log(page);
             ipcRenderer.send('page:change', page);
         }
-        
-        function viewTicketPPage(e){
+
+        function viewTicketPPage(e) {
             e.preventDefault();
             const page = 6;
             //console.log(page);
             ipcRenderer.send('page:change', page);
         }
-        
-        function viewTicketIPage(e){
+
+        function viewTicketIPage(e) {
             e.preventDefault();
             const page = 7;
             //console.log(page);
             ipcRenderer.send('page:change', page);
         }
-        
-        function viewODVPage(e){
+
+        function viewODVPage(e) {
             e.preventDefault();
             const page = 8;
             //console.log(page);
             ipcRenderer.send('page:change', page);
         }
-        
-        function viewLogisticaPage(e){
+
+        function viewLogisticaPage(e) {
             e.preventDefault();
             const page = 10;
             //console.log(page);
             ipcRenderer.send('page:change', page);
         }
-        
-        function viewLoginPage(e){
+
+        function viewLoginPage(e) {
             e.preventDefault();
             const page = 0;
             //console.log(page);
             ipcRenderer.send('delete:token');
             ipcRenderer.send('page:change', page);
         }
-        
-        function getUserData(){
-            
+
+        function getUserData() {
+
             const userName = ipcRenderer.sendSync('send:user', 'ping');
             console.log(userName);
-            
-            fetch(`http://`+ip+`/api/v1/models/ad_user?$filter= AD_Client_ID eq `+clientid+` and Name eq  '`+userName+`'` ,{
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + authToken
-                }
-            }).then(res => {
-                return res.json()
+
+            fetch(`http://` + ip + `/api/v1/models/ad_user?$filter= AD_Client_ID eq ` + clientid + ` and Name eq  '` + userName + `'`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + authToken
+                    }
+                }).then(res => {
+                    return res.json()
                 })
                 .then(data => {
                     console.log(data);
                     a = data['records'];
-                    
+
                     a.forEach((record) => {
                         var bp = record.C_BPartner_ID;
-                        var role=record.lit_mobilerole;
-                        ipcRenderer.send('save:permission',role);
+                        var role = record.lit_mobilerole;
+                        ipcRenderer.send('save:permission', role);
                         ipcRenderer.send('save:bpartner', bp['identifier']);
-                        
-                        
+
+
                     });
-                    
+
                 })
                 .catch(error => console.log(error))
         }
-        
-
-
-    
-
-        
-    
     </script>
-  </body>
+</body>
+
 </html>
