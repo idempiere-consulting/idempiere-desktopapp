@@ -48,7 +48,7 @@ function getODV() {
 							<td></td>
 							<td>${activity}</td>
 							<td>${record.DateOrdered}</td>
-							<td><a href="#" id="iconLinkWebUrl"><i class="fas fa-2x fa-info-circle"></i></a></td>
+                            <td><a href="#" id="iconLinkWebUrl"><i class="fas fa-2x fa-info-circle"></i></td>
 					  </tr>`;
 
                 table.innerHTML += row;

@@ -4,7 +4,7 @@ const { ipcRenderer } = electron;
 const ip = ipcRenderer.sendSync('send:ip', 'ping');
 const authToken = ipcRenderer.sendSync('send:authtoken', 'ping');
 const docN = ipcRenderer.sendSync('send:docN', 'ping');
-console.log(ip, authToken, docN);
+console.log(docN);
 getODV();
 
 function getODV() {
