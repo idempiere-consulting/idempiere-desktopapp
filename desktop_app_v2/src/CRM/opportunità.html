@@ -72,8 +72,75 @@ https://templatemo.com/tm-529-ramayana
 
                 </header>
 
-                <div id="mainContent" class="content">
+                <div class="content">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>
+                                    <div>
 
+                                        <input type="radio" id="html" name="SalesStage" value="All" checked="checked">
+                                        <label for="html">All</label>
+
+                                        <input type="radio" id="html1" name="SalesStage" value="00.Annullato">
+                                        <label for="html1">Annullato</label>
+
+                                        <input type="radio" id="html2" name="SalesStage" value="10.Da Iniziare">
+                                        <label for="html2">Da Iniziare</label>
+
+                                        <input type="radio" id="html3" name="SalesStage" value="New">
+                                        <label for="html3">Da Contattare</label>
+
+                                        <input type="radio" id="html4" name="LeadStatus" value="45.Prep Offerta / To Do">
+                                        <label for="html4">Prep Offerta/To Do</label>
+
+                                        <input type="radio" id="html5" name="LeadStatus" value="50.Cons Offerta/ To Do">
+                                        <label for="html5">Cons Offerta/To Do</label>
+
+                                        <input type="radio" id="html6" name="LeadStatus" value="60.Da Ricontattare">
+                                        <label for="html6">Da Ricontattare</label>
+
+                                        <input type="radio" id="html7" name="LeadStatus" value="80.In attesa di Risposta">
+                                        <label for="html7">In attesa di Risposta</label>
+
+                                        <input type="radio" id="html8" name="LeadStatus" value="98. Fare ODV /Venduto">
+                                        <label for="html8">Fare ODV/Venduto</label>
+
+                                        <input type="radio" id="html9" name="LeadStatus" value="99.Venduto">
+                                        <label for="html9">Venduto</label>
+
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th><input class="FilterLeads" type="text" id="myInputBP" onkeyup="filterBP()" placeholder="Filtra per BP" title="Scrivi un nome"></th>
+                                <th><input class="FilterLeads" type="text" id="myInputCampaign" onkeyup="filterCampaign()" placeholder="Filtra per Camp." title="Scrivi un nome"></th>
+                                <th><input class="FilterLeads" type="text" id="myInputSalesRep" onkeyup="filterSalesRep()" placeholder="Filtra per Agente" title="Scrivi un nome"></th>
+                                <th><input class="FilterLeads" type="text" id="myInputOppAmt" onkeyup="filterOppAmt()" placeholder="Filtra per Importo" title="Scrivi un nome"></th>
+                                <th><input class="FilterLeads" type="text" id="myInputDescription" onkeyup="filterDescription()" placeholder="Filtra per Opp." title="Scrivi un nome"></th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <table id="myTable" class="table-sortable">
+
+                        <thead>
+                            <tr>
+                                <th>BPartner</th>
+                                <th>Campagna</th>
+                                <th>Agente</th>
+                                <th>Stato Vendita</th>
+                                <th>Importo atteso</th>
+                                <th>Opportunità</th>
+                            </tr>
+                        </thead>
+                        <tbody id="opportunityBody">
+                        </tbody>
+                    </table>
                 </div>
 
             </div>
@@ -87,7 +154,7 @@ https://templatemo.com/tm-529-ramayana
                 <!-- logo -->
 
                 <div class="logo_idempiere" style="text-align: center;">
-                    <a href="index.html"><img src="../../assets/images/logolast.png" class="w-75" alt=""></a><br>
+                    <a href="../index.html"><img src="../../assets/images/logolast.png" class="w-75" alt=""></a><br>
                 </div>
 
                 <!-- Menu -->
@@ -96,7 +163,7 @@ https://templatemo.com/tm-529-ramayana
                         <li>
                             <span class="opener"><i class="fas fa-users"></i> CRM</span>
                             <ul>
-                                <li><a onclick="Leads()">Leads</a></li>
+                                <li><a href="../CRM/Leads.html">Leads</a></li>
                                 <li><a href="../CRM/opportunità.html">Opportunità</a></li>
                                 <li><a href="../CRM/Bacheca.html">Bacheca</a></li>
                             </ul>
@@ -195,6 +262,7 @@ https://templatemo.com/tm-529-ramayana
     <script src="../../vendor/jquery/jquery.min.js"></script>
     <script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
+    <script src="../../js/CRM/Opportunità.js"></script>
     <script src="../../assets/js/browser.min.js"></script>
     <script src="../../assets/js/breakpoints.min.js"></script>
     <script src="../../assets/js/transition.js"></script>

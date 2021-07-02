@@ -4,12 +4,11 @@ const {ipcRenderer} = electron;
 const authToken = ipcRenderer.sendSync('send:authtoken', 'ping');
 const ip = ipcRenderer.sendSync('send:ip', 'ping');
 
-getLeads();
-console.log(authToken);
+getOpportunities();
 
-function getLeads(){
+function getOpportunities(){
     
-    fetch('http://'+ip+'/api/v1/windows/lead' ,{
+    fetch('http://'+ip+'/api/v1/windows/sales-opportunity' ,{
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -26,39 +25,21 @@ function getLeads(){
             a = data['window-records'];
             //console.log(a);
             a.forEach((record) => {
-                var table = document.getElementById('leadBody');
-                var leadStatus = '';
-                if(record.LeadStatus == undefined){
-                    leadStatus = '';
-                }
-                else{
-                    leadStatus = record.LeadStatus.identifier;
-                }
+                var table = document.getElementById('opportunityBody');
+                var bPartner = record.C_BPartner_ID;
                 //console.log(leadStatus);
-                var salesRep = '';
-                if(record.SalesRep_ID == undefined){
-                    salesRep = '';
-                }
-                else{
-                    salesRep = record.SalesRep_ID.identifier;
-                }
-                
+                var salesRep = record.SalesRep_ID;
                 //console.log(salesRep);
-                var campaign = '';
-                if(record.C_Campaign_ID == undefined){
-                    campaign = '';
-                }
-                else{
-                    campaign = record.C_Campaign_ID.identifier;
-                }
+                var campaign = record.C_Campaign_ID;
+                var salesStage = record.C_SalesStage_ID;
                 //console.log(campaign);
-                var row = `<tr class="dataRow"> 
-                    <td>${record.Name}</td>
-                    <td>${record.Phone}</td>
-                    <td>${record.EMail}</td>
-                    <td>${leadStatus}</td>
-                    <td>${salesRep}</td>
-                    <td>${campaign}</td>
+                var row = `<tr class="dataRow">
+                    <td>${bPartner['identifier']}</td>
+                    <td>${campaign['identifier']}</td>
+                    <td>${salesRep['identifier']}</td>
+                    <td>${salesStage['identifier']}</td>
+                    <td>${record.OpportunityAmt}</td>
+                    <td>${record.Description}</td>
                     <td><a href="#" id="iconLinkWebUrl"><i class="fas fa-external-link-alt"></i></td>
               </tr>`;
               
@@ -69,8 +50,6 @@ function getLeads(){
         })
         .catch(error => console.log(error))
 }
-
-
 
 
 function sortTableByColumn(table, column, asc = true) {
@@ -114,9 +93,9 @@ sortTableByColumn(tableElement, headerIndex, !currentIsAscending);
 
 //end test
 
-function filterNames() {
+function filterBP() {
 var input, filter, table, tr, td, i, txtValue;
-input = document.getElementById("myInput");
+input = document.getElementById("myInputBP");
 filter = input.value.toUpperCase();
 table = document.getElementById("myTable");
 tr = table.getElementsByTagName("tr");
@@ -133,33 +112,14 @@ tr[i].style.display = "none";
 }
 }
 
-function filterPhone() {
+function filterCampaign() {
 var input, filter, table, tr, td, i, txtValue;
-input = document.getElementById("myInputPhone");
+input = document.getElementById("myInputCampaign");
 filter = input.value.toUpperCase();
 table = document.getElementById("myTable");
 tr = table.getElementsByTagName("tr");
 for (i = 0; i < tr.length; i++) {
 td = tr[i].getElementsByTagName("td")[1];
-if (td) {
-txtValue = td.textContent || td.innerText;
-if (txtValue.toUpperCase().indexOf(filter) > -1) {
-tr[i].style.display = "";
-} else {
-tr[i].style.display = "none";
-}
-}       
-}
-}
-
-function filterMail() {
-var input, filter, table, tr, td, i, txtValue;
-input = document.getElementById("myInputMail");
-filter = input.value.toUpperCase();
-table = document.getElementById("myTable");
-tr = table.getElementsByTagName("tr");
-for (i = 0; i < tr.length; i++) {
-td = tr[i].getElementsByTagName("td")[2];
 if (td) {
 txtValue = td.textContent || td.innerText;
 if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -178,6 +138,25 @@ filter = input.value.toUpperCase();
 table = document.getElementById("myTable");
 tr = table.getElementsByTagName("tr");
 for (i = 0; i < tr.length; i++) {
+td = tr[i].getElementsByTagName("td")[2];
+if (td) {
+txtValue = td.textContent || td.innerText;
+if (txtValue.toUpperCase().indexOf(filter) > -1) {
+tr[i].style.display = "";
+} else {
+tr[i].style.display = "none";
+}
+}       
+}
+}
+
+function filterOppAmt() {
+var input, filter, table, tr, td, i, txtValue;
+input = document.getElementById("myInputOppAmt");
+filter = input.value.toUpperCase();
+table = document.getElementById("myTable");
+tr = table.getElementsByTagName("tr");
+for (i = 0; i < tr.length; i++) {
 td = tr[i].getElementsByTagName("td")[4];
 if (td) {
 txtValue = td.textContent || td.innerText;
@@ -190,9 +169,9 @@ tr[i].style.display = "none";
 }
 }
 
-function filterCampaign() {
+function filterDescription() {
 var input, filter, table, tr, td, i, txtValue;
-input = document.getElementById("myInputCampaign");
+input = document.getElementById("myInputDescription");
 filter = input.value.toUpperCase();
 table = document.getElementById("myTable");
 tr = table.getElementsByTagName("tr");
