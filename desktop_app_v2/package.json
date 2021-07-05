@@ -1,7 +1,7 @@
 {
-    "name": "Idempiere",
+    "name": "idempiereapp",
     "version": "1.0.0",
-    "description": "",
+    "description": "Application for Idempiere",
     "main": "Main.js",
     "dependencies": {
         "boolean": "^3.1.2",
@@ -20,6 +20,7 @@
         "detect-node": "^2.1.0",
         "duplexer3": "^0.1.4",
         "electron": "^13.1.3",
+        "electron-winstaller": "^5.0.0",
         "encodeurl": "^1.0.2",
         "end-of-stream": "^1.4.4",
         "env-paths": "^2.2.1",
@@ -86,9 +87,10 @@
     "scripts": {
         "start": "electron ."
     },
-    "author": "",
+    "author": "Idempiere",
     "license": "ISC",
     "devDependencies": {
+        "electron": "^13.1.3",
         "electron-packager": "^15.2.0"
     }
 }

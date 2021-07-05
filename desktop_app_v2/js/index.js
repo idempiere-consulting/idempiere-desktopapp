@@ -91,5 +91,8 @@ function PermessiMenu() {
         }
     } else {
         alert("Problem with permession");
+        for (let i = 0; i < menu.length; i++) {
+            menu[i].style.display = "none";
+        }
     }
 }
