@@ -22,11 +22,11 @@ function getTickets() {
             console.log(data);
 
             //var pData = JSON.parse(data)
-
+            let count = 3;
             a = data['window-records'];
             //console.log(a);
             a.forEach((record) => {
-                var table = document.getElementById('leadBody');
+                var table = document.getElementById('ticketBody');
                 var bp = record.C_BPartner_ID;
                 var user = record.AD_User_ID;
                 var req = record.R_RequestType_ID;
@@ -39,12 +39,29 @@ function getTickets() {
                     <td>${prio['identifier']}</td>
                     <td>${record.Summary}</td>
                     <td>${record.Created.slice(0,10)}</td>
-                    <td><a href="#" id="iconLinkWebUrl"><i class="fas fa-external-link-alt"></i></td>
+                    <td><a href="#" id="iconLinkWebUrl"><i class="fas fa-2x fa-info-circle"></i></td>
+                    <td>${record.id}</td>
                 </tr>`;
-                if (userBPartner == bp['identifier']) {
-                    table.innerHTML += row;
-                }
+                //if (userBPartner == bp['identifier']) {
+                table.innerHTML += row;
+                var table = document.getElementById('myTable');
+                //infoTable used to take the cell where there is the name document and save it in the ipcMain
+                console.log(table.rows[count].cells[6].innerHTML);
+                table.rows[count].cells[6].addEventListener('click', function(infoTable = record.id) {
+                    alert('test');
+                    doc = infoTable.path[3].cells[0].innerHTML;;
+                    console.log(doc);
+                    //ipcRenderer.send('save:docN', doc);
+                    //ipcRenderer.send('page:ODV', 3);
+                });
+                count++;
+
+
+
+                //}
             });
+            backgroundRowTable('ticketBody');
+
         })
         .catch(error => console.log(error))
 }

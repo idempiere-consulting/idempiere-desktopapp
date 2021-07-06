@@ -29,12 +29,9 @@
 
 
 function backgroundRowTable(tableName) {
-    console.log(tableName);
     var table = document.getElementById(tableName);
     var row = table.getElementsByClassName("dataRow");
-    console.log(row);
     for (let j = 1; j < row.length; j++) {
-        console.log(row[j]);
         row[j].style.backgroundColor = "#d3d3d3";
         j++;
     }
@@ -44,7 +41,6 @@ function backgroundRowTable(tableName) {
 function myFunction() {
 
     var x = document.getElementById("Demo");
-    console.log(x);
     if (x.className.indexOf("w3-show") == -1) {
         x.className += " w3-show";
     } else {

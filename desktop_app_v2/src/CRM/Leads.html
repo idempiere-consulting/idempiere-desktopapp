@@ -137,10 +137,10 @@
         </div>
     </header>
     <div id="mainContent" class="content">
-        <table>
+        <table id="myTable" class="table-sortable">
             <thead>
                 <tr>
-                    <th>
+                    <th colspan="7">
                         <div>
 
                             <input type="radio" id="html" name="LeadStatus" value="All" checked="checked">
@@ -158,26 +158,16 @@
                         </div>
                     </th>
                 </tr>
-            </thead>
-        </table>
-
-        <table>
-            <thead>
                 <tr>
-                    <th><input class="filterLeads" type="text" id="myInput" onkeyup="filterNames()" placeholder="Filtra per Nome" title="Scrivi un nome"></th>
-                    <th><input class="filterLeads" type="text" id="myInputPhone" onkeyup="filterPhone()" placeholder="Filtra per Tel" title="Scrivi un nome"></th>
-                    <th><input class="filterLeads" type="text" id="myInputMail" onkeyup="filterMail()" placeholder="Filtra per Mail" title="Scrivi un nome"></th>
-                    <th><input class="filterLeads" type="text" id="myInputSalesRep" onkeyup="filterSalesRep()" placeholder="Filtra per Agente" title="Scrivi un nome"></th>
-                    <th><input class="filterLeads" type="text" id="myInputCampaign" onkeyup="filterCampaign()" placeholder="Filtra per Camp." title="Scrivi un nome"></th>
-                    <th><input class="filterLeads" type="text" id="myInputCampaign" onkeyup="filterCampaign()" placeholder="Filtra per Camp." title="Scrivi un nome"></th>
+                    <th><input class="filterLeads filter_input" type="text" id="myInput" onkeyup="filterNames()" placeholder="Filtra per Nome" title="Scrivi un nome"></th>
+                    <th><input class="filterLeads filter_input" type="text" id="myInputPhone" onkeyup="filterPhone()" placeholder="Filtra per Tel" title="Scrivi un nome"></th>
+                    <th><input class="filterLeads filter_input" type="text" id="myInputMail" onkeyup="filterMail()" placeholder="Filtra per Mail" title="Scrivi un nome"></th>
+                    <th><input class="filterLeads filter_input" type="text" id="myInputSalesRep" onkeyup="filterSalesRep()" placeholder="Filtra per Agente" title="Scrivi un nome"></th>
+                    <th><input class="filterLeads filter_input" type="text" id="myInputCampaign" onkeyup="filterCampaign()" placeholder="Filtra per Camp." title="Scrivi un nome"></th>
+                    <th><input class="filterLeads filter_input" type="text" id="myInputCampaign" onkeyup="filterCampaign()" placeholder="Filtra per Camp." title="Scrivi un nome"></th>
                     <th><a id="" href="#"><i class="fas fa-2x fa-plus" ></i></a></th>
 
                 </tr>
-            </thead>
-        </table>
-        <table id="myTable" class="table-sortable">
-
-            <thead>
                 <tr>
                     <th>Nome</th>
                     <th>Telefono</th>

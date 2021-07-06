@@ -140,7 +140,7 @@
         <table id="myTable" class="table-sortable">
             <thead>
                 <tr>
-                    <th colspan="6">
+                    <th colspan="7">
                         <div class="radio-check">
                             <label>Priorità:
                             <input type="Radio" name="Prio"  value="All" checked="checked"/><span>All</span></label>
@@ -159,6 +159,7 @@
                     <th><input type="text" id="myInputMail" onkeyup="filterReq()" placeholder="Filtra per Priorità" title="Scrivi un nome"></th>
                     <th><input type="text" id="myInputSalesRep" onkeyup="filterSumm()" placeholder="Filtra per Riepilogo" title="Scrivi un nome"></th>
                     <th><input type="text" id="myInputCampaign" onkeyup="filterDate()" placeholder="Filtra per Data" title="Scrivi un nome"></th>
+                    <th><a title="Add ODV" id="AddODV" href="#"><i class="fas fa-2x fa-plus"></i></a></th>
                 </tr>
                 <tr>
                     <th>BPartner</th>
@@ -167,37 +168,14 @@
                     <th>Priorità</th>
                     <th>Riepilogo</th>
                     <th>Data Creazione</th>
+                    <th>Dettaglio</th>
                 </tr>
             </thead>
-            <tbody id="leadBody">
+            <tbody id="ticketBody">
+
             </tbody>
         </table>
-        <table>
-            <tr>
-                <th>test</th>
-                <th>test</th>
-                <th>test</th>
-                <th>test</th>
-            </tr>
-            <tr>
-                <th>test</th>
-                <th>test</th>
-                <th>test</th>
-                <th>test</th>
-            </tr>
-            <tr>
-                <th>test</th>
-                <th>test</th>
-                <th>test</th>
-                <th>test</th>
-            </tr>
-            <tr>
-                <th>test</th>
-                <th>test</th>
-                <th>test</th>
-                <th>test</th>
-            </tr>
-        </table>
+
     </div>
     <script>
         if (typeof module === 'object') {
@@ -208,6 +186,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <script src="../../assets/js/jquery.js"></script>
     <script src="../../js/filejscommon.js"></script>
+    <script src="../../js/Ticket(P)/Supporto.js"></script>
 
     <script>
         //window.attachEvent("onload ", closeNav());
