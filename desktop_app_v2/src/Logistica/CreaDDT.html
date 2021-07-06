@@ -2,213 +2,171 @@
 <html lang="en">
 
 <head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/normalize.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
-
-    <title>Idempiere App</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="../../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!--
-Ramayana CSS Template
-https://templatemo.com/tm-529-ramayana
--->
-
-    <!-- Additional CSS Files -->
-    <link rel="stylesheet" href="../../assets/css/fontawesome.css">
-    <link rel="stylesheet" href="../../assets/css/templatemo-style.css">
-    <link rel="stylesheet" href="../../assets/css/owl.css">
 
 </head>
 
-<body class="is-preload">
+<body>
+    <div id="myNav" class="overlay">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 
-    <!-- Wrapper -->
-    <div id="wrapper">
+        <div class="overlay-content" id="menu">
 
-        <!-- Main -->
-        <div id="main" style="background-color: #F0F0F0;">
-            <div class="inner">
+            <div class="logo_idempiere">
+                <div class="content-img">
+                    <a href="../index.html"><img src="../../assets/images/logolast - Copia.png"></a>
+                </div>
+            </div>
+            <ul>
+                <li class="macrocategory-permission-menu">
+                    <span class="opener"><i class="fas fa-users"></i> CRM</span>
+                    <ul>
+                        <li class="category-permission-menu"><a href="../CRM/Leads.html">Leads</a></li>
+                        <li class="category-permission-menu"><a href="../CRM/opportunità.html">Opportunità</a></li>
+                        <li class="category-permission-menu"><a href="../CRM/Bacheca.html">Bacheca</a></li>
+                    </ul>
+                </li>
+                <li class="macrocategory-permission-menu">
+                    <span class="opener"><i class="fas fa-hands-helping"></i> Service(U)</span>
+                    <ul>
+                        <li class="category-permission-menu"><a href="../Service(U)/OrdiniLavoro.html">Ordini Lavoro</a></li>
+                        <li class="category-permission-menu"><a href="../Service(U)/Calendario.html">Calendario</a></li>
+                        <li class="category-permission-menu"><a href="../Service(U)/Anomalie.html">Anomalie</a></li>
+                    </ul>
+                </li>
+                <li class="macrocategory-permission-menu">
+                    <span class="opener"><i class="fas fa-hands-helping"></i> Service(P)</span>
+                    <ul>
+                        <li class="category-permission-menu"><a href="../Service(P)/Anomalia.html">Anomalia</a></li>
+                        <li class="category-permission-menu"><a href="../Service(P)/Rich.Manutenzione.html">Rich. di Manutenzione</a></li>
+                    </ul>
+                </li>
+                <li class="macrocategory-permission-menu">
+                    <span class="opener"><i class="fas fa-file-invoice-dollar"></i> Fatture</span>
+                    <ul>
+                        <li class="category-permission-menu"><a href="../Fatture/Acquisto.html">Acquisto</a></li>
+                        <li class="category-permission-menu"><a href="../Fatture/Vendita.html">vendita</a></li>
+                    </ul>
+                </li>
+                <li class="macrocategory-permission-menu">
+                    <span class="opener"><i class="fas fa-clipboard-list"></i> Ordini Di Vendita</span>
+                    <ul>
+                        <li class="category-permission-menu"><a href="../OrdiniDiVendita/VediODV.html">Vedi ODV</a></li>
+                    </ul>
+                </li>
+                <li class="macrocategory-permission-menu">
+                    <span class="opener"><i class="fas fa-ticket-alt"></i> Ticket(P)</span>
+                    <ul>
+                        <li class="category-permission-menu"><a href="../Ticket(P)/Supporto.html">Supporto</a></li>
+                        <li class="category-permission-menu"><a href="../Ticket(P)/RicercaSessione.html">Ricerca Sessione</a></li>
+                        <li class="category-permission-menu"><a href="../Ticket(P)/CreaTicket.html">Crea Ticket</a></li>
+                    </ul>
+                </li>
+                <li class="macrocategory-permission-menu">
+                    <span class="opener"><i class="fas fa-ticket-alt"></i> Ticket(I)</span>
+                    <ul>
+                        <li class="category-permission-menu"><a href="../Ticket(I)/HelpDesk.htmlù">Helpdesk</a></li>
+                        <li class="category-permission-menu"><a href="../Ticket(I)/Dett.Ticket.html">Dett. Ticket</a></li>
+                        <li class="category-permission-menu"><a href="../Ticket(I)/Task.html">Task</a></li>
+                        <li class="category-permission-menu"><a href="../Ticket(I)/DaSchedulare.html">Da Schedulare</a></li>
+                        <li class="category-permission-menu"><a href="../Ticket(I)/Ore.html">Ore</a></li>
+                    </ul>
+                </li>
+                <li class="macrocategory-permission-menu">
+                    <a href="../ContoLavoro/ContoLavoro.html"><i class="fas fa-sign-out-alt"></i> Conto Lavoro</a>
+                </li>
+                <li class="macrocategory-permission-menu">
+                    <a href="../Acquisti/Acquisti.html"><i class="fas fa-shopping-cart"></i> Acquisti</a>
+                </li>
+                <li class="macrocategory-permission-menu">
+                    <a href="../Task-Ore/TaskOre.html"><i class="fas fa-clock"></i> Task Ore</a>
+                </li>
+                <li class="macrocategory-permission-menu">
+                    <a href="../Produzione/Produzione.html"><i class="fas fa-industry"></i> Produzione</a>
+                </li>
+                <li class="macrocategory-permission-menu">
+                    <span class="opener"><i class="fas fa-boxes"></i> Logistica</span>
+                    <ul>
+                        <li class="category-permission-menu"><a href="../ProdottiGiacc.html">Prodotti/Giac. </a></li>
+                        <li class="category-permission-menu"><a href="../Logistica/CreaDDTcl.html">Crea DDT CL</a></li>
+                        <li class="category-permission-menu"><a href="../Logistica/CreaDDT.html">Crea DDT</a></li>
+                        <li class="category-permission-menu"><a href="../Logistica/ListaViaggi.html">Lista Viaggi</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <header>
+        <div class="header-content">
+            <div class="header-content-box">
+                <div class="header-item">
+                    <span class="button_Nav" onclick="openNav()">&#9776;</span>
+                </div>
+                <div class="header-item">
+                    <span id="title">CreaDDT</span>
+                </div>
+                <div class="header-item div-right">
+                    <div style="width: 100%; height: 100%;" class="w3-dropdown-click">
+                        <div class="div-logout" onclick="myFunction()">
+                            <span id="span_usernmane_jslogic" class="mr-2 d-lg-inline text-gray-600 small" style=" font-weight: 700;">Userrrrrrrrrrrrrrrrrrrrr</span>
+                            <div class="container-img ">
+                                <img class="img-profile rounded-circle" src="../../assets/images/undraw_profile.svg">
+                            </div>
 
-
-
-
-                <!-- Header -->
-                <header id="header">
-
-                    <div class="logo">
-
-
-                        <a class="nav-link dropdown-toggle rounded" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                            <span id="span_usernmane_jslogic" class="mr-2 d-none d-lg-inline text-gray-600 small" style="font-weight: 700;">User</span>
-                            <img class="img-profile rounded-circle" src="../../assets/images/undraw_profile.svg">
-                        </a>
-
-                        <div id="userMenu" class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="#">
-                                <i class="fas fa-user fa-sm fa-fw mr-1 text-gray-400"></i> profilo
-                            </a>
-                            <a class="dropdown-item" href="#">
-                                <i class="fas fa-cogs fa-sm fa-fw mr-1 text-gray-400"></i> Impostazioni
-                            </a>
-
-                            <div class="dropdown-divider"></div>
-                            <a onclick="logOut()" class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-1 text-gray-400"></i> Logout
-                            </a>
                         </div>
-
-
-
+                        <div id="Demo" class="w3-dropdown-content w3-bar-block w3-border">
+                            <a href="#" class="w3-bar-item w3-button">Profilo</a>
+                            <a href="#" class="w3-bar-item w3-button">Impostazioni</a>
+                            <hr>
+                            <a href="#" onclick="logOut()" class="w3-bar-item w3-button">Logout</a>
+                        </div>
                     </div>
 
-                </header>
-
-                <div id="mainContent" class="content">
 
                 </div>
-
             </div>
+
         </div>
-
-        <!-- Sidebar -->
-        <div id="sidebar">
-
-            <div class="inner">
-
-                <!-- logo -->
-
-                <div class="logo_idempiere" style="text-align: center;">
-                    <a href="index.html"><img src="../../assets/images/logolast.png" class="w-75" alt=""></a><br>
-                </div>
-
-                <!-- Menu -->
-                <nav id="menu">
-                    <ul>
-                        <li>
-                            <span class="opener"><i class="fas fa-users"></i> CRM</span>
-                            <ul>
-                                <li><a href="../CRM/Leads.html">Leads</a></li>
-                                <li><a href="../CRM/opportunità.html">Opportunità</a></li>
-                                <li><a href="../CRM/Bacheca.html">Bacheca</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <span class="opener"><i class="fas fa-hands-helping"></i> Service(U)</span>
-                            <ul>
-                                <li><a href="../Service(U)/OrdiniLavoro.html">Ordini Lavoro</a></li>
-                                <li><a href="../Service(U)/Calendario.html">Calendario</a></li>
-                                <li><a href="../Service(U)/Anomalie.html">Anomalie</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <span class="opener"><i class="fas fa-hands-helping"></i> Service(P)</span>
-                            <ul>
-                                <li><a href="../Service(P)/Anomalia.html">Anomalia</a></li>
-                                <li><a href="../Service(P)/Rich.Manutenzione.html">Rich. di Manutenzione</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <span class="opener"><i class="fas fa-file-invoice-dollar"></i> Fatture</span>
-                            <ul>
-                                <li><a href="../Fatture/Acquisto.html">Acquisto</a></li>
-                                <li><a href="../Fatture/Vendita.html">vendita</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <span class="opener"><i class="fas fa-clipboard-list"></i> Ordini Di Vendita</span>
-                            <ul>
-                                <li><a href="../OrdiniDiVendita/VediODV.html">Vedi ODV</a></li>
-
-                            </ul>
-                        </li>
-                        <li>
-                            <span class="opener"><i class="fas fa-ticket-alt"></i> Ticket(P)</span>
-                            <ul>
-                                <li><a href="../Ticket(P)/Supporto.html">Supporto</a></li>
-                                <li><a href="../Ticket(P)/RicercaSessione.html">Ricerca Sessione</a></li>
-                                <li><a href="../Ticket(P)/CreaTicket.html">Crea Ticket</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <span class="opener"><i class="fas fa-ticket-alt"></i> Ticket(I)</span>
-                            <ul>
-                                <li><a href="../Ticket(I)/HelpDesk.html">Helpdesk</a></li>
-                                <li><a href="../Ticket(I)/Dett.Ticket.html">Dett. Ticket</a></li>
-                                <li><a href="../Ticket(I)/Task.html">Task</a></li>
-                                <li><a href="../Ticket(I)/DaSchedulare.html">Da Schedulare</a></li>
-                                <li><a href="../Ticket(I)/Ore.html">Ore</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="../ContoLavoro/ContoLavoro.html"><i class="fas fa-sign-out-alt"></i> Conto Lavoro</a>
-                        </li>
-                        <li>
-                            <a href="../Acquisti/Acquisti.html"><i class="fas fa-shopping-cart"></i> Acquisti</a>
-                        </li>
-                        <li>
-                            <a href="../Task-Ore/TaskOre.html"><i class="fas fa-clock"></i> Task Ore</a>
-                        </li>
-                        <li>
-                            <a href="../Produzione/Produzione.html"><i class="fas fa-industry"></i> Produzione</a>
-                        </li>
-                        <li>
-                            <span class="opener"><i class="fas fa-boxes"></i> Logistica</span>
-                            <ul>
-                                <li><a href="../Logistica/ProdottiGiacc.html">Prodotti/Giac. </a></li>
-                                <li><a href="../Logistica/CreaDDTcl.html">Crea DDT CL</a></li>
-                                <li><a href="../Logistica/CreaDDT.html">Crea DDT</a></li>
-                                <li><a href="../Logistica/ListaViaggi.html">Lista Viaggi</a></li>
-                            </ul>
-                        </li>
-                </nav>
-
-                <!-- Footer -->
-                <footer id="footer">
-                    <p class="copyright">Copyright &copy; 2021 Idempiere-Consulting
-                        <br>Designed by Idempiere <a class="facebook" rel="nofollow" href="https://it-it.facebook.com/idempiere.consulting/">Facebook</a></p>
-                </footer>
-
-            </div>
-        </div>
-
+    </header>
+    <div id="mainContent" class="content">
+        <iframe src="https://app.powerbi.com/reportEmbed?reportId=7204a2ab-38bd-4a48-a517-c6483b9e0f10&autoAuth=true&ctid=3207801d-cc35-4798-9cd6-8af5382cc923&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLXdlc3QtZXVyb3BlLWQtcHJpbWFyeS1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D"
+            width="100%" height="90%">
+        </iframe>
     </div>
-
-    <!-- Scripts -->
-    <!-- Bootstrap core JavaScript -->
     <script>
         if (typeof module === 'object') {
             window.module = module;
             module = undefined;
         }
     </script>
-    <script src="http://rezitech.github.io/stash/stash.min.js"></script>
-
-    <script src="../../vendor/jquery/jquery.min.js"></script>
-    <script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <script src="../../assets/js/browser.min.js"></script>
-    <script src="../../assets/js/breakpoints.min.js"></script>
-    <script src="../../assets/js/transition.js"></script>
-    <script src="../../assets/js/owl-carousel.js"></script>
-    <script src="../../assets/js/custom.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script src="../../assets/js/jquery.js"></script>
     <script src="../../js/filejscommon.js"></script>
 
+    <script>
+        //window.attachEvent("onload ", closeNav());
 
+        function openNav() {
+            document.getElementById("myNav").style.width = "350px";
+        }
 
+        function closeNav() {
+            document.getElementById("myNav").style.width = "0px";
+        }
+    </script>
     <script>
         if (window.module) module = window.module;
     </script>
+
+
 </body>
-
-
 
 </html>

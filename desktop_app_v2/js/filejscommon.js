@@ -3,6 +3,7 @@ const ipcRender_2 = electron_2.ipcRenderer;
 
 document.getElementById("span_usernmane_jslogic").innerHTML = ipcRender_2.sendSync('send:user');
 
+
 function logOut() {
     if (window.confirm("Se esci al prossimo Login dovrai reinserire nome utente e password, sicuro di voler uscire? ")) {
         stash.cut('username');

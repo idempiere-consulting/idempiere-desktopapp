@@ -115,7 +115,7 @@ function getODVLines() {
                 }
 
 
-                var row = `<tr class="dataRow2">
+                var row = `<tr class="dataRow">
 							<td>${MProdcutidentifier}</td>
 							<td>${Name}</td>
 							<td>${UOMindentifier}</td>
@@ -123,7 +123,7 @@ function getODVLines() {
                                 <a onclick="LessQuantity(${record.id},${record.QtyEntered})" id="less-qty" class="orderline-quantity" href="#">
                                     <i class="fas fa-1x fa-minus left-minus"></i>
                                 </a>
-                                ${QtyEntered}
+                                <span>${QtyEntered}</span>
                                 <a onclick="PlusQuantity(${record.id},${record.QtyEntered})" id="plus-qty" class="orderline-quantity" href="#">
                                     <i class="fas fa-1x fa-plus right-plus"></i>
                                 </a>
@@ -136,6 +136,7 @@ function getODVLines() {
 
                 table.innerHTML += row;
             });
+
             var switching = true;
             var shouldSwitch;
             var x, y, index;
@@ -156,6 +157,7 @@ function getODVLines() {
                     switching = true;
                 }
             }
+            backgroundRowTable('opportunityBody2');
 
 
 
