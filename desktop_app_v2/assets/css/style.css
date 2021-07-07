@@ -9,6 +9,8 @@ body {
 }
 
 
+
+
 /* Menu*/
 
 .overlay {
@@ -342,7 +344,8 @@ thead {
 /*ICONE*/
 
 #AddODV,
-#addOrderLine {
+#addOrderLine,
+#addTicketP {
     color: #3CB371;
 }
 
@@ -352,6 +355,11 @@ thead {
 }
 
 #addOrderLine:hover {
+    transition: 0.3s;
+    color: #00FF00;
+}
+
+#addTicketP:hover {
     transition: 0.3s;
     color: #00FF00;
 }
@@ -396,6 +404,7 @@ thead {
     .overlay a {
         font-size: 20px
     }
+
     .overlay .closebtn {
         font-size: 40px;
         top: 15px;
@@ -445,4 +454,14 @@ thead {
 
 .progress-bar {
     color: #00FF00;
+}
+
+ul li {
+    margin: 5px;
+}
+
+
+
+li {
+    cursor: pointer;
 }

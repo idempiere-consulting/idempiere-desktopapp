@@ -40,7 +40,7 @@ function getOpportunities(){
                     <td>${salesStage['identifier']}</td>
                     <td>${record.OpportunityAmt}</td>
                     <td>${record.Description}</td>
-                    <td><a href="#" id="iconLinkWebUrl"><i class="fas fa-external-link-alt"></i></td>
+                    <td><a href="#" id="iconLinkWebUrl"><i class="fas fa-2x fa-info-circle"></i></td>
               </tr>`;
               
               table.innerHTML += row;

@@ -1,172 +1,208 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <link rel="stylesheet" href="../../assets/css/style.css">
-    <link rel="stylesheet" href="../../assets/css/normalize.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
-
+    <style>
+        body {
+            font-family: Arial;
+            font-size: 17px;
+            padding: 8px;
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        .row {
+            display: -ms-flexbox;
+            /* IE10 */
+            display: flex;
+            -ms-flex-wrap: wrap;
+            /* IE10 */
+            flex-wrap: wrap;
+            margin: 0 -16px;
+        }
+        
+        .col-25 {
+            -ms-flex: 25%;
+            /* IE10 */
+            flex: 25%;
+        }
+        
+        .col-50 {
+            -ms-flex: 50%;
+            /* IE10 */
+            flex: 50%;
+        }
+        
+        .col-75 {
+            -ms-flex: 75%;
+            /* IE10 */
+            flex: 75%;
+        }
+        
+        .col-100 {
+            -ms-flex: 100%;
+            /* IE10 */
+            flex: 100%;
+        }
+        
+        .col-25,
+        .col-50,
+        .col-75,
+        .col-100 {
+            padding: 0 16px;
+        }
+        
+        .container {
+            background-color: #f2f2f2;
+            padding: 5px 20px 15px 20px;
+            border: 1px solid lightgrey;
+            border-radius: 3px;
+        }
+        
+        input[type=text] {
+            width: 100%;
+            margin-bottom: 20px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        
+        input {
+            width: 100%;
+            margin-bottom: 20px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        
+        label {
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .icon-container {
+            margin-bottom: 20px;
+            padding: 7px 0;
+            font-size: 24px;
+        }
+        
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            width: 100%;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 17px;
+        }
+        
+        .btn:hover {
+            background-color: #45a049;
+        }
+        
+        a {
+            color: #2196F3;
+        }
+        
+        hr {
+            border: 1px solid lightgrey;
+        }
+        
+        .div-quantity {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+        }
+        
+        .div-quantity a {
+            width: 10%;
+            margin-bottom: 20px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            text-align: center;
+        }
+        
+        .div-quantity a :hover {
+            color: red;
+        }
+        
+        .div-quantity input {
+            text-align: center;
+        }
+        
+        span {
+            padding: 11px;
+            border-radius: 3px;
+            background-color: #19B3D3;
+            color: white;
+        }
+        /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (also change the direction - make the "cart" column go on top) */
+        
+        @media (max-width: 800px) {
+            .row {
+                flex-direction: column-reverse;
+            }
+            .col-25 {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <div id="myNav" class="overlay">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <div class="row">
+        <div class="col-100">
+            <div class="container">
+                <form>
 
-        <div class="overlay-content" id="menu">
-
-            <div class="logo_idempiere">
-                <div class="content-img">
-                    <a href="../index.html"><img src="../../assets/images/logolast - Copia.png"></a>
-                </div>
-            </div>
-            <ul>
-                <li class="macrocategory-permission-menu">
-                    <span class="opener"><i class="fas fa-users"></i> CRM</span>
-                    <ul>
-                        <li class="category-permission-menu"><a href="../CRM/Leads.html">Leads</a></li>
-                        <li class="category-permission-menu"><a href="../CRM/opportunità.html">Opportunità</a></li>
-                        <li class="category-permission-menu"><a href="../CRM/Bacheca.html">Bacheca</a></li>
-                    </ul>
-                </li>
-                <li class="macrocategory-permission-menu">
-                    <span class="opener"><i class="fas fa-hands-helping"></i> Service(U)</span>
-                    <ul>
-                        <li class="category-permission-menu"><a href="../Service(U)/OrdiniLavoro.html">Ordini Lavoro</a></li>
-                        <li class="category-permission-menu"><a href="../Service(U)/Calendario.html">Calendario</a></li>
-                        <li class="category-permission-menu"><a href="../Service(U)/Anomalie.html">Anomalie</a></li>
-                    </ul>
-                </li>
-                <li class="macrocategory-permission-menu">
-                    <span class="opener"><i class="fas fa-hands-helping"></i> Service(P)</span>
-                    <ul>
-                        <li class="category-permission-menu"><a href="../Service(P)/Anomalia.html">Anomalia</a></li>
-                        <li class="category-permission-menu"><a href="../Service(P)/Rich.Manutenzione.html">Rich. di Manutenzione</a></li>
-                    </ul>
-                </li>
-                <li class="macrocategory-permission-menu">
-                    <span class="opener"><i class="fas fa-file-invoice-dollar"></i> Fatture</span>
-                    <ul>
-                        <li class="category-permission-menu"><a href="../Fatture/Acquisto.html">Acquisto</a></li>
-                        <li class="category-permission-menu"><a href="../Fatture/Vendita.html">vendita</a></li>
-                    </ul>
-                </li>
-                <li class="macrocategory-permission-menu">
-                    <span class="opener"><i class="fas fa-clipboard-list"></i> Ordini Di Vendita</span>
-                    <ul>
-                        <li class="category-permission-menu"><a href="../OrdiniDiVendita/VediODV.html">Vedi ODV</a></li>
-                    </ul>
-                </li>
-                <li class="macrocategory-permission-menu">
-                    <span class="opener"><i class="fas fa-ticket-alt"></i> Ticket(P)</span>
-                    <ul>
-                        <li class="category-permission-menu"><a href="../Ticket(P)/Supporto.html">Supporto</a></li>
-                        <li class="category-permission-menu"><a href="../Ticket(P)/RicercaSessione.html">Ricerca Sessione</a></li>
-                        <li class="category-permission-menu"><a href="../Ticket(P)/CreaTicket.html">Crea Ticket</a></li>
-                    </ul>
-                </li>
-                <li class="macrocategory-permission-menu">
-                    <span class="opener"><i class="fas fa-ticket-alt"></i> Ticket(I)</span>
-                    <ul>
-                        <li class="category-permission-menu"><a href="../Ticket(I)/HelpDesk.htmlù">Helpdesk</a></li>
-                        <li class="category-permission-menu"><a href="../Ticket(I)/Dett.Ticket.html">Dett. Ticket</a></li>
-                        <li class="category-permission-menu"><a href="../Ticket(I)/Task.html">Task</a></li>
-                        <li class="category-permission-menu"><a href="../Ticket(I)/DaSchedulare.html">Da Schedulare</a></li>
-                        <li class="category-permission-menu"><a href="../Ticket(I)/Ore.html">Ore</a></li>
-                    </ul>
-                </li>
-                <li class="macrocategory-permission-menu">
-                    <a href="../ContoLavoro/ContoLavoro.html"><i class="fas fa-sign-out-alt"></i> Conto Lavoro</a>
-                </li>
-                <li class="macrocategory-permission-menu">
-                    <a href="../Acquisti/Acquisti.html"><i class="fas fa-shopping-cart"></i> Acquisti</a>
-                </li>
-                <li class="macrocategory-permission-menu">
-                    <a href="../Task-Ore/TaskOre.html"><i class="fas fa-clock"></i> Task Ore</a>
-                </li>
-                <li class="macrocategory-permission-menu">
-                    <a href="../Produzione/Produzione.html"><i class="fas fa-industry"></i> Produzione</a>
-                </li>
-                <li class="macrocategory-permission-menu">
-                    <span class="opener"><i class="fas fa-boxes"></i> Logistica</span>
-                    <ul>
-                        <li class="category-permission-menu"><a href="../ProdottiGiacc.html">Prodotti/Giac. </a></li>
-                        <li class="category-permission-menu"><a href="../Logistica/CreaDDTcl.html">Crea DDT CL</a></li>
-                        <li class="category-permission-menu"><a href="../Logistica/CreaDDT.html">Crea DDT</a></li>
-                        <li class="category-permission-menu"><a href="../Logistica/ListaViaggi.html">Lista Viaggi</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <header>
-        <div class="header-content">
-            <div class="header-content-box">
-                <div class="header-item">
-                    <span class="button_Nav" onclick="openNav()">&#9776;</span>
-                </div>
-                <div class="header-item">
-                    <span id="title">Crea Ticket</span>
-                </div>
-                <div class="header-item div-right">
-                    <div style="width: 100%; height: 100%;" class="w3-dropdown-click">
-                        <div class="div-logout" onclick="myFunction()">
-                            <span id="span_usernmane_jslogic" class="mr-2 d-lg-inline text-gray-600 small" style=" font-weight: 700;">Userrrrrrrrrrrrrrrrrrrrr</span>
-                            <div class="container-img ">
-                                <img class="img-profile rounded-circle" src="../../assets/images/undraw_profile.svg">
-                            </div>
-
-                        </div>
-                        <div id="Demo" class="w3-dropdown-content w3-bar-block w3-border">
-                            <a href="#" class="w3-bar-item w3-button">Profilo</a>
-                            <a href="#" class="w3-bar-item w3-button">Impostazioni</a>
-                            <hr>
-                            <a href="#" onclick="logOut()" class="w3-bar-item w3-button">Logout</a>
-                        </div>
+                    <label class="formLabel" for="fname">Utente</label>
+                    <input type="text" id="fname" name="firstname" placeholder="Your name..">
+        
+                    <label class="formLabel" for="lname">Business Partner</label>
+                    <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+        
+                    <label class="formLabel" for="priority">Priorità</label>
+                    <select id="priority" name="priority">
+                        <option value="9">Minore</option>
+                        <option value="7">Bassa</option>
+                        <option value="5">Media</option>
+                        <option value="3">Alta</option>
+                        <option value="1">Urgente</option>
+                    </select>
+                    
+                    <label class="formLabel" for="requestType">Tipo Richiesta</label>
+                    <select id="requestType" name="requestType">
+                        <option value=""></option>
+                        <option value="Anomalia">Anomalia</option>
+                        <option value="Richiesta di formazione">Richiesta di formazione</option>
+                        <option value="Nuova Richiesta Funzionalità/Sviluppo">Nuova Richiesta Funzionalità/Sviluppo</option>
+                        <option value="Altro">Altro</option>
+                    </select>
+                    <div style="margin-bottom: 22px;" id="caseRequest">
                     </div>
-
-
-                </div>
+        
+                    <a href="#" style="text-decoration: none;" id="sendLine" class="btn">Registra Linea Ordine</a>
+        
+          </form>
             </div>
-
         </div>
-    </header>
-    <div id="mainContent" class="content">
-        <iframe src="https://app.powerbi.com/reportEmbed?reportId=7204a2ab-38bd-4a48-a517-c6483b9e0f10&autoAuth=true&ctid=3207801d-cc35-4798-9cd6-8af5382cc923&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLXdlc3QtZXVyb3BlLWQtcHJpbWFyeS1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D"
-            width="100%" height="90%">
-        </iframe>
+
     </div>
-    <script>
-        if (typeof module === 'object') {
-            window.module = module;
-            module = undefined;
-        }
-    </script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-    <script src="../../assets/js/jquery.js"></script>
-    <script src="../../js/filejscommon.js"></script>
-
-    <script>
-        //window.attachEvent("onload ", closeNav());
-
-        function openNav() {
-            document.getElementById("myNav").style.width = "350px";
-        }
-
-        function closeNav() {
-            document.getElementById("myNav").style.width = "0px";
-        }
-    </script>
-    <script>
-        if (window.module) module = window.module;
-    </script>
-
+<script src="../../js/Ticket(P)/CreateTicketP.js"></script>
 
 </body>
 
-</html>
+</html> 

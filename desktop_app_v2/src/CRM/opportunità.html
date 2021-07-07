@@ -183,11 +183,11 @@
         <table>
             <thead>
                 <tr>
-                    <th><input class="FilterLeads" type="text" id="myInputBP" onkeyup="filterBP()" placeholder="Filtra per BP" title="Scrivi un nome"></th>
-                    <th><input class="FilterLeads" type="text" id="myInputCampaign" onkeyup="filterCampaign()" placeholder="Filtra per Camp." title="Scrivi un nome"></th>
-                    <th><input class="FilterLeads" type="text" id="myInputSalesRep" onkeyup="filterSalesRep()" placeholder="Filtra per Agente" title="Scrivi un nome"></th>
-                    <th><input class="FilterLeads" type="text" id="myInputOppAmt" onkeyup="filterOppAmt()" placeholder="Filtra per Importo" title="Scrivi un nome"></th>
-                    <th><input class="FilterLeads" type="text" id="myInputDescription" onkeyup="filterDescription()" placeholder="Filtra per Opp." title="Scrivi un nome"></th>
+                    <th><input class="FilterLeads filter_input" type="text" id="myInputBP" onkeyup="filterBP()" placeholder="Filtra per BP" title="Scrivi un nome"></th>
+                    <th><input class="FilterLeads filter_input" type="text" id="myInputCampaign" onkeyup="filterCampaign()" placeholder="Filtra per Camp." title="Scrivi un nome"></th>
+                    <th><input class="FilterLeads filter_input" type="text" id="myInputSalesRep" onkeyup="filterSalesRep()" placeholder="Filtra per Agente" title="Scrivi un nome"></th>
+                    <th><input class="FilterLeads filter_input" type="text" id="myInputOppAmt" onkeyup="filterOppAmt()" placeholder="Filtra per Importo" title="Scrivi un nome"></th>
+                    <th><input class="FilterLeads filter_input" type="text" id="myInputDescription" onkeyup="filterDescription()" placeholder="Filtra per Opp." title="Scrivi un nome"></th>
                 </tr>
             </thead>
         </table>
@@ -201,6 +201,7 @@
                     <th>Stato Vendita</th>
                     <th>Importo atteso</th>
                     <th>Opportunità</th>
+                    <th><a title="Add ODV" id="AddODV" href="#"><i class="fas fa-2x fa-plus"></i></a></th>
                 </tr>
             </thead>
             <tbody id="opportunityBody">

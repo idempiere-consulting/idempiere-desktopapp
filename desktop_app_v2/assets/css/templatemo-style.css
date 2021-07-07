@@ -1,5 +1,6 @@
 @import url(fontawesome.css);
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap");
+
 body {
     font-family: Poppins-Regular, sans-serif;
     font-weight: 700;
@@ -442,7 +443,7 @@ section.contact-form {
 
 section.tables {
     margin-top: 80px;
-    border-top: 3px solid #eee!important;
+    border-top: 3px solid #eee !important;
     padding-top: 100px;
 }
 
@@ -1118,13 +1119,13 @@ section.buttons .container-fluid {
 .owl-carousel button.owl-dot {
     width: 10px;
     height: 10px;
-    background-color: #2d2e39!important;
+    background-color: #2d2e39 !important;
     margin-left: 5px;
     outline: none;
 }
 
 .owl-carousel button.active {
-    background-color: #535ba0!important;
+    background-color: #535ba0 !important;
 }
 
 
@@ -1483,35 +1484,43 @@ label {
     #sidebar {
         width: 380px;
     }
+
     #sidebar .inner {
         padding: 0px 30px;
         width: 380px;
     }
+
     #mainContet {
         overflow-x: auto;
     }
+
     #sidebar .toggle {
         height: 100px;
         left: 380px;
         line-height: 100px;
     }
+
     #sidebar .toggle:before {
         font-size: 24px;
     }
+
     #sidebar.inactive {
         margin-left: -380px;
     }
+
     #sidebar .inner #search {
         width: 380px;
         margin-left: -30px;
     }
+
     #menu {
         margin-top: 30px;
     }
+
     .featured-posts {
-        margin-left: -30px!important;
-        margin-right: -30px!important;
-        padding: 30px!important;
+        margin-left: -30px !important;
+        margin-right: -30px !important;
+        padding: 30px !important;
     }
 }
 
@@ -1524,9 +1533,11 @@ label {
         top: 0;
         z-index: 10000;
     }
+
     #sidebar .inactive {
         box-shadow: none;
     }
+
     #sidebar .inner {
         -webkit-overflow-scrolling: touch;
         height: 100%;
@@ -1536,20 +1547,24 @@ label {
         position: absolute;
         top: 0;
     }
+
     #sidebar .inner:after {
         content: '';
         display: block;
         height: 4em;
         width: 100%;
     }
+
     #sidebar .toggle {
         width: 6em;
     }
+
     #sidebar .toggle:before {
         font-size: 1.5rem;
         color: #fff;
         background-color: rgba(83, 91, 160, 0.75);
     }
+
     body .is-preload #sidebar {
         display: none;
     }
@@ -1559,22 +1574,28 @@ label {
     #span_usernmane_jslogic {
         display: none;
     }
+
     #main .inner {
         padding: 15px;
     }
+
     #header {
-        margin: -15px!important;
+        margin: -15px !important;
     }
+
     section .main-banner {
         margin-top: 30px;
     }
+
     .page-heading h1 {
         margin-top: 80px;
     }
+
     #sidebar .toggle {
         text-indent: 8.25em;
         width: 7.25em;
     }
+
     #sidebar .toggle:before {
         color: #D3D3D3;
         margin-left: -0.0855em;
@@ -1582,9 +1603,11 @@ label {
         font-size: 20px;
         z-index: 1;
     }
+
     #sidebar .toggle:before {
         background-color: transparent;
     }
+
     #sidebar .toggle:after {
         background: rgba(83, 91, 160, 0.90);
         border-radius: 5px;
@@ -1595,20 +1618,25 @@ label {
         top: 15px;
         width: 80px;
     }
+
     .left-image .right-content {
         margin-top: 40px;
         margin-left: 0px;
     }
+
     .right-image .left-content {
         margin-bottom: 40px;
         margin-right: 0px;
     }
+
     .main-banner {
         text-align: center;
     }
+
     .main-banner .banner-content .banner-caption {
         padding: 30px;
     }
+
     .contact-form button {
         margin-bottom: 30px;
     }
