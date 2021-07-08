@@ -134,38 +134,6 @@ function createODVWindow() {
 
 }
 
-//Create ticketP
-function createTicketP(){
-    secondaryWindow = new BrowserWindow({
-        parent: mainWindow,
-        modal: true,
-        show: false,
-        width: 1000,
-        height: 500,
-        icon: path.join(__dirname, 'assets/images/logo.png'),
-        webPreferences: {
-            nodeIntegration: true,
-            contextIsolation: false,
-            backgroundColor: '#2e2c29',
-        }
-    });
-
-    secondaryWindow.once('ready-to-show', () => {
-        secondaryWindow.show()
-    })
-
-    secondaryWindow.loadURL(url.format({
-        pathname: path.join(__dirname, 'src/Ticket(P)/CreaTicket.html'),
-        protocol: 'file:',
-        slashes: true
-    }));
-
-    secondaryWindow.on('close', function() {
-        secondaryWindow = null;
-        mainWindow.reload();
-    });
-
-}
 
 
 // Crate a new window 
@@ -202,6 +170,72 @@ function showODVDetailsWindow() {
 
 }
 
+//Create ticketP
+function createTicketP() {
+    secondaryWindow = new BrowserWindow({
+        parent: mainWindow,
+        modal: true,
+        show: false,
+        width: 1000,
+        height: 500,
+        icon: path.join(__dirname, 'assets/images/logo.png'),
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false,
+            backgroundColor: '#2e2c29',
+        }
+    });
+
+    secondaryWindow.once('ready-to-show', () => {
+        secondaryWindow.show()
+    })
+
+    secondaryWindow.loadURL(url.format({
+        pathname: path.join(__dirname, 'src/Ticket(P)/CreaTicket.html'),
+        protocol: 'file:',
+        slashes: true
+    }));
+
+    secondaryWindow.on('close', function() {
+        secondaryWindow = null;
+        mainWindow.reload();
+    });
+
+}
+
+
+function DetailtsTicketWindow() {
+    secondaryWindow = new BrowserWindow({
+        parent: mainWindow,
+        modal: true,
+        show: false,
+        width: 1000,
+        height: 500,
+        icon: path.join(__dirname, 'assets/images/logo.png'),
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false,
+            backgroundColor: '#2e2c29',
+        }
+    });
+
+    secondaryWindow.once('ready-to-show', () => {
+        secondaryWindow.show()
+    })
+
+    secondaryWindow.loadURL(url.format({
+        pathname: path.join(__dirname, 'src/Ticket(P)/DetailsTicketWindow.html'),
+        protocol: 'file:',
+        slashes: true
+    }));
+
+    secondaryWindow.on('close', function() {
+        secondaryWindow = null;
+        mainWindow.reload();
+    });
+
+}
+
 //LEADS DETALIS
 function infoLeads() {
     secondaryWindow = new BrowserWindow({
@@ -231,8 +265,6 @@ function infoLeads() {
     });
 
 }
-
-
 
 
 

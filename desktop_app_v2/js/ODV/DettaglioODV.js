@@ -56,7 +56,7 @@ function getODV() {
 
                 var table = document.getElementById('myTable1');
                 for (var i = 2; i < table.rows.length; i++) {
-                    table.rows[i].addEventListener('click', function(infoTable = table.row[i].cells[0].innerHTML) {
+                    table.rows[i].cells[5].addEventListener('click', function(infoTable = table.row[i].cells[0].innerHTML) {
                         doc = infoTable.path[3].cells[0].innerHTML;
                         ipcRenderer.send('save:docN', doc);
                         ipcRenderer.send('page:ODV:odv_details_window');

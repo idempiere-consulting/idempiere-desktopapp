@@ -9,7 +9,7 @@ getTickets();
 
 function getTickets() {
 
-    fetch('http://' + ip + '/api/v1/windows/request', {
+    fetch('http://' + ip + '/api/v1/windows/resource-assignment', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

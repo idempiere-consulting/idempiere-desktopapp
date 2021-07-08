@@ -185,12 +185,12 @@
             <div class="container">
                 <form>
 
-                    <label class="formLabel" for="fname">Utente</label>
-                    <input type="text" id="fname" name="firstname" placeholder="Your name..">
-        
-                    <label class="formLabel" for="lname">Business Partner</label>
-                    <input type="text" id="lname" name="lastname" placeholder="Your last name..">
-        
+                    <label class="formLabel" for="label_user">Utente</label>
+                    <input type="text" id="input_user" name="firstname" placeholder="Your name..">
+
+                    <label class="formLabel" for="label_BusinessPartner">Business Partner</label>
+                    <input type="text" id="input_BusinessPartner" name="lastname" placeholder="Your last name..">
+
                     <label class="formLabel" for="priority">Priorità</label>
                     <select class="addODV" id="priority" name="priority">
                         <option value="9">Minore</option>
@@ -199,7 +199,7 @@
                         <option value="3">Alta</option>
                         <option value="1">Urgente</option>
                     </select>
-                    
+
                     <label class="formLabel" for="requestType">Tipo Richiesta</label>
                     <select class="addODV" id="requestType" name="requestType">
                         <option value=""></option>
@@ -210,15 +210,16 @@
                     </select>
                     <div style="margin-bottom: 22px;" id="caseRequest">
                     </div>
-                    <input type="submit" id="sendLine" class="btn" value="Salva">
 
-          </form>
+                    <a href="#" style="text-decoration: none;" id="sendLine" class="btn">Registra Linea Ordine</a>
+
+                </form>
             </div>
         </div>
 
     </div>
-<script src="../../js/Ticket(P)/CreateTicketP.js"></script>
+    <script src="../../js/Ticket(P)/CreateTicketP.js"></script>
 
 </body>
 
-</html> 
+</html>

@@ -9,8 +9,6 @@ body {
 }
 
 
-
-
 /* Menu*/
 
 .overlay {
@@ -410,7 +408,6 @@ thead {
     .overlay a {
         font-size: 20px
     }
-
     .overlay .closebtn {
         font-size: 40px;
         top: 15px;
@@ -418,7 +415,7 @@ thead {
     }
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1600px) {
     .content {
         overflow-x: auto;
     }
