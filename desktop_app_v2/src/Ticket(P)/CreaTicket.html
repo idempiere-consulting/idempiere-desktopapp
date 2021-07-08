@@ -4,7 +4,6 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="../../assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
@@ -65,6 +64,24 @@
             padding: 5px 20px 15px 20px;
             border: 1px solid lightgrey;
             border-radius: 3px;
+        }
+
+        select {
+            width: 100%;
+            margin-bottom: 20px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            background-color: white;
+            border-radius: 3px;
+            font-size: 15px;
+        }
+
+        li{
+            margin: 5px;
+        }
+
+        ul li{
+            cursor: pointer;
         }
         
         input[type=text] {
@@ -175,7 +192,7 @@
                     <input type="text" id="lname" name="lastname" placeholder="Your last name..">
         
                     <label class="formLabel" for="priority">Priorità</label>
-                    <select id="priority" name="priority">
+                    <select class="addODV" id="priority" name="priority">
                         <option value="9">Minore</option>
                         <option value="7">Bassa</option>
                         <option value="5">Media</option>
@@ -184,7 +201,7 @@
                     </select>
                     
                     <label class="formLabel" for="requestType">Tipo Richiesta</label>
-                    <select id="requestType" name="requestType">
+                    <select class="addODV" id="requestType" name="requestType">
                         <option value=""></option>
                         <option value="Anomalia">Anomalia</option>
                         <option value="Richiesta di formazione">Richiesta di formazione</option>
@@ -193,9 +210,8 @@
                     </select>
                     <div style="margin-bottom: 22px;" id="caseRequest">
                     </div>
-        
-                    <a href="#" style="text-decoration: none;" id="sendLine" class="btn">Registra Linea Ordine</a>
-        
+                    <input type="submit" id="sendLine" class="btn" value="Salva">
+
           </form>
             </div>
         </div>

@@ -344,12 +344,18 @@ thead {
 /*ICONE*/
 
 #AddODV,
+#addlead,
 #addOrderLine,
 #addTicketP {
     color: #3CB371;
 }
 
 #AddODV:hover {
+    transition: 0.3s;
+    color: #00FF00;
+}
+
+#addlead:hover {
     transition: 0.3s;
     color: #00FF00;
 }
@@ -454,14 +460,4 @@ thead {
 
 .progress-bar {
     color: #00FF00;
-}
-
-ul li {
-    margin: 5px;
-}
-
-
-
-li {
-    cursor: pointer;
 }

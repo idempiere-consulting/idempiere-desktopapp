@@ -60,6 +60,16 @@ function getLeads() {
 
 
                 table.innerHTML += row;
+
+                var table = document.getElementById('myTable2');
+                for (var i = 2; i < table.rows.length; i++) {
+                    table.rows[i].cells[6].addEventListener('click', function(infoTable = table.row[i].cells[0].innerHTML) {
+                        namelead = infoTable.path[3].cells[0].innerHTML;
+                        ipcRenderer.send('save:nameLead', namelead);
+                        ipcRenderer.send('pageInfoLeads:Leads_info_window');
+                        //alert(msg);
+                    });
+                }
             });
 
 
@@ -108,6 +118,23 @@ document.querySelectorAll(".table-sortable th").forEach(headerCell => {
 });
 
 */
+
+/*$("input[type=radio]").change(function() {
+    var filter = this.value;
+    if (filter == "All")
+        $("tr.dataRow").css("visibility", "visible");
+    else $("tr.dataRow").css("visibility", "collapse");
+    var matchFound = false;
+    $("tr.dataRow").find("td").each(function() {
+        $this = $(this);
+        if (!matchFound) {
+            if ($this.html() == filter) {
+                //matchFound = true;
+                $this.parent().css("visibility", "visible");
+            }
+        }
+    });
+});*/
 
 
 function filterNames() {
@@ -205,19 +232,3 @@ function filterCampaign() {
     }
 }
 
-//test jquery filter
-$("input[type=radio]").change(function() {
-    var filter = this.value;
-    if (filter == "All")
-        $("tr.dataRow").css("visibility", "visible");
-    else $("tr.dataRow").css("visibility", "collapse");
-    var matchFound = false;
-    $("tr.dataRow").find("td").each(function() {
-        $this = $(this);
-        if (!matchFound) {
-            if ($this.html() == filter) {
-                $this.parent().css("visibility", "visible");
-            }
-        }
-    });
-});

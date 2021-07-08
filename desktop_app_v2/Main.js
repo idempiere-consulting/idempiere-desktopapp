@@ -25,6 +25,7 @@ let organizationId;
 let warehouseId;
 let language;
 let permission_settings = [];
+let nameLead;
 
 
 //var internetConn = navigator.onLine();
@@ -201,6 +202,36 @@ function showODVDetailsWindow() {
 
 }
 
+//LEADS DETALIS
+function infoLeads() {
+    secondaryWindow = new BrowserWindow({
+        parent: mainWindow,
+        modal: true,
+        show: false,
+        width: 1000,
+        height: 700,
+        icon: path.join(__dirname, 'assets/images/logo.png'),
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false,
+            backgroundColor: '#2e2c29',
+        }
+    });
+    secondaryWindow.once('ready-to-show', () => {
+        secondaryWindow.show()
+    })
+    secondaryWindow.loadURL(url.format({
+        pathname: path.join(__dirname, 'src/CRM/dettaglioLeads.html'),
+        protocol: 'file:',
+        slashes: true
+    }));
+    secondaryWindow.on('close', function() {
+        secondaryWindow = null;
+
+    });
+
+}
+
 
 
 
@@ -287,6 +318,13 @@ ipcMain.on('save:permission_settings', function(e, permission_s) {
 
 });
 
+ipcMain.on('save:nameLead', function(e, Name) {
+    nameLead = Name;
+
+});
+
+
+
 
 
 
@@ -353,8 +391,11 @@ ipcMain.on('send:permission', function(event, arg) {
 });
 
 ipcMain.on('send:permission_settings', function(event, arg) {
-    console.log(permission_settings);
     event.returnValue = permission_settings;
+});
+
+ipcMain.on('send:nameLead', function(event, arg) {
+    event.returnValue = nameLead;
 });
 
 
@@ -505,6 +546,9 @@ ipcMain.on('pageTicketP:TicketP_create_window', function(e, arg) {
     createTicketP();
 });
 
+ipcMain.on('pageInfoLeads:Leads_info_window', function(e, arg) {
+    infoLeads();
+});
 
 
 

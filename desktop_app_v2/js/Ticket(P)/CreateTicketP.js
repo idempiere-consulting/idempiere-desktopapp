@@ -5,6 +5,9 @@ const ip2 = ipcRender4.sendSync('send:ip', 'ping');
 const authToken2 = ipcRender4.sendSync('send:authtoken', 'ping');
 const clientid2 = ipcRender4.sendSync('send:clientId', 'ping');
 
+var ul;
+var selectedDate;
+
 const addTicketP = document.getElementById('addTicketP');
 if (addTicketP) {
     addTicketP.addEventListener('click', openTicketPWindow);
@@ -14,111 +17,119 @@ if (addTicketP) {
 const userBPartner4 = ipcRender4.sendSync('send:bp', 'ping');
 const userName4 = ipcRender4.sendSync('send:user', 'ping');
 
+if (document.getElementById("fname") != null) {
 document.getElementById("fname").value = userName4;
 document.getElementById("lname").value = userBPartner4.identifier;
 document.getElementById('fname').readOnly = true;
 document.getElementById('lname').readOnly = true;
+}
+
 
 console.log(userBPartner4);
 
 const reqSel = document.getElementById('requestType');
 const caseDiv = document.getElementById('caseRequest');
 
-const button2 = document.getElementById('sendLine'); console.log(button2 + 'ciao');
+const button2 = document.getElementById('sendLine'); 
 if(button2 != null){
     button2.addEventListener('click', sendDataTicket);
 }
 
-reqSel.addEventListener('change', function(){
-    caseDiv.innerHTML = "";
-    if(reqSel.value == 'Anomalia'){
-        var text = `<label class="formLabel" for="explain">Descrivi il problema</label>
-                    <textarea id="explain" name="explain" placeholder="Es: Utilizzando il processo XDF20 volevo creare la fattura " style="height:200px; width: 100%;"></textarea>`;
-        
-        caseDiv.innerHTML += text;
-        
-        text = `<label class="formLabel" for="Document">N° Documento</label>
-                <input type="text" id="Document" name="Document" placeholder="">`
-        
-        caseDiv.innerHTML += text;
-        
-        text = `<label class="formLabel" for="explain2">Dettaglio errore a video</label>
-                <textarea id="explain2" name="explain2" placeholder="Es: Nessuno/Documento non trovato" style="height:200px; width: 100%;"></textarea>`;
-        caseDiv.innerHTML += text;
-        
-        text = `<label class="formLabel" for="explain3">Azione che si stava facendo</label>
-                <textarea id="explain3" name="explain3" placeholder="Es: Creazione fattura processo XDF20" style="height:200px; width: 100%;"></textarea>`;
-        caseDiv.innerHTML += text;
-        
-        text = `<label class="formLabel" for="explain4">E' urgente/bloccante?</label>
-                <textarea id="explain4" name="explain4" placeholder="Es: Non è bloccante dovrei fare la fattura entro qualche giorno" style="height:200px; width: 100%;"></textarea>`;
-        caseDiv.innerHTML += text;
-        
-    }
-    if(reqSel.value == 'Richiesta di formazione'){
-        
-        fetch('http://173.249.60.71:3580/api/v1/models/lit_resourcefreeslot_v' ,{
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + authToken2
+if (reqSel !=null) {
+    reqSel.addEventListener('change', function(){
+        caseDiv.innerHTML = "";
+        if(reqSel.value == 'Anomalia'){
+            var text = `<label class="formLabel" for="explain">Descrivi il problema</label>
+                        <textarea id="explain" name="explain" placeholder="Es: Utilizzando il processo XDF20 volevo creare la fattura " style="height:200px; width: 100%;"></textarea>`;
+            
+            caseDiv.innerHTML += text;
+            
+            text = `<label class="formLabel" for="Document">N° Documento</label>
+                    <input type="text" id="Document" name="Document" placeholder="">`
+            
+            caseDiv.innerHTML += text;
+            
+            text = `<label class="formLabel" for="explain2">Dettaglio errore a video</label>
+                    <textarea id="explain2" name="explain2" placeholder="Es: Nessuno/Documento non trovato" style="height:200px; width: 100%;"></textarea>`;
+            caseDiv.innerHTML += text;
+            
+            text = `<label class="formLabel" for="explain3">Azione che si stava facendo</label>
+                    <textarea id="explain3" name="explain3" placeholder="Es: Creazione fattura processo XDF20" style="height:200px; width: 100%;"></textarea>`;
+            caseDiv.innerHTML += text;
+            
+            text = `<label class="formLabel" for="explain4">E' urgente/bloccante?</label>
+                    <textarea id="explain4" name="explain4" placeholder="Es: Non è bloccante dovrei fare la fattura entro qualche giorno" style="height:200px; width: 100%;"></textarea>`;
+            caseDiv.innerHTML += text;
+            
         }
-    }).then(res => {
-        return res.json()
-        })
-        .then(data => {
-            console.log(data);
+        if(reqSel.value == 'Richiesta di formazione'){
             
-            a = data['records']
+            fetch('http://173.249.60.71:3580/api/v1/models/lit_resourcefreeslot_v' ,{
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + authToken2
+            }
+        }).then(res => {
+            return res.json()
+            })
+            .then(data => {
+                console.log(data);
+                
+                a = data['records']
+                
+                var text = `<label class="formLabel" for="">Seleziona data e ora per la sessione<label><ul></ul>`;
+                caseDiv.innerHTML += text;
+                ul = document.querySelector('ul');
+                
+                a.forEach((record) => {
+                
+                    const li = document.createElement('li');
+                    
+                    li.setAttribute("data-value", record.date_slot);
+                    var d = new Date(record.date_slot)
+                    var M = d.getUTCMonth()+1;
+                    const itemText = document.createTextNode(' '+d.getUTCFullYear()+'-'+M+'-'+d.getUTCDate()+'   Ore '+d.getUTCHours()+':00');
+                    li.appendChild(itemText);
+                    ul.appendChild(li);
+                
+                });
+                //console.log("qwerty");
+                
+                
+                text = `<label class="formLabel" for="explain">Cosa vorresti vedere in questa sessione?<label>
+                        <textarea id="explain" name="explain" placeholder="Scrivi qualcosa..." style="height:200px; width: 100%;"></textarea>`;
             
-            var text = `<label class="formLabel" for="">Seleziona data e ora per la sessione<label><ul></ul>`;
-            caseDiv.innerHTML += text;
-            ul = document.querySelector('ul');
-            
-            a.forEach((record) => {
-            
-                const li = document.createElement('li');
-                li.setAttribute("data-value", record.date_slot);
-                var d = new Date(record.date_slot)
-                var M = d.getUTCMonth()+1;
-                const itemText = document.createTextNode(' '+d.getUTCFullYear()+'-'+M+'-'+d.getUTCDate()+'   Ore '+d.getUTCHours()+':00');
-                li.appendChild(itemText);
-                ul.appendChild(li);
-            
-            });
-            //console.log("qwerty");
-            
-            
-            text = `<label class="formLabel" for="explain">Cosa vorresti vedere in questa sessione?<label>
-                    <textarea id="explain" name="explain" placeholder="Scrivi qualcosa..." style="height:200px; width: 100%;"></textarea>`;
+                caseDiv.innerHTML += text;
+                
+                ul = document.querySelector('ul');
+                ul.addEventListener("click", selectItem);
+                
+                
+            })
+            .catch(error => console.log(error))
+    
+        }
         
+        
+        if(reqSel.value == 'Nuova Richiesta Funzionalità/Sviluppo'){
+            var text = `<label class="formLabel" for="explain">Spiega cosa vorresti che sia sviluppato su Idempiere</label>
+                        <textarea id="explain" name="explain" placeholder="Scrivi qualcosa..." style="height:200px; width: 100%;"></textarea>`;
+            
             caseDiv.innerHTML += text;
+        }
+        
+        if(reqSel.value == 'Altro'){
+            var text = `<label class="formLabel" for="explain">Spiega il problema non classificabile dal Tipo Richiesta</label>
+                        <textarea id="explain" name="explain" placeholder="Write something.." style="height:200px; width: 100%;"></textarea>`;
             
-            ul = document.querySelector('ul');
-            ul.addEventListener("click", selectItem);
-            
-            
-        })
-        .catch(error => console.log(error))
+            caseDiv.innerHTML += text;
+        }
+        
+    });
+    
+}
 
-    }
-    
-    
-    if(reqSel.value == 'Nuova Richiesta Funzionalità/Sviluppo'){
-        var text = `<label class="formLabel" for="explain">Spiega cosa vorresti che sia sviluppato su Idempiere</label>
-                    <textarea id="explain" name="explain" placeholder="Scrivi qualcosa..." style="height:200px; width: 100%;"></textarea>`;
-        
-        caseDiv.innerHTML += text;
-    }
-    
-    if(reqSel.value == 'Altro'){
-        var text = `<label class="formLabel" for="explain">Spiega il problema non classificabile dal Tipo Richiesta</label>
-                    <textarea id="explain" name="explain" placeholder="Write something.." style="height:200px; width: 100%;"></textarea>`;
-        
-        caseDiv.innerHTML += text;
-    }
-    
-});
 
 function sendDataTicket(e){
     e.preventDefault();
@@ -249,7 +260,7 @@ function sendDataTicket(e){
             BodyData = {
                             "C_BPartner_ID" : { "identifier": BP },
                             "AD_Client_ID" : { "identifier": "DEMO" },
-                            "AD_User_ID": {"identifier": userName},
+                            "AD_User_ID": {"identifier": UserName},
                             "AD_Org_ID" : { "id": 1000000 },
                             "S_Resource_ID": {"id": 1000001},
                             "Name" : Request,
