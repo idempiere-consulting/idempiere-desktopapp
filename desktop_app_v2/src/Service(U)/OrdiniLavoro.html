@@ -138,9 +138,27 @@
         </div>
     </header>
     <div id="mainContent" class="content">
-        <iframe src="https://app.powerbi.com/reportEmbed?reportId=7204a2ab-38bd-4a48-a517-c6483b9e0f10&autoAuth=true&ctid=3207801d-cc35-4798-9cd6-8af5382cc923&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLXdlc3QtZXVyb3BlLWQtcHJpbWFyeS1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D"
-            width="100%" height="90%">
-        </iframe>
+        <table id="myTable" class="table-sortable">
+            <thead>
+                <tr>
+                    <th><input class="filterLeads filter_input" type="text" id="myInput" onkeyup="filterFromInputToTable('myInput','myTable',0)" placeholder="Filtra per Nome" title="Scrivi un Documento"></th>
+                    <th><input class="filterLeads filter_input" type="text" id="myInputUser" onkeyup="filterFromInputToTable('myInputUser','myTable',1)" placeholder="Filtra per Tel" title="Scrivi un User"></th>
+                    <th><input class="filterLeads filter_input" type="text" id="myInputDescription" onkeyup="filterFromInputToTable('myInputDescription','myTable',2)" placeholder="Filtra per Mail" title="Scrivi un nome"></th>
+                    <th><input class="filterLeads filter_input" type="text" id="myInputRisorsa" onkeyup="filterFromInputToTable('myInputRisorsa','myTable',3)" placeholder="Filtra per Stato" title="Scrivi un nome"></th>
+                    <th><input class="filterLeads filter_input" type="text" id="myInputDate" onkeyup="filtfilterFromInputToTableerAgent('myInputDate','myTable',4)" placeholder="Filtra per Agente." title="Scrivi un nome"></th>
+                    <th><a id="addlead" href="#"><i class="fas fa-2x fa-plus" ></i></a></th>
+                </tr>
+                <tr>
+                    <th>N°Documento</th>
+                    <th>Cliente</th>
+                    <th>Descrizione</th>
+                    <th>Risorsa</th>
+                    <th>Data Intervento</th>
+                </tr>
+            </thead>
+            <tbody id="OrdiniLavoro">
+            </tbody>
+        </table>
     </div>
     <script>
         if (typeof module === 'object') {

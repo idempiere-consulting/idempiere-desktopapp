@@ -22,7 +22,7 @@ function logOut() {
 
 
 
-
+//Max permessi 7-7-3-3-1A-7-31-1-1-1-1-15
 function PermessiMenu() {
     //Declare and set variable 
     const permission = ipcRender_2.sendSync('send:permission');
