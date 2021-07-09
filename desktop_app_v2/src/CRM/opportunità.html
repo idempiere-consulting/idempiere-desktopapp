@@ -145,35 +145,19 @@
                     <th>
                         <div>
 
-                            <input type="radio" id="html" name="SalesStage" value="All" checked="checked">
-                            <label for="html">All</label>
+                            <input class="filter" type="button" id="All" name="SalesStage" value="All">
+                            <input class="filter" type="button" id="html1" name="Annullato" value="00.Annullato">
+                            <input class="filter" type="button" id="Da Iniziare" name="Da Iniziare" value="10.Da Iniziare">
+                            <input class="filter" type="button" id="Da Contattare" name="Da Contattare" value="New">
+                            <input class="filter" type="button" id="Prep Offerta/To Do" name="Prep Offerta/To Do" value="45.Prep Offerta / To Do">
 
-                            <input type="radio" id="html1" name="SalesStage" value="00.Annullato">
-                            <label for="html1">Annullato</label>
+                            <input class="filter" type="button" id="Cons Offerta/To Do" name="Cons Offerta/To Do" value="50.Cons Offerta/ To Do">
+                            <input class="filter" type="button" id="Da Ricontattare" name="Da Ricontattare" value="60.Da Ricontattare">
+                            <input class="filter" type="button" id="In attesa di Risposta" name="In attesa di Risposta" value="80.In attesa di Risposta">
 
-                            <input type="radio" id="html2" name="SalesStage" value="10.Da Iniziare">
-                            <label for="html2">Da Iniziare</label>
+                            <input class="filter" type="button" id="Fare ODV/Venduto" name="Fare ODV/Venduto" value="98. Fare ODV /Venduto">
 
-                            <input type="radio" id="html3" name="SalesStage" value="New">
-                            <label for="html3">Da Contattare</label>
-
-                            <input type="radio" id="html4" name="LeadStatus" value="45.Prep Offerta / To Do">
-                            <label for="html4">Prep Offerta/To Do</label>
-
-                            <input type="radio" id="html5" name="LeadStatus" value="50.Cons Offerta/ To Do">
-                            <label for="html5">Cons Offerta/To Do</label>
-
-                            <input type="radio" id="html6" name="LeadStatus" value="60.Da Ricontattare">
-                            <label for="html6">Da Ricontattare</label>
-
-                            <input type="radio" id="html7" name="LeadStatus" value="80.In attesa di Risposta">
-                            <label for="html7">In attesa di Risposta</label>
-
-                            <input type="radio" id="html8" name="LeadStatus" value="98. Fare ODV /Venduto">
-                            <label for="html8">Fare ODV/Venduto</label>
-
-                            <input type="radio" id="html9" name="LeadStatus" value="99.Venduto">
-                            <label for="html9">Venduto</label>
+                            <input class="filter" type="button" id="Venduto" name="Venduto" value="99.Venduto">
 
                         </div>
                     </th>
@@ -187,8 +171,10 @@
                     <th><input class="FilterLeads filter_input" type="text" id="myInputBP" onkeyup="filterFromInputToTable('myInputBP','myTable',0)" placeholder="Filtra per BP" title="Scrivi un nome"></th>
                     <th><input class="FilterLeads filter_input" type="text" id="myInputCampaign" onkeyup="filterFromInputToTable('myInputCampaign','myTable',1)" placeholder="Filtra per Camp." title="Scrivi un nome"></th>
                     <th><input class="FilterLeads filter_input" type="text" id="myInputSalesRep" onkeyup="filterFromInputToTable('myInputSalesRep','myTable',2)" placeholder="Filtra per Agente" title="Scrivi un nome"></th>
-                    <th><input class="FilterLeads filter_input" type="text" id="myInputOppAmt" onkeyup="filterFromInputToTable('myInputOppAmt','myTable',3)" placeholder="Filtra per Importo" title="Scrivi un nome"></th>
-                    <th><input class="FilterLeads filter_input" type="text" id="myInputDescription" onkeyup="filterFromInputToTable('myInputDescription','myTable',4)" placeholder="Filtra per Opp." title="Scrivi un nome"></th>
+                    <th><input class="FilterLeads filter_input" type="text" id="myInputSalesState" onkeyup="filterFromInputToTable('myInputSalesState','myTable',3)" placeholder="Filtra per Stato" title="Scrivi un nome"></th>
+                    <th><input class="FilterLeads filter_input" type="text" id="myInputImport" onkeyup="filterFromInputToTable('myInputImport','myTable',4)" placeholder="Filtra per Importo" title="Scrivi un nome"></th>
+                    <th><input class="FilterLeads filter_input" type="text" id="myInputOpportunity" onkeyup="filterFromInputToTable('myInputOpportunity','myTable',4)" placeholder="Filtra per Opportunità" title="Scrivi un nome"></th>
+                    <th><a title="Add ODV" id="AddODV" href="#"><i class="fas fa-2x fa-plus"></i></a></th>
                 </tr>
                 <tr>
                     <th>BPartner</th>
@@ -197,7 +183,7 @@
                     <th>Stato Vendita</th>
                     <th>Importo atteso</th>
                     <th>Opportunità</th>
-                    <th><a title="Add ODV" id="AddODV" href="#"><i class="fas fa-2x fa-plus"></i></a></th>
+                    <th>Dettagli</th>
                 </tr>
             </thead>
             <tbody id="opportunityBody">

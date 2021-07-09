@@ -36,6 +36,8 @@ if (stash.get('ip') != undefined) {
 
 
 function authLogin(e) {
+
+
     e.preventDefault();
     user = document.getElementById('input_username_jslogic').value;
     pass = document.getElementById('input_password_jslogic').value;
@@ -59,7 +61,6 @@ function authLogin(e) {
             return res.json()
         })
         .then(data => {
-
             //Save the role in base 
             //If is the first login the stash is not set so you must change role
             if (stash.get('username') == undefined) {

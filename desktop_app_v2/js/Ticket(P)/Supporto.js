@@ -71,7 +71,7 @@ function getTickets() {
 
 
 //test jquery filter
-$("input[type=radio]").change(function() {
+$(".filter").click(function() {
     var filter = this.value;
     if (filter == "All")
         $("tr.dataRow").css("visibility", "visible");
