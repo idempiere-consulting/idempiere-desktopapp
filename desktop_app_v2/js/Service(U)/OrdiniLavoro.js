@@ -8,7 +8,7 @@ getOrdiniLavoro();
 
 function getOrdiniLavoro() {
 
-    fetch('http://' + ip + '/api/v1/windows/request', {
+    fetch('http://' + ip + '/api/v1/models/MP_OT', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -21,31 +21,30 @@ function getOrdiniLavoro() {
             console.log(data);
 
             //var pData = JSON.parse(data)
-            a = data['window-records'];
+            a = data['records'];
             //console.log(a);
+            var table = document.getElementById('OrdiniLavoro');
+
             a.forEach((record) => {
-                var table = document.getElementById('ticketBody');
-                var bp = record.C_BPartner_ID;
-                var user = record.AD_User_ID;
-                var req = record.R_RequestType_ID;
-                var prio = record.Priority;
-                var row = `
-                <tr class="dataRow"> 
-                    <td>${bp['identifier']}</td>
-                    <td>${user['identifier']}</td>
-                    <td>${req['identifier']}</td>
-                    <td>${prio['identifier']}</td>
-                    <td>${record.Summary}</td>
-                    <td>${record.Created.slice(0,10)}</td>
-                    <td><a href="#" id="iconLinkWebUrl"><i class="fas fa-2x fa-info-circle"></i></td>
-                    <td style="display:none" >${record.DocumentNo}</td>
-                </tr>`;
-                if (userBPartner.identifier == bp['identifier']) {
-                    table.innerHTML += row;
-                }
+
+                var bPartner = record.C_BPartner_ID;
+                //console.log(leadStatus);
+                var ris = record.S_Resource_ID
+
+                var row = `<tr class="dataRow">
+                    <td>${record.DocumentNo}</td>
+                    <td>${bPartner['identifier']}</td>
+                    <td>${record.Description}</td>
+                    <td>${ris['identifier']}</td>
+                    <td>${record.DateWorkStart}</td>
+                    <td><a href="#" id="iconLinkWebUrl"><i class="fas fa-external-link-alt"></i></td>
+              </tr>`;
+                table.innerHTML += row;
+
+
             });
             //
-            var table = document.getElementById('ticketBody');
+            /*var table = document.getElementById('ticketBody');
             console.log(table);
             console.log(table.rows.length);
             //infoTable used to take the cell where there is the name document and save it in the ipcMain
@@ -57,8 +56,8 @@ function getOrdiniLavoro() {
                     ipcRenderer.send('save:ticketid', doc);
                     ipcRenderer.send('pageTicketP:TicketP_details_window');
                 });
-            }
-            backgroundRowTable('ticketBody');
+            }*/
+            backgroundRowTable('OrdiniLavoro');
 
         })
         .catch(error => console.log(error))
