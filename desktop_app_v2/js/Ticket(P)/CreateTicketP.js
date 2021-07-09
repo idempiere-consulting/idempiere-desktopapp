@@ -108,7 +108,7 @@ function sendDataTicket(e) {
     const tipoDiRichiesta = select_reqType.value;
     const prio = document.getElementById('priority').value;
     const explain = document.getElementById('explain').value;
-    const qtyHour = document.getElementById("qty-planned").value;
+
     let BodyData;
 
 
@@ -153,7 +153,11 @@ function sendDataTicket(e) {
                 })
                 .then(data => {
                     console.log(data);
-                    alert("Ticket inviato!");
+                    if (data.status != undefined) {
+                        alert("Problema con la Richiesta")
+                    } else {
+                        alert("Richiesta inviata");
+                    }
                 })
                 .catch(error => console.log(error))
 
@@ -188,7 +192,11 @@ function sendDataTicket(e) {
                 })
                 .then(data => {
                     console.log(data);
-                    alert("Ticket inviato!");
+                    if (data.status != undefined) {
+                        alert("Problema con la Richiesta")
+                    } else {
+                        alert("Richiesta inviata");
+                    }
                 })
                 .catch(error => console.log(error))
 
@@ -223,14 +231,18 @@ function sendDataTicket(e) {
                 })
                 .then(data => {
                     console.log(data);
-                    alert("Ticket inviato!");
+                    if (data.status != undefined) {
+                        alert("Problema con la Richiesta")
+                    } else {
+                        alert("Richiesta inviata");
+                    }
                 })
                 .catch(error => console.log(error))
 
             break;
         case "Richiesta di formazione":
 
-
+            const qtyHour = document.getElementById("qty-planned").value;
 
 
             BodyData = {
@@ -257,7 +269,11 @@ function sendDataTicket(e) {
                 })
                 .then(data => {
                     console.log(data);
-                    alert("Richiesta inviata");
+                    if (data.status != undefined) {
+                        alert("Problema con la Richiesta")
+                    } else {
+                        alert("Richiesta inviata");
+                    }
                 })
                 .catch(error => console.log(error))
     }

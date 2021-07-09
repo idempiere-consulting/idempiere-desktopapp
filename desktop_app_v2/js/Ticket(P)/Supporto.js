@@ -39,23 +39,20 @@ function getTickets() {
                     <td>${record.Summary}</td>
                     <td>${record.Created.slice(0,10)}</td>
                     <td><a href="#" id="iconLinkWebUrl"><i class="fas fa-2x fa-info-circle"></i></td>
-                    <td>${record.DocumentNo}</td>
+                    <td style="display:none" >${record.DocumentNo}</td>
                 </tr>`;
-                //if (userBPartner == bp['identifier']) {
-                table.innerHTML += row;
-
-
-
-
-                //}
+                if (userBPartner.identifier == bp['identifier']) {
+                    table.innerHTML += row;
+                }
             });
-            var table = document.getElementById('myTable');
+            //
+            var table = document.getElementById('ticketBody');
             console.log(table);
             console.log(table.rows.length);
             //infoTable used to take the cell where there is the name document and save it in the ipcMain
-            for (var i = 3; i < table.rows.length; i++) {
+            for (var i = 0; i < table.rows.length; i++) {
                 //infoTable used to take the cell where there is the name document and save it in the ipcMain
-                table.rows[i].cells[6].addEventListener('click', function(infoTable = table.row[i].cells[7].innerHTML) {
+                table.rows[i].cells[6].addEventListener('click', function(infoTable) {
                     console.log(infoTable.path[3].cells[7]);
                     doc = infoTable.path[3].cells[7].innerHTML;
                     ipcRenderer.send('save:ticketid', doc);
@@ -73,7 +70,7 @@ function getTickets() {
 
 
 
-
+//test jquery filter
 $("input[type=radio]").change(function() {
     var filter = this.value;
     if (filter == "All")
@@ -84,106 +81,8 @@ $("input[type=radio]").change(function() {
         $this = $(this);
         if (!matchFound) {
             if ($this.html() == filter) {
-                //matchFound = true;
                 $this.parent().css("visibility", "visible");
             }
         }
     });
 });
-
-
-
-function filterAcc() {
-    var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("myInputPhone");
-    filter = input.value.toUpperCase();
-    table = document.getElementById("myTable");
-    tr = table.getElementsByTagName("tr");
-    for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[1];
-        if (td) {
-            txtValue = td.textContent || td.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-            } else {
-                tr[i].style.display = "none";
-            }
-        }
-    }
-}
-
-function filterBP() {
-    var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("myInput");
-    filter = input.value.toUpperCase();
-    table = document.getElementById("myTable");
-    tr = table.getElementsByTagName("tr");
-    for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[0];
-        if (td) {
-            txtValue = td.textContent || td.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-            } else {
-                tr[i].style.display = "none";
-            }
-        }
-    }
-}
-
-function filterReq() {
-    var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("myInputMail");
-    filter = input.value.toUpperCase();
-    table = document.getElementById("myTable");
-    tr = table.getElementsByTagName("tr");
-    for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[2];
-        if (td) {
-            txtValue = td.textContent || td.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-            } else {
-                tr[i].style.display = "none";
-            }
-        }
-    }
-}
-
-function filterSumm() {
-    var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("myInputSalesRep");
-    filter = input.value.toUpperCase();
-    table = document.getElementById("myTable");
-    tr = table.getElementsByTagName("tr");
-    for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[4];
-        if (td) {
-            txtValue = td.textContent || td.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-            } else {
-                tr[i].style.display = "none";
-            }
-        }
-    }
-}
-
-function filterDate() {
-    var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("myInputCampaign");
-    filter = input.value.toUpperCase();
-    table = document.getElementById("myTable");
-    tr = table.getElementsByTagName("tr");
-    for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[5];
-        if (td) {
-            txtValue = td.textContent || td.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-            } else {
-                tr[i].style.display = "none";
-            }
-        }
-    }
-}

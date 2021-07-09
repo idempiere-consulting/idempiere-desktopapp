@@ -1,15 +1,15 @@
-const electron = require('electron');
-const { ipcRenderer } = electron;
+const electron_detailsTicket = window.require("electron");
+const ipcRender_detailsTicket = electron_detailsTicket.ipcRenderer;
 
-const ip = ipcRenderer.sendSync('send:ip', 'ping');
-const authToken = ipcRenderer.sendSync('send:authtoken', 'ping');
-const docN = ipcRenderer.sendSync('send:ticketid', 'ping');
-console.log(docN);
+const ip = ipcRender_detailsTicket.sendSync('send:ip', 'ping');
+const authToken = ipcRender_detailsTicket.sendSync('send:authtoken', 'ping');
+const ticketid = ipcRender_detailsTicket.sendSync('send:ticketid', 'ping');
+console.log(ticketid);
 getTicket();
 
 function getTicket() {
 
-    fetch(`http://` + ip + `/api/v1/models/r_request?$filter=DocumentNo eq '` + docN + `'`, {
+    fetch(`http://` + ip + `/api/v1/models/r_request?$filter=DocumentNo eq '` + ticketid + `'`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -21,24 +21,20 @@ function getTicket() {
         .then(data => {
             console.log(data);
 
-            //var pData = JSON.parse(data)
 
             a = data.records;
             console.log(a[0].DocumentNo);
-            //console.log(a);
 
             document.getElementById('ndoc').value = a[0].DocumentNo;
             document.getElementById('bp').value = a[0].C_BPartner_ID.identifier;
-            document.getElementById('dateordered').value = a[0].Created;
-            /*document.getElementById('datepromised').value = a[0].DatePromised;
-            document.getElementById('doctype').value = a[0].C_DocTypeTarget_ID.identifier;
-            document.getElementById('bill_bpartner').value = a[0].Bill_BPartner_ID.identifier;
-            document.getElementById('delrule').value = a[0].DeliveryRule.identifier;
-            document.getElementById('warehouse').value = a[0].M_Warehouse_ID.identifier;
-            document.getElementById('deliverer').value = a[0].DeliveryViaRule.identifier;
-            document.getElementById('delivercostrule').value = a[0].FreightCostRule.identifier;
-            document.getElementById('totline').value = a[0].TotalLines;
-            document.getElementById('tot').value = a[0].GrandTotal;*/
+            document.getElementById('priority').value = a[0].Priority.identifier;
+            document.getElementById('priorityuser').value = a[0].PriorityUser.identifier;
+            document.getElementById('scandenzaType').value = a[0].DueType.identifier;
+            document.getElementById('requestType').value = a[0].R_RequestType_ID.identifier;
+            document.getElementById('description').value = a[0].Description;
+            document.getElementById('help').value = a[0].Help;
+            document.getElementById('summary').value = a[0].Summary;
+
 
 
         })

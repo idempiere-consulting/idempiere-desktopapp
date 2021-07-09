@@ -26,6 +26,7 @@ let warehouseId;
 let language;
 let permission_settings = [];
 let nameLead;
+let ticketId;
 
 
 //var internetConn = navigator.onLine();
@@ -355,6 +356,10 @@ ipcMain.on('save:nameLead', function(e, Name) {
 
 });
 
+ipcMain.on('save:ticketid', function(event, ticket) {
+    ticketId = ticket;
+});
+
 
 
 
@@ -428,6 +433,10 @@ ipcMain.on('send:permission_settings', function(event, arg) {
 
 ipcMain.on('send:nameLead', function(event, arg) {
     event.returnValue = nameLead;
+});
+
+ipcMain.on('send:ticketid', function(event, arg) {
+    event.returnValue = ticketId;
 });
 
 
@@ -578,9 +587,16 @@ ipcMain.on('pageTicketP:TicketP_create_window', function(e, arg) {
     createTicketP();
 });
 
+ipcMain.on('pageTicketP:TicketP_details_window', function(e, arg) {
+    DetailtsTicketWindow();
+});
+
 ipcMain.on('pageInfoLeads:Leads_info_window', function(e, arg) {
     infoLeads();
 });
+
+
+
 
 
 

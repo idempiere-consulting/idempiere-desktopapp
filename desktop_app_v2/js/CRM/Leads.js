@@ -61,9 +61,9 @@ function getLeads() {
 
                 table.innerHTML += row;
 
-                var table = document.getElementById('myTable2');
+                var table = document.getElementById('myTable');
                 for (var i = 2; i < table.rows.length; i++) {
-                    table.rows[i].cells[6].addEventListener('click', function(infoTable = table.row[i].cells[0].innerHTML) {
+                    table.rows[i].cells[6].addEventListener('click', function(infoTable) {
                         namelead = infoTable.path[3].cells[0].innerHTML;
                         ipcRenderer.send('save:nameLead', namelead);
                         ipcRenderer.send('pageInfoLeads:Leads_info_window');
@@ -119,7 +119,8 @@ document.querySelectorAll(".table-sortable th").forEach(headerCell => {
 
 */
 
-/*$("input[type=radio]").change(function() {
+//test jquery filter
+$("input[type=radio]").change(function() {
     var filter = this.value;
     if (filter == "All")
         $("tr.dataRow").css("visibility", "visible");
@@ -129,106 +130,8 @@ document.querySelectorAll(".table-sortable th").forEach(headerCell => {
         $this = $(this);
         if (!matchFound) {
             if ($this.html() == filter) {
-                //matchFound = true;
                 $this.parent().css("visibility", "visible");
             }
         }
     });
-});*/
-
-
-function filterNames() {
-    var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("myInput");
-    filter = input.value.toUpperCase();
-    table = document.getElementById("myTable");
-    tr = table.getElementsByTagName("tr");
-    for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[0];
-        if (td) {
-            txtValue = td.textContent || td.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-            } else {
-                tr[i].style.display = "none";
-            }
-        }
-    }
-}
-
-function filterPhone() {
-    var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("myInputPhone");
-    filter = input.value.toUpperCase();
-    table = document.getElementById("myTable");
-    tr = table.getElementsByTagName("tr");
-    for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[1];
-        if (td) {
-            txtValue = td.textContent || td.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-            } else {
-                tr[i].style.display = "none";
-            }
-        }
-    }
-}
-
-function filterMail() {
-    var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("myInputMail");
-    filter = input.value.toUpperCase();
-    table = document.getElementById("myTable");
-    tr = table.getElementsByTagName("tr");
-    for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[2];
-        if (td) {
-            txtValue = td.textContent || td.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-            } else {
-                tr[i].style.display = "none";
-            }
-        }
-    }
-}
-
-function filterSalesRep() {
-    var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("myInputSalesRep");
-    filter = input.value.toUpperCase();
-    table = document.getElementById("myTable");
-    tr = table.getElementsByTagName("tr");
-    for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[4];
-        if (td) {
-            txtValue = td.textContent || td.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-            } else {
-                tr[i].style.display = "none";
-            }
-        }
-    }
-}
-
-function filterCampaign() {
-    var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("myInputCampaign");
-    filter = input.value.toUpperCase();
-    table = document.getElementById("myTable");
-    tr = table.getElementsByTagName("tr");
-    for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[5];
-        if (td) {
-            txtValue = td.textContent || td.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-            } else {
-                tr[i].style.display = "none";
-            }
-        }
-    }
-}
-
+});

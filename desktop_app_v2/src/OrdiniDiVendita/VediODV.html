@@ -16,6 +16,7 @@
 
 <body>
     <div id="myNav" class="overlay">
+
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 
         <div class="overlay-content" id="menu">
@@ -140,11 +141,11 @@
         <table id="myTable1" class="table-sortable">
             <thead>
                 <tr>
-                    <th><input class="filter_input" type="text" id="myInputDoc" onkeyup="filterDoc()" placeholder="Filtra per Doc" title="Scrivi un nome"></th>
-                    <th><input class="filter_input" type="text" id="myInputClient" onkeyup="filterClient()" placeholder="Filtra per Cliente" title="Scrivi un nome"></th>
-                    <th><input class="filter_input" type="text" id="myInputDescription" onkeyup="filterDesc()" placeholder="Filtra per Desc." title="Scrivi un nome"></th>
-                    <th><input class="filter_input" type="text" id="myInputRes" onkeyup="filterAct()" placeholder="Filtra per Attività" title="Scrivi un nome"></th>
-                    <th><input class="filter_input" type="text" id="myInputDate" onkeyup="filterDate()" placeholder="Filtra per Data" title="Scrivi un nome"></th>
+                    <th><input class="filter_input" type="text" id="myInputDoc" onkeyup="filterFromInputToTable('myInputDoc','myTable1',0)" placeholder="Filtra per Doc" title="Scrivi un nome"></th>
+                    <th><input class="filter_input" type="text" id="myInputClient" onkeyup="filterFromInputToTable('myInputClient','myTable1',1)" placeholder="Filtra per Cliente" title="Scrivi un nome"></th>
+                    <th><input class="filter_input" type="text" id="myInputDescription" onkeyup="filterFromInputToTable('myInputDescription','myTable1',2)" placeholder="Filtra per Desc." title="Scrivi un nome"></th>
+                    <th><input class="filter_input" type="text" id="myInputRes" onkeyup="filterFromInputToTable('myInputRes','myTable1',3)" placeholder="Filtra per Attività" title="Scrivi un nome"></th>
+                    <th><input class="filter_input" type="text" id="myInputDate" onkeyup="filterFromInputToTable('myInputDate','myTable1',4)" placeholder="Filtra per Data" title="Scrivi un nome"></th>
                     <th><a title="Add ODV" id="AddODV" href="#"><i class="fas fa-2x fa-plus"></i></a></th>
                 </tr>
             </thead>
@@ -173,7 +174,6 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <script src="../../js/filejscommon.js"></script>
     <script src="../../js/ODV/VediOdv.js"></script>
-    <script src="../../js/ODV/CreaODV.js"></script>
     <script src="../../assets/js/jquery.js"></script>
 
 

@@ -116,7 +116,7 @@
                 <div class="header-item div-right">
                     <div style="width: 100%; height: 100%;" class="w3-dropdown-click">
                         <div class="div-logout" onclick="myFunction()">
-                            <span id="span_usernmane_jslogic" class="mr-2 d-lg-inline text-gray-600 small" style=" font-weight: 700;">Userrrrrrrrrrrrrrrrrrrrr</span>
+                            <span id="span_usernmane_jslogic" class="mr-2 d-lg-inline text-gray-600 small" style=" font-weight: 700;"></span>
                             <div class="container-img ">
                                 <img class="img-profile rounded-circle" src="../../assets/images/undraw_profile.svg">
                             </div>
@@ -180,20 +180,15 @@
             </thead>
         </table>
 
-        <table>
+        <table id="myTable" class="table-sortable">
             <thead>
                 <tr>
-                    <th><input class="FilterLeads filter_input" type="text" id="myInputBP" onkeyup="filterBP()" placeholder="Filtra per BP" title="Scrivi un nome"></th>
-                    <th><input class="FilterLeads filter_input" type="text" id="myInputCampaign" onkeyup="filterCampaign()" placeholder="Filtra per Camp." title="Scrivi un nome"></th>
-                    <th><input class="FilterLeads filter_input" type="text" id="myInputSalesRep" onkeyup="filterSalesRep()" placeholder="Filtra per Agente" title="Scrivi un nome"></th>
-                    <th><input class="FilterLeads filter_input" type="text" id="myInputOppAmt" onkeyup="filterOppAmt()" placeholder="Filtra per Importo" title="Scrivi un nome"></th>
-                    <th><input class="FilterLeads filter_input" type="text" id="myInputDescription" onkeyup="filterDescription()" placeholder="Filtra per Opp." title="Scrivi un nome"></th>
+                    <th><input class="FilterLeads filter_input" type="text" id="myInputBP" onkeyup="filterFromInputToTable('myInputBP','myTable',0)" placeholder="Filtra per BP" title="Scrivi un nome"></th>
+                    <th><input class="FilterLeads filter_input" type="text" id="myInputCampaign" onkeyup="filterFromInputToTable('myInputCampaign','myTable',1)" placeholder="Filtra per Camp." title="Scrivi un nome"></th>
+                    <th><input class="FilterLeads filter_input" type="text" id="myInputSalesRep" onkeyup="filterFromInputToTable('myInputSalesRep','myTable',2)" placeholder="Filtra per Agente" title="Scrivi un nome"></th>
+                    <th><input class="FilterLeads filter_input" type="text" id="myInputOppAmt" onkeyup="filterFromInputToTable('myInputOppAmt','myTable',3)" placeholder="Filtra per Importo" title="Scrivi un nome"></th>
+                    <th><input class="FilterLeads filter_input" type="text" id="myInputDescription" onkeyup="filterFromInputToTable('myInputDescription','myTable',4)" placeholder="Filtra per Opp." title="Scrivi un nome"></th>
                 </tr>
-            </thead>
-        </table>
-        <table id="myTable" class="table-sortable">
-
-            <thead>
                 <tr>
                     <th>BPartner</th>
                     <th>Campagna</th>

@@ -114,7 +114,7 @@
         
         @media (max-width: 800px) {
             .row {
-                flex-direction: column-reverse;
+                flex-direction: column;
             }
             .col-25 {
                 margin-bottom: 20px;
@@ -131,7 +131,7 @@
 
                     <div class="row">
                         <div class="col-50">
-                            <h3>ORDINE DI VENDITA</h3>
+                            <h3>Ticket</h3>
                             <label for="ndoc"><i class="fas fa-file"></i> N° Documento</label>
                             <input type="text" id="ndoc" name="ndoc" placeholder="" readonly="true">
                             <h3>Documento</h3>
@@ -139,15 +139,25 @@
                             <input type="text" id="bp" name="bp" placeholder="" readonly="true">
                             <div class="row">
                                 <div class="col-50">
-                                    <label for="dateordered"><i class="fas fa-calendar-alt"></i> Data Ordine</label>
-                                    <input type="text" id="dateordered" name="dateordered" placeholder="" readonly="true">
+                                    <label for="priority"><i class="fas fa-calendar-alt"></i> Priorità</label>
+                                    <input type="text" id="priority" name="priority" placeholder="" readonly="true">
                                 </div>
                                 <div class="col-50">
-                                    <label for="datepromised"><i class="fas fa-calendar-alt"></i> Data Consegna</label>
-                                    <input type="text" id="datepromised" name="datepromised" placeholder="" readonly="true">
+                                    <label for="priorityuser"><i class="fas fa-calendar-alt"></i> Priorità Utente</label>
+                                    <input type="text" id="priorityuser" name="priorityuser" placeholder="" readonly="true">
                                 </div>
                             </div>
-                            <label for="doctype"><i class="fas fa-file"></i> Tipo Documento</label>
+                            <div class="row">
+                                <div class="col-50">
+                                    <label for="scandenzaType"><i class="fas fa-calendar-alt"></i> Tipo Scadenza</label>
+                                    <input type="text" id="scandenzaType" name="scandenzaType" placeholder="" readonly="true">
+                                </div>
+                                <div class="col-50">
+                                    <label for="requestType"><i class="fas fa-calendar-alt"></i> Tipo Richiesta</label>
+                                    <input type="text" id="requestType" name="requestType" placeholder="" readonly="true">
+                                </div>
+                            </div>
+                            <!-- <label for="doctype"><i class="fas fa-file"></i> Tipo Documento</label>
                             <input type="text" id="doctype" name="doctype" placeholder="" readonly="true">
                             <label for="bill_bpartner"><i class="fas fa-handshake"></i> Partner di Fatturazione</label>
                             <input type="text" id="bill_bpartner" name="bill_bpartner" placeholder="" readonly="true">
@@ -155,20 +165,17 @@
                             <label for="totline"><i class="fas fa-money-check-alt"></i> Totale delle Righe</label>
                             <input type="text" id="totline" name="totline" placeholder="" readonly="true">
                             <label for="tot"><i class="fas fa-money-check-alt"></i> Totale</label>
-                            <input type="text" id="tot" name="tot" placeholder="" readonly="true">
+                            <input type="text" id="tot" name="tot" placeholder="" readonly="true"> -->
 
                         </div>
 
-                        <div class="col-50">
-                            <h3>Consegna</h3>
-                            <label for="delrule"><i class="fas fa-file-invoice"></i> Regola di Fatturazione</label>
-                            <input type="text" id="delrule" name="delrule" placeholder="" readonly="true">
-                            <label for="warehouse"><i class="fas fa-warehouse"></i> Magazzino</label>
-                            <input type="text" id="warehouse" name="warehouse" placeholder="" readonly="true">
-                            <label for="deliverer">  Mezzo di Spedizione</label>
-                            <input type="text" id="deliverer" name="deliverer" placeholder="" readonly="true">
-                            <label for="delivercostrule">  Regole Spese di Trasporto</label>
-                            <input type="text" id="delivercostrule" name="delivercostrule" placeholder="" readonly="true">
+                        <div style="margin-top: 64px;" class="col-50">
+                            <label for="description"></i> Descrizione</label>
+                            <input type="text" id="description" name="description" placeholder="" readonly="true">
+                            <label for="help"><i class="fab fa-hire-a-helper"></i></i> Help</label>
+                            <input type="text" id="help" name="help" placeholder="" readonly="true">
+                            <label for="summary">  Sommario</label>
+                            <input type="text" id="summary" name="summary" placeholder="" readonly="true">
                         </div>
                     </div>
 

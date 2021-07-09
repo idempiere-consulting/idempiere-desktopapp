@@ -27,27 +27,25 @@ function getTickets() {
             a.forEach((record) => {
                 var table = document.getElementById('ticketBody');
                 var bp = record.C_BPartner_ID;
-                var user = record.AD_User_ID;
-                var req = record.R_RequestType_ID;
-                var prio = record.Priority;
+                var name = record.Name;
+                var startHour = record.AssignDateFrom;
+                var endHour = record.AssignDateTo;
+                var qtyEffective = record.QtyEffectiveTime;
+                var description = record.Description;
                 var row = `
                 <tr class="dataRow"> 
                     <td>${bp['identifier']}</td>
-                    <td>${user['identifier']}</td>
-                    <td>${req['identifier']}</td>
-                    <td>${prio['identifier']}</td>
-                    <td>${record.Summary}</td>
-                    <td>${record.Created.slice(0,10)}</td>
-                    <td><a href="#" id="iconLinkWebUrl"><i class="fas fa-2x fa-info-circle"></i></td>
-                    <td>${record.DocumentNo}</td>
+                    <td>${name}</td>
+                    <td>${startHour}</td>
+                    <td>${endHour}</td>
+                    <td>${qtyEffective}</td>
+                    <td>${description}</td>
+                    <td style="display:none">${record.DocumentNo}</td>
+                    <td></td>
                 </tr>`;
-                //if (userBPartner == bp['identifier']) {
-                table.innerHTML += row;
-
-
-
-
-                //}
+                if (userBPartner.identifier == bp['identifier']) {
+                    table.innerHTML += row;
+                }
             });
             var table = document.getElementById('myTable');
             console.log(table);
@@ -90,100 +88,3 @@ $("input[type=radio]").change(function() {
         }
     });
 });
-
-
-
-function filterAcc() {
-    var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("myInputPhone");
-    filter = input.value.toUpperCase();
-    table = document.getElementById("myTable");
-    tr = table.getElementsByTagName("tr");
-    for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[1];
-        if (td) {
-            txtValue = td.textContent || td.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-            } else {
-                tr[i].style.display = "none";
-            }
-        }
-    }
-}
-
-function filterBP() {
-    var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("myInput");
-    filter = input.value.toUpperCase();
-    table = document.getElementById("myTable");
-    tr = table.getElementsByTagName("tr");
-    for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[0];
-        if (td) {
-            txtValue = td.textContent || td.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-            } else {
-                tr[i].style.display = "none";
-            }
-        }
-    }
-}
-
-function filterReq() {
-    var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("myInputMail");
-    filter = input.value.toUpperCase();
-    table = document.getElementById("myTable");
-    tr = table.getElementsByTagName("tr");
-    for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[2];
-        if (td) {
-            txtValue = td.textContent || td.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-            } else {
-                tr[i].style.display = "none";
-            }
-        }
-    }
-}
-
-function filterSumm() {
-    var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("myInputSalesRep");
-    filter = input.value.toUpperCase();
-    table = document.getElementById("myTable");
-    tr = table.getElementsByTagName("tr");
-    for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[4];
-        if (td) {
-            txtValue = td.textContent || td.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-            } else {
-                tr[i].style.display = "none";
-            }
-        }
-    }
-}
-
-function filterDate() {
-    var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("myInputCampaign");
-    filter = input.value.toUpperCase();
-    table = document.getElementById("myTable");
-    tr = table.getElementsByTagName("tr");
-    for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[5];
-        if (td) {
-            txtValue = td.textContent || td.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-            } else {
-                tr[i].style.display = "none";
-            }
-        }
-    }
-}
