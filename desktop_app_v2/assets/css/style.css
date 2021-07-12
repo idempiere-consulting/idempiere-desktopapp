@@ -304,8 +304,8 @@
     }
     
     .container-img img {
-        object-fit: cover;
         height: 100%;
+        width: 100%;
         top: 0px;
         right: 0px;
         left: 0px;
@@ -467,8 +467,20 @@
             top: 15px;
             right: 35px;
         }
+        .header-content {
+            height: 250px;
+        }
         .header-content-box {
             flex-direction: column;
+        }
+        .content {
+            margin-top: 400px;
+        }
+        .div-right .div-logout {
+            flex-direction: row-reverse nowrap;
+        }
+        #span_usernmane_jslogic {
+            display: none;
         }
     }
     /* width */

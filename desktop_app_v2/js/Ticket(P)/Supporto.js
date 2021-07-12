@@ -59,6 +59,9 @@ function getTickets() {
                     ipcRenderer.send('pageTicketP:TicketP_details_window');
                 });
             }
+
+
+            OrderTable("ticketBody", 7);
             backgroundRowTable('ticketBody');
 
         })

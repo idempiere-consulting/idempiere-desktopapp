@@ -28,38 +28,26 @@ function getTickets() {
                 var table = document.getElementById('ticketBody');
                 var bp = record.C_BPartner_ID;
                 var name = record.Name;
-                var startHour = record.AssignDateFrom;
-                var endHour = record.AssignDateTo;
+                var startHour = new Date(record.AssignDateFrom);
+                var endHour = new Date(record.AssignDateTo);
                 var qtyEffective = record.QtyEffectiveTime;
                 var description = record.Description;
                 var row = `
                 <tr class="dataRow"> 
                     <td>${bp['identifier']}</td>
                     <td>${name}</td>
-                    <td>${startHour}</td>
-                    <td>${endHour}</td>
+                    <td>${startHour.toLocaleString()}</td>
+                    <td>${endHour.toLocaleString()}</td>
                     <td>${qtyEffective}</td>
                     <td>${description}</td>
-                    <td style="display:none">${record.DocumentNo}</td>
                     <td></td>
+                    <td style="display:none">${record.DocumentNo}</td>
                 </tr>`;
                 if (userBPartner.identifier == bp['identifier']) {
                     table.innerHTML += row;
                 }
             });
-            var table = document.getElementById('myTable');
-            console.log(table);
-            console.log(table.rows.length);
-            //infoTable used to take the cell where there is the name document and save it in the ipcMain
-            for (var i = 3; i < table.rows.length; i++) {
-                //infoTable used to take the cell where there is the name document and save it in the ipcMain
-                table.rows[i].cells[6].addEventListener('click', function(infoTable = table.row[i].cells[7].innerHTML) {
-                    console.log(infoTable.path[3].cells[7]);
-                    doc = infoTable.path[3].cells[7].innerHTML;
-                    ipcRenderer.send('save:ticketid', doc);
-                    ipcRenderer.send('pageTicketP:TicketP_details_window');
-                });
-            }
+            OrderTable('ticketBody', 7);
             backgroundRowTable('ticketBody');
 
         })

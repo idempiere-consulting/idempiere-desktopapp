@@ -4,6 +4,7 @@ const ipcRender_CreaTicket = electron_creaTicket.ipcRenderer;
 const ip2 = ipcRender_CreaTicket.sendSync('send:ip', 'ping');
 const authToken2 = ipcRender_CreaTicket.sendSync('send:authtoken', 'ping');
 const clientid2 = ipcRender_CreaTicket.sendSync('send:clientId', 'ping');
+const remoteWindows = electron_creaTicket.remote;
 
 var array_blockedRequest = [];
 var itemSelected;
@@ -243,39 +244,46 @@ function sendDataTicket(e) {
         case "Richiesta di formazione":
 
             const qtyHour = document.getElementById("qty-planned").value;
+            console.log(qtyHour < 4 && qtyHour > 0);
+            if (qtyHour < 4 && qtyHour > 0) {
+                BodyData = {
+                    "C_BPartner_ID": { "identifier": BP },
+                    "AD_Client_ID": { "identifier": "DEMO" },
+                    "AD_User_ID": { "identifier": UserName },
+                    "AD_Org_ID": { "id": 1000000 },
+                    "S_Resource_ID": { "id": 1000001 },
+                    "Name": tipoDiRichiesta,
+                    "Description": explain,
+                    "AssignDateFrom": itemSelected,
+                    "Qty": qtyHour
+                };
 
+                fetch('http://' + ip2 + '/api/v1/windows/resource-assignment', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + authToken2
+                        },
+                        body: JSON.stringify(BodyData)
+                    }).then(res => {
+                        return res.json()
+                    })
+                    .then(data => {
+                        console.log(data);
 
-            BodyData = {
-                "C_BPartner_ID": { "identifier": BP },
-                "AD_Client_ID": { "identifier": "DEMO" },
-                "AD_User_ID": { "identifier": UserName },
-                "AD_Org_ID": { "id": 1000000 },
-                "S_Resource_ID": { "id": 1000001 },
-                "Name": tipoDiRichiesta,
-                "Description": explain,
-                "AssignDateFrom": itemSelected,
-                "Qty": qtyHour
-            };
+                        if (data.status != undefined) {
+                            alert("Problema con la Richiesta")
+                        } else {
+                            alert("Richiesta inviata");
+                            var window = remoteWindows.getCurrentWindow();
+                            window.close();
+                        }
+                    })
+                    .catch(error => console.log(error))
+            } else {
+                alert("Inserire una totale ore minor di 3 e maggiore di 1");
 
-            fetch('http://' + ip2 + '/api/v1/windows/resource-assignment', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + authToken2
-                    },
-                    body: JSON.stringify(BodyData)
-                }).then(res => {
-                    return res.json()
-                })
-                .then(data => {
-                    console.log(data);
-                    if (data.status != undefined) {
-                        alert("Problema con la Richiesta")
-                    } else {
-                        alert("Richiesta inviata");
-                    }
-                })
-                .catch(error => console.log(error))
+            }
     }
 }
 

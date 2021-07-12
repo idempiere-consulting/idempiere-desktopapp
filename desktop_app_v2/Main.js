@@ -41,6 +41,7 @@ app.on('ready', function() {
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
+            enableRemoteModule: true,
             backgroundColor: '#2e2c29',
         }
     });
@@ -78,6 +79,7 @@ function createOrderLineWindow() {
         icon: path.join(__dirname, 'assets/images/logo.png'),
         webPreferences: {
             nodeIntegration: true,
+            enableRemoteModule: true,
             contextIsolation: false,
             backgroundColor: '#2e2c29',
         }
@@ -112,6 +114,7 @@ function createODVWindow() {
         icon: path.join(__dirname, 'assets/images/logo.png'),
         webPreferences: {
             nodeIntegration: true,
+            enableRemoteModule: true,
             contextIsolation: false,
             backgroundColor: '#2e2c29',
         }
@@ -148,6 +151,7 @@ function showODVDetailsWindow() {
         icon: path.join(__dirname, 'assets/images/logo.png'),
         webPreferences: {
             nodeIntegration: true,
+            enableRemoteModule: true,
             contextIsolation: false,
             backgroundColor: '#2e2c29',
         }
@@ -183,6 +187,7 @@ function createTicketP() {
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
+            enableRemoteModule: true,
             backgroundColor: '#2e2c29',
         }
     });
@@ -216,6 +221,7 @@ function DetailtsTicketWindow() {
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
+            enableRemoteModule: true,
             backgroundColor: '#2e2c29',
         }
     });
@@ -249,6 +255,7 @@ function infoLeads() {
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
+            enableRemoteModule: true,
             backgroundColor: '#2e2c29',
         }
     });

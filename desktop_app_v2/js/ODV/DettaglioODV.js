@@ -137,26 +137,7 @@ function getODVLines() {
                 table.innerHTML += row;
             });
 
-            var switching = true;
-            var shouldSwitch;
-            var x, y, index;
-
-            while (switching) {
-                switching = false;
-                for (index = 0; index < table.rows.length - 1; index++) {
-                    shouldSwitch = false;
-                    x = table.rows[index].cells[6];
-                    y = table.rows[index + 1].cells[6];
-                    if (x.innerHTML < y.innerHTML) {
-                        shouldSwitch = true;
-                        break;
-                    }
-                }
-                if (shouldSwitch) {
-                    table.rows[index].parentNode.insertBefore(table.rows[index + 1], table.rows[index]);
-                    switching = true;
-                }
-            }
+            OrderTable("opportunityBody2", 6);
             backgroundRowTable('opportunityBody2');
 
 

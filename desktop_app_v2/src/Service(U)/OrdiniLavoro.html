@@ -130,11 +130,8 @@
                             <a href="#" onclick="logOut()">Logout</a>
                         </div>
                     </div>
-
-
                 </div>
             </div>
-
         </div>
     </header>
     <div id="mainContent" class="content">
@@ -143,9 +140,9 @@
                 <tr>
                     <th><input class="filterLeads filter_input" type="text" id="myInput" onkeyup="filterFromInputToTable('myInput','myTable',0)" placeholder="Filtra per Nome" title="Scrivi un Documento"></th>
                     <th><input class="filterLeads filter_input" type="text" id="myInputUser" onkeyup="filterFromInputToTable('myInputUser','myTable',1)" placeholder="Filtra per Tel" title="Scrivi un User"></th>
-                    <th><input class="filterLeads filter_input" type="text" id="myInputDescription" onkeyup="filterFromInputToTable('myInputDescription','myTable',2)" placeholder="Filtra per Mail" title="Scrivi un nome"></th>
-                    <th><input class="filterLeads filter_input" type="text" id="myInputRisorsa" onkeyup="filterFromInputToTable('myInputRisorsa','myTable',3)" placeholder="Filtra per Stato" title="Scrivi un nome"></th>
-                    <th><input class="filterLeads filter_input" type="text" id="myInputDate" onkeyup="filtfilterFromInputToTableerAgent('myInputDate','myTable',4)" placeholder="Filtra per Agente." title="Scrivi un nome"></th>
+                    <th><input class="filterLeads filter_input" type="text" id="myInputDescription" onkeyup="filterFromInputToTable('myInputDescription','myTable',2)" placeholder="Filtra per Descrizione" title="Scrivi una Descrizione"></th>
+                    <th><input class="filterLeads filter_input" type="text" id="myInputRisorsa" onkeyup="filterFromInputToTable('myInputRisorsa','myTable',3)" placeholder="Filtra per Risorsa" title="Scrivi una Risorsa"></th>
+                    <th><input class="filterLeads filter_input" type="text" id="myInputDate" onkeyup="filterFromInputToTable('myInputDate','myTable',4)" placeholder="Filtra per Data." title="Scrivi una Data"></th>
                     <th><a id="addlead" href="#"><i class="fas fa-2x fa-plus" ></i></a></th>
                 </tr>
                 <tr>
@@ -154,6 +151,7 @@
                     <th>Descrizione</th>
                     <th>Risorsa</th>
                     <th>Data Intervento</th>
+                    <td>Dettaglio</td>
                 </tr>
             </thead>
             <tbody id="OrdiniLavoro">

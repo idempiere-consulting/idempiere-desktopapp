@@ -148,3 +148,27 @@ function filterFromInputToTable(nameInput, nameTable, indexTd) {
         }
     }
 }
+
+function OrderTable(nameTbodyTable, nCell) {
+    var switching = true;
+    var shouldSwitch;
+    var x, y, index;
+    table = document.getElementById(nameTbodyTable);
+
+    while (switching) {
+        switching = false;
+        for (index = 0; index < table.rows.length - 1; index++) {
+            shouldSwitch = false;
+            x = table.rows[index].cells[nCell];
+            y = table.rows[index + 1].cells[nCell];
+            if (x.innerHTML < y.innerHTML) {
+                shouldSwitch = true;
+                break;
+            }
+        }
+        if (shouldSwitch) {
+            table.rows[index].parentNode.insertBefore(table.rows[index + 1], table.rows[index]);
+            switching = true;
+        }
+    }
+}

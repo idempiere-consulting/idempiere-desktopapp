@@ -20,7 +20,7 @@ getODV();
 //Take the sales order
 function getODV() {
     //and DocStatus eq 'IP' Per gli odv in corso
-    fetch(`http://` + ip + `/api/v1/models/c_order?$filter= AD_Client_ID eq ` + clientid + ` and IsSOTrx eq true and DocStatus eq 'IP'`, {
+    fetch(`http://` + ip + `/api/v1/models/c_order?$filter= AD_Client_ID eq ` + clientid + ` and IsSOTrx eq true`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -89,27 +89,7 @@ function getODV() {
 
             });
 
-            var switching = true;
-            var shouldSwitch;
-            var x, y, index;
-            table = document.getElementById('opportunityBody');
-
-            while (switching) {
-                switching = false;
-                for (index = 0; index < table.rows.length - 1; index++) {
-                    shouldSwitch = false;
-                    x = table.rows[index].cells[6];
-                    y = table.rows[index + 1].cells[6];
-                    if (x.innerHTML < y.innerHTML) {
-                        shouldSwitch = true;
-                        break;
-                    }
-                }
-                if (shouldSwitch) {
-                    table.rows[index].parentNode.insertBefore(table.rows[index + 1], table.rows[index]);
-                    switching = true;
-                }
-            }
+            OrderTable("opportunityBody", 6);
 
             backgroundRowTable('opportunityBody');
 
