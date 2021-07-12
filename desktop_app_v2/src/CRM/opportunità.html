@@ -139,10 +139,10 @@
     </header>
     <div id="mainContent" class="content">
 
-        <table>
+        <table id="myTable" class="table-sortable">
             <thead>
                 <tr>
-                    <th>
+                    <th colspan="9">
                         <div>
 
                             <input class="filter" type="button" id="All" name="SalesStage" value="All">
@@ -162,18 +162,16 @@
                         </div>
                     </th>
                 </tr>
-            </thead>
-        </table>
 
-        <table id="myTable" class="table-sortable">
-            <thead>
                 <tr>
-                    <th><input class="FilterLeads filter_input" type="text" id="myInputBP" onkeyup="filterFromInputToTable('myInputBP','myTable',0)" placeholder="Filtra per BP" title="Scrivi un nome"></th>
-                    <th><input class="FilterLeads filter_input" type="text" id="myInputCampaign" onkeyup="filterFromInputToTable('myInputCampaign','myTable',1)" placeholder="Filtra per Camp." title="Scrivi un nome"></th>
-                    <th><input class="FilterLeads filter_input" type="text" id="myInputSalesRep" onkeyup="filterFromInputToTable('myInputSalesRep','myTable',2)" placeholder="Filtra per Agente" title="Scrivi un nome"></th>
-                    <th><input class="FilterLeads filter_input" type="text" id="myInputSalesState" onkeyup="filterFromInputToTable('myInputSalesState','myTable',3)" placeholder="Filtra per Stato" title="Scrivi un nome"></th>
-                    <th><input class="FilterLeads filter_input" type="text" id="myInputImport" onkeyup="filterFromInputToTable('myInputImport','myTable',4)" placeholder="Filtra per Importo" title="Scrivi un nome"></th>
-                    <th><input class="FilterLeads filter_input" type="text" id="myInputOpportunity" onkeyup="filterFromInputToTable('myInputOpportunity','myTable',4)" placeholder="Filtra per Opportunità" title="Scrivi un nome"></th>
+                    <th><input class="FilterLeads filter_input" type="text" id="myInputBP" onkeyup="filterFromInputToTable('myInputBP','myTable',0)" placeholder="Filtra per BP" title="Scrivi un BPartner"></th>
+                    <th><input class="FilterLeads filter_input" type="text" id="myInputCampaign" onkeyup="filterFromInputToTable('myInputCampaign','myTable',1)" placeholder="Filtra per Camp." title="Scrivi una Campagna"></th>
+                    <th><input class="FilterLeads filter_input" type="text" id="myInputAgent" onkeyup="filterFromInputToTable('myInputAgent','myTable',2)" placeholder="Filtra per Agente" title="Scrivi un Agente"></th>
+                    <th><input class="FilterLeads filter_input" type="text" id="myInputSalesState" onkeyup="filterFromInputToTable('myInputSalesState','myTable',3)" placeholder="Filtra per Stato" title="Scrivi uno Stato Vendita"></th>
+                    <th><input class="FilterLeads filter_input" type="text" id="myInputImportAmt" onkeyup="filterFromInputToTable('myInputImportAmt','myTable',4)" placeholder="Filtra per Importo" title="Scrivi un Importo"></th>
+                    <th><input class="FilterLeads filter_input" type="text" id="myInputDescription" onkeyup="filterFromInputToTable('myInputDescription','myTable',4)" placeholder="Filtra per Descrizione" title="Scrivi una Descrizione"></th>
+                    <th><input class="FilterLeads filter_input" type="text" id="myInputCloseData" onkeyup="filterFromInputToTable('myInputCloseData','myTable',5)" placeholder="Filtra per Data Chiusura" title="Scrivi una Data Chiusura"></th>
+                    <th><input class="FilterLeads filter_input" type="text" id="myInputProbability" onkeyup="filterFromInputToTable('myInputProbability','myTable',6)" placeholder="Filtra per Probabilità" title="Scrivi una Probabilità"></th>
                     <th><a title="Add ODV" id="AddODV" href="#"><i class="fas fa-2x fa-plus"></i></a></th>
                 </tr>
                 <tr>
@@ -181,9 +179,11 @@
                     <th>Campagna</th>
                     <th>Agente</th>
                     <th>Stato Vendita</th>
-                    <th>Importo atteso</th>
-                    <th>Opportunità</th>
-                    <th>Dettagli</th>
+                    <th>Importo Atteso</th>
+                    <th>Descrizione</th>
+                    <th>Data Chiusura</th>
+                    <th>Probabilità</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody id="opportunityBody">

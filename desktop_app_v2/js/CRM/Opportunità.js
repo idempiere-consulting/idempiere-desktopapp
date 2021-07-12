@@ -20,32 +20,38 @@ function getOpportunities() {
         .then(data => {
             console.log(data);
 
-            //var pData = JSON.parse(data)
 
             a = data['window-records'];
-            //console.log(a);
+            var table = document.getElementById('opportunityBody');
+
             a.forEach((record) => {
-                var table = document.getElementById('opportunityBody');
                 var bPartner = record.C_BPartner_ID;
-                //console.log(leadStatus);
                 var salesRep = record.SalesRep_ID;
-                //console.log(salesRep);
                 var campaign = record.C_Campaign_ID;
                 var salesStage = record.C_SalesStage_ID;
-                //console.log(campaign);
+                var importWithValue = record.OpportunityAmt + " " + record.C_Currency_ID.identifier;
+                var probality = record.Probability + "%";
                 var row = `<tr class="dataRow">
                     <td>${bPartner['identifier']}</td>
                     <td>${campaign['identifier']}</td>
                     <td>${salesRep['identifier']}</td>
                     <td>${salesStage['identifier']}</td>
-                    <td>${record.OpportunityAmt}</td>
+                    <td>${importWithValue}</td>
                     <td>${record.Description}</td>
-                    <td><a href="#" id="iconLinkWebUrl"><i class="fas fa-2x fa-info-circle"></i></td>
+                    <td>${record.ExpectedCloseDate}</td>
+                    <td>${probality}</td>
+                    <td></td>
               </tr>`;
 
                 table.innerHTML += row;
             });
 
+            for (let index = 0; index < table.length; index++) {
+
+
+            }
+
+            backgroundRowTable("opportunityBody");
 
         })
         .catch(error => console.log(error))
