@@ -177,7 +177,8 @@ function DeleteODV(idProduct) {
 
 function updateOrderLine(orderLineId, qtyUpdate) {
     var bodyData = {
-        "QtyEntered": qtyUpdate
+        "QtyEntered": qtyUpdate,
+        "QtyOrdered": qtyUpdate
     };
 
     fetch(`http://` + ip + `/api/v1/models/c_orderline/` + orderLineId, {

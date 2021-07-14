@@ -300,6 +300,7 @@ function sendOrderLine() {
                 "id": warehouseId
             },
             "QtyEntered": QtyEntered,
+            "QtyOrdered": QtyEntered,
             "C_UOM_ID": {
                 "id": idUDM
             },

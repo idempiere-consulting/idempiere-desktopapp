@@ -13,47 +13,120 @@ var arrayDataChart2 = [];
 var arrayDataChart3 = [];
 var arrayDataChart4 = [];
 let myChart;
+var count = 0;
 
-//Set up chart
-var ctx = document.getElementById('myChart').getContext('2d');
-myChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: [],
-        datasets: [
-            /* {
-                        label: 'Test',
-                        data: [12, 3, 4, 3, 21, 12, 5],
-                        borderColor: "red",
-                        backgroundColor: "red",
-                    } */
-        ]
-    },
-    options: {
-        responsive: true,
-        plugins: {
-            legend: {
-                position: 'top',
-            },
-            title: {
-                display: true,
-                text: 'Andamento ordini di linea'
+
+//Function to take the type chart from api request
+GetTypeChart();
+async function GetTypeChart() {
+    await fetch('http://' + ip + '/api/v1/windows/chart-mobile-setup', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + authToken
             }
-        },
-        elements: {
-            line: {
-                tension: 0.2
-            }
-        }
+        }).then(res => {
+            return res.json()
+        })
+        .then(data => {
+            var records = data["window-records"];
 
-    },
-});
+            console.log(records);
+            var charts = document.getElementsByClassName('myChart');
+            console.log(charts);
+            records.forEach(element => {
+                var chart = charts[count].getContext('2d');
+                console.log(element.Value);
 
-//Call api to take data from view of dabase
-takeDataForChart();
+                switch (element.Value) {
+
+                    //Case bar chart
+                    case "01":
+                        {
+                            //Set up chart
+                            myChart = new Chart(chart, {
+                                type: 'bar',
+                                data: {
+                                    labels: [],
+                                    datasets: []
+                                },
+                                options: {
+                                    plugins: {
+                                        title: {
+                                            display: true,
+                                            text: element.Name
+                                        },
+                                    },
+                                    responsive: true,
+                                    scales: {
+                                        x: {
+                                            stacked: true,
+                                        },
+                                        y: {
+                                            stacked: true
+                                        }
+                                    }
+                                }
 
 
+                            });
+                        }
+                        break;
+                        //Case line chart
+                    case "02":
+                        {
+                            myChart = new Chart(chart, {
+                                type: 'line',
+                                data: {
+                                    labels: [],
+                                    datasets: []
+                                },
+                                options: {
+                                    responsive: true,
+                                    plugins: {
+                                        legend: {
+                                            position: 'top',
+                                        },
+                                        title: {
+                                            display: true,
+                                            text: element.Name
+                                        }
+                                    },
+                                    elements: {
+                                        line: {
+                                            tension: 0.2
+                                        }
+                                    },
+                                    scales: {
+                                        y: {
+                                            min: -10
+                                        }
+                                    }
 
+                                },
+
+                            });
+
+                        }
+                        break;
+                    case "03":
+                        {
+
+                        }
+                        break;
+
+                }
+                count++;
+
+
+            });
+            //Call api to take data from view of dabase
+            takeDataForChart();
+
+
+        })
+        .catch(error => console.log(error))
+}
 
 
 
@@ -97,7 +170,7 @@ async function takeDataForChart() {
                 }
             });
 
-            console.log(arrayDataChart2);
+            console.log(arrayDataChart1);
             //Filter on base the obj series
             DataChart1FilterBySeries(arrayDataChart1);
 
