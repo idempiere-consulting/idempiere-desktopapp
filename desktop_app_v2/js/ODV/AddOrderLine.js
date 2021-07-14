@@ -309,9 +309,6 @@ function sendOrderLine() {
             "M_AttributeSetInstance_ID": {
                 "id": instAttrSeries_ID
             },
-            "QtyReserved": 0,
-            "QtyDelivered": 0,
-            "QtyInvoiced": 0,
             "LIT_StockInTrade": "test"
         };
     } else {
@@ -335,6 +332,7 @@ function sendOrderLine() {
                 "id": warehouseId
             },
             "QtyEntered": QtyEntered,
+            "QtyOrdered": QtyEntered,
             "C_UOM_ID": {
                 "id": idUDM
             },
@@ -344,9 +342,6 @@ function sendOrderLine() {
             "M_AttributeSetInstance_ID": {
                 "id": 0
             },
-            "QtyReserved": 0,
-            "QtyDelivered": 0,
-            "QtyInvoiced": 0,
             "LIT_StockInTrade": "test"
         };
     }

@@ -14,8 +14,6 @@ var arrayDataChart3 = [];
 var arrayDataChart4 = [];
 let myChart;
 
-
-
 //Set up chart
 var ctx = document.getElementById('myChart').getContext('2d');
 myChart = new Chart(ctx, {
@@ -41,12 +39,23 @@ myChart = new Chart(ctx, {
                 display: true,
                 text: 'Andamento ordini di linea'
             }
+        },
+        elements: {
+            line: {
+                tension: 0.2
+            }
         }
+
     },
 });
 
 //Call api to take data from view of dabase
 takeDataForChart();
+
+
+
+
+
 
 
 async function takeDataForChart() {
@@ -88,6 +97,7 @@ async function takeDataForChart() {
                 }
             });
 
+            console.log(arrayDataChart2);
             //Filter on base the obj series
             DataChart1FilterBySeries(arrayDataChart1);
 
@@ -140,14 +150,12 @@ function DataChart1FilterBySeries(array) {
 
 
 function DataChart1FilterByData(data, filtroDaset) {
-
     let arrayData = [];
     let arrayLabel = [];
     //Ciclo per settare l'array a 0. arrayData conterrà la somma dei dati di un singolo oggetto filtrato sia per numero di serie e per data(la data torna indietro di 6 mesi)   
     for (let j = 0; j < 6; j++) {
         arrayData[j] = 0;
     }
-
     //Ordinamento vettore
     for (let index = 0; index < data.length; index++) {
         for (let z = 0; z < data.length; z++) {
@@ -160,7 +168,6 @@ function DataChart1FilterByData(data, filtroDaset) {
     }
     //Vettore per inserire come asse x del grafico
     var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
     //Ciclo filtraggio per data
     for (let index = 0; index < data.length; index++) {
         //Prendere la data corrente
@@ -169,7 +176,7 @@ function DataChart1FilterByData(data, filtroDaset) {
         for (let z = 0; z < 6; z++) {
             //startInterval prende la data corrente e setta come mese di partenza quello di 6 mesi
             var startInterval = new Date(dateCurrent.toLocaleDateString());
-            startInterval.setMonth(dateCurrent.getMonth() - 6 + z);
+            startInterval.setMonth(dateCurrent.getMonth() - 5 + z);
 
             //dateDataArray prende la data che si vuole filtrare
             var dateDataArray = new Date(data[index].label);
@@ -201,13 +208,26 @@ function DataChart1FilterByData(data, filtroDaset) {
 }
 
 
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
+
 function addData(chart, labelFilter, data, labelChart) {
     //Creazione dataSet con i parametri
+
+    var colour = getRandomColor();
+
     var newDataSet = {
             label: labelFilter,
             data: data,
-            borderColor: arrayDataChart1[0].colour,
-            backgroundColor: arrayDataChart1[0].colour
+            borderColor: colour,
+            backgroundColor: colour
         }
         //Svuotato paramentri asse x in modo da averlo vuoto per i nuovi dati
     chart.data.labels = [];
@@ -216,6 +236,7 @@ function addData(chart, labelFilter, data, labelChart) {
         chart.data.labels.push(element);
     });
     //Inserimento del nuovo dataSet nel grafico
+    //chart.data.datasets = [];
     chart.data.datasets.push(newDataSet);
     //Aggiornamento grafico
     chart.update();
