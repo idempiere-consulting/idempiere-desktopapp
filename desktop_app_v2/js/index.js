@@ -1,98 +1,286 @@
 const electron_main = window.require("electron");
 const ipcRender_main = electron_main.ipcRenderer;
 
-PermessiMenu();
+const authToken = ipcRender_main.sendSync('send:authtoken', 'ping');
+const userBPartner = ipcRender_main.sendSync('send:bp', 'ping');
+const ip = ipcRender_main.sendSync('send:ip', 'ping');
+
+
+var Chart = require('chart.js');
+
+var arrayDataChart1 = [];
+var arrayDataChart2 = [];
+var arrayDataChart3 = [];
+var arrayDataChart4 = [];
+let myChart;
 
 
 
-
-function PermessiMenu() {
-    //Declare and set variable 
-    const permission = ipcRender_main.sendSync('send:permission');
-    const menu = document.getElementsByClassName("macrocategory-permission-menu");
-    const array_permission = [];
-    const array_permission_setting = [];
-    var temp = "";
-    var temp2 = "";
-    //Take the permission for each page
-    for (let i = 0; i < permission.length; i++) {
-        if (permission[i] != '-') {
-
-            if (!isNaN(permission[i])) {
-                temp = temp + permission[i];
-            } else {
-                temp2 = temp2 + permission[i];
+//Set up chart
+var ctx = document.getElementById('myChart').getContext('2d');
+myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: [],
+        datasets: [
+            /* {
+                        label: 'Test',
+                        data: [12, 3, 4, 3, 21, 12, 5],
+                        borderColor: "red",
+                        backgroundColor: "red",
+                    } */
+        ]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: true,
+                text: 'Andamento ordini di linea'
             }
-            if ((i + 1) == permission.length) {
-                array_permission.push(temp);
-                if (temp2 != "")
-                    array_permission_setting.push(temp2);
-                else
-                    array_permission_setting.push(" ");
+        }
+    },
+});
+
+//Call api to take data from view of dabase
+takeDataForChart();
+
+
+async function takeDataForChart() {
+    await fetch('http://' + ip + '/api/v1/windows/chart-mobile', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + authToken
             }
+        }).then(res => {
+            return res.json()
+        })
+        .then(data => {
+            var records = data["window-records"];
+
+            //Filter by number of chart and put the element in the corret array
+            records.forEach(element => {
+                switch (element.chartno) {
+                    case "01":
+                        {
+                            arrayDataChart1.push(element);
+                        }
+                        break;
+                    case "02":
+                        {
+                            arrayDataChart2.push(element);
+                        }
+                        break;
+                    case "03":
+                        {
+                            arrayDataChart3.push(element);
+                        }
+                        break;
+                    case "04":
+                        {
+                            arrayDataChart4.push(element);
+                        }
+                        break;
+                }
+            });
+
+            //Filter on base the obj series
+            DataChart1FilterBySeries(arrayDataChart1);
 
 
+        })
+        .catch(error => console.log(error))
+}
 
+
+function DataChart1FilterBySeries(array) {
+
+    var numberSeries = [];
+    var arrayFilterBySeries = [];
+    var add = true;
+
+    //Ciclo per prendere tutti i numeri di serie unici nel vettore che è stato preso dall'api
+    for (let index = 0; index < array.length; index++) {
+        //Il primo oggetto deve essere aggiunto sicuramente perchè è univoco
+        if (numberSeries.length == 0) {
+            numberSeries.push(array[index].series);
         } else {
-            if (temp != "") {
-                array_permission.push(temp);
-                temp = "";
-                if (temp2 != "") {
-                    array_permission_setting.push(temp2);
-                    temp2 = "";
-                } else {
-                    array_permission_setting.push(" ");
+            add = true;
+            //Ciclo che controlla l'unicità di un numero di serie(ovvero che deve essere presente una sola volta)
+            for (let j = 0; j < numberSeries.length; j++) {
+                //Se il numero di serie è presente nell'array numberSeries significa che sono prenseti piu oggetti con lo stesso numero di serie
+                if (array[index].series == numberSeries[j]) {
+                    add = false;
                 }
             }
+            if (add) {
+                numberSeries.push(array[index].series);
 
+            }
         }
     }
-    console.log(array_permission_setting);
 
-    ipcRender_main.send('save:permission_settings', array_permission_setting);
-    console.log(array_permission);
-    console.log(menu.length);
-    if (array_permission != undefined && menu.length == array_permission.length) {
-        for (let index = 0; index < menu.length; index++) {
-            if (array_permission[index] == 0) {
-                //console.log("none " + index);
-                menu[index].style.display = "none";
-            } else {
-                var subMenu_categoryPermission = array_permission[index];
-                //html li del sottomenu
-                var sub_menu = menu[index].getElementsByClassName("category-permission-menu");
-                //console.log(sub_menu.length);
-                if (sub_menu.length > 1) {
-                    var potenza = Math.pow(2, sub_menu.length);
-
-                    if (subMenu_categoryPermission <= (potenza - 1) && subMenu_categoryPermission > -1) {
-
-                        subMenu_categoryPermission = (subMenu_categoryPermission >>> 0).toString(2);
-                        //console.log(subMenu_categoryPermission.length + "-" + sub_menu.length);
-                        if (subMenu_categoryPermission.length < sub_menu.length) {
-
-                            while (subMenu_categoryPermission.length < sub_menu.length) {
-                                subMenu_categoryPermission = '0' + subMenu_categoryPermission;
-                            }
-                        }
-                        //console.log(subMenu_categoryPermission + '\n___________________________' + index);
-                        for (let i = 0; i < subMenu_categoryPermission.length; i++) {
-                            if (subMenu_categoryPermission[i] == 0) {
-                                sub_menu[i].style.display = "none";
-                            }
-
-                        }
-                    } else {
-                        alert("Numero permesso troppo elevato per la pagina " + (index + 1));
-                        menu[index].style.display = "none";
-                    }
-                }
+    //Questo ciclo filtra per il numero di serie
+    for (let index = 0; index < numberSeries.length; index++) {
+        for (let z = 0; z < array.length; z++) {
+            if (array[z].series == numberSeries[index]) {
+                arrayFilterBySeries.push(array[z]);
             }
         }
-    } else {
-        alert("Problem with permession");
-        for (let i = 0; i < menu.length; i++) {
-            menu[i].style.display = "none";
-        }
+        //Una volta filtrato per la serie si ottine un vettore contente tutti gli oggetti con quel determinato numero di serie. Ed ora si filtra per data 
+        DataChart1FilterByData(arrayFilterBySeries, arrayFilterBySeries[0].series);
+
+        arrayFilterBySeries = [];
     }
 }
+
+
+function DataChart1FilterByData(data, filtroDaset) {
+
+    let arrayData = [];
+    let arrayLabel = [];
+    //Ciclo per settare l'array a 0. arrayData conterrà la somma dei dati di un singolo oggetto filtrato sia per numero di serie e per data(la data torna indietro di 6 mesi)   
+    for (let j = 0; j < 6; j++) {
+        arrayData[j] = 0;
+    }
+
+    //Ordinamento vettore
+    for (let index = 0; index < data.length; index++) {
+        for (let z = 0; z < data.length; z++) {
+            if (data[z].label > data[index].label) {
+                var temp = data[index];
+                data[index] = data[z];
+                data[z] = temp;
+            }
+        }
+    }
+    //Vettore per inserire come asse x del grafico
+    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+    //Ciclo filtraggio per data
+    for (let index = 0; index < data.length; index++) {
+        //Prendere la data corrente
+        var dateCurrent = new Date();
+        /*Ciclo per capire che in mese si trova l'ordine di linea */
+        for (let z = 0; z < 6; z++) {
+            //startInterval prende la data corrente e setta come mese di partenza quello di 6 mesi
+            var startInterval = new Date(dateCurrent.toLocaleDateString());
+            startInterval.setMonth(dateCurrent.getMonth() - 6 + z);
+
+            //dateDataArray prende la data che si vuole filtrare
+            var dateDataArray = new Date(data[index].label);
+            //arrayLabel prende tutti i 6 mesi e l'anno precendete ad oggi  
+            if (index == 0)
+                arrayLabel.push(months[startInterval.getMonth()] + " " + startInterval.getFullYear());
+            if (startInterval.getMonth() == dateDataArray.getMonth() && startInterval.getFullYear() == dateDataArray.getFullYear()) {
+                if (data[index].Qty == 0) {
+                    arrayData[z]++;
+                } else {
+                    arrayData[z] += data[index].Qty;
+                }
+            }
+
+        }
+
+    }
+    /*Funzione per aggiungere il i dati appena filtrati nel grafico: 
+    1) passandogli il grafico(myChart) , 
+    2) il nome del dataSet(filtroDataset),
+    3) il numero degli ordini di vendita (arrayData),
+    4) i parametri per l'asse x (arrayLabel)
+    */
+    addData(myChart, filtroDaset, arrayData, arrayLabel);
+    arrayLabel = [];
+    arrayData = [];
+
+
+}
+
+
+function addData(chart, labelFilter, data, labelChart) {
+    //Creazione dataSet con i parametri
+    var newDataSet = {
+            label: labelFilter,
+            data: data,
+            borderColor: arrayDataChart1[0].colour,
+            backgroundColor: arrayDataChart1[0].colour
+        }
+        //Svuotato paramentri asse x in modo da averlo vuoto per i nuovi dati
+    chart.data.labels = [];
+    //Inserimento paramentri asse x
+    labelChart.forEach(element => {
+        chart.data.labels.push(element);
+    });
+    //Inserimento del nuovo dataSet nel grafico
+    chart.data.datasets.push(newDataSet);
+    //Aggiornamento grafico
+    chart.update();
+}
+
+/*var mousePosition;
+var offset = [0,0];
+var div;
+var isDown = false;
+divmain=document.createElement("div");
+divmain.style.position = "relative";
+divmain.style.width = "600px";
+divmain.style.height = "700px";
+divmain.style.left = "0px";
+divmain.style.top = "0px";
+divmain.style.background = "yellow"; 
+
+
+div = document.createElement("div");
+div.style.position = "absolute";
+div.style.left = "0px";
+div.style.top = "0px";
+div.style.width = "100px";
+div.style.height = "100px";
+div.style.background = "red";
+div.style.color = "blue";
+
+
+div2 = document.createElement("div");
+div2.style.position = "absolute";
+div2.style.left = "0px";
+div2.style.top = "0px";
+div2.style.width = "100px";
+div2.style.height = "100px";
+div2.style.background = "blue";
+div2.style.color = "blue";
+divmain.appendChild(div2);
+divmain.appendChild(div);
+document.body.appendChild(divmain);
+
+div.addEventListener('mousedown', function(e) {
+    isDown = true;
+    offset = [
+        div.offsetLeft - e.clientX,
+        div.offsetTop - e.clientY
+    ];
+}, true);
+
+document.addEventListener('mouseup', function() {
+    isDown = false;
+}, true);
+
+document.addEventListener('mousemove', function(event) {
+    event.preventDefault();
+    if (isDown) {
+        mousePosition = {
+    
+            x : event.clientX,
+            y : event.clientY
+    
+        };
+        if((mousePosition.x +offset[0])<=500 && (mousePosition.y + offset[1]) <=600 && mousePosition.x +offset[0]>= 0 && mousePosition.y + offset[1]>=0){
+          div.style.left = (mousePosition.x + offset[0]) + 'px';
+          div.style.top  = (mousePosition.y + offset[1]) + 'px';
+        }
+        console.log(div.style.top);
+    }
+}, true);*/

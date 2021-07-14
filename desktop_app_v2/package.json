@@ -9,6 +9,7 @@
         "buffer-crc32": "^0.2.13",
         "buffer-from": "^1.1.1",
         "cacheable-request": "^6.1.0",
+        "chart.js": "^3.4.1",
         "clone-response": "^1.0.2",
         "concat-stream": "^1.6.2",
         "config-chain": "^1.1.13",
@@ -87,7 +88,7 @@
     "scripts": {
         "start": "electron .",
         "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/icons/mac/icon.icns --prune=true --out=release-builds",
-        "package-win": "electron-packager . idempiere-app --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/images/win/icon.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Idempiere App\"",
+        "package-win": "electron-packager . idempiere-app --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/images/logo.png --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Idempiere App\"",
         "package-linux": "electron-packager . idempiere-app --overwrite --asar=true --platform=linux --arch=x64 --icon=assets/images/logo.png --prune=true --out=release-builds"
     },
     "author": "Idempiere",

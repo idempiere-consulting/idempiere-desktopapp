@@ -4,7 +4,6 @@ const ipcRender_2 = electron_2.ipcRenderer;
 document.getElementById("span_usernmane_jslogic").innerHTML = ipcRender_2.sendSync('send:user');
 PermessiMenu();
 
-
 function logOut() {
     if (window.confirm("Se esci al prossimo Login dovrai reinserire nome utente e password, sicuro di voler uscire? ")) {
         stash.cut('username');
@@ -19,8 +18,6 @@ function logOut() {
 
     }
 }
-
-
 
 //Max permessi 7-7-3-3-1A-7-31-1-1-1-1-15
 function PermessiMenu() {
@@ -48,8 +45,6 @@ function PermessiMenu() {
                     array_permission_setting.push(" ");
             }
 
-
-
         } else {
             if (temp != "") {
                 array_permission.push(temp);
@@ -64,35 +59,38 @@ function PermessiMenu() {
 
         }
     }
-    console.log(array_permission_setting);
 
     ipcRender_2.send('save:permission_settings', array_permission_setting);
-    console.log(array_permission);
-    console.log(menu.length);
+    //Controll if the array of permission is set and if there are all permissions for menu
     if (array_permission != undefined && menu.length == array_permission.length) {
+        //Cycle for each permission in array_permission
         for (let index = 0; index < menu.length; index++) {
+            //If the permession is 0 set display menu none and also the sub_menu 
             if (array_permission[index] == 0) {
-                //console.log("none " + index);
                 menu[index].style.display = "none";
             } else {
+                //Take the permission for the page
                 var subMenu_categoryPermission = array_permission[index];
-                //html li del sottomenu
+                //Take the sub_menu because you want to show some item menu   
                 var sub_menu = menu[index].getElementsByClassName("category-permission-menu");
-                //console.log(sub_menu.length);
+                //If the sub_menu < 1 it not has a sub menu
                 if (sub_menu.length > 1) {
+                    //I used the variable potenza to calculate all possible combination, in binary,  for a specific number.
+                    //Example: if i have 3 page i have 2^3 possible combination (000,001,010,011,100,101,110,111)
                     var potenza = Math.pow(2, sub_menu.length);
-
+                    //In subMenu_categoryPermission i have the permission for the page and i controll if is it smaller than potenza -1 
+                    //Because if there is a permission bigger than number of pow i launch error to notice that there is an error with permission
                     if (subMenu_categoryPermission <= (potenza - 1) && subMenu_categoryPermission > -1) {
-
+                        //Transform from decimal to binary 
                         subMenu_categoryPermission = (subMenu_categoryPermission >>> 0).toString(2);
-                        //console.log(subMenu_categoryPermission.length + "-" + sub_menu.length);
+                        //The utilities of this if and this while is thath i can add 0 if the binary not has a lenght equal the sub menu 
                         if (subMenu_categoryPermission.length < sub_menu.length) {
 
                             while (subMenu_categoryPermission.length < sub_menu.length) {
                                 subMenu_categoryPermission = '0' + subMenu_categoryPermission;
                             }
                         }
-                        //console.log(subMenu_categoryPermission + '\n___________________________' + index);
+                        //The last for is used to show or hide the sub menu on base the permssion  
                         for (let i = 0; i < subMenu_categoryPermission.length; i++) {
                             if (subMenu_categoryPermission[i] == 0) {
                                 sub_menu[i].style.display = "none";
@@ -100,6 +98,7 @@ function PermessiMenu() {
 
                         }
                     } else {
+                        //If there is a problem with a sigle item of menu, this will be hiden
                         alert("Numero permesso troppo elevato per la pagina " + (index + 1));
                         menu[index].style.display = "none";
                     }
@@ -107,20 +106,13 @@ function PermessiMenu() {
             }
         }
     } else {
+        //If there are problems the all menu is hide 
         alert("Problem with permession");
         for (let i = 0; i < menu.length; i++) {
             menu[i].style.display = "none";
         }
     }
 }
-
-
-
-
-
-
-
-
 
 /* Function to filter the table */
 function filterFromInputToTable(nameInput, nameTable, indexTd) {

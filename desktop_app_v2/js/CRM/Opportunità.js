@@ -30,7 +30,7 @@ function getOpportunities() {
                 var campaign = record.C_Campaign_ID;
                 var salesStage = record.C_SalesStage_ID;
                 var importWithValue = record.OpportunityAmt + " " + record.C_Currency_ID.identifier;
-                var probality = record.Probability + "%";
+                var probability = record.Probability + "%";
                 var row = `<tr class="dataRow">
                     <td>${bPartner['identifier']}</td>
                     <td>${campaign['identifier']}</td>
@@ -39,7 +39,7 @@ function getOpportunities() {
                     <td>${importWithValue}</td>
                     <td>${record.Description}</td>
                     <td>${record.ExpectedCloseDate}</td>
-                    <td>${probality}</td>
+                    <td>${probability}</td>
                     <td></td>
               </tr>`;
 
