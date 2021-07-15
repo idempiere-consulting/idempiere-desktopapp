@@ -55,7 +55,7 @@ function getLeads() {
                     <td>${leadStatus}</td>
                     <td>${salesRep}</td>
                     <td>${campaign}</td>
-                    <td><a href="#" id="iconLinkWebUrl"><i class="fas fa-2x fa-info-circle"></i></td>
+                    <td><a href="#" id="iconLinkWebUrl"><i class="fas fa-external-link-alt"></i></td>
                     </tr>`;
 
 
