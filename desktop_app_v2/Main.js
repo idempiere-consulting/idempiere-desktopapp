@@ -46,6 +46,7 @@ app.on('ready', function() {
         }
     });
 
+
     mainWindow.maximize();
     //load html file into the window
     mainWindow.loadURL(url.format({
@@ -75,7 +76,6 @@ function createOrderLineWindow() {
         show: false,
         width: 1000,
         height: 700,
-        title: "Idempiere Consulting",
         icon: path.join(__dirname, 'assets/images/logo.png'),
         webPreferences: {
             nodeIntegration: true,
@@ -111,7 +111,6 @@ function createODVWindow() {
         show: false,
         width: 1000,
         height: 400,
-        title: "Idempiere Consulting",
         icon: path.join(__dirname, 'assets/images/logo.png'),
         webPreferences: {
             nodeIntegration: true,
@@ -149,7 +148,6 @@ function showODVDetailsWindow() {
         show: false,
         width: 1000,
         height: 700,
-        title: "Idempiere Consulting",
         icon: path.join(__dirname, 'assets/images/logo.png'),
         webPreferences: {
             nodeIntegration: true,
@@ -185,7 +183,6 @@ function createTicketP() {
         show: false,
         width: 1000,
         height: 500,
-        title: "Idempiere Consulting",
         icon: path.join(__dirname, 'assets/images/logo.png'),
         webPreferences: {
             nodeIntegration: true,
@@ -220,7 +217,6 @@ function DetailtsTicketWindow() {
         show: false,
         width: 1000,
         height: 500,
-        title: "Idempiere Consulting",
         icon: path.join(__dirname, 'assets/images/logo.png'),
         webPreferences: {
             nodeIntegration: true,
@@ -255,7 +251,6 @@ function infoLeads() {
         show: false,
         width: 1000,
         height: 700,
-        title: "Idempiere Consulting",
         icon: path.join(__dirname, 'assets/images/logo.png'),
         webPreferences: {
             nodeIntegration: true,
@@ -278,15 +273,6 @@ function infoLeads() {
     });
 
 }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -477,6 +463,13 @@ ipcMain.on('page:change', function(e, page) {
                 slashes: true
             }));
             break;
+        case 2:
+            mainWindow.loadURL(url.format({
+                pathname: path.join(__dirname, 'src/index.html'),
+                protocol: 'file:',
+                slashes: true
+            }));
+            break;
         case 100:
             mainWindow.loadURL(url.format({
                 pathname: path.join(__dirname, 'src/logInPage/logIn2.html'),
@@ -490,6 +483,20 @@ ipcMain.on('page:change', function(e, page) {
 
 ipcMain.on('page:ODV', function(e, page) {
     switch (page) {
+        case 1:
+            mainWindow.loadURL(url.format({
+                pathname: path.join(__dirname, 'ODV_VediODVWindow.html'),
+                protocol: 'file:',
+                slashes: true
+            }));
+            break;
+        case 2:
+            mainWindow.loadURL(url.format({
+                pathname: path.join(__dirname, 'ODV_CreaODVWindow.html'),
+                protocol: 'file:',
+                slashes: true
+            }));
+            break;
         case 3:
             mainWindow.loadURL(url.format({
                 pathname: path.join(__dirname, 'src/OrdiniDiVendita/ODV_DettaglioODVWindow.html'),
@@ -569,6 +576,16 @@ const mainMenuTemplate = [{
     }]
 }];
 
+const LoginMenuTemplate = [{
+    label: 'App',
+    submenu: [{
+        label: 'Quit',
+        accellerator: process.platform == 'darwin' ? 'Command+Q' : 'Control+Q',
+        click() {
+            app.quit();
+        }
+    }]
+}];
 
 //if mac, add empty object to menu
 
