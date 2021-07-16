@@ -320,11 +320,10 @@ function DataChart1FilterByData(data, filtroDaset) {
                     arrayData[z] += data[index].Qty;
                 }
             }
-
         }
-
     }
-    /*Funzione per aggiungere il i dati appena filtrati nel grafico: 
+    /*
+    Funzione per aggiungere il i dati appena filtrati nel grafico: 
     1) passandogli il grafico(myChart) , 
     2) il nome del dataSet(filtroDataset),
     3) il numero degli ordini di vendita (arrayData),

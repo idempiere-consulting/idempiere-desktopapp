@@ -19,11 +19,12 @@ let changeRole;
 //Take event button
 let btn = document.getElementById('btn_login_jslogic');
 btn.addEventListener('click', authLogin);
-
+document.getElementById("input_username_jslogic").focus();
 //Controll if there are information in the cache
 if (stash.get('username') != undefined) {
     document.getElementById("input_username_jslogic").value = stash.get('username');
     document.getElementById("input_rememberMe_jslogic").checked = true;
+
 }
 if (stash.get('password') != undefined) {
     document.getElementById("input_password_jslogic").value = stash.get('password');
@@ -37,7 +38,6 @@ if (stash.get('ip') != undefined) {
 
 
 function authLogin(e) {
-
 
     e.preventDefault();
     user = document.getElementById('input_username_jslogic').value;

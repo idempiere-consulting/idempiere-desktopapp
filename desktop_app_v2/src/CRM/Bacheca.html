@@ -140,6 +140,45 @@
         </div>
     </header>
     <div id="mainContent" class="content">
+        <table id="myTable" class="table-sortable">
+            <thead>
+                <tr>
+                    <th colspan="7">
+                        <div>
+                            <div class="input-check">
+                                <label style="margin-right: 10px;">Stato:</label>
+                                <input class="filter" type="button" id="All" name="LeadStatus" value="All">
+                                <input class="filter" type="button" id="New" name="LeadStatus" value="New">
+                                <input class="filter" type="button" id="Working" name="LeadStatus" value="Working">
+                                <input class="filter" type="button" id="Converted" name="LeadStatus" value="Converted">
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+                <tr>
+                    <th><input class="filterLeads filter_input" type="text" id="myInput" onkeyup="filterFromInputToTable('myInput','myTable',0)" placeholder="Filtra per Nome" title="Scrivi un nome"></th>
+                    <th><input class="filterLeads filter_input" type="text" id="myInputPhone" onkeyup="filterFromInputToTable('myInputPhone','myTable',1)" placeholder="Filtra per Tel" title="Scrivi un nome"></th>
+                    <th><input class="filterLeads filter_input" type="text" id="myInputMail" onkeyup="filterFromInputToTable('myInputMail','myTable',2)" placeholder="Filtra per Mail" title="Scrivi un nome"></th>
+                    <th><input class="filterLeads filter_input" type="text" id="myInputStatoLead" onkeyup="filterFromInputToTable('myInputStatoLead','myTable',3)" placeholder="Filtra per Stato" title="Scrivi un nome"></th>
+                    <th><input class="filterLeads filter_input" type="text" id="myInputAgent" onkeyup="filtfilterFromInputToTableerAgent('myInputAgent','myTable',4)" placeholder="Filtra per Agente." title="Scrivi un nome"></th>
+                    <th><input class="filterLeads filter_input" type="text" id="myInputCampaign" onkeyup="filterFromInputToTable('myInputCampaign','myTable',5)" placeholder="Filtra per Camp." title="Scrivi un nome"></th>
+                    <th><a id="addlead" href="#"><i class="fas fa-2x fa-plus" ></i></a></th>
+
+                </tr>
+                <tr>
+                    <th>Nome</th>
+                    <th>Telefono</th>
+                    <th>E-Mail</th>
+                    <th>Stato Lead</th>
+                    <th>Agente</th>
+                    <th>Campagna</th>
+                    <th></th>
+
+                </tr>
+            </thead>
+            <tbody id="taskBody">
+            </tbody>
+        </table>
 
     </div>
     <script>
