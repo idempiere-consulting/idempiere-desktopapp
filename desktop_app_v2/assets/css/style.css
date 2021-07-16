@@ -7,6 +7,7 @@ body {
     font-family: 'Lato', sans-serif;
     width: 100%;
     height: 100%;
+    overflow: auto;
 }
 
 
@@ -19,7 +20,6 @@ body {
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: #24252d;
     background-color: #24252d;
     overflow-x: hidden;
     transition: 0.5s;
@@ -219,6 +219,10 @@ body {
 
 /*Header*/
 
+header {
+    height: 100px;
+}
+
 .header-content {
     background-color: gray;
     width: 100%;
@@ -249,11 +253,15 @@ body {
 
 .header-item {
     min-width: 10%;
-    height: 100%;
+    /* height: 100%; */
 }
 
 .textCenter {
     text-align: center;
+}
+
+.textRight {
+    text-align: right;
 }
 
 .div-right .div-logout {
@@ -309,7 +317,7 @@ body {
 
 .container-img img {
     height: 100%;
-    width: 100%;
+    width: 90%;
     top: 0px;
     right: 0px;
     left: 0px;
@@ -324,7 +332,7 @@ body {
 /*Main*/
 
 .content {
-    margin-top: 150px;
+    padding-top: 50px;
     text-align: center;
     height: 100%;
 }
@@ -471,6 +479,13 @@ thead {
     }
 }
 
+@media screen and (max-width: 1000px) {
+    .flex-first {
+        height: 50%;
+        flex-flow: column wrap;
+    }
+}
+
 @media screen and (max-width: 450px) {
     .overlay a {
         font-size: 20px
@@ -480,6 +495,9 @@ thead {
         top: 15px;
         right: 35px;
     }
+    header {
+        height: 250px;
+    }
     .header-content {
         height: 250px;
     }
@@ -487,10 +505,17 @@ thead {
         flex-direction: column;
     }
     .content {
-        margin-top: 400px;
+        padding-top: 100px;
     }
     .div-right .div-logout {
-        flex-direction: row-reverse nowrap;
+        flex-direction: row-reverse;
+    }
+    .div-right .div-logout .container-img {
+        flex: 1;
+        text-align: center;
+    }
+    .div-right .div-logout .nameUser {
+        width: 0;
     }
     #span_usernmane_jslogic {
         display: none;
@@ -538,41 +563,97 @@ thead {
 
 /*Index chart*/
 
-
-/* .flex-content-main {
+.flex-first {
     width: 97%;
     margin: 0 auto;
-    height: 100%;
-      
+    height: 10%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    margin-bottom: 30px;
 }
 
-.item-main {
-
-    width: 100%;
-    height: 40%;
-    margin-top: 40px;
-    padding: 10px;
-    float: left;
-    border: 4px double black;
+.item-first {
+    width: 20%;
+    min-height: 20%;
+    height: 80%;
     background-color: lightgray;
+    border-radius: 20px;
+    border: 1px solid black;
+    border-left: 3px blue solid;
 }
- */
+
+.item-first .flex {
+    display: flex;
+    flex-flow: row wrap;
+    height: 100%;
+    align-content: center;
+    justify-content: flex-start;
+    align-items: center;
+    width: 80%;
+    font-size: 20px;
+    margin: 0 auto;
+}
+
+.item-first .flex .item-firstline {
+    /*  height: 100%; */
+}
+
+#item-box-left {
+    width: 80%;
+    text-align: left;
+}
+
+#item-box-left-title {
+    color: purple;
+    font-size: 15px;
+}
+
+#item-box-left-value {
+    width: 80%;
+    text-align: left;
+}
+
+#item-box-right {
+    width: 20%;
+    font-size: 40px;
+}
 
 .flex-content-main {
     width: 97%;
     margin: 0 auto;
-    height: 100%;
+    height: 70%;
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: row wrap;
     justify-content: space-around;
 }
 
 .item-main {
     max-width: 50%;
     width: 40%;
-    max-height: 40%;
+    height: 60%;
     margin-top: 40px;
+    margin: 3px;
     padding: 10px;
     border: 4px double black;
     background-color: lightgray;
+}
+
+.refresh {
+    top: 100px;
+    left: -13px;
+    position: fixed;
+    color: white;
+    margin: 15px;
+    text-decoration: none;
+    text-align: center;
+}
+
+.refresh:hover {
+    color: #888;
+    transition: 0.2s;
+}
+
+.refresh a {
+    text-decoration: none;
 }

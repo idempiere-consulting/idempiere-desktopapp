@@ -2,7 +2,7 @@ const electron_main = window.require("electron");
 const ipcRender_main = electron_main.ipcRenderer;
 
 const authToken = ipcRender_main.sendSync('send:authtoken', 'ping');
-const userBPartner = ipcRender_main.sendSync('send:bp', 'ping');
+const clientid = ipcRender_main.sendSync('send:clientId', 'ping');
 const ip = ipcRender_main.sendSync('send:ip', 'ping');
 
 
@@ -13,7 +13,45 @@ var arrayDataChart2 = [];
 var arrayDataChart3 = [];
 var arrayDataChart4 = [];
 let myChart;
-var count = 0;
+
+
+getTotaleOrderLines();
+
+function getTotaleOrderLines() {
+    fetch(`http://` + ip + `/api/v1/models/c_orderline?$filter= AD_Client_ID eq ` + clientid, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + authToken
+            }
+        }).then(res => {
+            return res.json()
+        })
+        .then(data => {
+            var info = document.getElementById("item-box-left-title");
+            info.innerHTML = 'Totale Ordini di linea';
+            var value = document.getElementById("item-box-left-value");
+            value.innerHTML = data.records.length;
+
+
+
+
+
+        })
+        .catch(error => console.log(error))
+
+
+}
+
+
+
+
+
+
+
+
+
+
 
 
 takeDataForChart();
@@ -29,7 +67,6 @@ async function takeDataForChart() {
         })
         .then(data => {
             var records = data["window-records"];
-
             //Filter by number of chart and put the element in the corret array
             records.forEach(element => {
                 switch (element.chartno) {
@@ -72,7 +109,7 @@ async function takeDataForChart() {
 
 
 
-
+//Type chart
 async function GetTypeChart() {
     await fetch('http://' + ip + '/api/v1/windows/chart-mobile-setup', {
             method: 'GET',
@@ -84,16 +121,16 @@ async function GetTypeChart() {
             return res.json()
         })
         .then(data => {
+            var count = 0;
             var records = data["window-records"];
 
-            console.log(records);
-            var charts = document.getElementsByClassName('myChart');
+            var charts = document.getElementsByClassName('item-main');
             console.log(charts);
             records.forEach(element => {
-                var chart = charts[count].getContext('2d');
+                console.log(count + charts[count].style.display);
+                charts[count].style.display = '';
+                var chart = charts[count].firstElementChild.getContext('2d');
 
-                console.log(element.Value);
-                console.log(arrayDataChart1.length);
                 switch (element.Value) {
 
                     //Case bar chart
@@ -113,7 +150,7 @@ async function GetTypeChart() {
                                             text: element.Name
                                         },
                                     },
-                                    /* responsive: true, */
+                                    responsive: true,
                                     scales: {
                                         x: {
                                             stacked: true,
@@ -128,7 +165,6 @@ async function GetTypeChart() {
                             });
 
                             if (arrayDataChart1.length > 0) {
-                                console.log(arrayDataChart1);
                                 //Filter on base the obj series
                                 DataChart1FilterBySeries(arrayDataChart1);
                             }
@@ -146,8 +182,8 @@ async function GetTypeChart() {
                                     datasets: []
                                 },
                                 options: {
-                                    /*                                     responsive: true,
-                                     */
+                                    responsive: true,
+
                                     plugins: {
                                         legend: {
                                             position: 'top',
@@ -169,11 +205,9 @@ async function GetTypeChart() {
                                     }
 
                                 },
-
                             });
 
                             if (arrayDataChart2.length > 0) {
-                                console.log(arrayDataChart2);
                                 //Filter on base the obj series
                                 DataChart1FilterBySeries(arrayDataChart2);
                             }
@@ -188,11 +222,10 @@ async function GetTypeChart() {
 
                 }
                 count++;
-                //Call api to take data from view of dabase
-                takeDataForChart();
 
 
             });
+
 
 
 
@@ -255,11 +288,11 @@ function DataChart1FilterByData(data, filtroDaset) {
         arrayData[j] = 0;
     }
     //Ordinamento vettore
-    for (let index = 0; index < data.length; index++) {
+    for (let y = 0; y < data.length; y++) {
         for (let z = 0; z < data.length; z++) {
-            if (data[z].label > data[index].label) {
-                var temp = data[index];
-                data[index] = data[z];
+            if (data[z].label > data[y].label) {
+                var temp = data[y];
+                data[y] = data[z];
                 data[z] = temp;
             }
         }
@@ -273,9 +306,8 @@ function DataChart1FilterByData(data, filtroDaset) {
         /*Ciclo per capire che in mese si trova l'ordine di linea */
         for (let z = 0; z < 6; z++) {
             //startInterval prende la data corrente e setta come mese di partenza quello di 6 mesi
-            var startInterval = new Date(dateCurrent.toLocaleDateString());
+            var startInterval = new Date(dateCurrent);
             startInterval.setMonth(dateCurrent.getMonth() - 5 + z);
-
             //dateDataArray prende la data che si vuole filtrare
             var dateDataArray = new Date(data[index].label);
             //arrayLabel prende tutti i 6 mesi e l'anno precendete ad oggi  
@@ -320,7 +352,6 @@ function addData(chart, labelFilter, data, labelChart) {
     //Creazione dataSet con i parametri
 
     var colour = getRandomColor();
-
     var newDataSet = {
             label: labelFilter,
             data: data,
@@ -339,67 +370,3 @@ function addData(chart, labelFilter, data, labelChart) {
     //Aggiornamento grafico
     chart.update();
 }
-
-/*var mousePosition;
-var offset = [0,0];
-var div;
-var isDown = false;
-divmain=document.createElement("div");
-divmain.style.position = "relative";
-divmain.style.width = "600px";
-divmain.style.height = "700px";
-divmain.style.left = "0px";
-divmain.style.top = "0px";
-divmain.style.background = "yellow"; 
-
-
-div = document.createElement("div");
-div.style.position = "absolute";
-div.style.left = "0px";
-div.style.top = "0px";
-div.style.width = "100px";
-div.style.height = "100px";
-div.style.background = "red";
-div.style.color = "blue";
-
-
-div2 = document.createElement("div");
-div2.style.position = "absolute";
-div2.style.left = "0px";
-div2.style.top = "0px";
-div2.style.width = "100px";
-div2.style.height = "100px";
-div2.style.background = "blue";
-div2.style.color = "blue";
-divmain.appendChild(div2);
-divmain.appendChild(div);
-document.body.appendChild(divmain);
-
-div.addEventListener('mousedown', function(e) {
-    isDown = true;
-    offset = [
-        div.offsetLeft - e.clientX,
-        div.offsetTop - e.clientY
-    ];
-}, true);
-
-document.addEventListener('mouseup', function() {
-    isDown = false;
-}, true);
-
-document.addEventListener('mousemove', function(event) {
-    event.preventDefault();
-    if (isDown) {
-        mousePosition = {
-    
-            x : event.clientX,
-            y : event.clientY
-    
-        };
-        if((mousePosition.x +offset[0])<=500 && (mousePosition.y + offset[1]) <=600 && mousePosition.x +offset[0]>= 0 && mousePosition.y + offset[1]>=0){
-          div.style.left = (mousePosition.x + offset[0]) + 'px';
-          div.style.top  = (mousePosition.y + offset[1]) + 'px';
-        }
-        console.log(div.style.top);
-    }
-}, true);*/

@@ -102,7 +102,7 @@ function authLogin(e) {
             if (changeRole) {
                 ipcRenderer.send('page:change', 100);
             } else {
-                authToken();
+                authToken(" ");
             }
         })
         .catch(error => {

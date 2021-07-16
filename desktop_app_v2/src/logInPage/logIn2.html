@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
 
 
-    <link rel="stylesheet" type="text/css" href="../../vendor_login/animate/animate.css">
     <link rel="stylesheet" type="text/css" href="../../assets/css/util_login.css">
     <link rel="stylesheet" type="text/css" href="../../assets/css/main_login.css">
 
@@ -96,7 +95,7 @@
     const clients = ipcRenderer.sendSync('send:clients', 'ping');
     //Set the bnt event
     const btn = document.getElementById('btn_login_jslogic');
-    btn.addEventListener('click', authToken());
+    btn.addEventListener('click', authToken);
 
     //Fill tag select with the infomation in the clients variable 
     var selectClient = document.getElementById("selectClient");

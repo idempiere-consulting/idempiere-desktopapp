@@ -149,7 +149,10 @@ async function authLanguage() {
 
 }
 
-async function authToken() {
+async function authToken(e) {
+    if (e != " ") {
+        e.preventDefault();
+    }
 
     if (stash.get('clientid') != undefined) {
         clientId = stash.get('clientid');

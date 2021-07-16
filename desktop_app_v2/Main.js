@@ -633,25 +633,12 @@ ipcMain.on('pageInfoLeads:Leads_info_window', function(e, arg) {
 const mainMenuTemplate = [{
     label: 'View',
     submenu: [{
-            label: 'CRM',
-            click() {
-                viewCRMWindow();
-            }
-        },
-        {
-            label: 'Main',
-            click() {
-                viewMainWindow();
-            }
-        },
-        {
-            label: 'Quit',
-            accellerator: process.platform == 'darwin' ? 'Command+Q' : 'Control+Q',
-            click() {
-                app.quit();
-            }
+        label: 'Quit',
+        accellerator: process.platform == 'darwin' ? 'Command+Q' : 'Control+Q',
+        click() {
+            app.quit();
         }
-    ]
+    }]
 }];
 
 const LoginMenuTemplate = [{

@@ -15,6 +15,7 @@
 *.vcxproj.filters
 *.vcxproj.user
 *.xcodeproj
+/release-builds/
 /.idea/
 /dist/
 /external_binaries/
