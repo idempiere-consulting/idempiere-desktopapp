@@ -6,7 +6,7 @@ const authToken2 = ipcRender_CreaTicket.sendSync('send:authtoken', 'ping');
 const clientid2 = ipcRender_CreaTicket.sendSync('send:clientId', 'ping');
 const remoteWindows = electron_creaTicket.remote;
 
-var array_blockedRequest = [];
+var arraySlotLocked = [];
 var itemSelected;
 var select_hour;
 
@@ -68,7 +68,7 @@ if (select_reqType != null) {
 
             getRichiesteFormazione();
 
-            console.log(array_blockedRequest);
+            console.log(arraySlotLocked);
 
             getSlotLiberi();
 
@@ -276,7 +276,7 @@ function sendDataTicket(e) {
                         } else {
                             alert("Richiesta inviata");
                             var window = remoteWindows.getCurrentWindow();
-                            window.close();
+                            //window.close();
                         }
                     })
                     .catch(error => console.log(error))
@@ -308,7 +308,7 @@ async function getRichiesteFormazione() {
             console.log(data);
             a = data['window-records'];
             a.forEach((record) => {
-                array_blockedRequest.push(record);
+                arraySlotLocked.push(record);
             });
 
 
@@ -345,14 +345,14 @@ async function getSlotLiberi() {
                 var date_slot = record.date_slot;
                 if (date_slot.indexOf("16:") == -1) {
 
-                    for (let index = 0; index < array_blockedRequest.length; index++) {
+                    for (let index = 0; index < arraySlotLocked.length; index++) {
                         /* console.log(index + "____________________________")
                         console.log("slot libero?: " + date_slot);
-                        console.log("DA " + array_blockedRequest[index].AssignDateFrom);
-                        console.log("A: " + array_blockedRequest[index].AssignDateTo); 
-                        console.log((date_slot < array_blockedRequest[index].AssignDateFrom || date_slot > array_blockedRequest[index].AssignDateTo));
+                        console.log("DA " + arraySlotLocked[index].AssignDateFrom);
+                        console.log("A: " + arraySlotLocked[index].AssignDateTo); 
+                        console.log((date_slot < arraySlotLocked[index].AssignDateFrom || date_slot > arraySlotLocked[index].AssignDateTo));
                         */
-                        if (!(date_slot < array_blockedRequest[index].AssignDateFrom || date_slot >= array_blockedRequest[index].AssignDateTo)) {
+                        if (!(date_slot < arraySlotLocked[index].AssignDateFrom || date_slot >= arraySlotLocked[index].AssignDateTo)) {
                             guardia = false
                             break;
                         }
@@ -369,7 +369,7 @@ async function getSlotLiberi() {
                 }
 
             });
-
+            itemSelected = select_hour[0].value;
             caseDiv.appendChild(select_hour);
             text = `<label class="formLabel" for="hour">Quante ore?<label>`;
             caseDiv.innerHTML += text;
@@ -395,4 +395,5 @@ async function getSlotLiberi() {
 
 function comboboxItemSelected() {
     itemSelected = document.getElementById('selectHour').value;
+    console.log(itemSelected);
 }

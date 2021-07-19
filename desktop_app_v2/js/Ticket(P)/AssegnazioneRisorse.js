@@ -28,8 +28,11 @@ function getTickets() {
                 var table = document.getElementById('ticketBody');
                 var bp = record.C_BPartner_ID;
                 var name = record.Name;
-                var startHour = new Date(record.AssignDateFrom);
-                var endHour = new Date(record.AssignDateTo);
+
+                console.log(record.AssignDateFrom);
+                var startHour = record.AssignDateFrom.replace('Z', '').replace('T', ' ');
+                console.log(record.AssignDateTo);
+                var endHour = record.AssignDateTo.replace('Z', '').replace('T', ' ');
                 var qtyEffective = record.QtyEffectiveTime;
                 var description = record.Description;
                 var row = `

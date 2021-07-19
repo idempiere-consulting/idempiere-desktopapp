@@ -153,6 +153,8 @@ function OrderTable(nameTbodyTable, nCell) {
             shouldSwitch = false;
             x = table.rows[index].cells[nCell];
             y = table.rows[index + 1].cells[nCell];
+            /* console.log(x.innerHTML + "    " + y.innerHTML);
+            console.log(x.innerHTML < y.innerHTML); */
             if (x.innerHTML < y.innerHTML) {
                 shouldSwitch = true;
                 break;
