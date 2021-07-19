@@ -5,6 +5,8 @@ const authToken = ipcRender_main.sendSync('send:authtoken', 'ping');
 const clientid = ipcRender_main.sendSync('send:clientId', 'ping');
 const ip = ipcRender_main.sendSync('send:ip', 'ping');
 
+var chartRole = ipcRender_main.sendSync('send:chartRole', 'ping');
+
 
 var Chart = require('chart.js');
 
@@ -127,101 +129,106 @@ async function GetTypeChart() {
             var charts = document.getElementsByClassName('item-main');
             console.log(charts);
             records.forEach(element => {
-                console.log(count + charts[count].style.display);
-                charts[count].style.display = '';
-                var chart = charts[count].firstElementChild.getContext('2d');
 
-                switch (element.Value) {
+                if (chartRole != undefined && chartRole.includes(element.Value)) {
 
-                    //Case bar chart
-                    case "01":
-                        {
-                            //Set up chart
-                            myChart = new Chart(chart, {
-                                type: 'bar',
-                                data: {
-                                    labels: [],
-                                    datasets: []
-                                },
-                                options: {
-                                    plugins: {
-                                        title: {
-                                            display: true,
-                                            text: element.Name
-                                        },
+
+                    charts[count].style.display = '';
+                    var chart = charts[count].firstElementChild.getContext('2d');
+
+                    switch (element.Value) {
+
+                        //Case bar chart
+                        case "01":
+                            {
+                                //Set up chart
+                                myChart = new Chart(chart, {
+                                    type: 'bar',
+                                    data: {
+                                        labels: [],
+                                        datasets: []
                                     },
-                                    responsive: true,
-                                    scales: {
-                                        x: {
-                                            stacked: true,
+                                    options: {
+                                        plugins: {
+                                            title: {
+                                                display: true,
+                                                text: element.Name
+                                            },
                                         },
-                                        y: {
-                                            stacked: true
+                                        responsive: true,
+                                        scales: {
+                                            x: {
+                                                stacked: true,
+                                            },
+                                            y: {
+                                                stacked: true
+                                            }
                                         }
                                     }
+
+
+                                });
+
+                                if (arrayDataChart1.length > 0) {
+                                    //Filter on base the obj series
+                                    DataChart1FilterBySeries(arrayDataChart1);
                                 }
 
 
-                            });
-
-                            if (arrayDataChart1.length > 0) {
-                                //Filter on base the obj series
-                                DataChart1FilterBySeries(arrayDataChart1);
                             }
+                            break;
+                            //Case line chart
+                        case "02":
+                            {
+                                myChart = new Chart(chart, {
+                                    type: 'line',
+                                    data: {
+                                        labels: [],
+                                        datasets: []
+                                    },
+                                    options: {
+                                        responsive: true,
 
-
-                        }
-                        break;
-                        //Case line chart
-                    case "02":
-                        {
-                            myChart = new Chart(chart, {
-                                type: 'line',
-                                data: {
-                                    labels: [],
-                                    datasets: []
-                                },
-                                options: {
-                                    responsive: true,
-
-                                    plugins: {
-                                        legend: {
-                                            position: 'top',
+                                        plugins: {
+                                            legend: {
+                                                position: 'top',
+                                            },
+                                            title: {
+                                                display: true,
+                                                text: element.Name
+                                            }
                                         },
-                                        title: {
-                                            display: true,
-                                            text: element.Name
+                                        elements: {
+                                            line: {
+                                                tension: 0.2
+                                            }
+                                        },
+                                        scales: {
+                                            y: {
+                                                min: -10
+                                            }
                                         }
-                                    },
-                                    elements: {
-                                        line: {
-                                            tension: 0.2
-                                        }
-                                    },
-                                    scales: {
-                                        y: {
-                                            min: -10
-                                        }
-                                    }
 
-                                },
-                            });
+                                    },
+                                });
 
-                            if (arrayDataChart2.length > 0) {
-                                //Filter on base the obj series
-                                DataChart1FilterBySeries(arrayDataChart2);
+                                if (arrayDataChart2.length > 0) {
+                                    //Filter on base the obj series
+                                    DataChart1FilterBySeries(arrayDataChart2);
+                                }
+
                             }
+                            break;
+                        case "03":
+                            {
 
-                        }
-                        break;
-                    case "03":
-                        {
+                            }
+                            break;
 
-                        }
-                        break;
-
+                    }
+                    count++;
                 }
-                count++;
+
 
 
             });

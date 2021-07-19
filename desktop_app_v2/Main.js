@@ -8,10 +8,8 @@ let authToken;
 let mainWindow;
 let secondaryWindow;
 let userName;
+let userId;
 let userBPartner;
-let userClient;
-let userOrg;
-let HDRes;
 let ip;
 let clientsInfo; //JSON
 let clientId;
@@ -27,6 +25,7 @@ let language;
 let permission_settings = [];
 let nameLead;
 let ticketId;
+let chartRolePermission;
 
 
 //var internetConn = navigator.onLine();
@@ -284,6 +283,10 @@ ipcMain.on('save:user', function(e, user) {
     userName = user;
 });
 
+ipcMain.on('save:userId', function(event, userid) {
+    userId = userid;
+});
+
 ipcMain.on('save:clients', function(e, clients) {
     clientsInfo = clients;
 });
@@ -357,6 +360,11 @@ ipcMain.on('save:nameLead', function(e, Name) {
 ipcMain.on('save:ticketid', function(event, ticket) {
     ticketId = ticket;
 });
+ipcMain.on('save:chartRole', function(event, mobileRole) {
+    chartRolePermission = mobileRole;
+    event.returnValue = chartRolePermission;
+});
+
 
 
 
@@ -370,6 +378,10 @@ ipcMain.on('save:ticketid', function(event, ticket) {
 ipcMain.on('send:user', function(event, arg) {
     event.returnValue = userName;
 });
+
+ipcMain.on('send:userId', function(event, arg) {
+    event.returnValue = userId;
+})
 
 ipcMain.on('send:clients', function(event, arg) {
     event.returnValue = clientsInfo;
@@ -436,6 +448,10 @@ ipcMain.on('send:nameLead', function(event, arg) {
 ipcMain.on('send:ticketid', function(event, arg) {
     event.returnValue = ticketId;
 });
+
+ipcMain.on('send:chartRole', function(event, arg) {
+    event.returnValue = chartRolePermission;
+})
 
 
 

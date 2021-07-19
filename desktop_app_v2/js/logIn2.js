@@ -239,7 +239,10 @@ async function getUserData() {
                 a = data['records'];
                 a.forEach((record) => {
                     ipcRender_login2.sendSync('save:permission', record.lit_mobilerole);
-                    ipcRenderer.send('save:bpartner', record.C_BPartner_ID);
+                    ipcRender_login2.send('save:bpartner', record.C_BPartner_ID);
+                    ipcRender_login2.send('save:userId', record.id);
+                    ipcRender_login2.sendSync('save:chartRole', record.LIT_MobileChartRole);
+
                 });
                 const page = 2;
                 ipcRender_login2.send('page:change', page);
