@@ -654,19 +654,21 @@ thead {
     }
     .header-content-box {
         flex-direction: column;
+        align-items: flex-start;
     }
-    /* .content {
+    .content {
         padding-top: 100px;
-    } */
+    }
     .div-right .div-logout {
         flex-direction: row-reverse;
     }
     .div-right .div-logout .container-img {
-        flex: 1;
+        /* flex: 1; */
         text-align: center;
+        margin-left: 0px;
     }
     .div-right .div-logout .nameUser {
-        width: 0;
+        width: 0%;
     }
     #span_usernmane_jslogic {
         display: none;
