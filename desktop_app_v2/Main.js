@@ -58,7 +58,7 @@ app.on('ready', function() {
     });
 
     app.on('window-all-closed', () => {
-        app.exit();
+        //app.quit();
     })
 
     //build menu from mainMenu

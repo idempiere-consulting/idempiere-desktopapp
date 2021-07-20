@@ -141,9 +141,32 @@
         </div>
     </header>
     <div id="mainContent" class="content">
-        <iframe src="https://app.powerbi.com/reportEmbed?reportId=7204a2ab-38bd-4a48-a517-c6483b9e0f10&autoAuth=true&ctid=3207801d-cc35-4798-9cd6-8af5382cc923&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLXdlc3QtZXVyb3BlLWQtcHJpbWFyeS1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D"
-            width="100%" height="90%">
-        </iframe>
+        <table id="myTable1" class="table-sortable">
+            <thead>
+                <tr>
+                    <th><input class="filter_input" type="text" id="myInputDoc" onkeyup="filterFromInputToTable('myInputDoc','myTable1',0)" placeholder="Filtra per Doc" title="Scrivi un nome"></th>
+                    <th><input class="filter_input" type="text" id="myInputClient" onkeyup="filterFromInputToTable('myInputClient','myTable1',1)" placeholder="Filtra per Cliente" title="Scrivi un nome"></th>
+                    <th><input class="filter_input" type="text" id="myInputDescription" onkeyup="filterFromInputToTable('myInputDescription','myTable1',2)" placeholder="Filtra per Desc." title="Scrivi un nome"></th>
+                    <th><input class="filter_input" type="text" id="myInputRes" onkeyup="filterFromInputToTable('myInputRes','myTable1',3)" placeholder="Filtra per Attività" title="Scrivi un nome"></th>
+                    <th><input class="filter_input" type="text" id="myInputDate" onkeyup="filterFromInputToTable('myInputDate','myTable1',4)" placeholder="Filtra per Data" title="Scrivi un nome"></th>
+                    <th><a title="Add ODV" id="AddODV" href="#"><i class="fas fa-2x fa-plus"></i></a></th>
+                </tr>
+            </thead>
+
+            <thead>
+                <tr>
+                    <th>N° Documento</th>
+                    <th>Cliente</th>
+                    <th>Descrizione</th>
+                    <th>Attività</th>
+                    <th>Data</th>
+                    <th>Dettaglio</th>
+                </tr>
+            </thead>
+            <tbody id="FattureAcquistoBody">
+
+            </tbody>
+        </table>
     </div>
     <script>
         if (typeof module === 'object') {
