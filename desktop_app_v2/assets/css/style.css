@@ -423,8 +423,7 @@ thead {
 
 #less-qty,
 #plus-qty {
-    padding: 5px;
-    margin: 5px;
+    text-decoration: none;
 }
 
 #less-qty :hover,
@@ -463,28 +462,28 @@ thead {
 
 /* width */
 
- ::-webkit-scrollbar {
+::-webkit-scrollbar {
     width: 10px;
 }
 
 
 /* Track */
 
- ::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
     background: #f1f1f1;
 }
 
 
 /* Handle */
 
- ::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
     background: #888;
 }
 
 
 /* Handle on hover */
 
- ::-webkit-scrollbar-thumb:hover {
+::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
 
@@ -594,6 +593,7 @@ thead {
     .overlay a {
         font-size: 20px
     }
+
     .overlay .closebtn {
         font-size: 40px;
         top: 15px;
@@ -621,6 +621,7 @@ thead {
         flex-flow: column;
         margin-bottom: 100px;
     }
+
     .item-first {
         display: flex;
         flex: 1;
@@ -628,6 +629,7 @@ thead {
         width: 100%;
         margin-top: 10px;
     }
+
     #item-box-left-title {
         color: purple;
         font-size: 15px;
@@ -638,38 +640,48 @@ thead {
     .overlay a {
         font-size: 20px
     }
+
     .overlay .closebtn {
         font-size: 40px;
         top: 15px;
         right: 35px;
     }
+
     header {
         height: 250px;
     }
+
     .header-content {
         height: 250px;
     }
+
     .header-content-box {
         flex-direction: column;
         align-items: flex-start;
     }
+
     .content {
         padding-top: 100px;
     }
+
     .div-right .div-logout {
         flex-direction: row-reverse;
     }
+
     .div-right .div-logout .container-img {
         /* flex: 1; */
         text-align: center;
         margin-left: 0px;
     }
+
     .div-right .div-logout .nameUser {
         width: 0%;
     }
+
     #span_usernmane_jslogic {
         display: none;
     }
+
     .refresh {
         top: 250px;
         left: -13px;
