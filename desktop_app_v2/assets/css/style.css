@@ -4,7 +4,7 @@ html {
 }
 
 body {
-    font-family: 'Lato', sans-serif;
+    font-family: 'Roboto', sans-serif;
     width: 100%;
     height: 100%;
     overflow: auto;
@@ -48,7 +48,7 @@ body {
     padding: 8px;
     text-decoration: none;
     font-size: 36px;
-    color: #818181;
+    color: #888;
     display: block;
     transition: 0.5s;
 }
@@ -100,8 +100,7 @@ body {
     -ms-user-select: none;
     user-select: none;
     color: #3d4449;
-    font-family: Poppins-Regular, sans-serif;
-    font-family: 400;
+    font-family: 'Roboto', sans-serif;
     letter-spacing: 0.075em;
     list-style: none;
     margin-bottom: 0;
@@ -578,14 +577,12 @@ thead {
     top: 100px;
     left: -13px;
     position: fixed;
-    color: white;
     margin: 15px;
     text-decoration: none;
     text-align: center;
 }
 
 .refresh:hover {
-    color: #888;
     transition: 0.2s;
 }
 
@@ -672,5 +669,9 @@ thead {
     }
     #span_usernmane_jslogic {
         display: none;
+    }
+    .refresh {
+        top: 250px;
+        left: -13px;
     }
 }

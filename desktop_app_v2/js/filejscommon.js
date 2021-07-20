@@ -31,7 +31,6 @@ function PermessiMenu() {
     //Take the permission for each page
     for (let i = 0; i < permission.length; i++) {
         if (permission[i] != '-') {
-
             if (!isNaN(permission[i])) {
                 temp = temp + permission[i];
             } else {
