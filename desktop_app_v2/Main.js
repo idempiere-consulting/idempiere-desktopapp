@@ -26,6 +26,7 @@ let permission_settings = [];
 let nameLead;
 let ticketId;
 let chartRolePermission;
+let invoiceId
 
 
 //var internetConn = navigator.onLine();
@@ -273,6 +274,40 @@ function infoLeads() {
 
 }
 
+function showInvoiceDetailsWindow() {
+    secondaryWindow = new BrowserWindow({
+        parent: mainWindow,
+        modal: true,
+        show: false,
+        width: 1000,
+        height: 700,
+        icon: path.join(__dirname, 'assets/images/logo.png'),
+        webPreferences: {
+            nodeIntegration: true,
+            enableRemoteModule: true,
+            contextIsolation: false,
+            backgroundColor: '#2e2c29',
+        }
+    });
+
+    secondaryWindow.once('ready-to-show', () => {
+        secondaryWindow.show()
+    })
+
+
+    secondaryWindow.loadURL(url.format({
+        pathname: path.join(__dirname, 'src/Fatture/DettagliFattureVendita.html'),
+        protocol: 'file:',
+        slashes: true
+    }));
+
+    secondaryWindow.on('close', function() {
+        secondaryWindow = null;
+
+    });
+
+}
+
 
 
 
@@ -365,6 +400,10 @@ ipcMain.on('save:chartRole', function(event, mobileRole) {
     event.returnValue = chartRolePermission;
 });
 
+ipcMain.on('save:invoiceId', function(event, invoiceid) {
+    invoiceId = invoiceid;
+});
+
 
 
 
@@ -452,6 +491,10 @@ ipcMain.on('send:ticketid', function(event, arg) {
 ipcMain.on('send:chartRole', function(event, arg) {
     event.returnValue = chartRolePermission;
 })
+
+ipcMain.on('send:ticketid', function(event, arg) {
+    event.returnValue = invoiceId;
+});
 
 
 
@@ -551,6 +594,10 @@ ipcMain.on('pageTicketP:TicketP_details_window', function(e, arg) {
 
 ipcMain.on('pageInfoLeads:Leads_info_window', function(e, arg) {
     infoLeads();
+});
+
+ipcMain.on('pageDetailsInvoice:invoice_details_window', function(e, arg) {
+    showInvoiceDetailsWindow();
 });
 
 

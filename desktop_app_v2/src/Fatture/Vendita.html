@@ -141,9 +141,31 @@
         </div>
     </header>
     <div id="mainContent" class="content">
-        <iframe src="https://app.powerbi.com/reportEmbed?reportId=7204a2ab-38bd-4a48-a517-c6483b9e0f10&autoAuth=true&ctid=3207801d-cc35-4798-9cd6-8af5382cc923&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLXdlc3QtZXVyb3BlLWQtcHJpbWFyeS1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D"
-            width="100%" height="90%">
-        </iframe>
+        <table id="myTableInvoice" class="table-sortable">
+            <thead>
+                <tr>
+                    <th><input class="filter_input" type="text" id="myInputDoc" onkeyup="filterFromInputToTable('myInputDoc','myTableInvoice',0)" placeholder="Filtra per Doc" title="Scrivi un nome"></th>
+                    <th><input class="filter_input" type="text" id="myInputTotal" onkeyup="filterFromInputToTable('myInputTotal','myTableInvoice',1)" placeholder="Filtra per Totale" title="Scrivi un nome"></th>
+                    <th><input class="filter_input" type="text" id="myInputSelsRep" onkeyup="filterFromInputToTable('myInputSelsRep','myTableInvoice',2)" placeholder="Filtra per Rapp. Vendita." title="Scrivi un nome"></th>
+                    <th><input class="filter_input" type="text" id="myInputData" onkeyup="filterFromInputToTable('myInputData','myTableInvoice',3)" placeholder="Filtra per Data" title="Scrivi un nome"></th>
+                    <th><a title="Add ODV" id="SHOWdetailsInvoice" href="#"><i class="fas fa-2x fa-plus"></i></a></th>
+                </tr>
+            </thead>
+
+
+            <thead>
+                <tr>
+                    <th>N° Documento</th>
+                    <th>Totale</th>
+                    <th>Rappresentante di Vendita</th>
+                    <th>Data</th>
+                    <th>Dettaglio</th>
+                </tr>
+            </thead>
+            <tbody id="fattureBody">
+            </tbody>
+        </table>
+
     </div>
     <script>
         if (typeof module === 'object') {
@@ -154,6 +176,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <script src="../../assets/js/jquery.js"></script>
     <script src="../../js/filejscommon.js"></script>
+    <script src="../../js/Fattura/VediFattureVendita.js"></script> 
 
     <script>
         //window.attachEvent("onload ", closeNav());
