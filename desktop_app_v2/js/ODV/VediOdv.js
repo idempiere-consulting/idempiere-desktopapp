@@ -72,22 +72,23 @@ function getODV() {
                 //Append to table
                 console.log(table);
                 table.innerHTML += row;
-                var table = document.getElementById('myTable1');
-                //Cycle to create a event button. It is used to open the page DettaglioODV.html and save the current document that you want to inspect
-                for (var i = 2; i < table.rows.length; i++) {
-                    //infoTable used to take the cell where there is the name document and save it in the ipcMain
-                    table.rows[i].cells[5].addEventListener('click', function(infoTable = table.row[i].cells[0].innerHTML) {
-                        doc = infoTable.path[3].cells[0].innerHTML;
-                        ipcRenderer.send('save:docN', doc);
-                        ipcRenderer.send('page:ODV', 3);
-                    });
-                }
-
 
 
 
 
             });
+
+            var btns = document.querySelectorAll('.iconLinkWebUrl');
+            Array.prototype.forEach.call(btns, function addClickListener(btn) {
+                btn.addEventListener('click', function(event) {
+                    var doc = event.path[3].cells[0].innerHTML;
+                    console.log(doc);
+                    ipcRenderer.send('save:docN', doc);
+                    ipcRenderer.send('page:ODV', 3);
+                });
+            });
+
+
 
             OrderTable("opportunityBody", 6);
 
