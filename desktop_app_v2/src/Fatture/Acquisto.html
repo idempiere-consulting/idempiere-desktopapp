@@ -144,11 +144,10 @@
         <table id="myTable1" class="table-sortable">
             <thead>
                 <tr>
-                    <th><input class="filter_input" type="text" id="myInputDoc" onkeyup="filterFromInputToTable('myInputDoc','myTable1',0)" placeholder="Filtra per Doc" title="Scrivi un nome"></th>
-                    <th><input class="filter_input" type="text" id="myInputClient" onkeyup="filterFromInputToTable('myInputClient','myTable1',1)" placeholder="Filtra per Cliente" title="Scrivi un nome"></th>
-                    <th><input class="filter_input" type="text" id="myInputDescription" onkeyup="filterFromInputToTable('myInputDescription','myTable1',2)" placeholder="Filtra per Desc." title="Scrivi un nome"></th>
-                    <th><input class="filter_input" type="text" id="myInputRes" onkeyup="filterFromInputToTable('myInputRes','myTable1',3)" placeholder="Filtra per Attività" title="Scrivi un nome"></th>
-                    <th><input class="filter_input" type="text" id="myInputDate" onkeyup="filterFromInputToTable('myInputDate','myTable1',4)" placeholder="Filtra per Data" title="Scrivi un nome"></th>
+                    <th><input class="filter_input" type="text" id="myInputDoc" onkeyup="filterFromInputToTable('myInputDoc','myTable1',0)" placeholder="Filtra per Doc" title="Scrivi un Doc"></th>
+                    <th><input class="filter_input" type="text" id="myInputTotal" onkeyup="filterFromInputToTable('myInputTotal','myTable1',1)" placeholder="Filtra per Totale" title="Scrivi un Totale"></th>
+                    <th><input class="filter_input" type="text" id="myInputRepSales" onkeyup="filterFromInputToTable('myInputRepSales','myTable1',2)" placeholder="Filtra per Rappresentante Vendita." title="Scrivi un Rappresentante Vedi"></th>
+                    <th><input class="filter_input" type="text" id="myInputDate" onkeyup="filterFromInputToTable('myInputDate','myTable1',3)" placeholder="Filtra per Data" title="Scrivi un Data"></th>
                     <th><a title="Add ODV" id="AddODV" href="#"><i class="fas fa-2x fa-plus"></i></a></th>
                 </tr>
             </thead>
@@ -156,15 +155,13 @@
             <thead>
                 <tr>
                     <th>N° Documento</th>
-                    <th>Cliente</th>
-                    <th>Descrizione</th>
-                    <th>Attività</th>
+                    <th>Totale</th>
+                    <th>Rappresentante Vendita</th>
                     <th>Data</th>
                     <th>Dettaglio</th>
                 </tr>
             </thead>
-            <tbody id="FattureAcquistoBody">
-
+            <tbody id="fattureAcquistoBody">
             </tbody>
         </table>
     </div>
@@ -177,6 +174,8 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <script src="../../assets/js/jquery.js"></script>
     <script src="../../js/filejscommon.js"></script>
+    <script src="../../js/Fattura/VediFattureAcquisto.js"></script>
+
 
     <script>
         //window.attachEvent("onload ", closeNav());

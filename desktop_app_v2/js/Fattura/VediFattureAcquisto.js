@@ -17,9 +17,8 @@ getFattureAcquisto();
 
 
 
-//Take the sales order
 function getFattureAcquisto() {
-    //and DocStatus eq 'IP' Per gli odv in corso
+
     fetch(`http://` + ip + `/api/v1/models/c_invoice?$filter= AD_Client_ID eq ` + clientid + ` and IsSOTrx eq true`, {
             method: 'GET',
             headers: {
@@ -31,57 +30,31 @@ function getFattureAcquisto() {
         })
         .then(data => {
 
+            console.log(data);
             a = data['records'];
+
             var table;
-            console.log(table);
-            //Take each sales order
+
             a.forEach((record) => {
-                table = document.getElementById('opportunityBody');
+                table = document.getElementById('fattureAcquistoBody');
 
-                var bPartner = '',
-                    activity = '',
-                    DocumentNo = '',
-                    Description = '',
-                    DateOrdered = '';
-                //Controll if the attributes are not set
-                if (record.C_BPartner_ID != undefined)
-                    bPartner = record.C_BPartner_ID;
 
-                if (record.DocumentNo != undefined)
-                    DocumentNo = record.DocumentNo;
 
-                if (record.Description != undefined)
-                    Description = record.Description;
-
-                if (record.DateOrdered != undefined)
-                    DateOrdered = record.DateOrdered;
-
-                if (record.C_Activity_ID != undefined) {
-                    activity = record.C_Activity_ID.identifier;
-                }
-                //Insert the value of one sales order in a html row
                 var row = `<tr class="dataRow">
-							<td onkeyup='filterDoc()'>${DocumentNo}</td>
-							<td onkeyup='filterClient()'>${bPartner['identifier']}</td>
-							<td onkeyup='filterDesc()'>${Description}</td>
-							<td onkeyup='filterAct()'>${activity}</td>
-							<td onkeyup='filterDate()'>${DateOrdered}</td>
-							<td><a href="#" id="iconLinkWebUrl"><i class="fas fa-2x fa-info-circle"></i></td>
-                            <td style="display:none">${record.id}</td>
-					  </tr>`;
+
+            							<td>${record.DocumentNo == undefined? '' : record.DocumentNo}</td>
+            							<td>${record.GrandTotal == undefined ? '' : record.C_Currency_ID == undefined? '': record.GrandTotal+" "+record.C_Currency_ID.identifier}</td>
+            							<td>${record.SalesRep_ID == undefined ? '' : record.SalesRep_ID.identifier}</td>
+            							<td>${record.DateInvoiced == undefined ? '': record.DateInvoiced}</td>
+            							<td><a href="#" class="test"><i class="fas fa-external-link-alt"></i></td>
+                                        
+            					  </tr>`;
                 //Append to table
                 console.log(table);
                 table.innerHTML += row;
                 var table = document.getElementById('myTable1');
                 //Cycle to create a event button. It is used to open the page DettaglioODV.html and save the current document that you want to inspect
-                for (var i = 2; i < table.rows.length; i++) {
-                    //infoTable used to take the cell where there is the name document and save it in the ipcMain
-                    table.rows[i].cells[5].addEventListener('click', function(infoTable = table.row[i].cells[0].innerHTML) {
-                        doc = infoTable.path[3].cells[0].innerHTML;
-                        ipcRenderer.send('save:docN', doc);
-                        ipcRenderer.send('page:ODV', 3);
-                    });
-                }
+
 
 
 
@@ -89,9 +62,19 @@ function getFattureAcquisto() {
 
             });
 
-            OrderTable("opportunityBody", 6);
+            var btns = document.querySelectorAll('.test');
+            Array.prototype.forEach.call(btns, function addClickListener(btn) {
+                btn.addEventListener('click', function(event) {
+                    var doc = event.path[3].cells[0].innerHTML;
+                    ipcRenderer.send('save:docN', doc);
+                    ipcRenderer.send('pageCustomerInvoice:details');
+                });
+            });
 
-            backgroundRowTable('opportunityBody');
+
+
+            OrderTable("fattureAcquistoBody", 6);
+            backgroundRowTable('fattureAcquistoBody');
 
 
         })

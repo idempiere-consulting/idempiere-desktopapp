@@ -308,6 +308,36 @@ function showInvoiceDetailsWindow() {
 
 }
 
+function infoCostumerInvoice() {
+    secondaryWindow = new BrowserWindow({
+        parent: mainWindow,
+        modal: true,
+        show: false,
+        width: 1000,
+        height: 700,
+        icon: path.join(__dirname, 'assets/images/logo.png'),
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false,
+            enableRemoteModule: true,
+            backgroundColor: '#2e2c29',
+        }
+    });
+    secondaryWindow.once('ready-to-show', () => {
+        secondaryWindow.show()
+    })
+    secondaryWindow.loadURL(url.format({
+        pathname: path.join(__dirname, 'src/Fatture/DettaglioFattureAcquisto.html'),
+        protocol: 'file:',
+        slashes: true
+    }));
+    secondaryWindow.on('close', function() {
+        secondaryWindow = null;
+
+    });
+}
+
+
 
 
 
@@ -600,6 +630,9 @@ ipcMain.on('pageDetailsInvoice:invoice_details_window', function(e, arg) {
     showInvoiceDetailsWindow();
 });
 
+ipcMain.on('pageCustomerInvoice:details', function(e, arg) {
+    infoCostumerInvoice();
+})
 
 
 

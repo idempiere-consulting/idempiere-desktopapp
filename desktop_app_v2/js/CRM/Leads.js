@@ -61,17 +61,26 @@ function getLeads() {
 
                 table.innerHTML += row;
 
-                var table = document.getElementById('myTable');
-                for (var i = 2; i < table.rows.length; i++) {
-                    table.rows[i].cells[6].addEventListener('click', function(infoTable) {
-                        namelead = infoTable.path[3].cells[0].innerHTML;
-                        ipcRenderer.send('save:nameLead', namelead);
-                        ipcRenderer.send('pageInfoLeads:Leads_info_window');
-                        //alert(msg);
-                    });
-                }
+                /*                var table = document.getElementById('myTable');
+                                              for (var i = 2; i < table.rows.length; i++) {
+                                                  table.rows[i].cells[6].addEventListener('click', function(infoTable) {
+                                                      namelead = infoTable.path[3].cells[0].innerHTML;
+                                                      ipcRenderer.send('save:nameLead', namelead);
+                                                      ipcRenderer.send('pageInfoLeads:Leads_info_window');
+                                                      //alert(msg);
+                                                  });
+                                              } */
             });
 
+            var btns = document.querySelectorAll('.iconLinkWebUrl');
+            Array.prototype.forEach.call(btns, function addClickListener(btn) {
+                btn.addEventListener('click', function(event) {
+                    var namelead = event.path[3].cells[0].innerHTML;
+
+                    ipcRenderer.send('save:nameLead', namelead);
+                    ipcRenderer.send('pageInfoLeads:Leads_info_window');
+                });
+            });
 
         })
         .catch(error => console.log(error))

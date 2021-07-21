@@ -43,20 +43,15 @@ function getOrdiniLavoro() {
 
 
             });
-            //
-            /*var table = document.getElementById('ticketBody');
-            console.log(table);
-            console.log(table.rows.length);
-            //infoTable used to take the cell where there is the name document and save it in the ipcMain
-            for (var i = 0; i < table.rows.length; i++) {
-                //infoTable used to take the cell where there is the name document and save it in the ipcMain
-                table.rows[i].cells[6].addEventListener('click', function(infoTable) {
-                    console.log(infoTable.path[3].cells[7]);
-                    doc = infoTable.path[3].cells[7].innerHTML;
-                    ipcRenderer.send('save:ticketid', doc);
-                    ipcRenderer.send('pageTicketP:TicketP_details_window');
-                });
-            }*/
+            /*             var btns = document.querySelectorAll('.iconLinkWebUrl');
+                        Array.prototype.forEach.call(btns, function addClickListener(btn) {
+                            btn.addEventListener('click', function(event) {
+                                var doc = event.path[3].cells[0].innerHTML;
+                                console.log(doc);
+                                ipcRenderer.send('save:docN', doc);
+                                ipcRenderer.send('page:ODV:odv_details_window');
+                            });
+                        }); */
             OrderTable("OrdiniLavoro", 4);
             backgroundRowTable('OrdiniLavoro');
 

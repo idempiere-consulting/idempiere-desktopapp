@@ -52,17 +52,20 @@ function getODV() {
                             <td><a href="#" id="iconLinkWebUrl"><i class="fas fa-2x fa-info-circle"></i></td>
 					  </tr>`;
 
-                table.innerHTML += row;
 
-                var table = document.getElementById('myTable1');
-                for (var i = 2; i < table.rows.length; i++) {
-                    table.rows[i].cells[5].addEventListener('click', function(infoTable = table.row[i].cells[0].innerHTML) {
-                        doc = infoTable.path[3].cells[0].innerHTML;
-                        ipcRenderer.send('save:docN', doc);
-                        ipcRenderer.send('page:ODV:odv_details_window');
-                        //alert(msg);
-                    });
-                }
+                table.innerHTML += row;
+            });
+
+
+
+            var btns = document.querySelectorAll('.iconLinkWebUrl');
+            Array.prototype.forEach.call(btns, function addClickListener(btn) {
+                btn.addEventListener('click', function(event) {
+                    var doc = event.path[3].cells[0].innerHTML;
+                    console.log(doc);
+                    ipcRenderer.send('save:docN', doc);
+                    ipcRenderer.send('page:ODV:odv_details_window');
+                });
             });
 
 
