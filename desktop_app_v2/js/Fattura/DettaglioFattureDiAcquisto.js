@@ -42,7 +42,6 @@ async function LoadInvoiceDetails() {
 
 
 function getInvoiceLine() {
-    console.log(idInvoice)
     fetch(`http://` + ip + `/api/v1/models/c_invoiceline?$filter=C_Invoice_ID eq ` + idInvoice, {
             method: 'GET',
             headers: {
@@ -53,12 +52,32 @@ function getInvoiceLine() {
             return res.json()
         })
         .then(data => {
-            var a = data.records;
-            console.log(a);
-            /*    a.forEach(element => {
-
-               }); */
-
+                var a = data.records;
+                console.log(a);
+                var tbody;
+                var totale = 0;
+                a.forEach(element => {
+                            tbody = document.getElementById("InvoceInlineBody");
+                            var row = `<tr>
+                                <td>${element.M_Product_ID != undefined?element.M_Product_ID.identifier:''}</td>
+                                <td>${element.Description != undefined? 
+                                        element.PriceEntered != undefined ?
+                                            element.Description +`<br><span>${element.PriceEntered}€per prodotto<span>` : ''
+                                        :''}</td>
+                                <td>${element.QtyInvoiced != undefined ? element.QtyInvoiced : ''}</td>
+                                <td>${element.LineTotalAmt != undefined ? element.LineTotalAmt+"€" : ''}</td>
+                                <td>${element.C_Tax_ID != undefined ?  element.C_Tax_ID.identifier : ''}</td>
+                            </tr>
+                `;
+                totale += element.LineTotalAmt;
+                console.log(row);
+                tbody.innerHTML += row;
+            });
+            var endRow = `<tr>
+                            <td colspan="3"></td>
+                            <td style="border:3px solid green;" colspan="3">Totale:${totale}€</td>
+                        </tr>`;
+            tbody.innerHTML += endRow;
 
 
         });

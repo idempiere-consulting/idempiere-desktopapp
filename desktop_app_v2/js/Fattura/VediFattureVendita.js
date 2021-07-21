@@ -15,8 +15,8 @@ if (addODV != null) {
 
 GetFattureVendita()
 
-function GetFattureVendita(){
-    fetch(`http://` + ip + `/api/v1/models/c_invoice?$filter= AD_Client_ID eq ` + clientid + ` and IsSOTrx eq false`, {
+function GetFattureVendita() {
+    fetch(`http://` + ip + `/api/v1/models/c_invoice?$filter= AD_Client_ID eq ` + clientid + ` and IsSOTrx eq true`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ function GetFattureVendita(){
             a = data['records'];
             console.log(a);
             var es;
-            a.DocumentNo == undefined ? es='': a.DocumentNo; 
+            a.DocumentNo == undefined ? es = '' : a.DocumentNo;
             var table;
             //Take each sales order
             a.forEach((record) => {
@@ -38,14 +38,14 @@ function GetFattureVendita(){
                 var GrandTotal = '',
                     DocumentNo = '',
                     SalesRep_ID = '';
-                    DateInvoiced = '';
+                DateInvoiced = '';
                 //Controll if the attributes are not set
 
-                if (record.DocumentNo != undefined){
+                if (record.DocumentNo != undefined) {
                     DocumentNo = record.DocumentNo;
                 }
 
-                if (record.GrandTotal != undefined){
+                if (record.GrandTotal != undefined) {
                     GrandTotal = record.GrandTotal;
                 }
 
@@ -78,12 +78,12 @@ function GetFattureVendita(){
                 });
 
 
-           });
+            });
 
-               OrderTable("fattureBody", 5);
+            OrderTable("fattureBody", 5);
 
-            backgroundRowTable('fattureBody'); 
- 
+            backgroundRowTable('fattureBody');
+
 
         })
         .catch(error => console.log(error))
