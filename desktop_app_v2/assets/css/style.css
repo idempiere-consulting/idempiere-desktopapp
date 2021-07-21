@@ -579,7 +579,6 @@ thead {
 }
 
 .refresh {
-    z-index: -1;
     top: 100px;
     left: -13px;
     position: fixed;

@@ -37,7 +37,7 @@ function getOrdiniLavoro() {
                     <td>${record.Description}</td>
                     <td>${ris['identifier']}</td>
                     <td>${record.DateWorkStart}</td>
-                    <td><a href="#" id="iconLinkWebUrl"><i class="fas fa-2x fa-info-circle"></i></td>
+                    <td><a href="#" class="iconLinkWebUrl"><i class="fas fa-2x fa-info-circle"></i></td>
               </tr>`;
                 table.innerHTML += row;
 

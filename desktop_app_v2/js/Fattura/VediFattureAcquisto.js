@@ -46,7 +46,7 @@ function getFattureAcquisto() {
             							<td>${record.GrandTotal == undefined ? '' : record.C_Currency_ID == undefined? '': record.GrandTotal+" "+record.C_Currency_ID.identifier}</td>
             							<td>${record.SalesRep_ID == undefined ? '' : record.SalesRep_ID.identifier}</td>
             							<td>${record.DateInvoiced == undefined ? '': record.DateInvoiced}</td>
-            							<td><a href="#" class="test"><i class="fas fa-external-link-alt"></i></td>
+            							<td><a href="#" class="test"><i class="fas fa-2x fa-info-circle"></i></td>
                                         
             					  </tr>`;
                 //Append to table
