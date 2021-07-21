@@ -103,6 +103,27 @@
         .btn:hover {
             background-color: #45a049;
         }
+
+        table {
+            width: 75%;
+            margin: 0 auto;
+            border: 2px solid black;
+            background-color: white;
+            border-collapse: collapse;
+            color: black;
+            font-weight: 700;
+        }
+
+        th,
+        td {
+            border: 2px solid black;
+            padding: 15px;
+        }
+
+        thead {
+            background-color: grey;
+        }
+
         
         a {
             color: #2196F3;
@@ -177,6 +198,23 @@
 
                                 <label for="Status">Stato</label>
                                 <input type="text" id="Status" name="Status" placeholder="" readonly="true">
+
+                            </div>
+
+                            <div>
+                                    <table id="myTableInvoice" class="table-sortable">
+                                        <thead>
+                                            <tr>
+                                                <th>nome</th>
+                                                <th>quantità</th>
+                                                <th>prezzo</th>
+                                                <th>imposta</th>
+                                                <th>Data</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="invoiceBody">
+                                        </tbody>
+                                    </table>
 
                             </div>
                         </div>

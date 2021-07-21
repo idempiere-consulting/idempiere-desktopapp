@@ -16,7 +16,7 @@ if (addODV != null) {
 GetFattureVendita()
 
 function GetFattureVendita(){
-    fetch(`http://` + ip + `/api/v1/models/c_invoice?$filter= AD_Client_ID eq ` + clientid + ` and IsSOTrx eq false`, {
+    fetch(`http://` + ip + `/api/v1/models/c_invoice?$filter= AD_Client_ID eq ` + clientid + ` and IsSOTrx eq true`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

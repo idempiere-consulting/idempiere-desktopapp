@@ -1,85 +1,236 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            border: 0;
-        }
-        
         body {
-            width: 100%;
-            height: 100%;
-            color: white;
+            font-family: 'Roboto', sans-serif;
+            font-size: 17px;
+            padding: 8px;
         }
         
-        h1 {
-            text-align: center;
+        * {
+            box-sizing: border-box;
         }
         
-        .first-row {
-            margin-top: 40px;
-            width: 100%;
-            height: 200px;
-            background-color: green;
-        }
-        
-        .flex-box-first-row {
-            width: 90%;
-            height: 100%;
-            margin: 0 auto;
-            background-color: aqua;
+        .row {
+            display: -ms-flexbox;
             display: flex;
-            flex-flow: row nowrap;
-            justify-content: space-between;
-            align-content: center;
-            align-items: center;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+            margin: 0 -16px;
         }
         
-        .item-first-row {
+        .list {
+            width: 45%;
+            display: inline-block;
+        }
+        
+        .col-25 {
+            -ms-flex: 25%;
+            /* IE10 */
+            flex: 25%;
+        }
+        
+        .col-50 {
+            -ms-flex: 50%;
+            /* IE10 */
+            flex: 50%;
+        }
+        
+        .col-75 {
+            -ms-flex: 75%;
+            /* IE10 */
+            flex: 75%;
+        }
+        
+        .col-100 {
+            -ms-flex: 100%;
+            /* IE10 */
+            flex: 100%;
+        }
+        
+        .col-25,
+        .col-50,
+        .col-75,
+        .col-100 {
+            padding: 0 16px;
+        }
+        
+        .div-center {
+            margin: 0 auto;
+            width: 80%;
             height: 100%;
-            width: 18%;
-            background-color: red;
+        }
+        
+        .container {
+            background-color: #f2f2f2;
+            padding: 20px 20px 15px 20px;
+            border: 1px solid lightgrey;
+            border-radius: 3px;
         }
         
         input[type=text] {
-            width: 50%;
-            margin-bottom: 10px;
+            width: 90%;
+            margin-bottom: 20px;
             padding: 12px;
             border: 1px solid #ccc;
             border-radius: 3px;
         }
         
-        .textRight {
-            text-align: right;
+        label {
+            margin-bottom: 10px;
+            display: block;
+            width: 70%;
+        }
+        
+        .icon-container {
+            margin-bottom: 20px;
+            padding: 7px 0;
+            font-size: 24px;
+        }
+        
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            width: 100%;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 17px;
+        }
+        
+        h3 {
+            text-align: center
+        }
+        
+        .btn:hover {
+            background-color: #45a049;
+        }
+        
+        a {
+            color: #2196F3;
+        }
+        
+        hr {
+            border: 1px solid lightgrey;
+        }
+        
+        span.price {
+            float: right;
+            color: grey;
+        }
+        
+        .table-details {
+            width: 100%;
+        }
+        /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (also change the direction - make the "cart" column go on top) */
+        
+        @media (max-width: 800px) {
+            .row {
+                flex-direction: column-reverse;
+            }
+            .col-25 {
+                margin-bottom: 20px;
+            }
         }
     </style>
 </head>
 
 <body>
-    <h1>Fattura Acquisto</h1>
-    <div class="first-row">
-        <div class="flex-box-first-row">
-            <div class="item-first-row">
-                <input type="text" readonly>
-                <input type="text" readonly>
-                <input type="text" readonly>
-                <input type="text" readonly>
+    <div class="row">
+        <div class="col-100">
+            <div class="container">
+                <form>
+
+                    <div class="row">
+                        <div class="col-50">
+
+                            <div class="div-center">
+                                <h3>DETTAGLIO FATTURE DI VENDITA</h3>
+                                <div class="list">
+                                    <label for="org">Organizzazione</label>
+                                    <input type="text" id="org" name="org" placeholder="" readonly="true">
+
+                                    <label for="BPLocation">Indirizzo Del Business Partner</label>
+                                    <input type="text" id="BPLocation" name="BPLocation" placeholder="" readonly="true">
+
+                                    <label for="Currency">Valuta</label>
+                                    <input type="text" id="Currency" name="Currency" placeholder="" readonly="true">
+
+                                    <label for="DocType">Tipo Documento</label>
+                                    <input type="text" id="DocType" name="DocType" placeholder="" readonly="true">
+
+                                    <label for="PaymentTerm">Termine Pagamento</label>
+                                    <input type="text" id="PaymentTerm" name="PaymentTerm" placeholder="" readonly="true">
+
+                                    <label for="CreatedBy">Creato Da</label>
+                                    <input type="text" id="CreatedBy" name="CreatedBy" placeholder="" readonly="true">
+                                </div>
+
+                                <div class="list">
+                                    <label for="DocStatus">Stato Del Documento</label>
+                                    <input type="text" id="DocStatus" name="DocStatus" placeholder="" readonly="true">
+
+                                    <label for="VATJournal">Registro Iva</label>
+                                    <input type="text" id="VATJournal" name="VATJournal" placeholder="" readonly="true">
+
+                                    <label for="VATPeriod">Periodo Iva</label>
+                                    <input type="text" id="VATPeriod" name="VATPeriod" placeholder="" readonly="true">
+
+                                    <label for="PriceList">Listino Prezzi</label>
+                                    <input type="text" id="PriceList" name="PriceList" placeholder="" readonly="true">
+
+                                    <label for="PaymentRule">Modalità Pagamento</label>
+                                    <input type="text" id="PaymentRule" name="PaymentRule" placeholder="" readonly="true">
+
+                                    <label for="Status">Stato</label>
+                                    <input type="text" id="Status" name="Status" placeholder="" readonly="true">
+
+                                </div>
+
+                                <table id="myTable1" class="table-details">
+                                    <tr>
+                                        <td>Test</td>
+                                        <td>Test</td>
+                                        <td>Test</td>
+                                        <td>Test</td>
+                                        <td>Test</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Test</td>
+                                        <td>Test</td>
+                                        <td>Test</td>
+                                        <td>Test</td>
+                                        <td>Test</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Test</td>
+                                        <td>Test</td>
+                                        <td>Test</td>
+                                        <td>Test</td>
+                                        <td>Test</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+
+                    </div>
 
             </div>
-            <div class="item-first-row textRight">
-                <input type="text" readonly>
-                <input type="text" readonly>
-            </div>
+            </form>
         </div>
-
     </div>
 
+    </div>
+    <script src="../../js/Fattura/DettaglioFattureDiAcquisto.js"></script>
 </body>
 
 </html>
