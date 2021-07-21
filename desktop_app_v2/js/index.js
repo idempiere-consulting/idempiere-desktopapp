@@ -17,10 +17,24 @@ var arrayDataChart4 = [];
 let myChart;
 
 
+
+var boxinfo = document.getElementsByClassName("item-first");
+
+console.log(boxinfo[0].children[0].children[0].children);
+
+function FillBoxInfo(id, info, value) {
+    boxinfo[id].style.display = '';
+    boxinfo[id].children[0].children[0].children[0].innerHTML = info;
+    boxinfo[id].children[0].children[0].children[2].innerHTML = value;
+}
+
+
+//Box Information
+
 getTotaleOrderLines();
 
-function getTotaleOrderLines() {
-    fetch(`http://` + ip + `/api/v1/models/c_orderline?$filter= AD_Client_ID eq ` + clientid, {
+async function getTotaleOrderLines() {
+    await fetch(`http://` + ip + `/api/v1/models/c_orderline?$filter= AD_Client_ID eq ` + clientid, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -30,21 +44,47 @@ function getTotaleOrderLines() {
             return res.json()
         })
         .then(data => {
-            var info = document.getElementById("item-box-left-title");
-            info.innerHTML = 'Totale Ordini di linea';
-            var value = document.getElementById("item-box-left-value");
-            value.innerHTML = data.records.length;
+
+            FillBoxInfo(0, 'Totale Ordini di linea', data.records.length);
+            getTotaleInvoiceLines();
+        })
+        .catch(error => console.log(error))
+}
 
 
+async function getTotaleInvoiceLines() {
+    await fetch(`http://` + ip + `/api/v1/models/c_invoice?$filter= AD_Client_ID eq ` + clientid, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + authToken
+            }
+        }).then(res => {
+            return res.json()
+        })
+        .then(data => {
+            FillBoxInfo(1, 'Totale Fatture', data.records.length);
 
 
 
         })
         .catch(error => console.log(error))
-
-
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Chart
 
 takeDataForChart();
 async function takeDataForChart() {
@@ -117,7 +157,6 @@ async function GetTypeChart() {
             var records = data["window-records"];
 
             var charts = document.getElementsByClassName('item-main');
-            console.log(charts);
             records.forEach(element => {
 
                 if (chartRole != undefined && chartRole.includes(element.Value)) {

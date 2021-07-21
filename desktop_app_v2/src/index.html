@@ -150,12 +150,12 @@
     </header>
     <div id="mainContent" class="content">
         <div class="flex-first">
-            <div class="item-first">
+            <div style="display: none;" class="item-first">
                 <div class="flex">
 
                     <div id="item-box-left" class="item-firstline">
-                        <span id="item-box-left-title"></span><br>
-                        <span id="item-box-left-value"></span>
+                        <span class="item-box-left-title"></span><br>
+                        <span class="item-box-left-value"></span>
                     </div>
 
                     <div id="item-box-right" class="item-firstline textRight">
@@ -164,12 +164,12 @@
 
                 </div>
             </div>
-            <div class="item-first">
+            <div style="display: none;" class="item-first">
                 <div class="flex">
 
                     <div id="item-box-left" class="item-firstline">
-                        <span id="item-box-left-title">Test</span><br>
-                        <span id="item-box-left-value">Test</span>
+                        <span class="item-box-left-title">Test</span><br>
+                        <span class="item-box-left-value">Test</span>
                     </div>
 
                     <div id="item-box-right" class="item-firstline textRight">
@@ -178,12 +178,12 @@
 
                 </div>
             </div>
-            <div class="item-first">
+            <div style="display: none;" class="item-first">
                 <div class="flex">
 
                     <div id="item-box-left" class="item-firstline">
-                        <span id="item-box-left-title">Test</span><br>
-                        <span id="item-box-left-value">Test</span>
+                        <span class="item-box-left-title">Test</span><br>
+                        <span class="item-box-left-value">Test</span>
                     </div>
 
                     <div id="item-box-right" class="item-firstline textRight">
@@ -192,12 +192,12 @@
 
                 </div>
             </div>
-            <div class="item-first">
+            <div style="display: none;" class="item-first">
                 <div class="flex">
 
                     <div id="item-box-left" class="item-firstline">
-                        <span id="item-box-left-title">Test</span><br>
-                        <span id="item-box-left-value">Test</span>
+                        <span class="item-box-left-title">Test</span><br>
+                        <span class="item-box-left-value">Test</span>
                     </div>
 
                     <div id="item-box-right" class="item-firstline textRight">
@@ -250,7 +250,7 @@
 
     function openNav() {
         if (document.getElementsByClassName("refresh") != undefined)
-            document.getElementsByClassName("refresh")[0].style.display = "none"; 
+            document.getElementsByClassName("refresh")[0].style.display = "none";
         document.getElementById("myNav").style.width = "350px";
 
     }
@@ -265,12 +265,12 @@
 
         nav.style.width = "0px";
         var refresh = document.getElementsByClassName("refresh");
-        
-         if (refresh != undefined ) {
+
+        if (refresh != undefined) {
             refresh[0].style.display = "";
 
-        }  
-        
+        }
+
     }
 </script>
 <script>
