@@ -19,7 +19,7 @@ getFattureAcquisto();
 
 function getFattureAcquisto() {
 
-    fetch(`http://` + ip + `/api/v1/models/c_invoice?$filter= AD_Client_ID eq ` + clientid + ` and IsSOTrx eq true`, {
+    fetch(`http://` + ip + `/api/v1/models/c_invoice?$filter= AD_Client_ID eq ` + clientid + ` and IsSOTrx eq false`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -46,7 +46,7 @@ function getFattureAcquisto() {
             							<td>${record.GrandTotal == undefined ? '' : record.C_Currency_ID == undefined? '': record.GrandTotal+" "+record.C_Currency_ID.identifier}</td>
             							<td>${record.SalesRep_ID == undefined ? '' : record.SalesRep_ID.identifier}</td>
             							<td>${record.DateInvoiced == undefined ? '': record.DateInvoiced}</td>
-            							<td><a href="#" class="test"><i class="fas fa-external-link-alt"></i></td>
+            							<td><a href="#" class="iconlink"><i class="fas fa-external-link-alt"></i></td>
                                         
             					  </tr>`;
                 //Append to table
@@ -62,10 +62,12 @@ function getFattureAcquisto() {
 
             });
 
-            var btns = document.querySelectorAll('.test');
+            var btns = document.querySelectorAll('.iconlink');
             Array.prototype.forEach.call(btns, function addClickListener(btn) {
                 btn.addEventListener('click', function(event) {
+                    console.log(event);
                     var doc = event.path[3].cells[0].innerHTML;
+
                     ipcRenderer.send('save:docN', doc);
                     ipcRenderer.send('pageCustomerInvoice:details');
                 });
@@ -73,7 +75,7 @@ function getFattureAcquisto() {
 
 
 
-            OrderTable("fattureAcquistoBody", 6);
+            OrderTable("fattureAcquistoBody", 0);
             backgroundRowTable('fattureAcquistoBody');
 
 
