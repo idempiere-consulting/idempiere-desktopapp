@@ -385,7 +385,8 @@ thead {
 #AddODV,
 #addlead,
 #addOrderLine,
-#addTicketP {
+#addTicketP,
+#SHOWdetailsInvoice {
     color: #3CB371;
 }
 
@@ -405,6 +406,11 @@ thead {
 }
 
 #addTicketP:hover {
+    transition: 0.3s;
+    color: #00FF00;
+}
+
+#SHOWdetailsInvoice:hover {
     transition: 0.3s;
     color: #00FF00;
 }
@@ -573,6 +579,7 @@ thead {
 }
 
 .refresh {
+    z-index: -1;
     top: 100px;
     left: -13px;
     position: fixed;

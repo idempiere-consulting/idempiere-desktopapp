@@ -66,7 +66,7 @@ function getFattureAcquisto() {
 							<td onkeyup='filterDesc()'>${Description}</td>
 							<td onkeyup='filterAct()'>${activity}</td>
 							<td onkeyup='filterDate()'>${DateOrdered}</td>
-							<td><a href="#" id="iconLinkWebUrl"><i class="fas fa-external-link-alt"></i></td>
+							<td><a href="#" id="iconLinkWebUrl"><i class="fas fa-2x fa-info-circle"></i></td>
                             <td style="display:none">${record.id}</td>
 					  </tr>`;
                 //Append to table

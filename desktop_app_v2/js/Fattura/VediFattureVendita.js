@@ -7,10 +7,10 @@ const authToken = ipcRenderer.sendSync('send:authtoken', 'ping');
 const ip = ipcRenderer.sendSync('send:ip', 'ping');
 const clientid = ipcRenderer.sendSync('send:clientId', 'ping');
 
-const addODV = document.getElementById('SHOWdetailsInvoice');
+/* const addODV = document.getElementById('SHOWdetailsInvoice');
 if (addODV != null) {
     addODV.addEventListener('click', openinvoiceWindow);
-}
+} */
 
 
 GetFattureVendita()
@@ -37,16 +37,17 @@ function GetFattureVendita(){
 
                 var GrandTotal = '',
                     DocumentNo = '',
-                    Status = '',
                     SalesRep_ID = '';
                     DateInvoiced = '';
                 //Controll if the attributes are not set
 
-                if (record.DocumentNo != undefined)
+                if (record.DocumentNo != undefined){
                     DocumentNo = record.DocumentNo;
+                }
 
-                if (record.GrandTotal != undefined)
+                if (record.GrandTotal != undefined){
                     GrandTotal = record.GrandTotal;
+                }
 
                 if (record.SalesRep_ID != undefined) {
                     SalesRep_ID = record.SalesRep_ID.identifier;
@@ -61,7 +62,7 @@ function GetFattureVendita(){
 							<td>${GrandTotal}</td>
                             <td>${SalesRep_ID}</td>
 							<td>${DateInvoiced}</td>
-							<td><a href="#" class="iconLinkWebUrl"><i class="fas fa-external-link-alt"></i></td>
+							<td><a href="#" class="iconLinkWebUrl"><i class="fas fa-2x fa-info-circle"></i></td>
                             <td style="display:none">${record.id}</td>
 					  </tr>`;
                 //Append to table
@@ -88,6 +89,6 @@ function GetFattureVendita(){
         .catch(error => console.log(error))
 }
 
-function openinvoiceWindow() {
+/* function openinvoiceWindow() {
     ipcRenderer.send('page:ODV:odv_create_window');
-}
+} */

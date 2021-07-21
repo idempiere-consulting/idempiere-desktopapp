@@ -250,7 +250,7 @@
 
     function openNav() {
         if (document.getElementsByClassName("refresh") != undefined)
-            document.getElementsByClassName("refresh")[0].style.display = "none";
+            document.getElementsByClassName("refresh")[0].style.display = "none"; 
         document.getElementById("myNav").style.width = "350px";
 
     }
@@ -262,11 +262,15 @@
     function closeNav() {
 
         var nav = document.getElementById("myNav");
+
         nav.style.width = "0px";
         var refresh = document.getElementsByClassName("refresh");
-        if (refresh != undefined) {
+        
+         if (refresh != undefined ) {
             refresh[0].style.display = "";
-        }
+
+        }  
+        
     }
 </script>
 <script>

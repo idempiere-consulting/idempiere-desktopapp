@@ -492,7 +492,7 @@ ipcMain.on('send:chartRole', function(event, arg) {
     event.returnValue = chartRolePermission;
 })
 
-ipcMain.on('send:ticketid', function(event, arg) {
+ipcMain.on('send:DocInvoice', function(event, arg) {
     event.returnValue = invoiceId;
 });
 

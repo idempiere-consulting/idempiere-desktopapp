@@ -46,16 +46,6 @@ function getTotaleOrderLines() {
 }
 
 
-
-
-
-
-
-
-
-
-
-
 takeDataForChart();
 async function takeDataForChart() {
     await fetch('http://' + ip + '/api/v1/windows/chart-mobile', {

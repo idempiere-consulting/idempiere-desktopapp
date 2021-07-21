@@ -38,7 +38,7 @@ function getTickets() {
                     <td>${prio['identifier']}</td>
                     <td>${record.Summary}</td>
                     <td>${record.Created.slice(0,10)}</td>
-                    <td><a href="#" id="iconLinkWebUrl"><i class="fas fa-external-link-alt"></i></td>
+                    <td><a href="#" id="iconLinkWebUrl"><i class="fas fa-2x fa-info-circle"></i></td>
                     <td style="display:none" >${record.DocumentNo}</td>
                 </tr>`;
                 if (userBPartner.identifier == bp['identifier']) {
