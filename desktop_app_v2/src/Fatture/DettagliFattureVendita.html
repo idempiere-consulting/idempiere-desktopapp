@@ -26,8 +26,10 @@
         }
         
         .list {
-            width: 45%;
+            width: 49.7%;
             display: inline-block;
+            border: 1px solid black;
+            padding: 15px;
         }
         
         .col-25 {
@@ -59,6 +61,12 @@
         .col-75,
         .col-100 {
             padding: 0 16px;
+        }
+        
+        .div-center {
+            margin: 0 auto;
+            width: 80%;
+            height: 100%;
         }
         
         .container {
@@ -100,30 +108,14 @@
             font-size: 17px;
         }
         
+        h3,
+        h4 {
+            text-align: center
+        }
+        
         .btn:hover {
             background-color: #45a049;
         }
-
-        table {
-            width: 75%;
-            margin: 0 auto;
-            border: 2px solid black;
-            background-color: white;
-            border-collapse: collapse;
-            color: black;
-            font-weight: 700;
-        }
-
-        th,
-        td {
-            border: 2px solid black;
-            padding: 15px;
-        }
-
-        thead {
-            background-color: grey;
-        }
-
         
         a {
             color: #2196F3;
@@ -136,6 +128,21 @@
         span.price {
             float: right;
             color: grey;
+        }
+        
+        .table-details {
+            width: 100%;
+            margin-top: 20px;
+            border: 1px solid black;
+        }
+        
+        .table-details td,
+        .table-details th {
+            width: 10%;
+            text-align: center;
+            padding: 5px;
+            color: black;
+            border: 1px solid black;
         }
         /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (also change the direction - make the "cart" column go on top) */
         
@@ -157,7 +164,8 @@
                 <form>
 
                     <div class="row">
-                        <div class="col-50">
+                      <div class="col-50">
+                        <div class="div-center">
                             <h3>DETTAGLIO FATTURE DI VENDITA</h3>
 
                             <div class="list">
@@ -201,26 +209,23 @@
 
                             </div>
 
-                            <div>
-                                    <table id="myTableInvoice" class="table-sortable">
-                                        <thead>
-                                            <tr>
-                                                <th>nome</th>
-                                                <th>quantità</th>
-                                                <th>prezzo</th>
-                                                <th>imposta</th>
-                                                <th>Data</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="invoiceBody">
-                                        </tbody>
-                                    </table>
-
-                            </div>
+                            <h4>Linee di Fattura</h4>
+                            <table id="myTable1" class="table-details">
+                                <thead>
+                                    <tr>
+                                        <th>Codice Articolo</th>
+                                        <th>Descrizione</th>
+                                        <th>Quantità</th>
+                                        <th>Prezzo</th>
+                                        <th>Iva</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="InvoceInlineBody">
+                                </tbody>
+                            </table>
                         </div>
-
-
                     </div>
+                </div>
 
             </div>
             </form>

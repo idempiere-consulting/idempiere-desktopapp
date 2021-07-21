@@ -5,13 +5,14 @@ const {
 const authToken = ipcRenderer.sendSync('send:authtoken', 'ping');
 const ip = ipcRenderer.sendSync('send:ip', 'ping');
 const DocInvoice = ipcRenderer.sendSync('send:DocInvoice', 'ping');
+var idInvoice;
 
 console.log(DocInvoice);
 
 LoadInvoiceDetails()
 
-function LoadInvoiceDetails(){
-    fetch(`http://` + ip + `/api/v1/models/c_invoice?$filter= DocumentNo eq '` + DocInvoice + `'`, {
+async function LoadInvoiceDetails(){
+    await fetch(`http://` + ip + `/api/v1/models/c_invoice?$filter= DocumentNo eq '` + DocInvoice + `'`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -22,9 +23,9 @@ function LoadInvoiceDetails(){
         })
         .then(data => {
             a = data.records;
+            console.log(a[0].id);
 
-            console.log(a);
-
+            idInvoice = a[0].id;
             var org = '';
             var BPLocation = '';
             var Currency = '';
@@ -105,6 +106,7 @@ function LoadInvoiceDetails(){
             document.getElementById('Status').value = Status;
         })
 
+     await GetInvoiceLine()
 } 
 
 
@@ -112,7 +114,7 @@ function LoadInvoiceDetails(){
 
 
 function GetInvoiceLine(){
-    fetch(`http://` + ip + `/api/v1/models/ C_InvoiceLine?$filter= AD_Client_ID eq ` + clientid + ` and IsSOTrx eq true`, {
+    fetch(`http://` + ip + `/api/v1/models/c_invoiceline?$filter=C_Invoice_ID eq ` + idInvoice, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -122,65 +124,35 @@ function GetInvoiceLine(){
             return res.json()
         })
         .then(data => {
-            a = data['records'];
-            console.log(a);
-            var es;
-            a.DocumentNo == undefined ? es='': a.DocumentNo; 
-            var table;
-            //Take each sales order
-            a.forEach((record) => {
-                table = document.getElementById('fattureBody');
+                var a = data.records;
 
-                var GrandTotal = '',
-                    DocumentNo = '',
-                    SalesRep_ID = '';
-                    DateInvoiced = '';
-                //Controll if the attributes are not set
+                console.log(a);
 
-                if (record.DocumentNo != undefined){
-                    DocumentNo = record.DocumentNo;
-                }
-
-                if (record.GrandTotal != undefined){
-                    GrandTotal = record.GrandTotal;
-                }
-
-                if (record.SalesRep_ID != undefined) {
-                    SalesRep_ID = record.SalesRep_ID.identifier;
-                }
-
-                if (record.DateInvoiced != undefined) {
-                    DateInvoiced = record.DateInvoiced;
-                }
-                //Insert the value of one sales order in a html row
-                var row = `<tr class="dataRow">
-							<td >${DocumentNo}</td>
-							<td>${GrandTotal}</td>
-                            <td>${SalesRep_ID}</td>
-							<td>${DateInvoiced}</td>
-							<td><a href="#" class="iconLinkWebUrl"><i class="fas fa-2x fa-info-circle"></i></td>
-                            <td style="display:none">${record.id}</td>
-					  </tr>`;
-                //Append to table
-                console.log(table);
-                table.innerHTML += row;
-                var btns = document.querySelectorAll('.iconLinkWebUrl');
-                Array.prototype.forEach.call(btns, function addClickListener(btn) {
-                    btn.addEventListener('click', function(event) {
-                        var invoiceID = event.path[3].cells[0].innerHTML;
-                        ipcRenderer.send('save:invoiceId', invoiceID);
-                        ipcRenderer.send('pageDetailsInvoice:invoice_details_window');
-                    });
-                });
+                var tbody;
+                var totale = 0;
+                a.forEach(element => {
+                            tbody = document.getElementById("InvoceInlineBody");
+                            var row = `<tr>
+                                <td>${element.M_Product_ID != undefined?element.M_Product_ID.identifier:''}</td>
+                                <td>${element.Description != undefined? 
+                                        element.PriceEntered != undefined ?
+                                            element.Description +`<br><span>${element.PriceEntered}€per prodotto<span>` : ''
+                                        :''}</td>
+                                <td>${element.QtyInvoiced != undefined ? element.QtyInvoiced : ''}</td>
+                                <td>${element.LineTotalAmt != undefined ? element.LineTotalAmt+"€" : ''}</td>
+                                <td>${element.C_Tax_ID != undefined ?  element.C_Tax_ID.identifier : ''}</td>
+                            </tr>
+                `;
+                totale += element.LineTotalAmt;
+                console.log(row);
+                tbody.innerHTML += row;
+            });
+            var endRow = `<tr>
+                            <td colspan="3"></td>
+                            <td style="border:3px solid green;" colspan="3">Totale:${totale}€</td>
+                        </tr>`;
+            tbody.innerHTML += endRow;
 
 
-           });
-
-               OrderTable("fattureBody", 5);
-
-            backgroundRowTable('fattureBody'); 
- 
-
-        })
-        .catch(error => console.log(error))
+        });
 }

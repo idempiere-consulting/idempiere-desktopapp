@@ -26,8 +26,10 @@
         }
         
         .list {
-            width: 45%;
+            width: 49.7%;
             display: inline-block;
+            border: 1px solid black;
+            padding: 15px;
         }
         
         .col-25 {
@@ -106,7 +108,8 @@
             font-size: 17px;
         }
         
-        h3 {
+        h3,
+        h4 {
             text-align: center
         }
         
@@ -129,6 +132,17 @@
         
         .table-details {
             width: 100%;
+            margin-top: 20px;
+            border: 1px solid black;
+        }
+        
+        .table-details td,
+        .table-details th {
+            width: 10%;
+            text-align: center;
+            padding: 5px;
+            color: black;
+            border: 1px solid black;
         }
         /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (also change the direction - make the "cart" column go on top) */
         
@@ -194,29 +208,19 @@
                                     <input type="text" id="Status" name="Status" placeholder="" readonly="true">
 
                                 </div>
-
+                                <h4>Linee di Fattura</h4>
                                 <table id="myTable1" class="table-details">
-                                    <tr>
-                                        <td>Test</td>
-                                        <td>Test</td>
-                                        <td>Test</td>
-                                        <td>Test</td>
-                                        <td>Test</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Test</td>
-                                        <td>Test</td>
-                                        <td>Test</td>
-                                        <td>Test</td>
-                                        <td>Test</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Test</td>
-                                        <td>Test</td>
-                                        <td>Test</td>
-                                        <td>Test</td>
-                                        <td>Test</td>
-                                    </tr>
+                                    <thead>
+                                        <tr>
+                                            <th>Codice Articolo</th>
+                                            <th>Descrizione</th>
+                                            <th>Quantità</th>
+                                            <th>Prezzo</th>
+                                            <th>Iva</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="InvoceInlineBody">
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
