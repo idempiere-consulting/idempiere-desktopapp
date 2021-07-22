@@ -46,20 +46,13 @@ function getFattureAcquisto() {
             							<td>${record.GrandTotal == undefined ? '' : record.C_Currency_ID == undefined? '': record.GrandTotal+" "+record.C_Currency_ID.identifier}</td>
             							<td>${record.SalesRep_ID == undefined ? '' : record.SalesRep_ID.identifier}</td>
             							<td>${record.DateInvoiced == undefined ? '': record.DateInvoiced}</td>
-            							<td><a href="#" class="iconlink"><i class="fas fa-2x fa-info-circle"></i></td>
+            							<td><a href="#" class="iconlink"><i class="fas fa-external-link-alt"></i></td>
                                         
             					  </tr>`;
                 //Append to table
                 console.log(table);
                 table.innerHTML += row;
                 var table = document.getElementById('myTable1');
-                //Cycle to create a event button. It is used to open the page DettaglioODV.html and save the current document that you want to inspect
-
-
-
-
-
-
             });
 
             var btns = document.querySelectorAll('.iconlink');

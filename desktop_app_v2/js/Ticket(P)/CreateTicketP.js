@@ -158,6 +158,8 @@ function sendDataTicket(e) {
                         alert("Problema con la Richiesta")
                     } else {
                         alert("Richiesta inviata");
+                        var window = remoteWindows.getCurrentWindow();
+                        window.close();
                     }
                 })
                 .catch(error => console.log(error))
@@ -197,6 +199,8 @@ function sendDataTicket(e) {
                         alert("Problema con la Richiesta")
                     } else {
                         alert("Richiesta inviata");
+                        var window = remoteWindows.getCurrentWindow();
+                        window.close();
                     }
                 })
                 .catch(error => console.log(error))
@@ -236,6 +240,8 @@ function sendDataTicket(e) {
                         alert("Problema con la Richiesta")
                     } else {
                         alert("Richiesta inviata");
+                        var window = remoteWindows.getCurrentWindow();
+                        window.close();
                     }
                 })
                 .catch(error => console.log(error))
@@ -276,7 +282,7 @@ function sendDataTicket(e) {
                         } else {
                             alert("Richiesta inviata");
                             var window = remoteWindows.getCurrentWindow();
-                            //window.close();
+                            window.close();
                         }
                     })
                     .catch(error => console.log(error))
@@ -285,6 +291,7 @@ function sendDataTicket(e) {
 
             }
     }
+
 }
 
 function openTicketPWindow() {

@@ -372,9 +372,29 @@ function DataChart1FilterByData(data, filtroDaset) {
 
 }
 
+function disorder(p) {
+    var i, pos, temp;
+    for (i = 0; i < p.length; i++) {
+        pos = Math.random() * p.length | 0;
+        temp = p[pos];
+        p.splice(pos, 1);
+        p.push(temp);
+    }
+}
 
 function getRandomColor() {
-    var letters = '0123456789ABCDEF';
+    var letters = "0123456789ABCDEF";
+    var array = [];
+    for (let index = 0; index < letters.length; index++) {
+        array.push(letters[index]);
+
+    }
+    disorder(array);
+    letters = '';
+    array.forEach(element => {
+        letters += element
+    });
+    console.log(letters);
     var color = '#';
     for (var i = 0; i < 6; i++) {
         color += letters[Math.floor(Math.random() * 16)];
@@ -383,13 +403,8 @@ function getRandomColor() {
 }
 
 
-//PER PAOLO CON AMORE
-//letter = String.fromCharCode(97 + Math.floor(Math.random() * 26));
-
-
 function addData(chart, labelFilter, data, labelChart) {
     //Creazione dataSet con i parametri
-
     var colour = getRandomColor();
     var newDataSet = {
             label: labelFilter,

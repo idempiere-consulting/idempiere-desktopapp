@@ -63,7 +63,7 @@ function GetFattureVendita() {
 							<td>${GrandTotal}</td>
                             <td>${SalesRep_ID}</td>
 							<td>${DateInvoiced}</td>
-							<td><a href="#" class="iconLinkWebUrl"><i class="fas fa-2x fa-info-circle"></i></td>
+							<td><a href="#" class="iconLinkWebUrl"><i class="fas fa-external-link-alt"></i></td>
                             <td style="display:none">${record.id}</td>
 					  </tr>`;
                 //Append to table
