@@ -23,60 +23,51 @@ function getTicket() {
 
 
             a = data.records;
-            var numDoc='';
-            var businessPartner='';
-            var priority='';
-            var priorityUser='';
-            var dueType='';
-            var requestType='';
-            var description='';
-            var help ='';
-            var summary='';
+            var numDoc = '';
+            var businessPartner = '';
+            var priority = '';
+            var priorityUser = '';
+            var dueType = '';
+            var requestType = '';
+            var description = '';
+            var help = '';
+            var summary = '';
 
             if (a[0].DocumentNo == undefined) {
-                numDoc ='';
-            }
-            else{numDoc = a[0].DocumentNo}
+                numDoc = '';
+            } else { numDoc = a[0].DocumentNo }
 
             if (a[0].C_BPartner_ID == undefined) {
-                businessPartner ='';
-            }
-            else{businessPartner = a[0].C_BPartner_ID.identifier}
+                businessPartner = '';
+            } else { businessPartner = a[0].C_BPartner_ID.identifier }
 
             if (a[0].Priority == undefined) {
-                priority ='';
-            }
-            else{priority = a[0].Priority.identifier}
+                priority = '';
+            } else { priority = a[0].Priority.identifier }
 
             if (a[0].PriorityUser == undefined) {
-                priorityUser ='';
-            }
-            else{priorityUser = a[0].PriorityUser.identifier}
+                priorityUser = '';
+            } else { priorityUser = a[0].PriorityUser.identifier }
 
             if (a[0].DueType == undefined) {
-                dueType ='';
-            }
-            else{dueType = a[0].DueType.identifier}
+                dueType = '';
+            } else { dueType = a[0].DueType.identifier }
 
             if (a[0].R_RequestType_ID == undefined) {
-                requestType ='';
-            }
-            else{requestType = a[0].R_RequestType_ID.identifier}
+                requestType = '';
+            } else { requestType = a[0].R_RequestType_ID.identifier }
 
             if (a[0].Description == undefined) {
-                description ='';
-            }
-            else{description = a[0].Description}
+                description = '';
+            } else { description = a[0].Description }
 
             if (a[0].Help == undefined) {
-                var help ='';
-            }
-            else{help = a[0].Help}
+                var help = '';
+            } else { help = a[0].Help }
 
             if (a[0].Summary == undefined) {
-                var summary ='';
-            }
-            else{summary = a[0].Summary}
+                var summary = '';
+            } else { summary = a[0].Summary }
 
 
             document.getElementById('ndoc').value = numDoc;
@@ -84,7 +75,7 @@ function getTicket() {
             document.getElementById('priority').value = priority;
             document.getElementById('priorityuser').value = priorityUser;
             document.getElementById('scandenzaType').value = dueType;
-            document.getElementById('requestType').value = requestTyper;
+            document.getElementById('requestType').value = requestType;
             document.getElementById('description').value = description;
             document.getElementById('help').value = help;
             document.getElementById('summary').value = summary;

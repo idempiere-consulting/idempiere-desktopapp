@@ -11,7 +11,7 @@ console.log(DocInvoice);
 
 LoadInvoiceDetails()
 
-async function LoadInvoiceDetails(){
+async function LoadInvoiceDetails() {
     await fetch(`http://` + ip + `/api/v1/models/c_invoice?$filter= DocumentNo eq '` + DocInvoice + `'`, {
             method: 'GET',
             headers: {
@@ -39,51 +39,51 @@ async function LoadInvoiceDetails(){
             var Paymentrule = '';
             var Status = '';
 
-            if (a[0].AD_Org_ID != undefined){
+            if (a[0].AD_Org_ID != undefined) {
                 org = a[0].AD_Org_ID.identifier;
             }
 
-            if ( a[0].C_BPartner_Location_ID != undefined){
-                BPLocation =  a[0].C_BPartner_Location_ID.identifier;
+            if (a[0].C_BPartner_Location_ID != undefined) {
+                BPLocation = a[0].C_BPartner_Location_ID.identifier;
             }
 
-            if (a[0].C_Currency_ID != undefined){
+            if (a[0].C_Currency_ID != undefined) {
                 Currency = a[0].C_Currency_ID.identifier;
             }
 
-            if ( a[0].C_DocType_ID != undefined){
-                DocType =  a[0].C_DocType_ID.identifier;
+            if (a[0].C_DocType_ID != undefined) {
+                DocType = a[0].C_DocType_ID.identifier;
             }
 
-            if (a[0].C_PaymentTerm_ID != undefined){
+            if (a[0].C_PaymentTerm_ID != undefined) {
                 PaymentTerm = a[0].C_PaymentTerm_ID.identifier;
             }
-            
-            if (a[0].CreatedBy != undefined){
+
+            if (a[0].CreatedBy != undefined) {
                 CreatedBy = a[0].CreatedBy.identifier;
             }
 
-            if (a[0].DocStatus != undefined){
+            if (a[0].DocStatus != undefined) {
                 DocStatus = a[0].DocStatus.identifier;
             }
 
-            if (a[0].LIT_VATJournal_ID != undefined){
+            if (a[0].LIT_VATJournal_ID != undefined) {
                 VATJournal = a[0].LIT_VATJournal_ID.identifier;
             }
 
-            if (a[0].LIT_VAT_Period_ID != undefined){
+            if (a[0].LIT_VAT_Period_ID != undefined) {
                 VATPeriod = a[0].LIT_VAT_Period_ID.identifier;
             }
 
-            if (a[0].M_PriceList_ID != undefined){
+            if (a[0].M_PriceList_ID != undefined) {
                 PriceList = a[0].M_PriceList_ID.identifier;
             }
 
-             if (a[0].PaymentRule != undefined){
+            if (a[0].PaymentRule != undefined) {
                 Paymentrule = a[0].PaymentRule.identifier;
-            } 
- 
-            if (a[0].Status != undefined){
+            }
+
+            if (a[0].Status != undefined) {
                 Status = a[0].Status.identifier;
             }
 
@@ -106,14 +106,14 @@ async function LoadInvoiceDetails(){
             document.getElementById('Status').value = Status;
         })
 
-     await GetInvoiceLine()
-} 
+    await GetInvoiceLine()
+}
 
 
 
 
 
-function GetInvoiceLine(){
+function GetInvoiceLine() {
     fetch(`http://` + ip + `/api/v1/models/c_invoiceline?$filter=C_Invoice_ID eq ` + idInvoice, {
             method: 'GET',
             headers: {
@@ -121,13 +121,13 @@ function GetInvoiceLine(){
                 'Authorization': 'Bearer ' + authToken
             }
         }).then(res => {
-            return res.json()
+            return res.json();
         })
         .then(data => {
                 var a = data.records;
 
                 console.log(a);
-
+                //element.LineTotalAmt+"€" : ''
                 var tbody;
                 var totale = 0;
                 a.forEach(element => {
@@ -139,12 +139,15 @@ function GetInvoiceLine(){
                                             element.Description +`<br><span>${element.PriceEntered}€per prodotto<span>` : ''
                                         :''}</td>
                                 <td>${element.QtyInvoiced != undefined ? element.QtyInvoiced : ''}</td>
-                                <td>${element.LineTotalAmt != undefined ? element.LineTotalAmt+"€" : ''}</td>
+                                <td>${element.LineTotalAmt != 0 ? element.LineTotalAmt +"€" : element.LineNetAmt +"€"}</td>
                                 <td>${element.C_Tax_ID != undefined ?  element.C_Tax_ID.identifier : ''}</td>
                             </tr>
                 `;
-                totale += element.LineTotalAmt;
-                console.log(row);
+                if(element.LineTotalAmt != undefined && element.LineTotalAmt !=0)
+                    totale += element.LineTotalAmt;
+                else
+                    totale+=element.LineNetAmt;
+                    
                 tbody.innerHTML += row;
             });
             var endRow = `<tr>

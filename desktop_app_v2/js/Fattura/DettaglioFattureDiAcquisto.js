@@ -65,11 +65,14 @@ function getInvoiceLine() {
                                             element.Description +`<br><span>${element.PriceEntered}€per prodotto<span>` : ''
                                         :''}</td>
                                 <td>${element.QtyInvoiced != undefined ? element.QtyInvoiced : ''}</td>
-                                <td>${element.LineTotalAmt != undefined ? element.LineTotalAmt+"€" : ''}</td>
+                                <td>${element.LineTotalAmt != 0 ? element.LineTotalAmt : element.LineNetAmt}</td>
                                 <td>${element.C_Tax_ID != undefined ?  element.C_Tax_ID.identifier : ''}</td>
                             </tr>
                 `;
-                totale += element.LineTotalAmt;
+                if(element.LineTotalAmt != undefined && element.LineTotalAmt !=0)
+                    totale += element.LineTotalAmt;
+                else
+                    totale+=element.LineNetAmt;
                 console.log(row);
                 tbody.innerHTML += row;
             });
