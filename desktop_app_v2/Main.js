@@ -216,7 +216,7 @@ function DetailtsTicketWindow() {
         modal: true,
         show: false,
         width: 1000,
-        height: 500,
+        height: 580,
         icon: path.join(__dirname, 'assets/images/logo.png'),
         webPreferences: {
             nodeIntegration: true,
