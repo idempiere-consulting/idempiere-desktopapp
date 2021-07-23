@@ -2,7 +2,7 @@ const electron = require('electron');
 const {
     ipcRenderer
 } = electron;
-//Take the information for the request api
+//Prese le informazioni dal ipcmain
 const authToken = ipcRenderer.sendSync('send:authtoken', 'ping');
 const ip = ipcRenderer.sendSync('send:ip', 'ping');
 const clientid = ipcRenderer.sendSync('send:clientId', 'ping');
@@ -17,7 +17,7 @@ getODV();
 
 
 
-//Take the sales order
+//Prendere gli ordini di vendita
 function getODV() {
     //and DocStatus eq 'IP' Per gli odv in corso
     fetch(`http://` + ip + `/api/v1/models/c_order?$filter= AD_Client_ID eq ` + clientid + ` and IsSOTrx eq true`, {
@@ -34,7 +34,6 @@ function getODV() {
             a = data['records'];
             var table;
             console.log(table);
-            //Take each sales order
             a.forEach((record) => {
                 table = document.getElementById('opportunityBody');
 
@@ -43,7 +42,7 @@ function getODV() {
                     DocumentNo = '',
                     Description = '',
                     DateOrdered = '';
-                //Controll if the attributes are not set
+                //Controllo se le varie informazioni sono prensenti altrimenti non stampa nulla
                 if (record.C_BPartner_ID != undefined)
                     bPartner = record.C_BPartner_ID;
 
@@ -59,7 +58,7 @@ function getODV() {
                 if (record.C_Activity_ID != undefined) {
                     activity = record.C_Activity_ID.identifier;
                 }
-                //Insert the value of one sales order in a html row
+                //Inserimento di una riga contenente le informazioni di un ODV
                 var row = `<tr class="dataRow">
 							<td onkeyup='filterDoc()'>${DocumentNo}</td>
 							<td onkeyup='filterClient()'>${bPartner['identifier']}</td>
@@ -69,8 +68,6 @@ function getODV() {
 							<td><a href="#" class="iconLinkWebUrl"><i class="fas fa-external-link-alt"></i></td>
                             <td style="display:none">${record.id}</td>
 					  </tr>`;
-                //Append to table
-                console.log(table);
                 table.innerHTML += row;
 
 
