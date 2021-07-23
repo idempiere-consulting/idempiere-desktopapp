@@ -1,13 +1,13 @@
 const electron_login2 = window.require("electron");
 const ipcRender_login2 = electron_login2.ipcRenderer;
 
-//Declare and set attribute
+//Dichiarazione e settagio variabili
 var roleId, organizationId, warehouseId, language;
 ip = ipcRender_login2.sendSync('send:ip');
 token1 = ipcRender_login2.sendSync('send:token1');
 var token;
 
-//Second authentication
+//Seconda autenticazione
 async function authRoles() {
     clientId = ipcRender_login2.sendSync('send:clientId');
     if (clientId != undefined) {

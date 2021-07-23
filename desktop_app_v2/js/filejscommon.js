@@ -203,7 +203,7 @@ function PermessiMenu() {
     const array_permission_setting = [];
     var temp = "";
     var temp2 = "";
-    //Take the permission for each page
+    //Prendo i permessi per ogni pagina
     for (let i = 0; i < permission.length; i++) {
         if (permission[i] != '-') {
             if (!isNaN(permission[i])) {
