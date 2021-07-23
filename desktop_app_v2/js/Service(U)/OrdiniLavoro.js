@@ -1,5 +1,7 @@
 const electron = require('electron');
-const { ipcRenderer } = electron;
+const {
+    ipcRenderer
+} = electron;
 
 const authToken = ipcRenderer.sendSync('send:authtoken', 'ping');
 const userBPartner = ipcRenderer.sendSync('send:bp', 'ping');
@@ -37,7 +39,6 @@ function getOrdiniLavoro() {
                     <td>${record.Description}</td>
                     <td>${ris['identifier']}</td>
                     <td>${record.DateWorkStart}</td>
-                    <td><a href="#" class="iconLinkWebUrl"><i class="fas fa-external-link-alt"></i></td>
               </tr>`;
                 table.innerHTML += row;
 
@@ -65,13 +66,13 @@ function getOrdiniLavoro() {
 
 
 //test jquery filter
-$(".filter").click(function() {
+$(".filter").click(function () {
     var filter = this.value;
     if (filter == "All")
         $("tr.dataRow").css("visibility", "visible");
     else $("tr.dataRow").css("visibility", "collapse");
     var matchFound = false;
-    $("tr.dataRow").find("td").each(function() {
+    $("tr.dataRow").find("td").each(function () {
         $this = $(this);
         if (!matchFound) {
             if ($this.html() == filter) {
