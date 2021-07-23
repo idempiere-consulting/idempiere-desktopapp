@@ -2,40 +2,39 @@ const electron_addOrderLine = window.require("electron");
 const ipcRender_addOrderLine = electron_addOrderLine.ipcRenderer;
 
 
-//Take the user information for the request api
+//Predere le informazioni dall'ipcmain
 const authToken = ipcRender_addOrderLine.sendSync('send:authtoken', 'ping');
 const ip = ipcRender_addOrderLine.sendSync('send:ip', 'ping');
 const client = ipcRender_addOrderLine.sendSync('send:clientId', 'ping');
 const org = ipcRender_addOrderLine.sendSync('send:organizationid', 'ping');
 const warehouseId = ipcRender_addOrderLine.sendSync('send:warehouseid', 'ping');
 let setting = ipcRender_addOrderLine.sendSync('send:permission_settings', 'ping');
-//Declare variable
+//Dichiarazioni variabili
 var idProd, idUDM, instAttr_ID, instAttr_Name, keyCode, keyinstAttr, count, flag_ = 0;
 
 
 
-//Take the input for the search by product code or product name
+//Prendere la stringa dagli input
 const codeInput = document.getElementById('productcode');
 const srcName = document.getElementById('srcName');
 
-//Take the "button" to search product code 
+//Prendere il buttone per la ricerca con il codice del prodotto 
 const srcCode = document.getElementById('srcCode');
 
 
-//Button to insert a new order line
+//Bottone per inserire una nuovo ordine di linea
 const sendLine = document.getElementById('sendLine');
 
 
 /* Events buttons */
 
-//Seach code with also instance attribute when the button is clicked
 console.log(srcCode != null);
 if (srcCode != null) {
     srcCode.addEventListener('click', function(e) {
         flag_ = 0;
         var temp = document.getElementById('productcode').value;
-        //If the input type contain a _ you have a attribute instance and it divide in two string
-        //Else the input type have only the product code
+        //Se l'inpunt type contiene un _ significa che ha un attributo di istanza e quindi lo divide in 2 stringhe
+        //Altrimenti l'input type ha solo il codice prodotto
         if (temp.includes("_")) {
             for (var i = 0; i < temp.length; i++) {
                 if (temp[i] == '_' && flag_ == 0) {
@@ -45,21 +44,20 @@ if (srcCode != null) {
             }
             keyCode = temp.slice(0, count);
             keyinstAttr = temp.slice(count + 1, temp.length);
-            //console.log(keyinstAttr);
         } else {
             keyCode = temp;
         }
-        //Call the method searchByCode to call the api for search the information of the product selected
+        //Funzione per la chiamata api per ricercare le informazioni del prodotto selezionato
         searchByCode();
 
     });
 }
 console.log(codeInput);
-//Search the product when the user digit the key 'Enter'
+//Ricerca del prodotto se l'utente digita il tasto invio
 if (codeInput != null) {
     codeInput.addEventListener('keypress', function(e) {
         flag_ = 0;
-        //Same fuction of the srcCode button 
+        //Stessa funzione della ricerca per codice
         if (e.key === 'Enter') {
             var temp = document.getElementById('productcode').value;
             if (temp.includes("_")) {
@@ -72,7 +70,6 @@ if (codeInput != null) {
                 keyCode = temp.slice(0, count);
                 console.log(keyCode)
                 keyinstAttr = temp.slice(count + 1, temp.length);
-                console.log(keyinstAttr);
             } else {
                 keyCode = temp;
             }
@@ -80,13 +77,13 @@ if (codeInput != null) {
         }
     });
 }
-//Search on base the name
+
 if (srcName != null)
     srcName.addEventListener('click', searchByName);
 
-//Add order line
-//If the permission setting has a M. 
-//The process to insert a order line is manual(you have to click the button sendLine to insert the orderLine ) 
+//Aggiungere ordine di linea
+//Se il permesso è settato su M 
+//Il processo inserisce un ordine di linea in modo manuale(ovvero che bisogna premere il bottone per inserire la linea d'ordine 
 if (sendLine != null) {
 
     if (setting[4] == 'M')
@@ -94,7 +91,7 @@ if (sendLine != null) {
 }
 getProducts();
 
-//Fill the option for the name search 
+//Riempimento di una data list con il nome dei prodotti
 function getProducts() {
 
     fetch('http://' + ip + '/api/v1/windows/product', {
@@ -108,7 +105,7 @@ function getProducts() {
         })
         .then(data => {
             //console.log(data);
-            //Fill data list with the product name
+
             var optionList = data['window-records'];
             var container = document.getElementById('product');
             len = optionList.length;
@@ -130,7 +127,7 @@ function getProducts() {
 
 }
 
-//Search the product
+//Ricerca del prodotto
 async function searchByCode() {
 
     var idCode = keyCode;

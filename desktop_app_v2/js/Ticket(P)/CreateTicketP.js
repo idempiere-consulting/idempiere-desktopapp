@@ -391,10 +391,6 @@ async function getSlotLiberi() {
             var hour = `<input id="qty-planned" type="number" max=3 min=1 value=1>`;
             caseDiv.innerHTML += hour;
 
-
-
-
-
             text = `<label class="formLabel" for="explain">Cosa vorresti vedere in questa sessione?<label>
                 <textarea id="explain" name="explain" placeholder="Scrivi qualcosa..." style="height:200px; width: 100%;"></textarea>`;
             caseDiv.innerHTML += text;

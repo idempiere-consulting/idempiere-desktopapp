@@ -99,7 +99,7 @@ async function takeDataForChart() {
         })
         .then(data => {
             var records = data["window-records"];
-            //Filter by number of chart and put the element in the corret array
+            //Filtraggio in base al numero di grafico e inserimento dell'elemento nel array
             records.forEach(element => {
                 switch (element.chartno) {
                     case "01":
@@ -124,7 +124,7 @@ async function takeDataForChart() {
                         break;
                 }
             });
-            //Function to take the type chart from api request
+            //Funzione per predere il tipo di grafico dall'api
             GetTypeChart();
 
 
@@ -141,7 +141,7 @@ async function takeDataForChart() {
 
 
 
-//Type chart
+//Tipo di grafico
 async function GetTypeChart() {
     await fetch('http://' + ip + '/api/v1/windows/chart-mobile-setup', {
             method: 'GET',
@@ -199,7 +199,7 @@ async function GetTypeChart() {
                                 });
 
                                 if (arrayDataChart1.length > 0) {
-                                    //Filter on base the obj series
+                                    //Filtraggio in base al series
                                     DataChart1FilterBySeries(arrayDataChart1);
                                 }
 
@@ -242,7 +242,7 @@ async function GetTypeChart() {
                                 });
 
                                 if (arrayDataChart2.length > 0) {
-                                    //Filter on base the obj series
+                                    //Filtraggio in base al series
                                     DataChart1FilterBySeries(arrayDataChart2);
                                 }
 

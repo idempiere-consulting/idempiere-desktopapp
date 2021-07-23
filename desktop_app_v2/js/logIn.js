@@ -6,7 +6,7 @@ const {
 
 
 
-//Declare variable
+//Dichirazione variabili
 
 var token1 = '';
 let ip;
@@ -16,11 +16,11 @@ let changeRole;
 
 
 
-//Take event button
+//Evento bottone
 let btn = document.getElementById('btn_login_jslogic');
 btn.addEventListener('click', authLogin);
 document.getElementById("input_username_jslogic").focus();
-//Controll if there are information in the cache
+//controllo se nel localStorage sono prensenti infomazioni
 if (stash.get('username') != undefined) {
     document.getElementById("input_username_jslogic").value = stash.get('username');
     document.getElementById("input_rememberMe_jslogic").checked = true;
@@ -48,7 +48,7 @@ function authLogin(e) {
     //secondo login http://173.249.60.71:3580/api/v1/auth/roles?client='+data.clients[0].id  
     //primo login http://173.249.60.71:3580/api/v1/auth/tokens
 
-    //First login
+    //Primo login
     fetch('http://' + ip + '/api/v1/auth/tokens', {
             method: 'POST',
             headers: {
@@ -62,11 +62,11 @@ function authLogin(e) {
             return res.json()
         })
         .then(data => {
-            //Save the role in base 
-            //If is the first login the stash is not set so you must change role
+            //Salvataggio ruolo
+            //Se lo stash non è settato significa che il ruolo deve essere ancora settato
             if (stash.get('username') == undefined) {
                 changeRole = true;
-                //If you have save the credential you can change the role or take the role of last log-in
+                //Se le credenziali sono salvate, l'utente può cambiare ruolo oppure prendere quello precedente
             } else if (document.getElementById("changeRole").checked == true) {
                 changeRole = true;
                 stash.cut('cliendid');
@@ -86,19 +86,19 @@ function authLogin(e) {
             }
 
 
-            //If the remember me is set, it storage in username,password,ip.  
+            //Se il ricordami è settato allora salva password,username,ip
             if (document.getElementById("input_rememberMe_jslogic").checked == true) {
                 stash.set('username', user);
                 stash.set('password', pass);
                 stash.set('ip', ip);
             }
-            //save the information of user on ipcmain
+            //Salvataggio informazioni utente nel ipcmain
             ipcRenderer.send('save:user', user);
             ipcRenderer.send('save:clients', data.clients);
             token1 = data.token;
             ipcRenderer.send('save:token1', token1);
             ipcRenderer.send('save:ip', ip);
-            //On base the input type changeRole,you redirect to page or create the token with information in the local storage 
+            //In base all'input type del cambio ruolo, verrà carica la pagina di cambio ruolo
             if (changeRole) {
                 ipcRenderer.send('page:change', 100);
             } else {

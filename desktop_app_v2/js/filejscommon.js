@@ -203,7 +203,7 @@ function PermessiMenu() {
     const array_permission_setting = [];
     var temp = "";
     var temp2 = "";
-    //Take the permission for each page
+    //Prendo i permessi per ogni pagina
     for (let i = 0; i < permission.length; i++) {
         if (permission[i] != '-') {
             if (!isNaN(permission[i])) {
@@ -235,36 +235,35 @@ function PermessiMenu() {
     }
 
     ipcRender_2.send('save:permission_settings', array_permission_setting);
-    //Controll if the array of permission is set and if there are all permissions for menu
+    //Controllo se l'array of permission è settato e se ci sono tutti i permessi per il menu altrimenti mando un alert di problema
     if (array_permission != undefined && menu.length == array_permission.length) {
-        //Cycle for each permission in array_permission
+        //Ciclo per ogni permesso in array_permission
         for (let index = 0; index < menu.length; index++) {
-            //If the permession is 0 set display menu none and also the sub_menu 
+            //Se il permesso è 0 viene settato il display del menu come none e quindi anche del sotto menu 
             if (array_permission[index] == 0) {
                 menu[index].style.display = "none";
             } else {
-                //Take the permission for the page
+                //Prende il permesso per ogni pagina
                 var subMenu_categoryPermission = array_permission[index];
-                //Take the sub_menu because you want to show some item menu   
                 var sub_menu = menu[index].getElementsByClassName("category-permission-menu");
-                //If the sub_menu < 1 it not has a sub menu
+                //Se il sotto menu è < 1 significa che non ha il sotto menu
                 if (sub_menu.length > 1) {
-                    //I used the variable potenza to calculate all possible combination, in binary,  for a specific number.
-                    //Example: if i have 3 page i have 2^3 possible combination (000,001,010,011,100,101,110,111)
+                    //Ho usato la variabile potenza per calcolare tutte le possibili combinazioni, in bianrio, per il permesso corrente.
+                    //Esempio: se abbiamo 3 pagine si hanno 2^3 possibili combinazioni(000,001,010,011,100,101,110,111) e quindi la possibilità di mostrare la prima pagina e non l'ultima(101) ecc.
                     var potenza = Math.pow(2, sub_menu.length);
-                    //In subMenu_categoryPermission i have the permission for the page and i controll if is it smaller than potenza -1 
-                    //Because if there is a permission bigger than number of pow i launch error to notice that there is an error with permission
+                    //Nella variabile subMenu_categoryPermission abbiamo i permessi per la pagine e controlliamo se quest'ultima è minore di potenza -1  
+                    //Perchè se c'è un permesso maggiore rispetto alla potenza, significa che il permesso è sbaglaito per quella pagina
                     if (subMenu_categoryPermission <= (potenza - 1) && subMenu_categoryPermission > -1) {
-                        //Transform from decimal to binary 
+                        //Transformiamo da decimale a binario 
                         subMenu_categoryPermission = (subMenu_categoryPermission >>> 0).toString(2);
-                        //The utilities of this if and this while is thath i can add 0 if the binary not has a lenght equal the sub menu 
+                        //Questo if serve per aggiungere zeri fino il numero binario non abbia una lunghezza pari al numero di pagine. 
                         if (subMenu_categoryPermission.length < sub_menu.length) {
 
                             while (subMenu_categoryPermission.length < sub_menu.length) {
                                 subMenu_categoryPermission = '0' + subMenu_categoryPermission;
                             }
                         }
-                        //The last for is used to show or hide the sub menu on base the permssion  
+                        //L'ultimo for è usato per mostrare o nascondere le pagine del sotto menu in base al permesso  
                         for (let i = 0; i < subMenu_categoryPermission.length; i++) {
                             if (subMenu_categoryPermission[i] == 0) {
                                 sub_menu[i].style.display = "none";
@@ -272,7 +271,7 @@ function PermessiMenu() {
 
                         }
                     } else {
-                        //If there is a problem with a sigle item of menu, this will be hiden
+                        // Se ci sono problemi con un singolo elemento del menu, quest'ultimo verrà nascosto
                         alert("Numero permesso troppo elevato per la pagina " + (index + 1));
                         menu[index].style.display = "none";
                     }
@@ -280,7 +279,7 @@ function PermessiMenu() {
             }
         }
     } else {
-        //If there are problems the all menu is hide 
+        //Se ci sono problemi con il menu,quest'ultimo verrà completamente nascosto 
         alert("Problem with permession");
         for (let i = 0; i < menu.length; i++) {
             menu[i].style.display = "none";
@@ -291,21 +290,21 @@ function PermessiMenu() {
 /* Function to filter the table */
 function filterFromInputToTable(nameInput, nameTable, indexTd) {
     var input, filter, table, tr, td, i, txtValue;
-    //Take the input filter
+    //Preso gli input type
     input = document.getElementById(nameInput);
     filter = input.value.toUpperCase();
-    //Take table and rows
+    //Preo la tabella e le righe
     table = document.getElementById(nameTable);
     tr = table.getElementsByTagName("tr");
-    //Cycle to take each row of table 
+    //Ciclo per prendere ogni riga della tabella 
     for (i = 0; i < tr.length; i++) {
-        //Take the cell in position 0 because there is the value of document
+        //Predere la cella in posizione indexTd in modo da ottere la cella prestabilità
         td = tr[i].getElementsByTagName("td")[indexTd];
         if (td) {
-            //Take the value of td
+            //Prendere il valore del td
             txtValue = td.textContent || td.innerText;
-            //If the string in the filter is present in the td it return position start
-            //Else return -1 because the string isn't prensent in the td  
+            //Se la stringa nel filtro è prensete nel td ritornerà la posizione si partenza di quest'ultima
+            //Altrimenti se ritorna -1 significa che non è presente e nasconderà quella determinata cella  
             if (txtValue.toUpperCase().indexOf(filter) > -1) {
                 tr[i].style.display = "";
             } else {
