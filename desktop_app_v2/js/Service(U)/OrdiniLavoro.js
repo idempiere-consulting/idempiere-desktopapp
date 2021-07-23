@@ -20,17 +20,14 @@ function getOrdiniLavoro() {
             return res.json()
         })
         .then(data => {
-            console.log(data);
 
             //var pData = JSON.parse(data)
             a = data['records'];
-            //console.log(a);
             var table = document.getElementById('OrdiniLavoro');
 
             a.forEach((record) => {
 
                 var bPartner = record.C_BPartner_ID;
-                //console.log(leadStatus);
                 var ris = record.S_Resource_ID
 
                 var row = `<tr class="dataRow">

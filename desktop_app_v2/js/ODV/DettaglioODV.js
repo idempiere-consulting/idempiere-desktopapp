@@ -1,5 +1,7 @@
 const electron = require('electron');
-const { ipcRenderer } = electron;
+const {
+    ipcRenderer
+} = electron;
 
 const authToken = ipcRenderer.sendSync('send:authtoken', 'ping');
 const ip = ipcRenderer.sendSync('send:ip', 'ping');
@@ -9,7 +11,6 @@ const addOrderLine = document.getElementById('addOrderLine');
 getODV();
 
 if (addOrderLine != null) {
-    console.log(addOrderLine)
     addOrderLine.addEventListener('click', openOrderLineWindow);
 }
 
@@ -26,13 +27,11 @@ function getODV() {
             return res.json()
         })
         .then(data => {
-            console.log(data);
 
             a = data['records'];
             a.forEach((record) => {
                 var table = document.getElementById('opportunityBody');
                 var bPartner = record.C_BPartner_ID;
-                //console.log(leadStatus);
                 var activity = '';
                 if (record.C_Activity_ID == undefined) {
                     activity = '';
@@ -41,7 +40,6 @@ function getODV() {
                 }
                 docID = record.id;
                 ipcRenderer.send('save:docid:ODV', docID);
-                //console.log(docID);
                 getODVLines();
                 var row = `<tr class="dataRow">
 							<td>${record.DocumentNo}</td>
@@ -60,9 +58,8 @@ function getODV() {
 
             var btns = document.querySelectorAll('.iconLinkWebUrl');
             Array.prototype.forEach.call(btns, function addClickListener(btn) {
-                btn.addEventListener('click', function(event) {
+                btn.addEventListener('click', function (event) {
                     var doc = event.path[3].cells[0].innerHTML;
-                    console.log(doc);
                     ipcRenderer.send('save:docN', doc);
                     ipcRenderer.send('page:ODV:odv_details_window');
                 });
@@ -85,12 +82,10 @@ function getODVLines() {
             return res.json()
         })
         .then(data => {
-            //console.log(data);
 
             //var pData = JSON.parse(data)
 
             a = data['c_orderline'];
-            console.log(a);
             var table = document.getElementById('opportunityBody2');
             a.forEach((record) => {
 
@@ -154,7 +149,6 @@ function getODVLines() {
 // DELETE ODV
 
 function DeleteODV(idProduct) {
-    console.log(idProduct);
     if (confirm("Sei sicuro di voler eliminare la linea d'ordine?")) {
 
 
@@ -165,7 +159,6 @@ function DeleteODV(idProduct) {
                     'Authorization': 'Bearer ' + authToken
                 }
             }).then(data => {
-                console.log(data);
                 location.reload();
             })
             .catch(error => console.log(error))
@@ -192,7 +185,6 @@ function updateOrderLine(orderLineId, qtyUpdate) {
             },
             body: JSON.stringify(bodyData)
         }).then(res => {
-            console.log(res);
             return res.json();
 
         })

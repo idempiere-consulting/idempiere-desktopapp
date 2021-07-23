@@ -1,10 +1,11 @@
 const electron = require('electron');
-const { ipcRenderer } = electron;
+const {
+    ipcRenderer
+} = electron;
 
 const ip = ipcRenderer.sendSync('send:ip', 'ping');
 const authToken = ipcRenderer.sendSync('send:authtoken', 'ping');
 const docN = ipcRenderer.sendSync('send:docN', 'ping');
-console.log(docN);
 getODV();
 
 function getODV() {
@@ -19,13 +20,10 @@ function getODV() {
             return res.json()
         })
         .then(data => {
-            console.log(data);
 
             //var pData = JSON.parse(data)
 
             a = data.records;
-            console.log(a[0].DocumentNo);
-            //console.log(a);
 
             document.getElementById('ndoc').value = a[0].DocumentNo;
             document.getElementById('bp').value = a[0].C_BPartner_ID.identifier;

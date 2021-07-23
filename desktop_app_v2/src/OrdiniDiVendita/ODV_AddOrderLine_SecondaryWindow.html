@@ -3,6 +3,7 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Aggiungi Linee D'Ordine</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,11 +16,11 @@
             font-size: 17px;
             padding: 8px;
         }
-        
+
         * {
             box-sizing: border-box;
         }
-        
+
         .row {
             display: -ms-flexbox;
             /* IE10 */
@@ -29,45 +30,45 @@
             flex-wrap: wrap;
             margin: 0 -16px;
         }
-        
+
         .col-25 {
             -ms-flex: 25%;
             /* IE10 */
             flex: 25%;
         }
-        
+
         .col-50 {
             -ms-flex: 50%;
             /* IE10 */
             flex: 50%;
         }
-        
+
         .col-75 {
             -ms-flex: 75%;
             /* IE10 */
             flex: 75%;
         }
-        
+
         .col-100 {
             -ms-flex: 100%;
             /* IE10 */
             flex: 100%;
         }
-        
+
         .col-25,
         .col-50,
         .col-75,
         .col-100 {
             padding: 0 16px;
         }
-        
+
         .container {
             background-color: #f2f2f2;
             padding: 5px 20px 15px 20px;
             border: 1px solid lightgrey;
             border-radius: 3px;
         }
-        
+
         input[type=text] {
             width: 100%;
             margin-bottom: 20px;
@@ -75,7 +76,7 @@
             border: 1px solid #ccc;
             border-radius: 3px;
         }
-        
+
         input {
             width: 100%;
             margin-bottom: 20px;
@@ -83,18 +84,18 @@
             border: 1px solid #ccc;
             border-radius: 3px;
         }
-        
+
         label {
             margin-bottom: 10px;
             display: block;
         }
-        
+
         .icon-container {
             margin-bottom: 20px;
             padding: 7px 0;
             font-size: 24px;
         }
-        
+
         .btn {
             background-color: #4CAF50;
             color: white;
@@ -106,19 +107,19 @@
             cursor: pointer;
             font-size: 17px;
         }
-        
+
         .btn:hover {
             background-color: #45a049;
         }
-        
+
         a {
             color: #2196F3;
         }
-        
+
         hr {
             border: 1px solid lightgrey;
         }
-        
+
         .div-quantity {
             display: flex;
             flex-flow: row nowrap;
@@ -126,7 +127,7 @@
             align-items: center;
             align-content: center;
         }
-        
+
         .div-quantity a {
             width: 10%;
             margin-bottom: 20px;
@@ -135,27 +136,29 @@
             border-radius: 3px;
             text-align: center;
         }
-        
+
         .div-quantity a :hover {
             color: red;
         }
-        
+
         .div-quantity input {
             text-align: center;
         }
-        
+
         span {
             padding: 11px;
             border-radius: 3px;
             background-color: #19B3D3;
             color: white;
         }
+
         /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (also change the direction - make the "cart" column go on top) */
-        
+
         @media (max-width: 800px) {
             .row {
                 flex-direction: column-reverse;
             }
+
             .col-25 {
                 margin-bottom: 20px;
             }
@@ -191,7 +194,8 @@
                             <label for="nome"><i class="fa fa-folder-open"></i> Nome</label>
                             <input type="text" id="nome" name="nome" placeholder="">
                             <label for="attributo"><i class="fas fa-address-card"></i> Attributo di Istanza</label>
-                            <input id="attributo" maxlength="15" class="input-text" name="attributo" list="attributes" placeholder="">
+                            <input id="attributo" maxlength="15" class="input-text" name="attributo" list="attributes"
+                                placeholder="">
                             <label for="udm"><i class="fas fa-balance-scale"></i> Udm</label>
                             <input type="text" id="udm" name="udm" placeholder="">
 

@@ -52,13 +52,12 @@ function getInvoiceLine() {
             return res.json()
         })
         .then(data => {
-                var a = data.records;
-                console.log(a);
-                var tbody;
-                var totale = 0;
-                a.forEach(element => {
-                            tbody = document.getElementById("InvoceInlineBody");
-                            var row = `<tr>
+            var a = data.records;
+            var tbody;
+            var totale = 0;
+            a.forEach(element => {
+                tbody = document.getElementById("InvoceInlineBody");
+                var row = `<tr>
                                 <td>${element.M_Product_ID != undefined?element.M_Product_ID.identifier:''}</td>
                                 <td>${element.Description != undefined? 
                                         element.PriceEntered != undefined ?
@@ -69,11 +68,10 @@ function getInvoiceLine() {
                                 <td>${element.C_Tax_ID != undefined ?  element.C_Tax_ID.identifier : ''}</td>
                             </tr>
                 `;
-                if(element.LineTotalAmt != undefined && element.LineTotalAmt !=0)
+                if (element.LineTotalAmt != undefined && element.LineTotalAmt != 0)
                     totale += element.LineTotalAmt;
                 else
-                    totale+=element.LineNetAmt;
-                console.log(row);
+                    totale += element.LineNetAmt;
                 tbody.innerHTML += row;
             });
             var endRow = `<tr>

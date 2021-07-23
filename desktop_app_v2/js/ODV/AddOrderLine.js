@@ -28,9 +28,8 @@ const sendLine = document.getElementById('sendLine');
 
 /* Events buttons */
 
-console.log(srcCode != null);
 if (srcCode != null) {
-    srcCode.addEventListener('click', function(e) {
+    srcCode.addEventListener('click', function (e) {
         flag_ = 0;
         var temp = document.getElementById('productcode').value;
         //Se l'inpunt type contiene un _ significa che ha un attributo di istanza e quindi lo divide in 2 stringhe
@@ -52,10 +51,9 @@ if (srcCode != null) {
 
     });
 }
-console.log(codeInput);
 //Ricerca del prodotto se l'utente digita il tasto invio
 if (codeInput != null) {
-    codeInput.addEventListener('keypress', function(e) {
+    codeInput.addEventListener('keypress', function (e) {
         flag_ = 0;
         //Stessa funzione della ricerca per codice
         if (e.key === 'Enter') {
@@ -68,7 +66,6 @@ if (codeInput != null) {
                     }
                 }
                 keyCode = temp.slice(0, count);
-                console.log(keyCode)
                 keyinstAttr = temp.slice(count + 1, temp.length);
             } else {
                 keyCode = temp;
@@ -104,7 +101,6 @@ function getProducts() {
             return res.json()
         })
         .then(data => {
-            //console.log(data);
 
             var optionList = data['window-records'];
             var container = document.getElementById('product');
@@ -145,7 +141,6 @@ async function searchByCode() {
             return res.json()
         })
         .then(data => {
-            console.log(data);
             a = data['records'];
 
 
@@ -213,7 +208,6 @@ function searchByName() {
             return res.json()
         })
         .then(data => {
-            console.log(data);
             a = data['records'];
 
             idProd = '';
@@ -235,7 +229,6 @@ function searchByName() {
                 document.getElementById('qty').value = 1;
                 idProd = record.id;
                 idUDM = record.C_UOM_ID.id;
-                console.log('test' + record.M_AttributeSetInstance_ID);
                 if (record.M_AttributeSet_ID != undefined)
                     instAttr_ID = record.M_AttributeSet_ID.id
                 else {
@@ -246,8 +239,6 @@ function searchByName() {
 
 
             });
-            console.log('test2' + instAttr_ID);
-            console.log('test3' + document.getElementById('attributes'));
             if (instAttr_ID != undefined) {
                 document.getElementById('attributo').disabled = false;
                 getInstAttr();
@@ -266,7 +257,6 @@ function searchByName() {
 function sendOrderLine() {
 
     instAttr_Name = document.getElementById('attributo').value;
-    console.log(instAttr_Name);
     var Name = document.getElementById('nome').value;
     var Description = document.getElementById('desc').value;
     var QtyEntered = document.getElementById('qty').value;
@@ -276,7 +266,6 @@ function sendOrderLine() {
     if (instAttr_Name != "") {
         var instAttrSeries = document.querySelectorAll('[value="' + instAttr_Name + '"]');
         var instAttrSeries_ID = instAttrSeries[0].getAttribute("data-id");
-        console.log(instAttrSeries);
         BodyData = {
 
             "AD_Client_ID": {
@@ -344,7 +333,6 @@ function sendOrderLine() {
         };
     }
 
-    console.log(BodyData);
 
 
     fetch('http://' + ip + '/api/v1/models/c_orderline/', {
@@ -358,7 +346,6 @@ function sendOrderLine() {
             return res.json()
         })
         .then(data => {
-            console.log(data);
             if (data != null)
                 doNotification(data);
             document.getElementById('codice').value = '';
@@ -389,7 +376,6 @@ function getInstAttr() {
             return res.json()
         })
         .then(data => {
-            console.log(data);
 
             var optionList = data['records'];
 
@@ -422,7 +408,6 @@ function getInstAttr() {
 
 function lessQty() {
     var qty = document.getElementById("qty").value;
-    console.log(qty);
     if (qty != '') {
         if (qty == 1) {
             alert("Non pu essere 0");

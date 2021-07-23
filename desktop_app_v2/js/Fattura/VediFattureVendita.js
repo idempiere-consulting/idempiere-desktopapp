@@ -28,7 +28,6 @@ function GetFattureVendita() {
         })
         .then(data => {
             a = data['records'];
-            console.log(a);
             var es;
             a.DocumentNo == undefined ? es = '' : a.DocumentNo;
             var table;
@@ -67,11 +66,10 @@ function GetFattureVendita() {
                             <td style="display:none">${record.id}</td>
 					  </tr>`;
                 //Append to table
-                console.log(table);
                 table.innerHTML += row;
                 var btns = document.querySelectorAll('.iconLinkWebUrl');
                 Array.prototype.forEach.call(btns, function addClickListener(btn) {
-                    btn.addEventListener('click', function(event) {
+                    btn.addEventListener('click', function (event) {
                         var invoiceID = event.path[3].cells[0].innerHTML;
                         ipcRenderer.send('save:invoiceId', invoiceID);
                         ipcRenderer.send('pageDetailsInvoice:invoice_details_window');

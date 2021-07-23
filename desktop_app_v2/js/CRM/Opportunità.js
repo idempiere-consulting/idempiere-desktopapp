@@ -1,5 +1,7 @@
 const electron = require('electron');
-const { ipcRenderer } = electron;
+const {
+    ipcRenderer
+} = electron;
 
 const authToken = ipcRenderer.sendSync('send:authtoken', 'ping');
 const ip = ipcRenderer.sendSync('send:ip', 'ping');
@@ -18,7 +20,6 @@ function getOpportunities() {
             return res.json()
         })
         .then(data => {
-            console.log(data);
 
 
             a = data['window-records'];
@@ -59,13 +60,13 @@ function getOpportunities() {
 
 
 //test jquery filter
-$(".filter").click(function() {
+$(".filter").click(function () {
     var filter = this.value;
     if (filter == "All")
         $("tr.dataRow").css("visibility", "visible");
     else $("tr.dataRow").css("visibility", "collapse");
     var matchFound = false;
-    $("tr.dataRow").find("td").each(function() {
+    $("tr.dataRow").find("td").each(function () {
         $this = $(this);
         if (!matchFound) {
             if ($this.html() == filter) {

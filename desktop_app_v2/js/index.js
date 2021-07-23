@@ -20,8 +20,6 @@ let myChart;
 
 var boxinfo = document.getElementsByClassName("item-first");
 
-console.log(boxinfo[0].children[0].children[0].children);
-
 function FillBoxInfo(id, info, value) {
     boxinfo[id].style.display = '';
     boxinfo[id].children[0].children[0].children[0].innerHTML = info;
@@ -102,26 +100,22 @@ async function takeDataForChart() {
             //Filtraggio in base al numero di grafico e inserimento dell'elemento nel array
             records.forEach(element => {
                 switch (element.chartno) {
-                    case "01":
-                        {
-                            arrayDataChart1.push(element);
-                        }
-                        break;
-                    case "02":
-                        {
-                            arrayDataChart2.push(element);
-                        }
-                        break;
-                    case "03":
-                        {
-                            arrayDataChart3.push(element);
-                        }
-                        break;
-                    case "04":
-                        {
-                            arrayDataChart4.push(element);
-                        }
-                        break;
+                    case "01": {
+                        arrayDataChart1.push(element);
+                    }
+                    break;
+                case "02": {
+                    arrayDataChart2.push(element);
+                }
+                break;
+                case "03": {
+                    arrayDataChart3.push(element);
+                }
+                break;
+                case "04": {
+                    arrayDataChart4.push(element);
+                }
+                break;
                 }
             });
             //Funzione per predere il tipo di grafico dall'api
@@ -168,91 +162,88 @@ async function GetTypeChart() {
                     switch (element.Value) {
 
                         //Case bar chart
-                        case "01":
-                            {
-                                //Set up chart
-                                myChart = new Chart(chart, {
-                                    type: 'bar',
-                                    data: {
-                                        labels: [],
-                                        datasets: []
-                                    },
-                                    options: {
-                                        plugins: {
-                                            title: {
-                                                display: true,
-                                                text: element.Name
-                                            },
+                        case "01": {
+                            //Set up chart
+                            myChart = new Chart(chart, {
+                                type: 'bar',
+                                data: {
+                                    labels: [],
+                                    datasets: []
+                                },
+                                options: {
+                                    plugins: {
+                                        title: {
+                                            display: true,
+                                            text: element.Name
                                         },
-                                        responsive: true,
-                                        scales: {
-                                            x: {
-                                                stacked: true,
-                                            },
-                                            y: {
-                                                stacked: true
-                                            }
+                                    },
+                                    responsive: true,
+                                    scales: {
+                                        x: {
+                                            stacked: true,
+                                        },
+                                        y: {
+                                            stacked: true
                                         }
                                     }
-
-
-                                });
-
-                                if (arrayDataChart1.length > 0) {
-                                    //Filtraggio in base al series
-                                    DataChart1FilterBySeries(arrayDataChart1);
                                 }
 
 
+                            });
+
+                            if (arrayDataChart1.length > 0) {
+                                //Filtraggio in base al series
+                                DataChart1FilterBySeries(arrayDataChart1);
                             }
-                            break;
-                            //Case line chart
-                        case "02":
-                            {
-                                myChart = new Chart(chart, {
-                                    type: 'line',
-                                    data: {
-                                        labels: [],
-                                        datasets: []
+
+
+                        }
+                        break;
+                        //Case line chart
+                    case "02": {
+                        myChart = new Chart(chart, {
+                            type: 'line',
+                            data: {
+                                labels: [],
+                                datasets: []
+                            },
+                            options: {
+                                responsive: true,
+
+                                plugins: {
+                                    legend: {
+                                        position: 'top',
                                     },
-                                    options: {
-                                        responsive: true,
-
-                                        plugins: {
-                                            legend: {
-                                                position: 'top',
-                                            },
-                                            title: {
-                                                display: true,
-                                                text: element.Name
-                                            }
-                                        },
-                                        elements: {
-                                            line: {
-                                                tension: 0.2
-                                            }
-                                        },
-                                        scales: {
-                                            y: {
-                                                min: -10
-                                            }
-                                        }
-
-                                    },
-                                });
-
-                                if (arrayDataChart2.length > 0) {
-                                    //Filtraggio in base al series
-                                    DataChart1FilterBySeries(arrayDataChart2);
+                                    title: {
+                                        display: true,
+                                        text: element.Name
+                                    }
+                                },
+                                elements: {
+                                    line: {
+                                        tension: 0.2
+                                    }
+                                },
+                                scales: {
+                                    y: {
+                                        min: -10
+                                    }
                                 }
 
-                            }
-                            break;
-                        case "03":
-                            {
+                            },
+                        });
 
-                            }
-                            break;
+                        if (arrayDataChart2.length > 0) {
+                            //Filtraggio in base al series
+                            DataChart1FilterBySeries(arrayDataChart2);
+                        }
+
+                    }
+                    break;
+                    case "03": {
+
+                    }
+                    break;
 
                     }
                     count++;
@@ -387,18 +378,18 @@ function getRandomColor() {
     var array = [];
     for (let index = 0; index < letters.length; index++) {
         array.push(letters[index]);
-
     }
     disorder(array);
     letters = '';
     array.forEach(element => {
         letters += element
     });
-    console.log(letters);
+
     var color = '#';
     for (var i = 0; i < 6; i++) {
         color += letters[Math.floor(Math.random() * 16)];
     }
+    console.log(color);
     return color;
 }
 
@@ -407,12 +398,12 @@ function addData(chart, labelFilter, data, labelChart) {
     //Creazione dataSet con i parametri
     var colour = getRandomColor();
     var newDataSet = {
-            label: labelFilter,
-            data: data,
-            borderColor: colour,
-            backgroundColor: colour
-        }
-        //Svuotato paramentri asse x in modo da averlo vuoto per i nuovi dati
+        label: labelFilter,
+        data: data,
+        borderColor: colour,
+        backgroundColor: colour
+    }
+    //Svuotato paramentri asse x in modo da averlo vuoto per i nuovi dati
     chart.data.labels = [];
     //Inserimento paramentri asse x
     labelChart.forEach(element => {

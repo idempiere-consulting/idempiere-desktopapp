@@ -43,7 +43,7 @@ if (button_SendTicket != null) {
 
 if (select_reqType != null) {
     //Evento in cui avviene il cambiamento del select, cambia il contenuto del div caseDiv
-    select_reqType.addEventListener('change', function() {
+    select_reqType.addEventListener('change', function () {
         caseDiv.innerHTML = "";
 
         //Sequenza di if che cambiano i vari input in base al tipo di richiesta che viene effettuata, ogni elemento viene concatenato al caseDiv 
@@ -76,7 +76,6 @@ if (select_reqType != null) {
 
             getRichiesteFormazioneOccupati();
 
-            console.log(arraySlotLocked);
 
             getSlotLiberi();
 
@@ -133,17 +132,39 @@ function sendDataTicket(e) {
             const explain3 = document.getElementById('explain3').value;
             const explain4 = document.getElementById('explain4').value;
             BodyData = {
-                "C_BPartner_ID": { "identifier": BP },
-                "AD_User_ID": { "identifier": UserName },
-                "AD_Client_ID": { "identifier": "DEMO" },
-                "R_RequestType_ID": { "id": 1000000 },
-                "Priority": { "id": prio },
-                "SalesRep_ID": { "identifier": "DEMOAdmin" },
-                "AD_Role_ID": { "id": 1000000 },
-                "DueType": { "id": "5" },
-                "AD_Org_ID": { "id": 0 },
-                "ConfidentialTypeEntry": { "id": "C" },
-                "ConfidentialType": { "id": "C" },
+                "C_BPartner_ID": {
+                    "identifier": BP
+                },
+                "AD_User_ID": {
+                    "identifier": UserName
+                },
+                "AD_Client_ID": {
+                    "identifier": "DEMO"
+                },
+                "R_RequestType_ID": {
+                    "id": 1000000
+                },
+                "Priority": {
+                    "id": prio
+                },
+                "SalesRep_ID": {
+                    "identifier": "DEMOAdmin"
+                },
+                "AD_Role_ID": {
+                    "id": 1000000
+                },
+                "DueType": {
+                    "id": "5"
+                },
+                "AD_Org_ID": {
+                    "id": 0
+                },
+                "ConfidentialTypeEntry": {
+                    "id": "C"
+                },
+                "ConfidentialType": {
+                    "id": "C"
+                },
                 "RequestAmt": 0,
                 "Summary": explain,
                 "Description": doc,
@@ -163,7 +184,6 @@ function sendDataTicket(e) {
                     return res.json()
                 })
                 .then(data => {
-                    console.log(data);
                     if (data.status != undefined) {
                         alert("Problema con la Richiesta")
                     } else {
@@ -178,17 +198,39 @@ function sendDataTicket(e) {
         case "Altro":
 
             BodyData = {
-                "C_BPartner_ID": { "identifier": BP },
-                "AD_User_ID": { "identifier": UserName },
-                "AD_Client_ID": { "identifier": "DEMO" },
-                "R_RequestType_ID": { "id": 1000002 },
-                "Priority": { "id": prio },
-                "SalesRep_ID": { "identifier": "DEMOAdmin" },
-                "AD_Role_ID": { "id": 1000000 },
-                "DueType": { "id": "5" },
-                "AD_Org_ID": { "id": 0 },
-                "ConfidentialTypeEntry": { "id": "C" },
-                "ConfidentialType": { "id": "C" },
+                "C_BPartner_ID": {
+                    "identifier": BP
+                },
+                "AD_User_ID": {
+                    "identifier": UserName
+                },
+                "AD_Client_ID": {
+                    "identifier": "DEMO"
+                },
+                "R_RequestType_ID": {
+                    "id": 1000002
+                },
+                "Priority": {
+                    "id": prio
+                },
+                "SalesRep_ID": {
+                    "identifier": "DEMOAdmin"
+                },
+                "AD_Role_ID": {
+                    "id": 1000000
+                },
+                "DueType": {
+                    "id": "5"
+                },
+                "AD_Org_ID": {
+                    "id": 0
+                },
+                "ConfidentialTypeEntry": {
+                    "id": "C"
+                },
+                "ConfidentialType": {
+                    "id": "C"
+                },
                 "RequestAmt": 0,
                 "Summary": explain
             };
@@ -204,7 +246,6 @@ function sendDataTicket(e) {
                     return res.json()
                 })
                 .then(data => {
-                    console.log(data);
                     if (data.status != undefined) {
                         alert("Problema con la Richiesta")
                     } else {
@@ -219,17 +260,39 @@ function sendDataTicket(e) {
         case "Nuova Richiesta Funzionalità/Sviluppo":
 
             BodyData = {
-                "C_BPartner_ID": { "identifier": BP },
-                "AD_User_ID": { "identifier": UserName },
-                "AD_Client_ID": { "identifier": "DEMO" },
-                "R_RequestType_ID": { "id": 1000003 },
-                "Priority": { "id": prio },
-                "SalesRep_ID": { "identifier": "DEMOAdmin" },
-                "AD_Role_ID": { "id": 1000000 },
-                "DueType": { "id": "5" },
-                "AD_Org_ID": { "id": 0 },
-                "ConfidentialTypeEntry": { "id": "C" },
-                "ConfidentialType": { "id": "C" },
+                "C_BPartner_ID": {
+                    "identifier": BP
+                },
+                "AD_User_ID": {
+                    "identifier": UserName
+                },
+                "AD_Client_ID": {
+                    "identifier": "DEMO"
+                },
+                "R_RequestType_ID": {
+                    "id": 1000003
+                },
+                "Priority": {
+                    "id": prio
+                },
+                "SalesRep_ID": {
+                    "identifier": "DEMOAdmin"
+                },
+                "AD_Role_ID": {
+                    "id": 1000000
+                },
+                "DueType": {
+                    "id": "5"
+                },
+                "AD_Org_ID": {
+                    "id": 0
+                },
+                "ConfidentialTypeEntry": {
+                    "id": "C"
+                },
+                "ConfidentialType": {
+                    "id": "C"
+                },
                 "RequestAmt": 0,
                 "Summary": explain
             };
@@ -245,7 +308,6 @@ function sendDataTicket(e) {
                     return res.json()
                 })
                 .then(data => {
-                    console.log(data);
                     if (data.status != undefined) {
                         alert("Problema con la Richiesta")
                     } else {
@@ -260,14 +322,23 @@ function sendDataTicket(e) {
         case "Richiesta di formazione":
 
             const qtyHour = document.getElementById("qty-planned").value;
-            console.log(qtyHour < 4 && qtyHour > 0);
             if (qtyHour < 4 && qtyHour > 0) {
                 BodyData = {
-                    "C_BPartner_ID": { "identifier": BP },
-                    "AD_Client_ID": { "identifier": "DEMO" },
-                    "AD_User_ID": { "identifier": UserName },
-                    "AD_Org_ID": { "id": 1000000 },
-                    "S_Resource_ID": { "id": 1000001 },
+                    "C_BPartner_ID": {
+                        "identifier": BP
+                    },
+                    "AD_Client_ID": {
+                        "identifier": "DEMO"
+                    },
+                    "AD_User_ID": {
+                        "identifier": UserName
+                    },
+                    "AD_Org_ID": {
+                        "id": 1000000
+                    },
+                    "S_Resource_ID": {
+                        "id": 1000001
+                    },
                     "Name": tipoDiRichiesta,
                     "Description": explain,
                     "AssignDateFrom": itemSelected,
@@ -285,7 +356,6 @@ function sendDataTicket(e) {
                         return res.json()
                     })
                     .then(data => {
-                        console.log(data);
 
                         if (data.status != undefined) {
                             alert("Problema con la Richiesta")
@@ -322,7 +392,6 @@ async function getRichiesteFormazioneOccupati() {
             return res.json()
         })
         .then(data => {
-            console.log(data);
             a = data['window-records'];
             a.forEach((record) => {
                 arraySlotLocked.push(record);
@@ -347,7 +416,6 @@ async function getSlotLiberi() {
             return res.json()
         })
         .then(data => {
-            console.log(data);
 
             a = data['records'];
             //Creazione select che conterrà tutti i possibili orari che si possono occupare
@@ -397,7 +465,7 @@ async function getSlotLiberi() {
 
             select_hour = document.getElementById('selectHour');
             //In caso in cui il select viene modificato verrà preso il valore corrente del select
-            select_hour.onchange = function() {
+            select_hour.onchange = function () {
                 comboboxItemSelected();
             }
 

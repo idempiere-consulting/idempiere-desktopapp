@@ -22,14 +22,15 @@ function SendODV(e) {
 
     Partner = document.getElementById('partner').value;
     const Lname = document.getElementById('lname').value;
-    console.log(Partner + Lname)
 
     if (Lname == '') {
         alert("Inserisci il tipo di Documento");
     } else {
 
         BodyData = {
-            "C_BPartner_ID": { "identifier": Partner },
+            "C_BPartner_ID": {
+                "identifier": Partner
+            },
             /*"DeliveryRule" : {"identifier" : Rule},
             "PriorityRule" : {"identifier" : Priority},
             "DeliveryViaRule" : {"identifier" : Shipping},
@@ -39,10 +40,12 @@ function SendODV(e) {
             "SalesRep_ID" : {"identifier" : RappV},
             "PaymentRule" : {"identifier" : PayM},
             "C_PaymentTerm_ID" : {"identifier" : PayD},*/
-            "C_DocTypeTarget_ID": { "id": Lname },
+            "C_DocTypeTarget_ID": {
+                "id": Lname
+            },
             "IsSOTrx": true
-                /*"DateOrdered" : {"identifier" : dataOrder},
-                "DatePromised" : {"identifier" : dataDelivery},*/
+            /*"DateOrdered" : {"identifier" : dataOrder},
+            "DatePromised" : {"identifier" : dataDelivery},*/
         }
 
 
@@ -58,8 +61,6 @@ function SendODV(e) {
                 return res.json()
             })
             .then(data => {
-                console.log(data);
-                console.log(data.status);
                 if (data.status == undefined)
                     alert("Ordine di Vendita Salvato!");
                 else

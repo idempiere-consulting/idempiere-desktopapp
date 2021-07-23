@@ -1,10 +1,11 @@
 const electron = require('electron');
-const { ipcRenderer } = electron;
+const {
+    ipcRenderer
+} = electron;
 
 const authToken = ipcRenderer.sendSync('send:authtoken', 'ping');
 const userBPartner = ipcRenderer.sendSync('send:bp', 'ping');
 const ip = ipcRenderer.sendSync('send:ip', 'ping');
-//console.log(userBPartner);
 getTickets();
 
 function getTickets() {
@@ -19,19 +20,15 @@ function getTickets() {
             return res.json()
         })
         .then(data => {
-            console.log(data);
 
             //var pData = JSON.parse(data)
             a = data['window-records'];
-            //console.log(a);
             a.forEach((record) => {
                 var table = document.getElementById('ticketBody');
                 var bp = record.C_BPartner_ID;
                 var name = record.Name;
 
-                console.log(record.AssignDateFrom);
                 var startHour = record.AssignDateFrom.replace('Z', '').replace('T', ' ');
-                console.log(record.AssignDateTo);
                 var endHour = record.AssignDateTo.replace('Z', '').replace('T', ' ');
                 var qtyEffective = record.QtyEffectiveTime;
                 var description = record.Description;
@@ -63,13 +60,13 @@ function getTickets() {
 
 
 
-$("input[type=radio]").change(function() {
+$("input[type=radio]").change(function () {
     var filter = this.value;
     if (filter == "All")
         $("tr.dataRow").css("visibility", "visible");
     else $("tr.dataRow").css("visibility", "collapse");
     var matchFound = false;
-    $("tr.dataRow").find("td").each(function() {
+    $("tr.dataRow").find("td").each(function () {
         $this = $(this);
         if (!matchFound) {
             if ($this.html() == filter) {

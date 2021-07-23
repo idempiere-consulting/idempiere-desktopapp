@@ -355,14 +355,14 @@ function CreateMenu() {
         liMenu.classList.add("macrocategory-permission-menu");
 
 
-        //creo elemento "i", assegno la classe e lo appendo all'elemento padre "span" 
+        //creo elemento "i", assegno la classe e aggiungo del margine a destra" 
         var iconMenu = document.createElement("i");
         iconMenu.classList.add(...element.icon);
         iconMenu.style.marginRight = "5px";
 
         //se la lunghezza del sottomenu non è zero allora esegui quello all'interno
         if (element.sottoMenu.length != 0) {
-            //creo l'elemento "span" gli assegno una classe e lo appendo all'elemento padre "li"
+            //creo l'elemento "span" gli assegno una classe e lo appendo all'elemento padre "li" e allo span appendo la "i"
             var spanMenu = document.createElement("span");
             spanMenu.classList.add("opener");
             liMenu.appendChild(spanMenu);
@@ -374,6 +374,7 @@ function CreateMenu() {
                 ../CRM/Opportunità.html
             */
 
+            //allo span aggiungo il nome del menu
             spanMenu.innerHTML += element.menu;
 
 
@@ -389,6 +390,10 @@ function CreateMenu() {
                 //creo elemento "a" e gli inserisco la voce "nomeSottoMenu" e gli href
                 var linkSottoMenu = document.createElement("a");
                 linkSottoMenu.innerHTML = element1.nomeSottoMenu;
+
+                /*se il nome del file è diverso da "index.html" allora aggiungi ../ al "pathSottoMenu"
+                  altrimenti prendi direttamente il "pathSottoMenu"
+                */
                 if (filename != "index.html") {
                     var temp = "../" + element1.pathSottoMenu;
                     linkSottoMenu.href = temp;
@@ -402,7 +407,9 @@ function CreateMenu() {
                 liMenu.appendChild(ulSottomenu);
             });
         } else {
+            //creo l'elemento "a"
             var linkMenu = document.createElement("a");
+
             if (filename != "index.html") {
                 var temp = "../" + element.pathMenu;
                 linkMenu.href = temp;
@@ -410,7 +417,6 @@ function CreateMenu() {
                 linkMenu.href = element.pathMenu;
             }
 
-            console.log(iconMenu);
 
             linkMenu.appendChild(iconMenu);
             linkMenu.innerHTML += element.menu;

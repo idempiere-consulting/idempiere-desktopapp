@@ -1,10 +1,11 @@
 const electron = require('electron');
-const { ipcRenderer } = electron;
+const {
+    ipcRenderer
+} = electron;
 
 const authToken = ipcRenderer.sendSync('send:authtoken', 'ping');
 const userBPartner = ipcRenderer.sendSync('send:bp', 'ping');
 const ip = ipcRenderer.sendSync('send:ip', 'ping');
-//console.log(userBPartner);
 getTickets();
 
 function getTickets() {
@@ -19,11 +20,9 @@ function getTickets() {
             return res.json()
         })
         .then(data => {
-            console.log(data);
 
             //var pData = JSON.parse(data)
             a = data['window-records'];
-            //console.log(a);
             a.forEach((record) => {
                 var table = document.getElementById('ticketBody');
                 var bp = record.C_BPartner_ID;
@@ -48,7 +47,7 @@ function getTickets() {
             //
             var btns = document.querySelectorAll('.iconLinkWebUrl');
             Array.prototype.forEach.call(btns, function addClickListener(btn) {
-                btn.addEventListener('click', function(event) {
+                btn.addEventListener('click', function (event) {
                     var ticketId = event.path[3].cells[7].innerHTML;
                     ipcRenderer.send('save:ticketid', ticketId);
                     ipcRenderer.send('pageTicketP:TicketP_details_window');
@@ -69,13 +68,13 @@ function getTickets() {
 
 
 //test jquery filter
-$(".filter").click(function() {
+$(".filter").click(function () {
     var filter = this.value;
     if (filter == "All")
         $("tr.dataRow").css("visibility", "visible");
     else $("tr.dataRow").css("visibility", "collapse");
     var matchFound = false;
-    $("tr.dataRow").find("td").each(function() {
+    $("tr.dataRow").find("td").each(function () {
         $this = $(this);
         if (!matchFound) {
             if ($this.html() == filter) {

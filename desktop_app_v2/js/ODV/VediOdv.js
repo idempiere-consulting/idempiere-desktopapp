@@ -33,7 +33,6 @@ function getODV() {
 
             a = data['records'];
             var table;
-            console.log(table);
             a.forEach((record) => {
                 table = document.getElementById('opportunityBody');
 
@@ -77,9 +76,8 @@ function getODV() {
 
             var btns = document.querySelectorAll('.iconLinkWebUrl');
             Array.prototype.forEach.call(btns, function addClickListener(btn) {
-                btn.addEventListener('click', function(event) {
+                btn.addEventListener('click', function (event) {
                     var doc = event.path[3].cells[0].innerHTML;
-                    console.log(doc);
                     ipcRenderer.send('save:docN', doc);
                     ipcRenderer.send('page:ODV', 3);
                 });

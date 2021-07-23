@@ -21,7 +21,6 @@ async function authRoles() {
                 return res.json()
             })
             .then(data => {
-                console.log(data);
                 var selectRole = document.getElementById("selectRole");
                 var roles = data.roles;
                 for (var i = 0; i < roles.length; i++) {
@@ -31,7 +30,7 @@ async function authRoles() {
                     selectRole.appendChild(opt);
 
                 }
-                selectRole.onchange = function() {
+                selectRole.onchange = function () {
                     roleId = this.options[this.selectedIndex].getAttribute("value");
                     stash.set('roleid', roleId);
                     authOrganization();
@@ -58,7 +57,6 @@ async function authOrganization() {
                 return res.json()
             })
             .then(data => {
-                console.log(data);
                 var selectOrg = document.getElementById("selectOrg");
                 var orgs = data.organizations;
                 for (var i = 0; i < orgs.length; i++) {
@@ -68,7 +66,7 @@ async function authOrganization() {
                     selectOrg.appendChild(opt);
                 }
 
-                selectOrg.onchange = function() {
+                selectOrg.onchange = function () {
                     organizationId = this.options[this.selectedIndex].getAttribute("value");
                     stash.set('organizationid', organizationId);
                     authWarehouse();
@@ -97,7 +95,6 @@ async function authWarehouse() {
                 return res.json()
             })
             .then(data => {
-                console.log(data);
                 var selectWarehouse = document.getElementById("selectWarehouse");
                 var wh = data.warehouses;
                 for (var i = 0; i < wh.length; i++) {
@@ -107,7 +104,7 @@ async function authWarehouse() {
                     selectWarehouse.appendChild(opt);
                 }
 
-                selectWarehouse.onchange = function() {
+                selectWarehouse.onchange = function () {
                     warehouseId = this.options[this.selectedIndex].getAttribute("value");
                     stash.set('warehouseid', warehouseId);
                     authLanguage();
@@ -133,7 +130,6 @@ async function authLanguage() {
                 return res.json()
             })
             .then(data => {
-                console.log(data);
 
                 var selectLang = document.getElementById("selectLang");
                 language = data.AD_Language;
@@ -189,9 +185,7 @@ async function authToken(e) {
                 return res.json()
             })
             .then(data => {
-                console.log(data);
                 token = data.token;
-                console.log(token);
                 if (token != undefined) {
 
                     ipcRender_login2.send('save:authtoken', token);
@@ -221,7 +215,6 @@ async function getUserData() {
 
     if (token != undefined) {
         const userName = ipcRender_login2.sendSync('send:user', 'ping');
-        console.log(userName);
 
         await fetch(`http://` + ip + `/api/v1/models/ad_user?$filter= AD_Client_ID eq ` + clientId + ` and Name eq  '` +
                 userName + `'`, {
@@ -235,7 +228,6 @@ async function getUserData() {
                 return res.json()
             })
             .then(data => {
-                console.log(data);
                 a = data['records'];
                 a.forEach((record) => {
                     ipcRender_login2.sendSync('save:permission', record.lit_mobilerole);

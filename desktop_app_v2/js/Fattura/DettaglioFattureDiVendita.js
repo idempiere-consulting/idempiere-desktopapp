@@ -23,7 +23,6 @@ async function LoadInvoiceDetails() {
         })
         .then(data => {
             a = data.records;
-            console.log(a[0].id);
 
             idInvoice = a[0].id;
             var org = '';
@@ -87,7 +86,6 @@ async function LoadInvoiceDetails() {
                 Status = a[0].Status.identifier;
             }
 
-            console.log(Paymentrule);
 
 
 
@@ -124,15 +122,14 @@ function GetInvoiceLine() {
             return res.json();
         })
         .then(data => {
-                var a = data.records;
+            var a = data.records;
 
-                console.log(a);
-                //element.LineTotalAmt+"€" : ''
-                var tbody;
-                var totale = 0;
-                a.forEach(element => {
-                            tbody = document.getElementById("InvoceInlineBody");
-                            var row = `<tr>
+            //element.LineTotalAmt+"€" : ''
+            var tbody;
+            var totale = 0;
+            a.forEach(element => {
+                tbody = document.getElementById("InvoceInlineBody");
+                var row = `<tr>
                                 <td>${element.M_Product_ID != undefined?element.M_Product_ID.identifier:''}</td>
                                 <td>${element.Description != undefined? 
                                         element.PriceEntered != undefined ?
@@ -143,11 +140,11 @@ function GetInvoiceLine() {
                                 <td>${element.C_Tax_ID != undefined ?  element.C_Tax_ID.identifier : ''}</td>
                             </tr>
                 `;
-                if(element.LineTotalAmt != undefined && element.LineTotalAmt !=0)
+                if (element.LineTotalAmt != undefined && element.LineTotalAmt != 0)
                     totale += element.LineTotalAmt;
                 else
-                    totale+=element.LineNetAmt;
-                    
+                    totale += element.LineNetAmt;
+
                 tbody.innerHTML += row;
             });
             var endRow = `<tr>

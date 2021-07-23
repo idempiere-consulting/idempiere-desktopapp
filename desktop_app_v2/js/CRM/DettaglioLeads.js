@@ -4,7 +4,6 @@ const ipcRenderLead = electronLead.ipcRenderer;
 const authTokenLead = ipcRenderLead.sendSync('send:authtoken', 'ping');
 const ipLead = ipcRenderLead.sendSync('send:ip', 'ping');
 const NameLead = ipcRenderLead.sendSync('send:nameLead', 'ping');
-console.log(NameLead);
 LeadsDetails();
 
 function LeadsDetails() {
@@ -20,7 +19,6 @@ function LeadsDetails() {
         })
         .then(data => {
             a = data.records;
-            console.log(a);
 
             document.getElementById('name').value = a[0].Name == undefined ? '' : a[0].Name;
             document.getElementById('description').value = a[0].Description == undefined ? '' : a[0].Description;

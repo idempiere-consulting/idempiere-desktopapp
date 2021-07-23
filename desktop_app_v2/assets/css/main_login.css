@@ -122,6 +122,8 @@ input:-moz-placeholder {
     color: #adadad;
 }
 
+
+
 input::-moz-placeholder {
     color: #adadad;
 }
@@ -264,6 +266,7 @@ iframe {
 }
 
 
+
 /*---------------------------------------------*/
 
 .focus-input100 {
@@ -287,7 +290,7 @@ iframe {
     -webkit-transition: all 0.4s;
     -o-transition: all 0.4s;
     -moz-transition: all 0.4s;
-    transition: all 0.4s;
+    transition: all 0.1s;
     background: #212529;
 }
 
@@ -306,7 +309,7 @@ iframe {
     -webkit-transition: all 0.4s;
     -o-transition: all 0.4s;
     -moz-transition: all 0.4s;
-    transition: all 0.4s;
+    transition: all 0.3s;
 }
 
 .input100:focus+.focus-input100::after {
@@ -382,7 +385,7 @@ iframe {
 }
 
 .login100-form-btn:active {
-    transform: translatey(5px)
+    transform: translatey(7px)
 }
 
 

@@ -30,7 +30,6 @@ function getFattureAcquisto() {
         })
         .then(data => {
 
-            console.log(data);
             a = data['records'];
 
             var table;
@@ -50,15 +49,13 @@ function getFattureAcquisto() {
                                         
             					  </tr>`;
                 //Append to table
-                console.log(table);
                 table.innerHTML += row;
                 var table = document.getElementById('myTable1');
             });
 
             var btns = document.querySelectorAll('.iconlink');
             Array.prototype.forEach.call(btns, function addClickListener(btn) {
-                btn.addEventListener('click', function(event) {
-                    console.log(event);
+                btn.addEventListener('click', function (event) {
                     var doc = event.path[3].cells[0].innerHTML;
 
                     ipcRenderer.send('save:docN', doc);
