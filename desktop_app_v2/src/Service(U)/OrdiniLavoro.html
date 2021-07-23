@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Ordini di lavoro</title>
     <link rel="stylesheet" href="../../assets/css/style.css">
     <link rel="stylesheet" href="../../assets/css/normalize.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
@@ -46,8 +46,7 @@
 
                     <div style="width: 100%; height: 100%;" class="dropdown">
                         <div class="div-logout">
-                            <span id="span_usernmane_jslogic" class="mr-2 d-lg-inline text-gray-600 small"
-                                style=" font-weight: 700; margin-right: 10px;"></span>
+                            <span id="span_usernmane_jslogic" class="mr-2 d-lg-inline text-gray-600 small" style=" font-weight: 700; margin-right: 10px;"></span>
                             <div class="container-img ">
                                 <img class="img-profile rounded-circle" src="../../assets/images/undraw_profile.svg">
                             </div>
@@ -70,21 +69,11 @@
         <table id="myTable" class="table-sortable">
             <thead>
                 <tr>
-                    <th><input class="filterLeads filter_input" type="text" id="myInput"
-                            onkeyup="filterFromInputToTable('myInput','myTable',0)" placeholder="Filtra per Nome"
-                            title="Scrivi un Documento"></th>
-                    <th><input class="filterLeads filter_input" type="text" id="myInputUser"
-                            onkeyup="filterFromInputToTable('myInputUser','myTable',1)" placeholder="Filtra per Tel"
-                            title="Scrivi un User"></th>
-                    <th><input class="filterLeads filter_input" type="text" id="myInputDescription"
-                            onkeyup="filterFromInputToTable('myInputDescription','myTable',2)"
-                            placeholder="Filtra per Descrizione" title="Scrivi una Descrizione"></th>
-                    <th><input class="filterLeads filter_input" type="text" id="myInputRisorsa"
-                            onkeyup="filterFromInputToTable('myInputRisorsa','myTable',3)"
-                            placeholder="Filtra per Risorsa" title="Scrivi una Risorsa"></th>
-                    <th><input class="filterLeads filter_input" type="text" id="myInputDate"
-                            onkeyup="filterFromInputToTable('myInputDate','myTable',4)" placeholder="Filtra per Data."
-                            title="Scrivi una Data"></th>
+                    <th><input class="filterLeads filter_input" type="text" id="myInput" onkeyup="filterFromInputToTable('myInput','myTable',0)" placeholder="Filtra per Nome" title="Scrivi un Documento"></th>
+                    <th><input class="filterLeads filter_input" type="text" id="myInputUser" onkeyup="filterFromInputToTable('myInputUser','myTable',1)" placeholder="Filtra per Tel" title="Scrivi un User"></th>
+                    <th><input class="filterLeads filter_input" type="text" id="myInputDescription" onkeyup="filterFromInputToTable('myInputDescription','myTable',2)" placeholder="Filtra per Descrizione" title="Scrivi una Descrizione"></th>
+                    <th><input class="filterLeads filter_input" type="text" id="myInputRisorsa" onkeyup="filterFromInputToTable('myInputRisorsa','myTable',3)" placeholder="Filtra per Risorsa" title="Scrivi una Risorsa"></th>
+                    <th><input class="filterLeads filter_input" type="text" id="myInputDate" onkeyup="filterFromInputToTable('myInputDate','myTable',4)" placeholder="Filtra per Data." title="Scrivi una Data"></th>
                     <th><a id="addlead" href="#"><i class="fas fa-2x fa-plus"></i></a></th>
                 </tr>
                 <tr>

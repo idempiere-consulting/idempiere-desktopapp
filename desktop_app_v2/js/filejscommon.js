@@ -355,26 +355,19 @@ function CreateMenu() {
         liMenu.classList.add("macrocategory-permission-menu");
 
 
-        //creo elemento "i", assegno la classe e aggiungo del margine a destra" 
+        //creo elemento "i", assegno la classe e lo appendo all'elemento padre "span" 
         var iconMenu = document.createElement("i");
         iconMenu.classList.add(...element.icon);
         iconMenu.style.marginRight = "5px";
 
         //se la lunghezza del sottomenu non è zero allora esegui quello all'interno
         if (element.sottoMenu.length != 0) {
-            //creo l'elemento "span" gli assegno una classe e lo appendo all'elemento padre "li" e allo span appendo la "i"
+            //creo l'elemento "span" gli assegno una classe e lo appendo all'elemento padre "li"
             var spanMenu = document.createElement("span");
             spanMenu.classList.add("opener");
             liMenu.appendChild(spanMenu);
             spanMenu.appendChild(iconMenu);
 
-            /*se index.html
-                CRM/LEAds.html
-             else
-                ../CRM/Opportunità.html
-            */
-
-            //allo span aggiungo il nome del menu
             spanMenu.innerHTML += element.menu;
 
 
