@@ -26,7 +26,9 @@ let permission_settings = [];
 let nameLead;
 let ticketId;
 let chartRolePermission;
-let invoiceId
+let invoiceId;
+let profileDefaultImagePath = "../assets/images/undraw_profile.svg";
+let profileImageBase64 = undefined;
 
 
 //var internetConn = navigator.onLine();
@@ -433,12 +435,10 @@ ipcMain.on('save:chartRole', function(event, mobileRole) {
 ipcMain.on('save:invoiceId', function(event, invoiceid) {
     invoiceId = invoiceid;
 });
-
-
-
-
-
-
+ipcMain.on('save:imageBase64', function(event, image) {
+    profileImageBase64 = image;
+    event.returnValue = "return";
+});
 
 
 
@@ -525,6 +525,14 @@ ipcMain.on('send:chartRole', function(event, arg) {
 ipcMain.on('send:DocInvoice', function(event, arg) {
     event.returnValue = invoiceId;
 });
+
+ipcMain.on('send:imageBase64', function(event, arg) {
+    if (profileImageBase64 != undefined)
+        event.returnValue = "data:image/png;base64," + profileImageBase64;
+    else
+        event.returnValue = profileDefaultImagePath;
+});
+
 
 
 

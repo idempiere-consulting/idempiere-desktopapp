@@ -109,9 +109,4 @@ function authLogin(e) {
             alert("Username o password o ip sbagliati!");
 
         })
-
-
-
-
-
 }

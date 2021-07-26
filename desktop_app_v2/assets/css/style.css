@@ -251,7 +251,7 @@ header {
 }
 
 .header-item {
-    min-width: 10%;
+    min-width: 20%;
     /* height: 100%; */
 }
 
@@ -311,12 +311,15 @@ header {
 .container-img {
     margin-left: 5px;
     height: 90px;
+    position: relative;
     width: 90px;
 }
 
 .container-img img {
     height: 100%;
     width: 90%;
+    position: absolute;
+    border-radius: 100%;
     top: 0px;
     right: 0px;
     left: 0px;
@@ -378,8 +381,6 @@ thead {
 #myTable1 {
     margin-bottom: 40px;
 }
-
-
 
 
 /*ICONE*/
@@ -604,7 +605,6 @@ thead {
     .overlay a {
         font-size: 20px
     }
-
     .overlay .closebtn {
         font-size: 40px;
         top: 15px;
@@ -632,7 +632,6 @@ thead {
         flex-flow: column;
         margin-bottom: 100px;
     }
-
     .item-first {
         display: flex;
         flex: 1;
@@ -640,7 +639,6 @@ thead {
         width: 100%;
         margin-top: 10px;
     }
-
     #item-box-left-title {
         color: purple;
         font-size: 15px;
@@ -651,48 +649,38 @@ thead {
     .overlay a {
         font-size: 20px
     }
-
     .overlay .closebtn {
         font-size: 40px;
         top: 15px;
         right: 35px;
     }
-
     header {
         height: 250px;
     }
-
     .header-content {
         height: 250px;
     }
-
     .header-content-box {
         flex-direction: column;
         align-items: flex-start;
     }
-
     .content {
         padding-top: 100px;
     }
-
     .div-right .div-logout {
         flex-direction: row-reverse;
     }
-
     .div-right .div-logout .container-img {
         /* flex: 1; */
         text-align: center;
         margin-left: 0px;
     }
-
     .div-right .div-logout .nameUser {
         width: 0%;
     }
-
     #span_usernmane_jslogic {
         display: none;
     }
-
     .refresh {
         top: 250px;
         left: -13px;

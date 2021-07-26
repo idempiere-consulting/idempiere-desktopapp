@@ -1,6 +1,15 @@
 const electron_2 = window.require("electron");
 const ipcRender_2 = electron_2.ipcRenderer;
 document.getElementById("span_usernmane_jslogic").innerHTML = ipcRender_2.sendSync('send:user');
+var base64Image = ipcRender_2.sendSync('send:imageBase64');
+console.log(base64Image);
+var img = document.getElementsByClassName("img-profile");
+img[0].src = base64Image;
+
+
+
+
+
 
 //json che contine tutti i dati delle pagine
 var JsonMenu = {
