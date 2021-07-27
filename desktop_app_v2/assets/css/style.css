@@ -231,7 +231,7 @@ header {
 }
 
 .button_Nav {
-    font-size: 50px;
+    font-size: 40px;
     cursor: pointer;
 }
 
@@ -251,7 +251,7 @@ header {
 }
 
 .header-item {
-    min-width: 20%;
+    min-width: 25%;
     /* height: 100%; */
 }
 
@@ -274,9 +274,9 @@ header {
 }
 
 #Demo {
-    top: 70px;
+    top: 80px;
     right: 0px;
-    left: 0px;
+    left: 100%-150px;
 }
 
 .dropdown {
@@ -310,14 +310,14 @@ header {
 
 .container-img {
     margin-left: 5px;
-    height: 90px;
+    height: 80px;
     position: relative;
-    width: 90px;
+    width: 80px;
 }
 
 .container-img img {
     height: 100%;
-    width: 90%;
+    width: 100%;
     position: absolute;
     border-radius: 100%;
     top: 0px;
@@ -664,6 +664,10 @@ thead {
         flex-direction: column;
         align-items: flex-start;
     }
+    .header-item {
+        width: 100%;
+        text-align: left;
+    }
     .content {
         padding-top: 100px;
     }
@@ -671,7 +675,6 @@ thead {
         flex-direction: row-reverse;
     }
     .div-right .div-logout .container-img {
-        /* flex: 1; */
         text-align: center;
         margin-left: 0px;
     }
@@ -684,5 +687,9 @@ thead {
     .refresh {
         top: 250px;
         left: -13px;
+    }
+    #Demo {
+        top: 90px;
+        left: 0px;
     }
 }
