@@ -1,10 +1,15 @@
 const electron_2 = window.require("electron");
 const ipcRender_2 = electron_2.ipcRenderer;
+var path = require('path');
+var filename = path.basename(__filename);
+var base64Image;
+
 document.getElementById("span_usernmane_jslogic").innerHTML = ipcRender_2.sendSync('send:user');
+if (filename == "index.html")
+    base64Image = ipcRender_2.sendSync('send:imageBase64');
+else
+    base64Image = ipcRender_2.sendSync('send:imageBase64', '../');
 
-
-var base64Image = ipcRender_2.sendSync('send:imageBase64');
-console.log(base64Image);
 var img = document.getElementsByClassName("img-profile");
 img[0].src = base64Image;
 
@@ -351,9 +356,6 @@ function OrderTable(nameTbodyTable, nCell) {
 
 
 function CreateMenu() {
-
-    var path = require('path');
-    filename = path.basename(__filename);
     //prendo tutti gli oggetti contenuti in Menu e li metto in una variabile   
     var arrayMenu = JsonMenu.Menu;
     //prendo l'elemento nella pagina html con il tag "ul"

@@ -340,6 +340,75 @@ function infoCostumerInvoice() {
 }
 
 
+function DetailtsTicketIWindow() {
+    secondaryWindow = new BrowserWindow({
+        parent: mainWindow,
+        modal: true,
+        show: false,
+        width: 1000,
+        height: 700,
+        icon: path.join(__dirname, 'assets/images/logo.png'),
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false,
+            enableRemoteModule: true,
+            backgroundColor: '#2e2c29',
+        }
+    });
+    secondaryWindow.once('ready-to-show', () => {
+        secondaryWindow.show()
+    })
+    secondaryWindow.loadURL(url.format({
+        pathname: path.join(__dirname, 'src/Ticket(I)/Dett.Ticket.html'),
+        protocol: 'file:',
+        slashes: true
+    }));
+    secondaryWindow.on('close', function() {
+        secondaryWindow = null;
+
+    });
+}
+
+
+
+
+
+
+function createLead() {
+    secondaryWindow = new BrowserWindow({
+        parent: mainWindow,
+        modal: true,
+        show: false,
+        width: 1000,
+        height: 400,
+        icon: path.join(__dirname, 'assets/images/logo.png'),
+        webPreferences: {
+            nodeIntegration: true,
+            enableRemoteModule: true,
+            contextIsolation: false,
+            backgroundColor: '#2e2c29',
+        }
+    });
+
+    secondaryWindow.once('ready-to-show', () => {
+        secondaryWindow.show()
+    })
+
+
+    secondaryWindow.loadURL(url.format({
+        pathname: path.join(__dirname, 'src/CRM/CreaLead.html'),
+        protocol: 'file:',
+        slashes: true
+    }));
+
+    secondaryWindow.on('close', function() {
+        secondaryWindow = null;
+        mainWindow.reload();
+    });
+
+}
+
+
 
 
 
@@ -529,8 +598,12 @@ ipcMain.on('send:DocInvoice', function(event, arg) {
 ipcMain.on('send:imageBase64', function(event, arg) {
     if (profileImageBase64 != undefined)
         event.returnValue = "data:image/png;base64," + profileImageBase64;
-    else
-        event.returnValue = profileDefaultImagePath;
+    else {
+        if (arg != undefined)
+            event.returnValue = arg + profileDefaultImagePath;
+        else
+            event.returnValue = profileDefaultImagePath;
+    }
 });
 
 
@@ -640,7 +713,15 @@ ipcMain.on('pageDetailsInvoice:invoice_details_window', function(e, arg) {
 
 ipcMain.on('pageCustomerInvoice:details', function(e, arg) {
     infoCostumerInvoice();
-})
+});
+
+ipcMain.on('pageLeadWindow:create', function(e, arg) {
+    createLead();
+});
+
+ipcMain.on('pageTicketI:TicketI_details_window', function(e, arg) {
+    DetailtsTicketIWindow();
+});
 
 
 

@@ -38,11 +38,11 @@ function getTickets() {
                     <td>${record.Summary}</td>
                     <td>${record.Created.slice(0,10)}</td>
                     <td><a href="#" class="iconLinkWebUrl"><i class="fas fa-external-link-alt"></i></td>
-                    <td style="display:none" >${record.DocumentNo}</td>
+                    <td style="display:none" >${record.id}</td>
                 </tr>`;
-                if (userBPartner.identifier == bp['identifier']) {
+                if (record.R_Status_ID.identifier == "10_Da Approvare" || record.R_Status_ID.identifier == "50_In Corso" || record.R_Status_ID.identifier == "0_Creato/Da Assegnare")
                     table.innerHTML += row;
-                }
+
             });
             //
             var btns = document.querySelectorAll('.iconLinkWebUrl');
@@ -50,7 +50,7 @@ function getTickets() {
                 btn.addEventListener('click', function(event) {
                     var ticketId = event.path[3].cells[7].innerHTML;
                     ipcRenderer.send('save:ticketid', ticketId);
-                    ipcRenderer.send('pageTicketP:TicketP_details_window');
+                    ipcRenderer.send('pageTicketI:TicketI_details_window');
                 });
             });
 

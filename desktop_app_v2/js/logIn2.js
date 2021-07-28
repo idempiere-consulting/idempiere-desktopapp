@@ -226,7 +226,7 @@ async function getImage(imageId) {
             return res.json();
         })
         .then(data => {
-            console.log(data);
+            console.log('test');
             ipcRender_login2.sendSync('save:imageBase64', data.BinaryData);
             const page = 2;
             ipcRender_login2.send('page:change', page);
@@ -258,8 +258,12 @@ async function getUserData() {
                     ipcRender_login2.send('save:bpartner', record.C_BPartner_ID);
                     ipcRender_login2.send('save:userId', record.id);
                     ipcRender_login2.sendSync('save:chartRole', record.LIT_MobileChartRole);
-                    if (record.AD_Image_ID != null) {
+                    if (record.AD_Image_ID != undefined) {
                         getImage(record.AD_Image_ID.id);
+                    } else {
+                        const page = 2;
+                        ipcRender_login2.send('page:change', page);
+                        ipcRender_login2.sendSync('save:imageBase64', undefined);
                     }
 
 

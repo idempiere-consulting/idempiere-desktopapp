@@ -21,6 +21,7 @@ function getTicket() {
 
 
             a = data.records;
+            console.log(a);
             var numDoc = '';
             var businessPartner = '';
             var priority = '';
@@ -30,6 +31,7 @@ function getTicket() {
             var description = '';
             var help = '';
             var summary = '';
+            var status = '';
 
             if (a[0].DocumentNo == undefined) {
                 numDoc = '';
@@ -74,15 +76,23 @@ function getTicket() {
             }
 
             if (a[0].Help == undefined) {
-                var help = '';
+                help = '';
             } else {
                 help = a[0].Help
             }
 
             if (a[0].Summary == undefined) {
-                var summary = '';
+                summary = '';
             } else {
                 summary = a[0].Summary
+            }
+
+            if (a[0].R_Status_ID == undefined) {
+                status = '';
+            } else {
+                var temp = a[0].R_Status_ID.identifier;
+                var endIndex = temp.indexOf("_");
+                status = temp.replace(temp.substring(0, endIndex + 1), "");
             }
 
 
@@ -95,6 +105,7 @@ function getTicket() {
             document.getElementById('description').value = description;
             document.getElementById('help').value = help;
             document.getElementById('summary').value = summary;
+            document.getElementById('statusRequest').value = status;
 
 
 
