@@ -263,7 +263,7 @@ function sendDataTicket(e) {
                     } else {
                         alert("Richiesta inviata");
                         var window = remoteWindows.getCurrentWindow();
-                        //window.close();
+                        window.close();
                     }
                 })
                 .catch(error => console.log(error))
@@ -329,7 +329,7 @@ function sendDataTicket(e) {
                     } else {
                         alert("Richiesta inviata");
                         var window = remoteWindows.getCurrentWindow();
-                        //window.close();
+                        window.close();
                     }
                 })
                 .catch(error => console.log(error))
@@ -397,7 +397,7 @@ function sendDataTicket(e) {
                     } else {
                         alert("Richiesta inviata");
                         var window = remoteWindows.getCurrentWindow();
-                        //window.close();
+                        window.close();
                     }
                 })
                 .catch(error => console.log(error))
@@ -446,7 +446,7 @@ function sendDataTicket(e) {
                         } else {
                             alert("Richiesta inviata");
                             var window = remoteWindows.getCurrentWindow();
-                            //window.close();
+                            window.close();
                         }
                     })
                     .catch(error => console.log(error))

@@ -31,6 +31,7 @@ function getTickets() {
                 var prio = record.Priority;
                 var row = `
                 <tr class="dataRow"> 
+                    <td>${record.DocumentNo}</td>
                     <td>${bp['identifier']}</td>
                     <td>${user['identifier']}</td>
                     <td>${req['identifier']}</td>
@@ -48,14 +49,14 @@ function getTickets() {
             var btns = document.querySelectorAll('.iconLinkWebUrl');
             Array.prototype.forEach.call(btns, function addClickListener(btn) {
                 btn.addEventListener('click', function(event) {
-                    var ticketId = event.path[3].cells[7].innerHTML;
+                    var ticketId = event.path[3].cells[8].innerHTML;
                     ipcRenderer.send('save:ticketid', ticketId);
                     ipcRenderer.send('pageTicketI:TicketI_details_window');
                 });
             });
 
 
-            OrderTable("ticketBody", 7);
+            OrderTable("ticketBody", 8);
             backgroundRowTable('ticketBody');
 
         })

@@ -37,7 +37,7 @@ function getTickets() {
             return res.json()
         })
         .then(data => {
-            //console.log(data);
+            console.log(data);
             //var pData = JSON.parse(data)
             a = data['window-records'];
             a.forEach((record) => {
@@ -50,7 +50,7 @@ function getTickets() {
                 var status = record.R_Status_ID.identifier.replace(record.R_Status_ID.identifier.substring(0, endIndex + 1), "");
                 var row = `
                 <tr class="dataRow"> 
-                    <td>${bp['identifier']}</td>
+                    <td>${record.DocumentNo}</td>
                     <td>${user['identifier']}</td>
                     <td>${req['identifier']}</td>
                     <td>${prio['identifier']}</td>
@@ -59,7 +59,7 @@ function getTickets() {
                     <td>${status}</td>
                     <td>${record.SalesRep_ID.identifier}</td>
                     <td><a href="#" class="iconLinkWebUrl"><i class="fas fa-external-link-alt"></i></td>
-                    <td style="display:none" >${record.DocumentNo}</td>
+                    <td style="display:none" >${record.id}</td>
                 </tr>`;
                 if (userBPartner.identifier == bp['identifier']) {
                     table.innerHTML += row;
@@ -76,7 +76,7 @@ function getTickets() {
             });
 
 
-            OrderTable("ticketBody", 7);
+            OrderTable("ticketBody", 9);
             backgroundRowTable('ticketBody');
 
         })

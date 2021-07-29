@@ -8,7 +8,7 @@ getTicket();
 
 function getTicket() {
 
-    fetch(`http://` + ip + `/api/v1/models/r_request?$filter=DocumentNo eq '` + ticketid + `'`, {
+    fetch(`http://` + ip + `/api/v1/models/r_request?$filter=R_Request_ID eq ` + ticketid + ``, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -32,6 +32,7 @@ function getTicket() {
             var help = '';
             var summary = '';
             var status = '';
+            var salesrep = '';
 
             if (a[0].DocumentNo == undefined) {
                 numDoc = '';
@@ -94,6 +95,11 @@ function getTicket() {
                 var endIndex = temp.indexOf("_");
                 status = temp.replace(temp.substring(0, endIndex + 1), "");
             }
+            if (a[0].SalesRep_ID == undefined) {
+                salesrep = '';
+            } else {
+                salesrep = a[0].SalesRep_ID.identifier
+            }
 
 
             document.getElementById('ndoc').value = numDoc;
@@ -106,9 +112,54 @@ function getTicket() {
             document.getElementById('help').value = help;
             document.getElementById('summary').value = summary;
             document.getElementById('statusRequest').value = status;
-
+            document.getElementById('SalesRep').value = salesrep;
+            getLog();
 
 
         })
         .catch(error => console.log(error))
+}
+
+async function getLog() {
+    await fetch('http://' + ip + '/api/v1/models/R_RequestUpdate?$filter=R_Request_ID eq ' + ticketid, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + authToken
+            }
+        }).then(res => {
+            return res.json()
+        })
+        .then(data => {
+            console.log(data);
+            lenght_json = data["row-count"];
+            var a = data.records;
+
+            var containLog = document.getElementById("content-log-myDropdown");
+
+            for (let index = lenght_json - 1; index >= 0; index--) {
+                var container = document.createElement("div");
+                container.classList.add("container");
+                var p = document.createElement("p");
+                p.innerHTML = a[index].CreatedBy.identifier;
+                container.appendChild(p);
+                p = document.createElement("p");
+                p.innerHTML = a[index].Result;
+                container.appendChild(p);
+                p = document.createElement("p");
+                p.classList.add("time-right");
+                if (a[index].Updated != undefined)
+                    p.innerHTML = a[index].Updated.replace("Z", "").replace("T", " ");
+
+                container.appendChild(p);
+                containLog.appendChild(container);
+                if (index == 0) {
+                    var container = document.getElementById("container-lastLog");
+                    console.log(container);
+                    container.innerHTML = a[index].CreatedBy.identifier;
+                    container.innerHTML += '<br><br>';
+                    container.innerHTML += a[index].Result;
+                }
+            }
+        }).catch(error => console.log(error))
 }

@@ -110,6 +110,48 @@
             border: 1px solid lightgrey;
         }
         
+        #container-lastLog {
+            background-color: white;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            color: black;
+            padding: 16px;
+            font-size: 16px;
+            width: 100%;
+            border: 1px solid black;
+            cursor: pointer;
+        }
+        
+        .container-log-dropdown {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+        
+        .content-log-dropdown-content {
+            height: 500px;
+            width: 100%;
+            border: 2px solid black;
+            border-radius: 10px;
+            display: none;
+            position: absolute;
+            bottom: 0px;
+            left: 0px;
+            background-color: white;
+            min-width: 160px;
+            overflow: auto;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+        
+        .show {
+            display: block;
+        }
+        
+        .time-right {
+            text-align: right;
+            color: #aaa;
+        }
+        
         span.price {
             float: right;
             color: grey;
@@ -175,6 +217,19 @@
 
                             <label for="statusRequest"><i class="fas fa-calendar-alt"></i>Stato Richiesta</label>
                             <input type="text" id="statusRequest" name="statusRequest" placeholder="" readonly="true">
+
+                            <label for="SalesRep"><i class="fas fa-calendar-alt"></i>Risorsa</label>
+                            <input type="text" id="SalesRep" name="SalesRep" placeholder="" readonly="true">
+
+                            <label for="SalesRep"><i class="fas fa-calendar-alt"></i>Log</label>
+                            <div class="container-log-dropdown">
+                                <div onclick="Clicklog()" class="container" id="container-lastLog">
+
+                                </div>
+                                <div id="content-log-myDropdown" class="content-log-dropdown-content">
+
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -187,5 +242,26 @@
 
 </body>
 <script src="../../js/Ticket(P)/DetailsTicketWindow.js"></script>
+
+<script>
+    function Clicklog() {
+        event.preventDefault();
+        document.getElementById("content-log-myDropdown").classList.toggle("show");
+    }
+
+
+    window.onclick = function(event) {
+        if (!event.target.matches('#container-lastLog')) {
+            var dropdowns = document.getElementsByClassName("content-log-dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
+</script>
 
 </html>

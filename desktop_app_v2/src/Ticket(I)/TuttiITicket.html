@@ -72,7 +72,7 @@
         <table id="myTable" class="table-sortable">
             <thead>
                 <tr>
-                    <th colspan="9">
+                    <th colspan="10">
                         <div class="input-check">
                             <label style="margin-right: 10px;">Priorità:</label>
                             <input class="filter" type="button" id="All" name="Prio" value="All">
@@ -85,12 +85,13 @@
                     </th>
                 </tr>
                 <tr>
-                    <th><input type="text" class="filter_input" id="myInput" onkeyup="filterFromInputToTable('myInput','myTable',0)" placeholder="Filtra per BPartner" title="Scrivi un nome"></th>
-                    <th><input type="text" class="filter_input" id="myInputUser" onkeyup="filterFromInputToTable('myInputUser','myTable',1)" placeholder="Filtra per Utente" title="Scrivi un nome"></th>
-                    <th><input type="text" class="filter_input" id="myInputReq" onkeyup="filterFromInputToTable('myInputReq','myTable',2)" placeholder="Filtra per Richiesta" title="Scrivi"></th>
-                    <th><input type="text" class="filter_input" id="myInputPriority" onkeyup="filterFromInputToTable('myInputPriority','myTable',3)" placeholder="Filtra per Priorità" title="Scrivi"></th>
-                    <th><input type="text" class="filter_input" id="myInputRiepilogo" onkeyup="filterFromInputToTable('myInputRiepilogo','myTable',4)" placeholder="Filtra per Riepilogo" title="Scrivi"></th>
-                    <th><input type="text" class="filter_input" id="myInputDate" onkeyup="filterFromInputToTable('myInputDate','myTable',5)" placeholder="Filtra per Data" title="Scrivi una data"></th>
+                    <th><input type="text" class="filter_input" id="myInputDoc" onkeyup="filterFromInputToTable('myInputDoc','myTable',0)" placeholder="Filtra per Documento" title="Scrivi un nome"></th>
+                    <th><input type="text" class="filter_input" id="myInput" onkeyup="filterFromInputToTable('myInput','myTable',1)" placeholder="Filtra per BPartner" title="Scrivi un nome"></th>
+                    <th><input type="text" class="filter_input" id="myInputUser" onkeyup="filterFromInputToTable('myInputUser','myTable',2)" placeholder="Filtra per Utente" title="Scrivi un nome"></th>
+                    <th><input type="text" class="filter_input" id="myInputReq" onkeyup="filterFromInputToTable('myInputReq','myTable',3)" placeholder="Filtra per Richiesta" title="Scrivi"></th>
+                    <th><input type="text" class="filter_input" id="myInputPriority" onkeyup="filterFromInputToTable('myInputPriority','myTable',4)" placeholder="Filtra per Priorità" title="Scrivi"></th>
+                    <th><input type="text" class="filter_input" id="myInputRiepilogo" onkeyup="filterFromInputToTable('myInputRiepilogo','myTable',5)" placeholder="Filtra per Riepilogo" title="Scrivi"></th>
+                    <th><input type="text" class="filter_input" id="myInputDate" onkeyup="filterFromInputToTable('myInputDate','myTable',6)" placeholder="Filtra per Data" title="Scrivi una data"></th>
                     <th><select id="myInputStatus" class="SelectFilterTable">
                         <option value="" disabled selected>Filtra per Status</option>
                         <option value="">Tutti</option>
@@ -99,9 +100,10 @@
                         <option value="" disabled selected>Filtra per Risorsa</option>
                         <option value="">Tutti</option>
                     </select></th>
-                    <th><a title="add TicketP" id="addTicketP" href="#"><i class="fas fa-2x fa-plus"></i></a></th>
+                    <th></th>
                 </tr>
                 <tr>
+                    <th>N° Documento</th>
                     <th>BPartner</th>
                     <th>Nome Account</th>
                     <th>Tipo Richiesta</th>

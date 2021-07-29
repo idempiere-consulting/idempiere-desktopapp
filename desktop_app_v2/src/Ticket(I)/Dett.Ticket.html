@@ -119,19 +119,15 @@
             background-color: white;
         }
         
-        #input_log {
-            background-color: #3498DB;
-            color: white;
+        #container-lastLog {
+            background-color: white;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            color: black;
             padding: 16px;
             font-size: 16px;
             width: 100%;
-            border: none;
+            border: 1px solid black;
             cursor: pointer;
-        }
-        
-        #input_log :hover,
-        #input_log:focus {
-            background-color: #2980B9;
         }
         
         .container-log-dropdown {
@@ -147,7 +143,7 @@
             border-radius: 10px;
             display: none;
             position: absolute;
-            bottom: 50px;
+            bottom: 0px;
             left: 0px;
             background-color: white;
             min-width: 160px;
@@ -161,31 +157,8 @@
         }
         
         .time-right {
-            float: right;
-            color: #aaa;
-        }
-        
-        .time-left {
-            float: left;
-            color: #999;
-        }
-        
-        .chat-left {
-            width: 100%;
-            text-align: left;
-            height: 60px;
-        }
-        
-        .chat-right {
-            width: 100%;
             text-align: right;
-            height: 60px;
-        }
-        
-        .chat-cointainer {
-            width: 30%;
-            background-color: green;
-            height: 100%;
+            color: #aaa;
         }
         
         span.price {
@@ -256,13 +229,15 @@
                             <input type="text" id="summary" name="summary" placeholder="" readonly="true">
 
                             <label for="statusRequest"><i class="fas fa-calendar-alt"></i>Stato Richiesta</label>
-                            <!-- <input type="text" id="statusRequest" name="statusRequest" placeholder="" readonly="true"> -->
                             <select id="statusRequest" name="statusRequest"></select>
                             <label for="SalesRep"><i class="fas fa-calendar-alt"></i>Risorsa</label>
-                            <!-- <input type="text" id="statusRequest" name="statusRequest" placeholder="" readonly="true"> -->
                             <select id="SalesRep" name="SalesRep"></select>
+
+                            <label for="SalesRep"><i class="fas fa-calendar-alt"></i>Log</label>
                             <div class="container-log-dropdown">
-                                <button onclick="Clicklog()" id="input_log">Log</button>
+                                <div onclick="Clicklog()" class="container" id="container-lastLog">
+
+                                </div>
                                 <div id="content-log-myDropdown" class="content-log-dropdown-content">
 
                                 </div>
@@ -283,6 +258,20 @@
     function Clicklog() {
         event.preventDefault();
         document.getElementById("content-log-myDropdown").classList.toggle("show");
+    }
+
+
+    window.onclick = function(event) {
+        if (!event.target.matches('#container-lastLog')) {
+            var dropdowns = document.getElementsByClassName("content-log-dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
     }
 </script>
 

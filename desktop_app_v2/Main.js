@@ -184,7 +184,7 @@ function createTicketP() {
         modal: true,
         show: false,
         width: 1000,
-        height: 500,
+        height: 600,
         icon: path.join(__dirname, 'assets/images/logo.png'),
         webPreferences: {
             nodeIntegration: true,
@@ -218,7 +218,7 @@ function DetailtsTicketWindow() {
         modal: true,
         show: false,
         width: 1000,
-        height: 580,
+        height: 750,
         icon: path.join(__dirname, 'assets/images/logo.png'),
         webPreferences: {
             nodeIntegration: true,

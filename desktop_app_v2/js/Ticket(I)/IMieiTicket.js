@@ -51,6 +51,7 @@ function getTickets() {
                 var status = record.R_Status_ID.identifier.replace(record.R_Status_ID.identifier.substring(0, endIndex + 1), "");
                 var row = `
                 <tr class="dataRow"> 
+                    <td>${record.DocumentNo}</td>
                     <td>${bp['identifier']}</td>
                     <td>${user['identifier']}</td>
                     <td>${req['identifier']}</td>
@@ -71,14 +72,14 @@ function getTickets() {
             var btns = document.querySelectorAll('.iconLinkWebUrl');
             Array.prototype.forEach.call(btns, function addClickListener(btn) {
                 btn.addEventListener('click', function(event) {
-                    var ticketId = event.path[3].cells[9].innerHTML;
+                    var ticketId = event.path[3].cells[10].innerHTML;
                     ipcRenderer.send('save:ticketid', ticketId);
                     ipcRenderer.send('pageTicketI:TicketI_details_window');
                 });
             });
 
 
-            OrderTable("ticketBody", 7);
+            OrderTable("ticketBody", 10);
             backgroundRowTable('ticketBody');
 
         })

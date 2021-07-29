@@ -267,27 +267,34 @@ async function getLog() {
         })
         .then(data => {
             console.log(data);
+            lenght_json = data["row-count"];
             var a = data.records;
+
             var containLog = document.getElementById("content-log-myDropdown");
-            a.forEach(record => {
+
+            for (let index = lenght_json - 1; index >= 0; index--) {
                 var container = document.createElement("div");
                 container.classList.add("container");
                 var p = document.createElement("p");
-                p.innerHTML = record.CreatedBy.identifier;
+                p.innerHTML = a[index].CreatedBy.identifier;
                 container.appendChild(p);
                 p = document.createElement("p");
-                p.innerHTML = record.Result;
+                p.innerHTML = a[index].Result;
                 container.appendChild(p);
-                var span = document.createElement("span");
-                span.classList.add("time-right");
-                if (record.Updated != undefined)
-                    span.innerHTML = record.Updated.replace("Z", "").replace("T", " ");
+                p = document.createElement("p");
+                p.classList.add("time-right");
+                if (a[index].Updated != undefined)
+                    p.innerHTML = a[index].Updated.replace("Z", "").replace("T", " ");
 
-                container.appendChild(span);
+                container.appendChild(p);
                 containLog.appendChild(container);
-            });
-
-
-        })
-        .catch(error => console.log(error))
+                if (index == 0) {
+                    var container = document.getElementById("container-lastLog");
+                    console.log(container);
+                    container.innerHTML = a[index].CreatedBy.identifier;
+                    container.innerHTML += '<br><br>';
+                    container.innerHTML += a[index].Result;
+                }
+            }
+        }).catch(error => console.log(error))
 }
