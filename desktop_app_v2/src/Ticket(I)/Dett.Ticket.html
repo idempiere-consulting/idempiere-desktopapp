@@ -119,6 +119,75 @@
             background-color: white;
         }
         
+        #input_log {
+            background-color: #3498DB;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            width: 100%;
+            border: none;
+            cursor: pointer;
+        }
+        
+        #input_log :hover,
+        #input_log:focus {
+            background-color: #2980B9;
+        }
+        
+        .container-log-dropdown {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+        
+        .content-log-dropdown-content {
+            height: 500px;
+            width: 100%;
+            border: 2px solid black;
+            border-radius: 10px;
+            display: none;
+            position: absolute;
+            bottom: 50px;
+            left: 0px;
+            background-color: white;
+            min-width: 160px;
+            overflow: auto;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+        
+        .show {
+            display: block;
+        }
+        
+        .time-right {
+            float: right;
+            color: #aaa;
+        }
+        
+        .time-left {
+            float: left;
+            color: #999;
+        }
+        
+        .chat-left {
+            width: 100%;
+            text-align: left;
+            height: 60px;
+        }
+        
+        .chat-right {
+            width: 100%;
+            text-align: right;
+            height: 60px;
+        }
+        
+        .chat-cointainer {
+            width: 30%;
+            background-color: green;
+            height: 100%;
+        }
+        
         span.price {
             float: right;
             color: grey;
@@ -147,6 +216,10 @@
                             <h3>Ticket</h3>
                             <label for="ndoc"><i class="fas fa-file"></i> N° Documento</label>
                             <input type="text" id="ndoc" name="ndoc" placeholder="" readonly="true">
+
+                            <label for="date"><i class="fas fa-file"></i> Data Prossima Azione</label>
+                            <input type="text" id="input_date" name="input_date" placeholder="" readonly="true">
+
                             <h3>Documento</h3>
                             <label for="bp"><i class="fas fa-handshake"></i> Business Partner</label>
                             <input type="text" id="bp" name="bp" placeholder="" readonly="true">
@@ -188,6 +261,12 @@
                             <label for="SalesRep"><i class="fas fa-calendar-alt"></i>Risorsa</label>
                             <!-- <input type="text" id="statusRequest" name="statusRequest" placeholder="" readonly="true"> -->
                             <select id="SalesRep" name="SalesRep"></select>
+                            <div class="container-log-dropdown">
+                                <button onclick="Clicklog()" id="input_log">Log</button>
+                                <div id="content-log-myDropdown" class="content-log-dropdown-content">
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <a href="#" style="text-decoration: none;" id="updateLine" class="btn">Aggiorna ticket</a>
@@ -200,5 +279,11 @@
 
 </body>
 <script src="../../js/Ticket(I)/DettagliTicket.js"></script>
+<script>
+    function Clicklog() {
+        event.preventDefault();
+        document.getElementById("content-log-myDropdown").classList.toggle("show");
+    }
+</script>
 
 </html>

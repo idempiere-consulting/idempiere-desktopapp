@@ -135,7 +135,10 @@ async function authLanguage() {
                 language = data.AD_Language;
                 stash.set('language', language);
 
-
+                console.log(roleId);
+                console.log(organizationId);
+                console.log(warehouseId);
+                console.log(language);
 
 
             })
@@ -144,6 +147,9 @@ async function authLanguage() {
 
 
 }
+
+
+
 
 async function authToken(e) {
     if (e != " ") {
@@ -166,6 +172,9 @@ async function authToken(e) {
             }
         }
     }
+
+
+
 
     if (language != undefined) {
         await fetch('http://' + ip + '/api/v1/auth/tokens', {

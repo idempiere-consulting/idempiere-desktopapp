@@ -37,6 +37,7 @@ function getTicket() {
             var help = '';
             var summary = '';
             var status = '';
+            var dateNextAction = '';
 
             if (a[0].DocumentNo == undefined) {
                 numDoc = '';
@@ -110,6 +111,10 @@ function getTicket() {
                 }
             }
 
+            if (a[0].DateNextAction != undefined) {
+                dateNextAction = a[0].DateNextAction.replace('Z', '').replace('T', ' ');
+            }
+
             document.getElementById('ndoc').value = numDoc;
             document.getElementById('bp').value = businessPartner;
             document.getElementById('priority').value = priority;
@@ -119,6 +124,10 @@ function getTicket() {
             document.getElementById('description').value = description;
             document.getElementById('help').value = help;
             document.getElementById('summary').value = summary;
+            document.getElementById('input_date').value = dateNextAction;
+
+
+            getLog();
 
 
 
@@ -244,4 +253,41 @@ async function UpdateLine() {
         .catch(error => console.log(error))
 
 
+}
+
+async function getLog() {
+    await fetch('http://' + ip + '/api/v1/models/R_RequestUpdate?$filter=R_Request_ID eq ' + ticketid, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + authToken
+            }
+        }).then(res => {
+            return res.json()
+        })
+        .then(data => {
+            console.log(data);
+            var a = data.records;
+            var containLog = document.getElementById("content-log-myDropdown");
+            a.forEach(record => {
+                var container = document.createElement("div");
+                container.classList.add("container");
+                var p = document.createElement("p");
+                p.innerHTML = record.CreatedBy.identifier;
+                container.appendChild(p);
+                p = document.createElement("p");
+                p.innerHTML = record.Result;
+                container.appendChild(p);
+                var span = document.createElement("span");
+                span.classList.add("time-right");
+                if (record.Updated != undefined)
+                    span.innerHTML = record.Updated.replace("Z", "").replace("T", " ");
+
+                container.appendChild(span);
+                containLog.appendChild(container);
+            });
+
+
+        })
+        .catch(error => console.log(error))
 }
