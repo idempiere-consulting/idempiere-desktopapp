@@ -1,7 +1,7 @@
 const electron_creaTicket = window.require("electron");
 const ipcRender_CreaTicket = electron_creaTicket.ipcRenderer;
 const remoteWindows = electron_creaTicket.remote;
-
+var fs = require('fs');
 
 const ip2 = ipcRender_CreaTicket.sendSync('send:ip', 'ping');
 const authToken2 = ipcRender_CreaTicket.sendSync('send:authtoken', 'ping');
@@ -21,6 +21,8 @@ var selectedDate;
 var select_reqType = document.getElementById('requestType');
 var id_statusType;
 var id_salesRep;
+var imgpath = document.getElementById("myFile");
+
 
 
 async function getRequestType() {
@@ -184,6 +186,8 @@ function sendDataTicket(e) {
     const tipoDiRichiesta = select_reqType.value;
     const prio = document.getElementById('priority').value;
     const explain = document.getElementById('explain').value;
+    var imageAsBase64 = fs.readFileSync(document.getElementById("inputImagePath").files[0].path, 'base64');
+    console.log(imageAsBase64);
 
     //Body della richiesta
     let BodyData;

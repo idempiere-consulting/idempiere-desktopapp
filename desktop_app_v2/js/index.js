@@ -7,7 +7,6 @@ const ip = ipcRender_main.sendSync('send:ip', 'ping');
 
 var chartRole = ipcRender_main.sendSync('send:chartRole', 'ping');
 
-
 var Chart = require('chart.js');
 
 var arrayDataChart1 = [];
