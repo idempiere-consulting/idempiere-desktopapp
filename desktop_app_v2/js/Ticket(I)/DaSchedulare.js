@@ -40,7 +40,7 @@ function getTickets() {
                     <td><a href="#" class="iconLinkWebUrl"><i class="fas fa-external-link-alt"></i></td>
                     <td style="display:none" >${record.id}</td>
                 </tr>`;
-                if (record.R_Status_ID.identifier == "10_Da Approvare" || record.R_Status_ID.identifier == "50_In Corso" || record.R_Status_ID.identifier == "0_Creato/Da Assegnare")
+                if ((record.R_Status_ID.identifier == "10_Da Approvare" || record.R_Status_ID.identifier == "50_In Corso" || record.R_Status_ID.identifier == "0_Creato/Da Assegnare") && (record.SalesRep_ID.identifier == "Da Assegnare"))
                     table.innerHTML += row;
 
             });

@@ -13,7 +13,8 @@ else
 var img = document.getElementsByClassName("img-profile");
 img[0].src = base64Image;
 
-
+/* var button_refresh = document.getElementById("button_refresh");
+console.log(button_refresh.href); */
 
 
 
@@ -118,25 +119,26 @@ var JsonMenu = {
             "menu": "Ticket(I)",
             "icon": ["fas", "fa-ticket-alt"],
             "sottoMenu": [{
-                    "nomeSottoMenu": "Helpdesk",
-                    "pathSottoMenu": "Ticket(I)/HelpDesk.html"
+                    "nomeSottoMenu": "Da Assegnare",
+                    "pathSottoMenu": "Ticket(I)/DaAssegnare.html"
                 },
                 {
-                    "nomeSottoMenu": "Dett. Ticket",
-                    "pathSottoMenu": "Ticket(I)/Dett.Ticket.html"
+                    "nomeSottoMenu": "I miei ticket",
+                    "pathSottoMenu": "Ticket(I)/ImieiTicket.html"
                 },
                 {
-                    "nomeSottoMenu": "Task",
-                    "pathSottoMenu": "Ticket(I)/Task.html"
-                },
-                {
-                    "nomeSottoMenu": "Da Schedulare",
-                    "pathSottoMenu": "Ticket(I)/DaSchedulare.html"
-                },
-                {
-                    "nomeSottoMenu": "Ore",
-                    "pathSottoMenu": "Ticket(I)/Ore.html"
+                    "nomeSottoMenu": "Tutti i ticket",
+                    "pathSottoMenu": "Ticket(I)/TuttiITicket.html"
                 }
+
+                /*{
+                                    "nomeSottoMenu": "Task",
+                                    "pathSottoMenu": "Ticket(I)/Task.html"
+                                },
+                                {
+                                    "nomeSottoMenu": "Ore",
+                                    "pathSottoMenu": "Ticket(I)/Ore.html"
+                                } */
 
             ],
             "pathMenu": ""
@@ -308,6 +310,7 @@ function filterFromInputToTable(nameInput, nameTable, indexTd) {
     var input, filter, table, tr, td, i, txtValue;
     //Preso gli input type
     input = document.getElementById(nameInput);
+    console.log(input);
     filter = input.value.toUpperCase();
     //Preo la tabella e le righe
     table = document.getElementById(nameTable);
@@ -329,6 +332,41 @@ function filterFromInputToTable(nameInput, nameTable, indexTd) {
         }
     }
 }
+
+
+/* Function to filter the table */
+function filterFromSelectToTable(itemSelected, nameTable, indexTd) {
+    var filter, table, tr, td, i, txtValue;
+    //Preso gli input type
+    if (itemSelected == "Tutti") {
+        filter = "";
+    } else {
+        filter = itemSelected.toUpperCase();
+    }
+
+    //Preo la tabella e le righe
+    table = document.getElementById(nameTable);
+    tr = table.getElementsByTagName("tr");
+    //Ciclo per prendere ogni riga della tabella 
+    for (i = 0; i < tr.length; i++) {
+        //Predere la cella in posizione indexTd in modo da ottere la cella prestabilità
+        td = tr[i].getElementsByTagName("td")[indexTd];
+        if (td) {
+            //Prendere il valore del td
+            txtValue = td.textContent || td.innerText;
+            //Se la stringa nel filtro è prensete nel td ritornerà la posizione si partenza di quest'ultima
+            //Altrimenti se ritorna -1 significa che non è presente e nasconderà quella determinata cella 
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+}
+
+
+
 
 function OrderTable(nameTbodyTable, nCell) {
     var switching = true;

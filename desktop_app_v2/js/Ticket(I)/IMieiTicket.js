@@ -6,6 +6,7 @@ const {
 const authToken = ipcRenderer.sendSync('send:authtoken', 'ping');
 const userBPartner = ipcRenderer.sendSync('send:bp', 'ping');
 const ip = ipcRenderer.sendSync('send:ip', 'ping');
+const userName = ipcRenderer.sendSync('send:user', 'ping');
 
 
 //Evento per aprie finestra di inserimento
@@ -59,11 +60,12 @@ function getTickets() {
                     <td>${status}</td>
                     <td>${record.SalesRep_ID.identifier}</td>
                     <td><a href="#" class="iconLinkWebUrl"><i class="fas fa-external-link-alt"></i></td>
-                    <td style="display:none" >${record.DocumentNo}</td>
+                    <td style="display:none" >${record.id}</td>
                 </tr>`;
-                if (userBPartner.identifier == bp['identifier']) {
+                if (record.SalesRep_ID.identifier == userName) {
                     table.innerHTML += row;
                 }
+
             });
             //
             var btns = document.querySelectorAll('.iconLinkWebUrl');
@@ -71,7 +73,7 @@ function getTickets() {
                 btn.addEventListener('click', function(event) {
                     var ticketId = event.path[3].cells[9].innerHTML;
                     ipcRenderer.send('save:ticketid', ticketId);
-                    ipcRenderer.send('pageTicketP:TicketP_details_window');
+                    ipcRenderer.send('pageTicketI:TicketI_details_window');
                 });
             });
 

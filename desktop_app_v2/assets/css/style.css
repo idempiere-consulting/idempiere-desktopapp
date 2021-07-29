@@ -359,7 +359,7 @@ header {
 }
 
 table {
-    width: 75%;
+    width: 85%;
     margin: 0 auto;
     border: 2px solid black;
     background-color: white;
@@ -380,6 +380,16 @@ thead {
 
 #myTable1 {
     margin-bottom: 40px;
+}
+
+.SelectFilterTable {
+    width: 100%;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    padding: 12px 20px 12px 20px;
 }
 
 

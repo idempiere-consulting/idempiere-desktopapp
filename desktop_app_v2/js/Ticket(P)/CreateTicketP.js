@@ -93,11 +93,6 @@ async function getStatusRequest() {
 
 
 
-//Evento per aprie finestra di inserimento
-const addTicketP = document.getElementById('addTicketP');
-if (addTicketP) {
-    addTicketP.addEventListener('click', openTicketPWindow);
-}
 
 //Riempimento campi obligatori di sola lettura sulla pagina di creazione ticket
 if (document.getElementById("input_user") != null) {
@@ -459,9 +454,7 @@ function sendDataTicket(e) {
 
 }
 
-function openTicketPWindow() {
-    ipcRender_CreaTicket.send('pageTicketP:TicketP_create_window');
-}
+
 
 
 //Funzione per prendere le richieste formazioni presenti e quindi gli orari che sono occupati

@@ -12,7 +12,7 @@ getStatusRequest();
 
 
 function getTicket() {
-
+    console.log(ticketid);
     fetch(`http://` + ip + `/api/v1/models/r_request?$filter=R_Request_ID eq ` + ticketid + ``, {
             method: 'GET',
             headers: {

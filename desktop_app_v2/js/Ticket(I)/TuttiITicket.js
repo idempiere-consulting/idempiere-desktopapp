@@ -59,11 +59,10 @@ function getTickets() {
                     <td>${status}</td>
                     <td>${record.SalesRep_ID.identifier}</td>
                     <td><a href="#" class="iconLinkWebUrl"><i class="fas fa-external-link-alt"></i></td>
-                    <td style="display:none" >${record.DocumentNo}</td>
+                    <td style="display:none" >${record.id}</td>
                 </tr>`;
-                if (userBPartner.identifier == bp['identifier']) {
-                    table.innerHTML += row;
-                }
+                table.innerHTML += row;
+
             });
             //
             var btns = document.querySelectorAll('.iconLinkWebUrl');
@@ -71,7 +70,7 @@ function getTickets() {
                 btn.addEventListener('click', function(event) {
                     var ticketId = event.path[3].cells[9].innerHTML;
                     ipcRenderer.send('save:ticketid', ticketId);
-                    ipcRenderer.send('pageTicketP:TicketP_details_window');
+                    ipcRenderer.send('pageTicketI:TicketI_details_window');
                 });
             });
 

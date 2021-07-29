@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ticket da schedulare</title>
+    <title>Task</title>
     <link rel="stylesheet" href="../../assets/css/style.css">
     <link rel="stylesheet" href="../../assets/css/normalize.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
@@ -40,7 +40,7 @@
                     <span class="button_Nav" onclick="openNav()">&#9776;</span>
                 </div>
                 <div class="header-item">
-                    <span id="title">Ticket da Schedulare</span>
+                    <span id="title">Task</span>
                 </div>
                 <div style="height: 100%" class="header-item div-right">
 
@@ -67,12 +67,12 @@
         </div>
     </header>
     <div id="mainContent" class="content">
-        <p class="refresh"><a href="DaSchedulare.html"><i class="fas fa-redo-alt"></i></a></p>
+        <p class="refresh"><a id="button_refresh" href="TuttiITicket.html"><i class="fas fa-redo-alt"></i></a></p>
 
         <table id="myTable" class="table-sortable">
             <thead>
                 <tr>
-                    <th colspan="7">
+                    <th colspan="9">
                         <div class="input-check">
                             <label style="margin-right: 10px;">Priorità:</label>
                             <input class="filter" type="button" id="All" name="Prio" value="All">
@@ -87,10 +87,18 @@
                 <tr>
                     <th><input type="text" class="filter_input" id="myInput" onkeyup="filterFromInputToTable('myInput','myTable',0)" placeholder="Filtra per BPartner" title="Scrivi un nome"></th>
                     <th><input type="text" class="filter_input" id="myInputUser" onkeyup="filterFromInputToTable('myInputUser','myTable',1)" placeholder="Filtra per Utente" title="Scrivi un nome"></th>
-                    <th><input type="text" class="filter_input" id="myInputReq" onkeyup="filterFromInputToTable('myInputReq','myTable',2)" placeholder="Filtra per Richiesta" title="Scrivi un nome"></th>
-                    <th><input type="text" class="filter_input" id="myInputPriority" onkeyup="filterFromInputToTable('myInputPriority','myTable',3)" placeholder="Filtra per Priorità" title="Scrivi un nome"></th>
-                    <th><input type="text" class="filter_input" id="myInputRiepilogo" onkeyup="filterFromInputToTable('myInputRiepilogo','myTable',4)" placeholder="Filtra per Riepilogo" title="Scrivi un nome"></th>
-                    <th><input type="text" class="filter_input" id="myInputDate" onkeyup="filterFromInputToTable('myInputDate','myTable',5)" placeholder="Filtra per Data" title="Scrivi un nome"></th>
+                    <th><input type="text" class="filter_input" id="myInputReq" onkeyup="filterFromInputToTable('myInputReq','myTable',2)" placeholder="Filtra per Richiesta" title="Scrivi"></th>
+                    <th><input type="text" class="filter_input" id="myInputPriority" onkeyup="filterFromInputToTable('myInputPriority','myTable',3)" placeholder="Filtra per Priorità" title="Scrivi"></th>
+                    <th><input type="text" class="filter_input" id="myInputRiepilogo" onkeyup="filterFromInputToTable('myInputRiepilogo','myTable',4)" placeholder="Filtra per Riepilogo" title="Scrivi"></th>
+                    <th><input type="text" class="filter_input" id="myInputDate" onkeyup="filterFromInputToTable('myInputDate','myTable',5)" placeholder="Filtra per Data" title="Scrivi una data"></th>
+                    <th><select id="myInputStatus" class="SelectFilterTable">
+                        <option value="" disabled selected>Filtra per Status</option>
+                        <option value="">Tutti</option>
+                    </select></th>
+                    <th><select id="myInputResource" class="SelectFilterTable">
+                        <option value="" disabled selected>Filtra per Risorsa</option>
+                        <option value="">Tutti</option>
+                    </select></th>
                     <th><a title="add TicketP" id="addTicketP" href="#"><i class="fas fa-2x fa-plus"></i></a></th>
                 </tr>
                 <tr>
@@ -100,6 +108,8 @@
                     <th>Priorità</th>
                     <th>Riepilogo</th>
                     <th>Data Creazione</th>
+                    <th>Status</th>
+                    <th>Risorsa</th>
                     <th>Dettaglio</th>
                 </tr>
             </thead>
@@ -107,7 +117,6 @@
 
             </tbody>
         </table>
-
     </div>
     <script>
         if (typeof module === 'object') {
@@ -118,7 +127,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <script src="../../js/filejscommon.js"></script>
     <script src="../../assets/js/jquery.js"></script>
-    <script src="../../js/Ticket(I)/DaSchedulare.js"></script>
+    <script src="../../js/Ticket(I)/TuttiITicket.js"></script>
 
     <script>
         //window.attachEvent("onload ", closeNav());
