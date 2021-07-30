@@ -11,7 +11,6 @@ const userName4 = ipcRender_CreaTicket.sendSync('send:user', 'ping');
 const roleId = ipcRender_CreaTicket.sendSync('send:roleid', 'ping');
 const orgId = ipcRender_CreaTicket.sendSync('send:organizationid', 'ping');
 
-
 //Dichiarazione variabili
 var arraySlotLocked = [];
 var itemSelected;
@@ -22,7 +21,7 @@ var select_reqType = document.getElementById('requestType');
 var id_statusType;
 var id_salesRep;
 var imgpath = document.getElementById("myFile");
-
+var imgId = "1000000";
 
 
 async function getRequestType() {
@@ -112,13 +111,13 @@ const caseDiv = document.getElementById('caseRequest');
 //Buttone per l'invio del ticket
 const button_SendTicket = document.getElementById('sendLine');
 if (button_SendTicket != null) {
-    button_SendTicket.addEventListener('click', sendDataTicket);
+    button_SendTicket.addEventListener('click', sendImageTicket);
 }
 var id_reqType;
 select_reqType = document.getElementById("requestType");
 if (select_reqType != null) {
     //Evento in cui avviene il cambiamento del select, cambia il contenuto del div caseDiv
-    select_reqType.addEventListener('change', function(event) {
+    select_reqType.addEventListener('change', function (event) {
         id_reqType = event.target.options[event.target.selectedIndex].dataset.id;
         caseDiv.innerHTML = "";
 
@@ -162,6 +161,7 @@ if (select_reqType != null) {
                     <textarea id="explain" name="explain" placeholder="Scrivi qualcosa..." style="height:200px; width: 100%;"></textarea>`;
 
             caseDiv.innerHTML += text;
+
         }
 
         if (select_reqType.value == 'OT') {
@@ -175,7 +175,50 @@ if (select_reqType != null) {
 }
 
 
+function sendImageTicket(e) {
+    e.preventDefault();
 
+
+    if (document.getElementById("inputImagePath").files[0] != undefined) {
+        var imageAsBase64 = fs.readFileSync(document.getElementById("inputImagePath").files[0].path, 'base64');
+        //console.log(document.getElementById("inputImagePath").value);
+        let str = document.getElementById("inputImagePath").value;
+        console.log(str.slice(12));
+
+        let bodydataImg = {
+            "AD_Client_ID": {
+                "id": clientid2
+            },
+            "Name": str.slice(12),
+            "BinaryData": imageAsBase64
+
+        }
+
+        fetch('http://' + ip2 + '/api/v1/models/AD_Image', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + authToken2
+                },
+                body: JSON.stringify(bodydataImg)
+            }).then(res => {
+                return res.json()
+            })
+            .then(data => {
+                console.log(data);
+                imgId = data.id + "";
+                console.log(imgId);
+                //sendDataTicket(e);
+            })
+            .catch(error => console.log(error))
+
+    } else {
+        imgId = "0";
+        sendDataTicket(e);
+
+    }
+
+}
 
 
 function sendDataTicket(e) {
@@ -186,8 +229,8 @@ function sendDataTicket(e) {
     const tipoDiRichiesta = select_reqType.value;
     const prio = document.getElementById('priority').value;
     const explain = document.getElementById('explain').value;
-    var imageAsBase64 = fs.readFileSync(document.getElementById("inputImagePath").files[0].path, 'base64');
-    console.log(imageAsBase64);
+
+    console.log(imgId);
 
     //Body della richiesta
     let BodyData;
@@ -242,7 +285,10 @@ function sendDataTicket(e) {
                 "Description": doc,
                 "Name": explain2,
                 "Help": explain3,
-                "Name2": explain4
+                "Name2": explain4,
+                "AD_Image_ID": {
+                    "id": imgId
+                }
             };
 
             console.log(BodyData);
@@ -309,7 +355,10 @@ function sendDataTicket(e) {
                     "id": "C"
                 },
                 "RequestAmt": 0,
-                "Summary": explain
+                "Summary": explain,
+                "AD_Image_ID": {
+                    "id": imgId
+                }
             };
             console.log(BodyData);
 
@@ -337,47 +386,92 @@ function sendDataTicket(e) {
             break;
         case "NR":
 
-
-            BodyData = {
-                "C_BPartner_ID": {
-                    "identifier": BP
-                },
-                "AD_User_ID": {
-                    "identifier": UserName
-                },
-                "AD_Client_ID": {
-                    "id": clientid2
-                },
-                "R_RequestType_ID": {
-                    "id": id_reqType
-                },
-                "Priority": {
-                    "id": prio
-                },
-                "SalesRep_ID": {
-                    "id": id_salesRep
-                },
-                "R_Status_ID": {
-                    "id": id_statusType
-                },
-                "AD_Role_ID": {
-                    "id": roleId
-                },
-                "DueType": {
-                    "id": "5"
-                },
-                "AD_Org_ID": {
-                    "id": orgId
-                },
-                "ConfidentialTypeEntry": {
-                    "id": "C"
-                },
-                "ConfidentialType": {
-                    "id": "C"
-                },
-                "RequestAmt": 0,
-                "Summary": explain
-            };
+            if (imgId == "0") {
+                BodyData = {
+                    "C_BPartner_ID": {
+                        "identifier": BP
+                    },
+                    "AD_User_ID": {
+                        "identifier": UserName
+                    },
+                    "AD_Client_ID": {
+                        "id": clientid2
+                    },
+                    "R_RequestType_ID": {
+                        "id": id_reqType
+                    },
+                    "Priority": {
+                        "id": prio
+                    },
+                    "SalesRep_ID": {
+                        "id": id_salesRep
+                    },
+                    "R_Status_ID": {
+                        "id": id_statusType
+                    },
+                    "AD_Role_ID": {
+                        "id": roleId
+                    },
+                    "DueType": {
+                        "id": "5"
+                    },
+                    "AD_Org_ID": {
+                        "id": orgId
+                    },
+                    "ConfidentialTypeEntry": {
+                        "id": "C"
+                    },
+                    "ConfidentialType": {
+                        "id": "C"
+                    },
+                    "RequestAmt": 0,
+                    "Summary": explain
+                };
+            } else {
+                BodyData = {
+                    "C_BPartner_ID": {
+                        "identifier": BP
+                    },
+                    "AD_User_ID": {
+                        "identifier": UserName
+                    },
+                    "AD_Client_ID": {
+                        "id": clientid2
+                    },
+                    "R_RequestType_ID": {
+                        "id": id_reqType
+                    },
+                    "Priority": {
+                        "id": prio
+                    },
+                    "SalesRep_ID": {
+                        "id": id_salesRep
+                    },
+                    "R_Status_ID": {
+                        "id": id_statusType
+                    },
+                    "AD_Role_ID": {
+                        "id": roleId
+                    },
+                    "DueType": {
+                        "id": "5"
+                    },
+                    "AD_Org_ID": {
+                        "id": orgId
+                    },
+                    "ConfidentialTypeEntry": {
+                        "id": "C"
+                    },
+                    "ConfidentialType": {
+                        "id": "C"
+                    },
+                    "RequestAmt": 0,
+                    "Summary": explain,
+                    "AD_Image_ID": {
+                        "id": imgId
+                    }
+                };
+            }
             console.log(BodyData);
 
             fetch('http://' + ip2 + '/api/v1/models/R_Request', {
@@ -397,7 +491,7 @@ function sendDataTicket(e) {
                     } else {
                         alert("Richiesta inviata");
                         var window = remoteWindows.getCurrentWindow();
-                        window.close();
+                        //window.close();
                     }
                 })
                 .catch(error => console.log(error))
@@ -547,7 +641,7 @@ async function getSlotLiberi() {
 
             select_hour = document.getElementById('selectHour');
             //In caso in cui il select viene modificato verrà preso il valore corrente del select
-            select_hour.onchange = function() {
+            select_hour.onchange = function () {
                 comboboxItemSelected();
             }
 
