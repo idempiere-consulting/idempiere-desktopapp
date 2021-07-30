@@ -4,10 +4,15 @@ const ipcRender_detailsTicket = electron_detailsTicket.ipcRenderer;
 const ip = ipcRender_detailsTicket.sendSync('send:ip', 'ping');
 const authToken = ipcRender_detailsTicket.sendSync('send:authtoken', 'ping');
 const ticketid = ipcRender_detailsTicket.sendSync('send:ticketid', 'ping');
-getTicket();
+const btn = document.getElementById("updateLine");
+btn.addEventListener('click', UpdateLine);
+var id_salesrep;
+var id_statusrequest;
+getStatusRequest();
+
 
 function getTicket() {
-
+    console.log(ticketid);
     fetch(`http://` + ip + `/api/v1/models/r_request?$filter=R_Request_ID eq ` + ticketid + ``, {
             method: 'GET',
             headers: {
@@ -32,7 +37,7 @@ function getTicket() {
             var help = '';
             var summary = '';
             var status = '';
-            var salesrep = '';
+            var dateNextAction = '';
 
             if (a[0].DocumentNo == undefined) {
                 numDoc = '';
@@ -87,20 +92,28 @@ function getTicket() {
             } else {
                 summary = a[0].Summary
             }
-
-            if (a[0].R_Status_ID == undefined) {
-                status = '';
-            } else {
-                var temp = a[0].R_Status_ID.identifier;
-                var endIndex = temp.indexOf("_");
-                status = temp.replace(temp.substring(0, endIndex + 1), "");
+            if (a[0].R_Status_ID != undefined) {
+                var select = document.getElementById("statusRequest");
+                for (var i, j = 0; i = select.options[j]; j++) {
+                    if (i.value == a[0].R_Status_ID.id) {
+                        select.selectedIndex = j;
+                        break;
+                    }
+                }
             }
-            if (a[0].SalesRep_ID == undefined) {
-                salesrep = '';
-            } else {
-                salesrep = a[0].SalesRep_ID.identifier
+            if (a[0].SalesRep_ID != undefined) {
+                var select = document.getElementById("SalesRep");
+                for (var i, j = 0; i = select.options[j]; j++) {
+                    if (i.value == a[0].SalesRep_ID.id) {
+                        select.selectedIndex = j;
+                        break;
+                    }
+                }
             }
 
+            if (a[0].DateNextAction != undefined) {
+                dateNextAction = a[0].DateNextAction.replace('Z', '').replace('T', ' ');
+            }
 
             document.getElementById('ndoc').value = numDoc;
             document.getElementById('bp').value = businessPartner;
@@ -111,13 +124,135 @@ function getTicket() {
             document.getElementById('description').value = description;
             document.getElementById('help').value = help;
             document.getElementById('summary').value = summary;
-            document.getElementById('statusRequest').value = status;
-            document.getElementById('SalesRep').value = salesrep;
+            document.getElementById('input_date').value = dateNextAction;
+
+
             getLog();
+
 
 
         })
         .catch(error => console.log(error))
+}
+
+async function getStatusRequest() {
+    await fetch('http://' + ip + '/api/v1/models/R_Status', {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authToken
+        }
+    }).then(res => {
+        return res.json()
+    }).then(data => {
+        console.log(data);
+        a = data.records;
+        var select = document.getElementById("statusRequest");
+        a.forEach(element => {
+            var option = document.createElement("option");
+            option.value = element.id;
+            option.innerHTML = element.Name;
+            select.appendChild(option);
+        });
+        getSalesRep();
+    })
+}
+
+async function getSalesRep() {
+
+    var BPartnerId;
+
+    await fetch(`http://` + ip + `/api/v1/models/AD_User?$filter=Name eq 'Da Assegnare'`, {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authToken
+        }
+    }).then(res => {
+        return res.json()
+    }).then(data => {
+        //console.log(data);
+        a = data.records;
+        a.forEach(element => {
+            BPartnerId = element.C_BPartner_ID.id;
+        });
+
+    });
+
+    await fetch('http://' + ip + '/api/v1/models/AD_User?$filter=C_BPartner_ID eq ' + BPartnerId + '', {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authToken
+        }
+    }).then(res => {
+        return res.json()
+    }).then(data => {
+        console.log(data);
+        a = data.records;
+        var select = document.getElementById("SalesRep");
+        a.forEach(element => {
+            var option = document.createElement("option");
+            option.value = element.id;
+            option.innerHTML = element.Name;
+            select.appendChild(option);
+        });
+        getTicket();
+    })
+}
+
+var salesrep = document.getElementById("SalesRep");
+var statusreq = document.getElementById("statusRequest");
+
+salesrep.addEventListener('change', function(event) {
+
+    id_salesrep = event.target.options[event.target.selectedIndex].value;
+
+});
+
+statusreq.addEventListener('change', function(event) {
+
+    id_statusrequest = event.target.options[event.target.selectedIndex].value;
+
+});
+
+async function UpdateLine() {
+
+    let bodydata;
+    console.log(id_salesrep);
+    console.log(id_statusrequest);
+
+    bodydata = {
+        "R_Status_ID": {
+            "id": id_statusrequest
+        },
+        "SalesRep_ID": {
+            "id": id_salesrep
+        }
+    };
+
+    fetch('http://' + ip + '/api/v1/models/R_Request/' + ticketid, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + authToken
+            },
+            body: JSON.stringify(bodydata)
+        }).then(res => {
+            return res.json()
+        })
+        .then(data => {
+            if (data.status != undefined) {
+                alert("Problema con la Richiesta")
+            } else {
+                alert("ticket aggiornato");
+                var window = remoteWindows.getCurrentWindow();
+                //window.close();
+            }
+        })
+        .catch(error => console.log(error))
+
+
 }
 
 async function getLog() {

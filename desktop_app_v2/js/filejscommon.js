@@ -1,7 +1,24 @@
 
 const electron_2 = window.require("electron");
 const ipcRender_2 = electron_2.ipcRenderer;
+var path = require('path');
+var filename = path.basename(__filename);
+var base64Image;
+
 document.getElementById("span_usernmane_jslogic").innerHTML = ipcRender_2.sendSync('send:user');
+if (filename == "index.html")
+    base64Image = ipcRender_2.sendSync('send:imageBase64');
+else
+    base64Image = ipcRender_2.sendSync('send:imageBase64', '../');
+
+var img = document.getElementsByClassName("img-profile");
+img[0].src = base64Image;
+
+/* var button_refresh = document.getElementById("button_refresh");
+console.log(button_refresh.href); */
+
+
+
 
 //json che contine tutti i dati delle pagine
 var JsonMenu = {
@@ -103,25 +120,26 @@ var JsonMenu = {
             "menu": "Ticket(I)",
             "icon": ["fas", "fa-ticket-alt"],
             "sottoMenu": [{
-                    "nomeSottoMenu": "Helpdesk",
-                    "pathSottoMenu": "Ticket(I)/HelpDesk.html"
+                    "nomeSottoMenu": "Da Assegnare",
+                    "pathSottoMenu": "Ticket(I)/DaAssegnare.html"
                 },
                 {
-                    "nomeSottoMenu": "Dett. Ticket",
-                    "pathSottoMenu": "Ticket(I)/Dett.Ticket.html"
+                    "nomeSottoMenu": "I miei ticket",
+                    "pathSottoMenu": "Ticket(I)/ImieiTicket.html"
                 },
                 {
-                    "nomeSottoMenu": "Task",
-                    "pathSottoMenu": "Ticket(I)/Task.html"
-                },
-                {
-                    "nomeSottoMenu": "Da Schedulare",
-                    "pathSottoMenu": "Ticket(I)/DaSchedulare.html"
-                },
-                {
-                    "nomeSottoMenu": "Ore",
-                    "pathSottoMenu": "Ticket(I)/Ore.html"
+                    "nomeSottoMenu": "Tutti i ticket",
+                    "pathSottoMenu": "Ticket(I)/TuttiITicket.html"
                 }
+
+                /*{
+                                    "nomeSottoMenu": "Task",
+                                    "pathSottoMenu": "Ticket(I)/Task.html"
+                                },
+                                {
+                                    "nomeSottoMenu": "Ore",
+                                    "pathSottoMenu": "Ticket(I)/Ore.html"
+                                } */
 
             ],
             "pathMenu": ""
@@ -293,6 +311,7 @@ function filterFromInputToTable(nameInput, nameTable, indexTd) {
     var input, filter, table, tr, td, i, txtValue;
     //Preso gli input type
     input = document.getElementById(nameInput);
+    console.log(input);
     filter = input.value.toUpperCase();
     //Preo la tabella e le righe
     table = document.getElementById(nameTable);
@@ -314,6 +333,41 @@ function filterFromInputToTable(nameInput, nameTable, indexTd) {
         }
     }
 }
+
+
+/* Function to filter the table */
+function filterFromSelectToTable(itemSelected, nameTable, indexTd) {
+    var filter, table, tr, td, i, txtValue;
+    //Preso gli input type
+    if (itemSelected == "Tutti") {
+        filter = "";
+    } else {
+        filter = itemSelected.toUpperCase();
+    }
+
+    //Preo la tabella e le righe
+    table = document.getElementById(nameTable);
+    tr = table.getElementsByTagName("tr");
+    //Ciclo per prendere ogni riga della tabella 
+    for (i = 0; i < tr.length; i++) {
+        //Predere la cella in posizione indexTd in modo da ottere la cella prestabilità
+        td = tr[i].getElementsByTagName("td")[indexTd];
+        if (td) {
+            //Prendere il valore del td
+            txtValue = td.textContent || td.innerText;
+            //Se la stringa nel filtro è prensete nel td ritornerà la posizione si partenza di quest'ultima
+            //Altrimenti se ritorna -1 significa che non è presente e nasconderà quella determinata cella 
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+}
+
+
+
 
 function OrderTable(nameTbodyTable, nCell) {
     var switching = true;
@@ -341,9 +395,6 @@ function OrderTable(nameTbodyTable, nCell) {
 
 
 function CreateMenu() {
-
-    var path = require('path');
-    filename = path.basename(__filename);
     //prendo tutti gli oggetti contenuti in Menu e li metto in una variabile   
     var arrayMenu = JsonMenu.Menu;
     //prendo l'elemento nella pagina html con il tag "ul"
@@ -453,6 +504,8 @@ function CreateMenu() {
             refreshHover.classList.add(Settheme[6]);
 
             var backButton = document.getElementById('backButton');
-            backButton.classList.add(Settheme[7]);
+            if (backButton != undefined) {
+                backButton.classList.add(Settheme[7]);
+            }
 
 }

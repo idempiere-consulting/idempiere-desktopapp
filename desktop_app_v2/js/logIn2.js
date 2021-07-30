@@ -30,7 +30,7 @@ async function authRoles() {
                     selectRole.appendChild(opt);
 
                 }
-                selectRole.onchange = function () {
+                selectRole.onchange = function() {
                     roleId = this.options[this.selectedIndex].getAttribute("value");
                     stash.set('roleid', roleId);
                     authOrganization();
@@ -66,7 +66,7 @@ async function authOrganization() {
                     selectOrg.appendChild(opt);
                 }
 
-                selectOrg.onchange = function () {
+                selectOrg.onchange = function() {
                     organizationId = this.options[this.selectedIndex].getAttribute("value");
                     stash.set('organizationid', organizationId);
                     authWarehouse();
@@ -104,7 +104,7 @@ async function authWarehouse() {
                     selectWarehouse.appendChild(opt);
                 }
 
-                selectWarehouse.onchange = function () {
+                selectWarehouse.onchange = function() {
                     warehouseId = this.options[this.selectedIndex].getAttribute("value");
                     stash.set('warehouseid', warehouseId);
                     authLanguage();
@@ -135,7 +135,10 @@ async function authLanguage() {
                 language = data.AD_Language;
                 stash.set('language', language);
 
-
+                console.log(roleId);
+                console.log(organizationId);
+                console.log(warehouseId);
+                console.log(language);
 
 
             })
@@ -144,6 +147,9 @@ async function authLanguage() {
 
 
 }
+
+
+
 
 async function authToken(e) {
     if (e != " ") {
@@ -166,6 +172,9 @@ async function authToken(e) {
             }
         }
     }
+
+
+
 
     if (language != undefined) {
         await fetch('http://' + ip + '/api/v1/auth/tokens', {
@@ -193,8 +202,7 @@ async function authToken(e) {
                     ipcRender_login2.send('save:organizationid', organizationId);
                     ipcRender_login2.send('save:roleid', roleId);
                     ipcRender_login2.send('save:warehouseid', warehouseId);
-
-
+                    themeDefault();
                     getUserData();
 
                 }
@@ -210,6 +218,30 @@ async function authToken(e) {
 }
 
 
+
+
+
+
+
+
+async function getImage(imageId) {
+    await fetch('http://' + ip + '/api/v1/models/ad_image/' + imageId, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }
+        }).then(res => {
+            return res.json();
+        })
+        .then(data => {
+            console.log('test');
+            ipcRender_login2.sendSync('save:imageBase64', data.BinaryData);
+            const page = 2;
+             ipcRender_login2.send('page:change', page);
+         })
+        .catch(error => console.log(error));
+}
 
 async function getUserData() {
 
@@ -228,19 +260,95 @@ async function getUserData() {
                 return res.json()
             })
             .then(data => {
+                console.log(data);
                 a = data['records'];
                 a.forEach((record) => {
                     ipcRender_login2.sendSync('save:permission', record.lit_mobilerole);
                     ipcRender_login2.send('save:bpartner', record.C_BPartner_ID);
                     ipcRender_login2.send('save:userId', record.id);
                     ipcRender_login2.sendSync('save:chartRole', record.LIT_MobileChartRole);
+                    if (record.AD_Image_ID != undefined) {
+                        getImage(record.AD_Image_ID.id);
+                    } else {
+                        const page = 2;
+                        ipcRender_login2.send('page:change', page);
+                        ipcRender_login2.sendSync('save:imageBase64', undefined);  
+                    }
+
 
                 });
-                const page = 2;
-                ipcRender_login2.send('page:change', page);
+
 
 
             })
-            .catch(error => console.log(error))
+            .catch(error => console.log(error));
     }
+}
+
+
+async function themeDefault(){
+
+    await fetch('http://' + ip + '/api/v1/models/AD_SysConfig?$filter=AD_SysConfig_ID eq 1000079', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }
+    }).then(res => {
+        return res.json()
+    })
+    .then(data => {
+        a = data['records'];
+
+        var themeDefault = a[0].Value;
+        setTheme(themeDefault)
+
+    })
+
+    .catch(error => {
+
+    })
+} 
+
+function setTheme(arg){
+    switch (arg) {
+        case "BLACK":
+                //stash.cut('theme');
+                theme1();
+            break;
+
+        case "GREEN":
+                //stash.cut('theme');
+                theme2();
+                
+            break;
+        
+        case "RED":
+                //stash.cut('theme');
+                theme3();
+            break;
+        default:
+            break;
+    }
+}
+
+
+function theme1(){
+    var theme = ["#909090", "#404040", "#F0F8FF", "grey", "black","refresh1", "refreshHover1", "back1", "white"];
+    stash.set('theme', theme);
+    //location.reload();
+}
+
+function theme2(){
+
+    var theme = ["#008080", "#F0F8FF", "black", "#097969", "black", "refresh1","refreshHover2", "back2", "white"];
+    stash.set('theme', theme);
+    //location.reload();
+}
+
+function theme3(){
+
+    var theme = ["#FA8072", "#FAEBD7", "black", "#cd5c5c", "black", "refresh1","refreshHover3", "back3", "black"];
+    stash.set('theme', theme);
+   // location.reload();
 }

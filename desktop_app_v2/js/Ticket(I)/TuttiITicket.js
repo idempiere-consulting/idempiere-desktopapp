@@ -37,7 +37,7 @@ function getTickets() {
             return res.json()
         })
         .then(data => {
-            console.log(data);
+            //console.log(data);
             //var pData = JSON.parse(data)
             a = data['window-records'];
             a.forEach((record) => {
@@ -51,6 +51,7 @@ function getTickets() {
                 var row = `
                 <tr class="dataRow"> 
                     <td>${record.DocumentNo}</td>
+                    <td>${bp['identifier']}</td>
                     <td>${user['identifier']}</td>
                     <td>${req['identifier']}</td>
                     <td>${prio['identifier']}</td>
@@ -61,22 +62,21 @@ function getTickets() {
                     <td><a href="#" class="iconLinkWebUrl"><i class="fas fa-external-link-alt"></i></td>
                     <td style="display:none" >${record.id}</td>
                 </tr>`;
-                if (userBPartner.identifier == bp['identifier']) {
-                    table.innerHTML += row;
-                }
+                table.innerHTML += row;
+
             });
             //
             var btns = document.querySelectorAll('.iconLinkWebUrl');
             Array.prototype.forEach.call(btns, function addClickListener(btn) {
                 btn.addEventListener('click', function(event) {
-                    var ticketId = event.path[3].cells[9].innerHTML;
+                    var ticketId = event.path[3].cells[10].innerHTML;
                     ipcRenderer.send('save:ticketid', ticketId);
-                    ipcRenderer.send('pageTicketP:TicketP_details_window');
+                    ipcRenderer.send('pageTicketI:TicketI_details_window');
                 });
             });
 
 
-            OrderTable("ticketBody", 9);
+            OrderTable("ticketBody", 10);
             backgroundRowTable('ticketBody');
 
         })

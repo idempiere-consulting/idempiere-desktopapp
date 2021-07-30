@@ -6,7 +6,22 @@ const {
 const authToken = ipcRenderer.sendSync('send:authtoken', 'ping');
 const ip = ipcRenderer.sendSync('send:ip', 'ping');
 
+//Bottone per creare un nuovo lead
+var addLead = document.getElementById("addlead");
+if (addLead != null) {
+    addLead.addEventListener('click', creazioneLeadWindow);
+}
+
+
 getLeads();
+
+
+
+
+function creazioneLeadWindow() {
+    ipcRenderer.send('pageLeadWindow:create');
+}
+
 
 function getLeads() {
 
@@ -22,7 +37,6 @@ function getLeads() {
         .then(data => {
 
             //var pData = JSON.parse(data)
-
             a = data['window-records'];
             a.forEach((record) => {
                 var table = document.getElementById('leadBody');
@@ -57,21 +71,11 @@ function getLeads() {
 
 
                 table.innerHTML += row;
-
-                /*                var table = document.getElementById('myTable');
-                                              for (var i = 2; i < table.rows.length; i++) {
-                                                  table.rows[i].cells[6].addEventListener('click', function(infoTable) {
-                                                      namelead = infoTable.path[3].cells[0].innerHTML;
-                                                      ipcRenderer.send('save:nameLead', namelead);
-                                                      ipcRenderer.send('pageInfoLeads:Leads_info_window');
-                                                      //alert(msg);
-                                                  });
-                                              } */
             });
 
             var btns = document.querySelectorAll('.iconLinkWebUrl');
             Array.prototype.forEach.call(btns, function addClickListener(btn) {
-                btn.addEventListener('click', function (event) {
+                btn.addEventListener('click', function(event) {
                     var namelead = event.path[3].cells[0].innerHTML;
 
                     ipcRenderer.send('save:nameLead', namelead);
@@ -88,13 +92,13 @@ function getLeads() {
 
 
 //test jquery filter
-$(".filter").click(function () {
+$(".filter").click(function() {
     var filter = this.value;
     if (filter == "All")
         $("tr.dataRow").css("visibility", "visible");
     else $("tr.dataRow").css("visibility", "collapse");
     var matchFound = false;
-    $("tr.dataRow").find("td").each(function () {
+    $("tr.dataRow").find("td").each(function() {
         $this = $(this);
         if (!matchFound) {
             if ($this.html() == filter) {

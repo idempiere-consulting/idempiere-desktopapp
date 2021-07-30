@@ -1,18 +1,17 @@
-
+/* 
 const electron_settings = window.require("electron");
 const ipcRender_settings = electron_settings.ipcRenderer;
-
-
-
-function theme(arg){
-switch (arg) {
-    case 1:
+var themeDefault = stash.get('themeDefault');
+//console.log(themeDefault);
+//function theme(arg){
+switch (themeDefault) {
+    case  'WHITE':
             if (confirm("Sei sicuro di voler cambiare tema?")) { 
                 theme1();
             }
         break;
 
-    case 2:
+    case 'GREEN':
         if (confirm("Sei sicuro di voler cambiare tema? ")) {
              theme2();
             }
@@ -47,7 +46,7 @@ function theme3(){
     var theme = ["#FA8072", "#FAEBD7", "black", "#cd5c5c", "black", "refresh1","refreshHover3", "back3", "black"];
     stash.set('theme', theme);
     location.reload();
-}
+} */
 
 
 

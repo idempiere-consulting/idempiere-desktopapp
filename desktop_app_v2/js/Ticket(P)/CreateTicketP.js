@@ -1,13 +1,15 @@
 const electron_creaTicket = window.require("electron");
 const ipcRender_CreaTicket = electron_creaTicket.ipcRenderer;
 const remoteWindows = electron_creaTicket.remote;
-
+var fs = require('fs');
 
 const ip2 = ipcRender_CreaTicket.sendSync('send:ip', 'ping');
 const authToken2 = ipcRender_CreaTicket.sendSync('send:authtoken', 'ping');
 const clientid2 = ipcRender_CreaTicket.sendSync('send:clientId', 'ping');
 const userBPartner4 = ipcRender_CreaTicket.sendSync('send:bp', 'ping');
 const userName4 = ipcRender_CreaTicket.sendSync('send:user', 'ping');
+const roleId = ipcRender_CreaTicket.sendSync('send:roleid', 'ping');
+const orgId = ipcRender_CreaTicket.sendSync('send:organizationid', 'ping');
 
 
 //Dichiarazione variabili
@@ -16,12 +18,83 @@ var itemSelected;
 var select_hour;
 var ul;
 var selectedDate;
+var select_reqType = document.getElementById('requestType');
+var id_statusType;
+var id_salesRep;
+var imgpath = document.getElementById("myFile");
 
-//Evento per aprie finestra di inserimento
-const addTicketP = document.getElementById('addTicketP');
-if (addTicketP) {
-    addTicketP.addEventListener('click', openTicketPWindow);
+
+
+async function getRequestType() {
+    await fetch('http://' + ip2 + '/api/v1/models/R_RequestType', {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authToken2
+        }
+    }).then(res => {
+        return res.json()
+    }).then(data => {
+        console.log(data);
+        a = data.records;
+        //Select per prendere il tipo di ticket che si vuole richiedere
+
+        a.forEach(element => {
+            var option = document.createElement('option');
+            option.value = element.Description;
+            option.innerHTML = element.Name;
+            option.dataset.id = element.id;
+            select_reqType.appendChild(option);
+        });
+        getSalesRep();
+
+    })
 }
+
+
+async function getSalesRep() {
+    await fetch(`http://` + ip2 + `/api/v1/models/AD_User?$filter=Name eq 'Da Assegnare'`, {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authToken2
+        }
+    }).then(res => {
+        return res.json()
+    }).then(data => {
+        console.log(data);
+        a = data.records;
+
+        a.forEach(element => {
+            id_salesRep = element.id;
+        });
+        getStatusRequest();
+    })
+}
+
+async function getStatusRequest() {
+    await fetch('http://' + ip2 + '/api/v1/models/R_Status', {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authToken2
+        }
+    }).then(res => {
+        return res.json()
+    }).then(data => {
+        console.log(data);
+        a = data.records;
+
+        a.forEach(element => {
+            if (element.Name == "Creato/Da Assegnare") {
+                id_statusType = element.id;
+            }
+        });
+    })
+}
+
+
+
 
 //Riempimento campi obligatori di sola lettura sulla pagina di creazione ticket
 if (document.getElementById("input_user") != null) {
@@ -30,8 +103,10 @@ if (document.getElementById("input_user") != null) {
     document.getElementById('input_user').readOnly = true;
     document.getElementById('input_BusinessPartner').readOnly = true;
 }
-//Select per prendere il tipo di ticket che si vuole richiedere
-const select_reqType = document.getElementById('requestType');
+if (select_reqType != null)
+    getRequestType();
+
+
 //Div usato come contenitore per la creazione dei vari campi da compilare in base al tipo di richiesta 
 const caseDiv = document.getElementById('caseRequest');
 //Buttone per l'invio del ticket
@@ -39,15 +114,16 @@ const button_SendTicket = document.getElementById('sendLine');
 if (button_SendTicket != null) {
     button_SendTicket.addEventListener('click', sendDataTicket);
 }
-
-
+var id_reqType;
+select_reqType = document.getElementById("requestType");
 if (select_reqType != null) {
     //Evento in cui avviene il cambiamento del select, cambia il contenuto del div caseDiv
-    select_reqType.addEventListener('change', function () {
+    select_reqType.addEventListener('change', function(event) {
+        id_reqType = event.target.options[event.target.selectedIndex].dataset.id;
         caseDiv.innerHTML = "";
 
         //Sequenza di if che cambiano i vari input in base al tipo di richiesta che viene effettuata, ogni elemento viene concatenato al caseDiv 
-        if (select_reqType.value == 'Anomalia') {
+        if (select_reqType.value == 'AN') {
             var text = `<label class="formLabel" for="explain">Descrivi il problema</label>
                     <textarea id="explain" name="explain" placeholder="Es: Utilizzando il processo XDF20 volevo creare la fattura " style="height:200px; width: 100%;"></textarea>`;
 
@@ -71,33 +147,24 @@ if (select_reqType != null) {
             caseDiv.innerHTML += text;
 
         }
-        if (select_reqType.value == 'Richiesta di formazione') {
+        if (select_reqType.value == 'FO') {
 
 
             getRichiesteFormazioneOccupati();
 
 
             getSlotLiberi();
-
-
-
-
-
-
-
-
-
         }
 
 
-        if (select_reqType.value == 'Nuova Richiesta Funzionalità/Sviluppo') {
+        if (select_reqType.value == 'NR') {
             var text = `<label class="formLabel" for="explain">Spiega cosa vorresti che sia sviluppato su Idempiere</label>
                     <textarea id="explain" name="explain" placeholder="Scrivi qualcosa..." style="height:200px; width: 100%;"></textarea>`;
 
             caseDiv.innerHTML += text;
         }
 
-        if (select_reqType.value == 'Altro') {
+        if (select_reqType.value == 'OT') {
             var text = `<label class="formLabel" for="explain">Spiega il problema non classificabile dal Tipo Richiesta</label>
                     <textarea id="explain" name="explain" placeholder="Write something.." style="height:200px; width: 100%;"></textarea>`;
 
@@ -109,6 +176,8 @@ if (select_reqType != null) {
 
 
 
+
+
 function sendDataTicket(e) {
     e.preventDefault();
     //Informazioni comuni per fare la richiesta Post
@@ -117,15 +186,15 @@ function sendDataTicket(e) {
     const tipoDiRichiesta = select_reqType.value;
     const prio = document.getElementById('priority').value;
     const explain = document.getElementById('explain').value;
+    var imageAsBase64 = fs.readFileSync(document.getElementById("inputImagePath").files[0].path, 'base64');
+    console.log(imageAsBase64);
 
     //Body della richiesta
     let BodyData;
 
-
-
     switch (tipoDiRichiesta) {
 
-        case "Anomalia":
+        case "AN":
 
             const doc = document.getElementById('Document').value;
             const explain2 = document.getElementById('explain2').value;
@@ -139,25 +208,28 @@ function sendDataTicket(e) {
                     "identifier": UserName
                 },
                 "AD_Client_ID": {
-                    "identifier": "DEMO"
+                    "id": clientid2
                 },
                 "R_RequestType_ID": {
-                    "id": 1000000
+                    "id": id_reqType
                 },
                 "Priority": {
                     "id": prio
                 },
                 "SalesRep_ID": {
-                    "identifier": "DEMOAdmin"
+                    "id": id_salesRep
                 },
                 "AD_Role_ID": {
-                    "id": 1000000
+                    "id": roleId
                 },
                 "DueType": {
                     "id": "5"
                 },
                 "AD_Org_ID": {
-                    "id": 0
+                    "id": orgId
+                },
+                "R_Status_ID": {
+                    "id": id_statusType
                 },
                 "ConfidentialTypeEntry": {
                     "id": "C"
@@ -173,7 +245,9 @@ function sendDataTicket(e) {
                 "Name2": explain4
             };
 
-            fetch('http://' + ip2 + '/api/v1/windows/request', {
+            console.log(BodyData);
+
+            fetch('http://' + ip2 + '/api/v1/models/R_Request', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -195,7 +269,7 @@ function sendDataTicket(e) {
                 .catch(error => console.log(error))
 
             break;
-        case "Altro":
+        case "OT":
 
             BodyData = {
                 "C_BPartner_ID": {
@@ -205,25 +279,28 @@ function sendDataTicket(e) {
                     "identifier": UserName
                 },
                 "AD_Client_ID": {
-                    "identifier": "DEMO"
+                    "id": clientid2
                 },
                 "R_RequestType_ID": {
-                    "id": 1000002
+                    "id": id_reqType
                 },
                 "Priority": {
                     "id": prio
                 },
                 "SalesRep_ID": {
-                    "identifier": "DEMOAdmin"
+                    "id": id_salesRep
+                },
+                "R_Status_ID": {
+                    "id": id_statusType
                 },
                 "AD_Role_ID": {
-                    "id": 1000000
+                    "id": roleId
                 },
                 "DueType": {
                     "id": "5"
                 },
                 "AD_Org_ID": {
-                    "id": 0
+                    "id": orgId
                 },
                 "ConfidentialTypeEntry": {
                     "id": "C"
@@ -234,8 +311,9 @@ function sendDataTicket(e) {
                 "RequestAmt": 0,
                 "Summary": explain
             };
+            console.log(BodyData);
 
-            fetch('http://' + ip2 + '/api/v1/windows/request', {
+            fetch('http://' + ip2 + '/api/v1/models/R_Request', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -257,7 +335,8 @@ function sendDataTicket(e) {
                 .catch(error => console.log(error))
 
             break;
-        case "Nuova Richiesta Funzionalità/Sviluppo":
+        case "NR":
+
 
             BodyData = {
                 "C_BPartner_ID": {
@@ -267,25 +346,28 @@ function sendDataTicket(e) {
                     "identifier": UserName
                 },
                 "AD_Client_ID": {
-                    "identifier": "DEMO"
+                    "id": clientid2
                 },
                 "R_RequestType_ID": {
-                    "id": 1000003
+                    "id": id_reqType
                 },
                 "Priority": {
                     "id": prio
                 },
                 "SalesRep_ID": {
-                    "identifier": "DEMOAdmin"
+                    "id": id_salesRep
+                },
+                "R_Status_ID": {
+                    "id": id_statusType
                 },
                 "AD_Role_ID": {
-                    "id": 1000000
+                    "id": roleId
                 },
                 "DueType": {
                     "id": "5"
                 },
                 "AD_Org_ID": {
-                    "id": 0
+                    "id": orgId
                 },
                 "ConfidentialTypeEntry": {
                     "id": "C"
@@ -296,8 +378,9 @@ function sendDataTicket(e) {
                 "RequestAmt": 0,
                 "Summary": explain
             };
+            console.log(BodyData);
 
-            fetch('http://' + ip2 + '/api/v1/windows/request', {
+            fetch('http://' + ip2 + '/api/v1/models/R_Request', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -308,6 +391,7 @@ function sendDataTicket(e) {
                     return res.json()
                 })
                 .then(data => {
+                    console.log(data);
                     if (data.status != undefined) {
                         alert("Problema con la Richiesta")
                     } else {
@@ -319,7 +403,7 @@ function sendDataTicket(e) {
                 .catch(error => console.log(error))
 
             break;
-        case "Richiesta di formazione":
+        case "FO":
 
             const qtyHour = document.getElementById("qty-planned").value;
             if (qtyHour < 4 && qtyHour > 0) {
@@ -328,13 +412,13 @@ function sendDataTicket(e) {
                         "identifier": BP
                     },
                     "AD_Client_ID": {
-                        "identifier": "DEMO"
+                        "id": clientid2
                     },
                     "AD_User_ID": {
                         "identifier": UserName
                     },
                     "AD_Org_ID": {
-                        "id": 1000000
+                        "id": orgId
                     },
                     "S_Resource_ID": {
                         "id": 1000001
@@ -374,9 +458,7 @@ function sendDataTicket(e) {
 
 }
 
-function openTicketPWindow() {
-    ipcRender_CreaTicket.send('pageTicketP:TicketP_create_window');
-}
+
 
 
 //Funzione per prendere le richieste formazioni presenti e quindi gli orari che sono occupati
@@ -465,7 +547,7 @@ async function getSlotLiberi() {
 
             select_hour = document.getElementById('selectHour');
             //In caso in cui il select viene modificato verrà preso il valore corrente del select
-            select_hour.onchange = function () {
+            select_hour.onchange = function() {
                 comboboxItemSelected();
             }
 
@@ -480,7 +562,7 @@ async function getSlotLiberi() {
 function comboboxItemSelected() {
     //Preso ora dal select
     itemSelected = document.getElementById('selectHour').value;
-    //mySubString contiene l'pra del select
+    //mySubString contiene l'ora del select
     var mySubString = itemSelected.substring(itemSelected.indexOf("T") + 1, itemSelected.indexOf("T") + 3);
     //settato il valore di default all'ora
     document.getElementById("qty-planned").value = 1;

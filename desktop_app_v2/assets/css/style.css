@@ -292,7 +292,7 @@ header {
 }
 
 .button_Nav {
-    font-size: 50px;
+    font-size: 40px;
     cursor: pointer;
 }
 
@@ -312,7 +312,7 @@ header {
 }
 
 .header-item {
-    min-width: 10%;
+    min-width: 25%;
     /* height: 100%; */
 }
 
@@ -335,9 +335,9 @@ header {
 }
 
 #Demo {
-    top: 70px;
+    top: 80px;
     right: 0px;
-    left: 0px;
+    left: 100%-150px;
 }
 
 .dropdown {
@@ -371,13 +371,16 @@ header {
 
 .container-img {
     margin-left: 5px;
-    height: 90px;
-    width: 90px;
+    height: 80px;
+    position: relative;
+    width: 80px;
 }
 
 .container-img img {
     height: 100%;
-    width: 90%;
+    width: 100%;
+    position: absolute;
+    border-radius: 100%;
     top: 0px;
     right: 0px;
     left: 0px;
@@ -448,7 +451,7 @@ header {
 }
 
 table {
-    width: 75%;
+    width: 85%;
     margin: 0 auto;
     border: 2px solid black;
     background-color: white;
@@ -460,7 +463,7 @@ table {
 th,
 td {
     border: 2px solid black;
-    padding: 15px;
+    padding: 5px;
 }
 
 /* thead {
@@ -471,7 +474,15 @@ td {
     margin-bottom: 40px;
 }
 
-
+.SelectFilterTable {
+    width: 100%;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    padding: 12px 20px 12px 20px;
+}
 
 
 /*ICONE*/
@@ -614,7 +625,7 @@ td {
 .item-first {
     width: 20%;
     min-height: 20%;
-    height: 80%;
+    /*    height: 80%; */
     background-color: lightgray;
     border-radius: 20px;
     border: 1px solid black;
@@ -713,7 +724,6 @@ td {
     .overlay a {
         font-size: 20px
     }
-
     .overlay .closebtn {
         font-size: 40px;
         top: 15px;
@@ -726,7 +736,12 @@ td {
         overflow-x: auto;
         overflow-y: auto;
     }
+    .item-first {
+        min-height: 40%;
+    }
 }
+
+@media screen and (max-width: 1400px) {}
 
 @media screen and (max-width: 1095px) {
     #item-box-left-title {
@@ -741,7 +756,6 @@ td {
         flex-flow: column;
         margin-bottom: 100px;
     }
-
     .item-first {
         display: flex;
         flex: 1;
@@ -749,7 +763,6 @@ td {
         width: 100%;
         margin-top: 10px;
     }
-
     #item-box-left-title {
         color: purple;
         font-size: 15px;
@@ -760,50 +773,47 @@ td {
     .overlay a {
         font-size: 20px
     }
-
     .overlay .closebtn {
         font-size: 40px;
         top: 15px;
         right: 35px;
     }
-
     header {
         height: 250px;
     }
-
     .header-content {
         height: 250px;
     }
-
     .header-content-box {
         flex-direction: column;
         align-items: flex-start;
     }
-
+    .header-item {
+        width: 100%;
+        text-align: left;
+    }
     .content {
         padding-top: 100px;
     }
-
     .div-right .div-logout {
         flex-direction: row-reverse;
     }
-
     .div-right .div-logout .container-img {
-        /* flex: 1; */
         text-align: center;
         margin-left: 0px;
     }
-
     .div-right .div-logout .nameUser {
         width: 0%;
     }
-
     #span_usernmane_jslogic {
         display: none;
     }
-
     .refresh {
         top: 250px;
         left: -13px;
+    }
+    #Demo {
+        top: 90px;
+        left: 0px;
     }
 }

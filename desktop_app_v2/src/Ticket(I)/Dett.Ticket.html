@@ -1,34 +1,197 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dettagli ticket</title>
-    <link rel="stylesheet" href="../../assets/css/style.css">
-    <link rel="stylesheet" href="../../assets/css/normalize.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
-    <script src="http://rezitech.github.io/stash/stash.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <title>Dettaglio ticket</title>
 
-
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            font-size: 17px;
+            padding: 8px;
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        .row {
+            display: -ms-flexbox;
+            /* IE10 */
+            display: flex;
+            -ms-flex-wrap: wrap;
+            /* IE10 */
+            flex-wrap: wrap;
+            margin: 0 -16px;
+        }
+        
+        .col-25 {
+            -ms-flex: 25%;
+            /* IE10 */
+            flex: 25%;
+        }
+        
+        .col-50 {
+            -ms-flex: 50%;
+            /* IE10 */
+            flex: 50%;
+        }
+        
+        .col-75 {
+            -ms-flex: 75%;
+            /* IE10 */
+            flex: 75%;
+        }
+        
+        .col-100 {
+            -ms-flex: 100%;
+            /* IE10 */
+            flex: 100%;
+        }
+        
+        .col-25,
+        .col-50,
+        .col-75,
+        .col-100 {
+            padding: 0 16px;
+        }
+        
+        .container {
+            background-color: #f2f2f2;
+            padding: 20px 20px 15px 20px;
+            border: 1px solid lightgrey;
+            border-radius: 3px;
+        }
+        
+        input[type=text] {
+            width: 100%;
+            margin-bottom: 20px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        
+        label {
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .icon-container {
+            margin-bottom: 20px;
+            padding: 7px 0;
+            font-size: 24px;
+        }
+        
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            width: 100%;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 17px;
+        }
+        
+        .btn:hover {
+            background-color: #45a049;
+        }
+        
+        a {
+            color: #2196F3;
+        }
+        
+        hr {
+            border: 1px solid lightgrey;
+        }
+        
+        select {
+            width: 100%;
+            margin-bottom: 20px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            background-color: white;
+        }
+        
+        #container-lastLog {
+            background-color: white;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            color: black;
+            padding: 16px;
+            font-size: 16px;
+            width: 100%;
+            border: 1px solid black;
+            cursor: pointer;
+        }
+        
+        .container-log-dropdown {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+        
+        .content-log-dropdown-content {
+            height: 500px;
+            width: 100%;
+            border: 2px solid black;
+            border-radius: 10px;
+            display: none;
+            position: absolute;
+            bottom: 0px;
+            left: 0px;
+            background-color: white;
+            min-width: 160px;
+            overflow: auto;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+        
+        .show {
+            display: block;
+        }
+        
+        .time-right {
+            text-align: right;
+            color: #aaa;
+        }
+        
+        span.price {
+            float: right;
+            color: grey;
+        }
+        /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (also change the direction - make the "cart" column go on top) */
+        
+        @media (max-width: 800px) {
+            .row {
+                flex-direction: column;
+            }
+            .col-25 {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <div id="myNav" class="overlay">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <div class="row">
+        <div class="col-100">
+            <div class="container">
+                <form>
 
-        <div class="overlay-content" id="menu">
+                    <div class="row">
+                        <div class="col-50">
+                            <h3>Ticket</h3>
+                            <label for="ndoc"><i class="fas fa-file"></i> N° Documento</label>
+                            <input type="text" id="ndoc" name="ndoc" placeholder="" readonly="true">
 
-            <div class="logo_idempiere">
-                <div class="content-img">
-                    <a href="../index.html"><img src="../../assets/images/logolast - Copia.png"></a>
-                </div>
-            </div>
-            <ul id="dynamicMenu">
+                            <label for="date"><i class="fas fa-file"></i> Data Prossima Azione</label>
+                            <input type="text" id="input_date" name="input_date" placeholder="" readonly="true">
 
             </ul>
         </div>
@@ -82,31 +245,86 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <script src="../../js/filejscommon.js"></script>
     <script src="../../assets/js/jquery.js"></script>
+                            <h3>Documento</h3>
+                            <label for="bp"><i class="fas fa-handshake"></i> Business Partner</label>
+                            <input type="text" id="bp" name="bp" placeholder="" readonly="true">
+                            <div class="row">
+                                <div class="col-50">
+                                    <label for="priority"><i class="fas fa-calendar-alt"></i> Priorità</label>
+                                    <input type="text" id="priority" name="priority" placeholder="" readonly="true">
+                                </div>
+                                <div class="col-50">
+                                    <label for="priorityuser"><i class="fas fa-calendar-alt"></i> Priorità Utente</label>
+                                    <input type="text" id="priorityuser" name="priorityuser" placeholder="" readonly="true">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-50">
+                                    <label for="scandenzaType"><i class="fas fa-calendar-alt"></i> Tipo Scadenza</label>
+                                    <input type="text" id="scandenzaType" name="scandenzaType" placeholder="" readonly="true">
+                                </div>
+                                <div class="col-50">
+                                    <label for="requestType"><i class="fas fa-calendar-alt"></i> Tipo Richiesta</label>
+                                    <input type="text" id="requestType" name="requestType" placeholder="" readonly="true">
+                                </div>
+                            </div>
 
-    <script>
-        //window.attachEvent("onload ", closeNav());
 
-        function openNav() {
+                        </div>
 
+                        <div style="margin-top: 64px;" class="col-50">
+                            <label for="description"></i> Descrizione</label>
+                            <input type="text" id="description" name="description" placeholder="" readonly="true">
+                            <label for="help"><i class="fab fa-hire-a-helper"></i></i> Help</label>
+                            <input type="text" id="help" name="help" placeholder="" readonly="true">
+                            <label for="summary">  Sommario</label>
+                            <input type="text" id="summary" name="summary" placeholder="" readonly="true">
 
-            document.getElementById("myNav").style.width = "350px";
+                            <label for="statusRequest"><i class="fas fa-calendar-alt"></i>Stato Richiesta</label>
+                            <select id="statusRequest" name="statusRequest"></select>
+                            <label for="SalesRep"><i class="fas fa-calendar-alt"></i>Risorsa</label>
+                            <select id="SalesRep" name="SalesRep"></select>
 
-        }
+                            <label for="SalesRep"><i class="fas fa-calendar-alt"></i>Log</label>
+                            <div class="container-log-dropdown">
+                                <div onclick="Clicklog()" class="container" id="container-lastLog">
 
-        function closeNav() {
+                                </div>
+                                <div id="content-log-myDropdown" class="content-log-dropdown-content">
 
-            var nav = document.getElementById("myNav");
-            nav.style.width = "0px";
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" style="text-decoration: none;" id="updateLine" class="btn">Aggiorna ticket</a>
+            </div>
+            </form>
+        </div>
+    </div>
 
-
-
-        }
-    </script>
-    <script>
-        if (window.module) module = window.module;
-    </script>
-
+    </div>
 
 </body>
+<script src="../../js/Ticket(I)/DettagliTicket.js"></script>
+<script>
+    function Clicklog() {
+        event.preventDefault();
+        document.getElementById("content-log-myDropdown").classList.toggle("show");
+    }
+
+
+    window.onclick = function(event) {
+        if (!event.target.matches('#container-lastLog')) {
+            var dropdowns = document.getElementsByClassName("content-log-dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
+</script>
 
 </html>

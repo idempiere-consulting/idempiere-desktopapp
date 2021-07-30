@@ -15,7 +15,6 @@ let pass;
 let changeRole;
 
 
-
 //Evento bottone
 let btn = document.getElementById('btn_login_jslogic');
 btn.addEventListener('click', authLogin);
@@ -99,19 +98,15 @@ function authLogin(e) {
             ipcRenderer.send('save:token1', token1);
             ipcRenderer.send('save:ip', ip);
             //In base all'input type del cambio ruolo, verrà carica la pagina di cambio ruolo
-            if (changeRole) {
+             if (changeRole) {
                 ipcRenderer.send('page:change', 100);
             } else {
                 authToken(" ");
-            }
+            } 
         })
         .catch(error => {
             alert("Username o password o ip sbagliati!");
 
-        })
-
-
-
-
-
+        })     
+        
 }
