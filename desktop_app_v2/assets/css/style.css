@@ -1,6 +1,7 @@
 html {
     height: 100%;
     /* min-width: 400px; */
+    /*background-color: white;*/
 }
 
 body {
@@ -10,6 +11,65 @@ body {
     overflow: auto;
 }
 
+.tooltip {
+    display: inline-block;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 200px;
+    background-color: #C8C8C8	;
+    color: black;
+    text-align: left;
+    border-radius: 6px;
+    padding-left: 7px;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    cursor: default;
+}
+
+#paragraphTheme{
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.theme1{
+    display: inline-block;
+    width: 20%;
+    cursor: pointer;
+}
+
+.theme1 .themePointer img{
+    border: 3px solid #989898   ;
+    border-radius: 15px;
+}
+
+.theme1 .themePointer img:active{
+    transition: 0.1s;
+    transform: translateY(4px);
+}
+
+.theme1 .themePointer img:hover{
+border:3px solid #C0C0C0;
+transition: 0.4s;
+transform: translateY(4px);
+box-shadow: 0 3px 10px rgb(190,190,190);
+}
+
+/* .theme:hover{
+    transform: scale(1.5);
+    transition: 0.5s;
+}  */
+
+/* .themePointer{
+} */
 
 /* Menu*/
 
@@ -20,7 +80,6 @@ body {
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: #24252d;
     overflow-x: hidden;
     transition: 0.5s;
 }
@@ -223,11 +282,13 @@ header {
 }
 
 .header-content {
-    background-color: gray;
+    /*background-color: white; */
     width: 100%;
     height: 100px;
     position: fixed;
     top: 0;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 
 .button_Nav {
@@ -336,23 +397,54 @@ header {
     height: 100%;
 }
 
-.back {
+.content1{
+    padding-top: 50px;
+    text-align: center;
+}
+
+.back1 a{
     bottom: 0;
     right: 0;
     position: fixed;
-    color: white;
+    color: #909090;
     margin: 15px;
     text-decoration: none;
     text-align: center;
 }
 
-.back:hover {
-    color: #888;
+.back1 a:hover {
+    color: #F0F8FF;
     transition: 0.2s;
 }
 
-.back a {
+.back2 a{
+    bottom: 0;
+    right: 0;
+    position: fixed;
+    color: #008080;
+    margin: 15px;
     text-decoration: none;
+    text-align: center;
+}
+
+.back2 a:hover {
+    color: #909090;
+    transition: 0.2s;
+}
+
+.back3 a{
+    bottom: 0;
+    right: 0;
+    position: fixed;
+    color: #FA8072;
+    margin: 15px;
+    text-decoration: none;
+    text-align: center;
+}
+
+.back3 a:hover {
+    color: #909090;
+    transition: 0.2s;
 }
 
 table {
@@ -371,9 +463,9 @@ td {
     padding: 15px;
 }
 
-thead {
+/* thead {
     background-color: grey;
-}
+} */
 
 #myTable1 {
     margin-bottom: 40px;
@@ -581,7 +673,7 @@ thead {
     background-color: lightgray;
 }
 
-.refresh {
+.refresh1 {
     top: 100px;
     font-size: 36px;
     position: fixed;
@@ -590,15 +682,32 @@ thead {
     text-align: center;
 }
 
-.refresh a:hover {
-    transition: 0.2s;
-    color: #D3D3D3;
+.refreshHover1{
+    color: #909090;
 }
 
-.refresh a {
-    text-decoration: none;
-    color: #888;
+ .refreshHover1:hover {
+    transition: 0.2s;
+    color: #F0F8FF;
+} 
+
+.refreshHover2{
+    color: #008080;
 }
+
+ .refreshHover2:hover {
+    transition: 0.2s;
+    color: grey;
+}
+
+.refreshHover3{
+    color: #FA8072;
+}
+
+ .refreshHover3:hover {
+    transition: 0.2s;
+    color: grey;
+} 
 
 @media screen and (max-height: 450px) {
     .overlay a {

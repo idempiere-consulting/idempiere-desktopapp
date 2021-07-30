@@ -26,14 +26,15 @@ let permission_settings = [];
 let nameLead;
 let ticketId;
 let chartRolePermission;
-let invoiceId
+let invoiceId;
+let Theme;
 
 
 //var internetConn = navigator.onLine();
 
 app.on('ready', function() {
     // create new window
-
+    
     mainWindow = new BrowserWindow({
         width: 1000,
         height: 700,
@@ -42,7 +43,6 @@ app.on('ready', function() {
             nodeIntegration: true,
             contextIsolation: false,
             enableRemoteModule: true,
-            backgroundColor: '#2e2c29',
         }
     });
 
@@ -81,7 +81,6 @@ function createOrderLineWindow() {
             nodeIntegration: true,
             enableRemoteModule: true,
             contextIsolation: false,
-            backgroundColor: '#2e2c29',
         }
     });
 
@@ -116,7 +115,6 @@ function createODVWindow() {
             nodeIntegration: true,
             enableRemoteModule: true,
             contextIsolation: false,
-            backgroundColor: '#2e2c29',
         }
     });
 
@@ -153,7 +151,6 @@ function showODVDetailsWindow() {
             nodeIntegration: true,
             enableRemoteModule: true,
             contextIsolation: false,
-            backgroundColor: '#2e2c29',
         }
     });
 
@@ -188,7 +185,6 @@ function createTicketP() {
             nodeIntegration: true,
             contextIsolation: false,
             enableRemoteModule: true,
-            backgroundColor: '#2e2c29',
         }
     });
 
@@ -222,7 +218,6 @@ function DetailtsTicketWindow() {
             nodeIntegration: true,
             contextIsolation: false,
             enableRemoteModule: true,
-            backgroundColor: '#2e2c29',
         }
     });
 
@@ -256,7 +251,6 @@ function infoLeads() {
             nodeIntegration: true,
             contextIsolation: false,
             enableRemoteModule: true,
-            backgroundColor: '#2e2c29',
         }
     });
     secondaryWindow.once('ready-to-show', () => {
@@ -286,7 +280,6 @@ function showInvoiceDetailsWindow() {
             nodeIntegration: true,
             enableRemoteModule: true,
             contextIsolation: false,
-            backgroundColor: '#2e2c29',
         }
     });
 
@@ -320,7 +313,6 @@ function infoCostumerInvoice() {
             nodeIntegration: true,
             contextIsolation: false,
             enableRemoteModule: true,
-            backgroundColor: '#2e2c29',
         }
     });
     secondaryWindow.once('ready-to-show', () => {
@@ -434,6 +426,9 @@ ipcMain.on('save:invoiceId', function(event, invoiceid) {
     invoiceId = invoiceid;
 });
 
+ ipcMain.on('save:theme', function(event, theme) {
+    Theme = theme;
+}); 
 
 
 
@@ -525,6 +520,12 @@ ipcMain.on('send:chartRole', function(event, arg) {
 ipcMain.on('send:DocInvoice', function(event, arg) {
     event.returnValue = invoiceId;
 });
+
+ ipcMain.on('send:theme', function(event, arg) {
+     console.log(Theme);
+     event.returnValue = Theme;
+}); 
+
 
 
 

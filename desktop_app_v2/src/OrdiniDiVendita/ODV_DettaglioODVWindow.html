@@ -19,7 +19,7 @@
 
 <body>
     <div id="myNav" class="overlay">
-        <p class="back"><a href="VediODV.html"><i class="fas fa-arrow-circle-left"></i></a></p>
+        <p id="backButton"><a href="VediODV.html"><i class="fas fa-arrow-circle-left"></i></a></p>
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 
         <div class="overlay-content" id="menu">
@@ -35,7 +35,7 @@
         </div>
     </div>
     <header>
-        <div class="header-content">
+        <div id="themeHeader" class="header-content">
             <div class="header-content-box">
                 <div class="header-item">
                     <span class="button_Nav" onclick="openNav()">&#9776;</span>
@@ -56,7 +56,7 @@
                         </div>
                         <div id="Demo" class="dropdown-content">
                             <a href="#">Profilo</a>
-                            <a href="#">Impostazioni</a>
+                            <a href="../MenuUtente/Impostazioni.html">Impostazioni</a>
                             <hr>
                             <a href="#" onclick="logOut()">Logout</a>
                         </div>
@@ -69,7 +69,7 @@
         </div>
     </header>
     <div id="mainContent" class="content">
-        <p class="refresh"><a href="ODV_DettaglioODVWindow.html"><i class="fas fa-redo-alt"></i></a></p>
+       <p id="refresh"><a id="refreshTheme" href="ODV_DettaglioODVWindow.html"><i class="fas fa-redo-alt"></i></a></p>
         <table id="myTable1">
             <thead>
                 <tr>

@@ -119,11 +119,11 @@ function getODVLines() {
 							<td>${UOMindentifier}</td>
 							<td>
                                 <a onclick="LessQuantity(${record.id},${record.QtyEntered})" id="less-qty" class="orderline-quantity" href="#">
-                                    <i class="fas fa-1x fa-minus left-minus"></i>
+                                    <i class="fas fa-1x fa-minus left-minus" style="color: red;margin-right: 4px;"></i>
                                 </a>
                                 <span>${QtyEntered}</span>
                                 <a onclick="PlusQuantity(${record.id},${record.QtyEntered})" id="plus-qty" class="orderline-quantity" href="#">
-                                    <i class="fas fa-1x fa-plus right-plus"></i>
+                                    <i class="fas fa-1x fa-plus right-plus" style = "color: green;margin-left: 4px;"></i>
                                 </a>
                             </td>
 							<td>${MAttributeIdentifier}</td>

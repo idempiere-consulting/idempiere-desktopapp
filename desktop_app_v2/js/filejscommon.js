@@ -1,3 +1,4 @@
+
 const electron_2 = window.require("electron");
 const ipcRender_2 = electron_2.ipcRenderer;
 document.getElementById("span_usernmane_jslogic").innerHTML = ipcRender_2.sendSync('send:user');
@@ -421,4 +422,37 @@ function CreateMenu() {
 
         dynamicMenu.appendChild(liMenu);
     });
+}
+
+        const Settheme=stash.get('theme');
+        
+        if(Settheme!= undefined){
+            document.getElementById('themeHeader').style.backgroundColor = Settheme[0];
+
+            document.documentElement.style.backgroundColor = Settheme[1];
+
+            var paragraphTheme = document.querySelectorAll('#paragraphTheme');
+            for (var i = 0; i < paragraphTheme.length; i++) {
+                var currentEl = paragraphTheme[i];
+                currentEl.style.color = Settheme[2];
+            }
+            
+            var th = document.getElementsByTagName('TH');
+            for (var i = 0; i< th.length; i++) {
+                var thTheme = th[i];
+                thTheme.style.backgroundColor = Settheme[3]; 
+                thTheme.style.color = Settheme[8];               
+            }
+
+            document.getElementById('myNav').style.backgroundColor = Settheme[4];
+
+            var refreshTheme = document.getElementById('refresh');
+            refreshTheme.classList.add(Settheme[5]);
+
+            var refreshHover = document.getElementById('refreshTheme');
+            refreshHover.classList.add(Settheme[6]);
+
+            var backButton = document.getElementById('backButton');
+            backButton.classList.add(Settheme[7]);
+
 }

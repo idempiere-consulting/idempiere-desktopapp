@@ -415,3 +415,14 @@ function addData(chart, labelFilter, data, labelChart) {
     //Aggiornamento grafico
     chart.update();
 }
+
+
+
+/* 
+document.onreadystatechange = function(e)
+{
+    if (document.readyState === 'complete')
+    {
+        //dom is ready, window.onload fires later
+    }
+}; */
