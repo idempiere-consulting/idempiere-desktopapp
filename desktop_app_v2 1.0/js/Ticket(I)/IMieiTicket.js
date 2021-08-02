@@ -71,7 +71,7 @@ function getTickets() {
             //
             var btns = document.querySelectorAll('.iconLinkWebUrl');
             Array.prototype.forEach.call(btns, function addClickListener(btn) {
-                btn.addEventListener('click', function(event) {
+                btn.addEventListener('click', function (event) {
                     var ticketId = event.path[3].cells[10].innerHTML;
                     ipcRenderer.send('save:ticketid', ticketId);
                     ipcRenderer.send('pageTicketI:TicketI_details_window');
@@ -106,7 +106,7 @@ async function getStatusRequest() {
             select.appendChild(option);
         });
 
-        document.getElementById("myInputStatus").addEventListener('change', function(event) {
+        document.getElementById("myInputStatus").addEventListener('change', function (event) {
             id_reqType = event.target.options[event.target.selectedIndex].dataset.id;
         });
         getSalesRep();
@@ -157,28 +157,28 @@ async function getSalesRep() {
 
 
 var select_status = document.getElementById("myInputStatus");
-select_status.addEventListener('change', function(event) {
+select_status.addEventListener('change', function (event) {
     var itemStatus = event.target.options[event.target.selectedIndex].text;
-    filterFromSelectToTable(itemStatus, "myTable", 6);
+    filterFromSelectToTable(itemStatus, "myTable", 7);
 });
 
 var select_resource = document.getElementById("myInputResource");
-select_resource.addEventListener('change', function(event) {
+select_resource.addEventListener('change', function (event) {
     var itemResource = event.target.options[event.target.selectedIndex].text;
-    filterFromSelectToTable(itemResource, "myTable", 7);
+    filterFromSelectToTable(itemResource, "myTable", 8);
 });
 
 
 
 
 //test jquery filter
-$(".filter").click(function() {
+$(".filter").click(function () {
     var filter = this.value;
     if (filter == "All")
         $("tr.dataRow").css("visibility", "visible");
     else $("tr.dataRow").css("visibility", "collapse");
     var matchFound = false;
-    $("tr.dataRow").find("td").each(function() {
+    $("tr.dataRow").find("td").each(function () {
         $this = $(this);
         if (!matchFound) {
             if ($this.html() == filter) {
