@@ -1,0 +1,24 @@
+{
+    "name": "idempiereapp",
+    "version": "1.0.0",
+    "productName": "Idempiere App",
+    "description": "Application for Idempiere",
+    "main": "Main.js",
+    "dependencies": {
+        "chart.js": "^3.4.1",
+        "electron-browser-storage": "^1.0.7",
+        "electron-builder": "^22.11.7"
+    },
+    "scripts": {
+        "start": "electron .",
+        "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/icons/mac/icon.icns --prune=true --out=release-builds",
+        "package-win": "electron-packager . Idempiere --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/images/logo.png --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Idempiere App\"",
+        "package-linux": "electron-packager . idempiereapp --overwrite --asar=true --platform=linux --arch=x64 --icon=assets/images/logo.png --prune=true --out=release-builds"
+    },
+    "author": "Idempiere",
+    "license": "ISC",
+    "devDependencies": {
+        "electron": "^13.1.6",
+        "electron-packager": "^15.2.0"
+    }
+}

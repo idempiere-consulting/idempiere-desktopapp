@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Creazione Lead</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            font-size: 17px;
+            padding: 8px;
+        }
+        
+        * {
+            margin: 0;
+            border: 0;
+            box-sizing: border-box;
+        }
+        
+        .row {
+            display: -ms-flexbox;
+            /* IE10 */
+            display: flex;
+            -ms-flex-wrap: wrap;
+            /* IE10 */
+            flex-wrap: wrap;
+            margin: 0 -16px;
+        }
+        
+        .col-25 {
+            -ms-flex: 25%;
+            /* IE10 */
+            flex: 25%;
+        }
+        
+        .col-50 {
+            -ms-flex: 50%;
+            /* IE10 */
+            flex: 50%;
+        }
+        
+        .col-75 {
+            -ms-flex: 75%;
+            /* IE10 */
+            flex: 75%;
+        }
+        
+        .col-100 {
+            -ms-flex: 100%;
+            /* IE10 */
+            flex: 100%;
+        }
+        
+        .col-25,
+        .col-50,
+        .col-75,
+        .col-100 {
+            padding: 0 16px;
+        }
+        
+        .container {
+            background-color: #f2f2f2;
+            padding: 5px 20px 15px 20px;
+            border: 1px solid lightgrey;
+            border-radius: 3px;
+            text-align: center;
+        }
+        
+        h1 {
+            text-align: center;
+        }
+        
+        .flexbox {
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        .item-box {
+            border: 2px solid black;
+            padding: 10px;
+            width: 45%;
+            text-align: left;
+        }
+        
+        h3 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        select {
+            width: 100%;
+            margin-bottom: 20px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            background-color: white;
+            border-radius: 3px;
+            font-size: 15px;
+        }
+        
+        li {
+            margin: 5px;
+        }
+        
+        ul li {
+            cursor: pointer;
+        }
+        
+        input[type=text] {
+            width: 100%;
+            margin-bottom: 20px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        
+        input {
+            width: 100%;
+            margin-bottom: 20px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        
+        textarea,
+        select {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .sendButton {
+            margin-top: 30px;
+            width: 100%;
+            height: 40px;
+        }
+        
+        #sendLead {
+            background-color: rgb(69, 230, 69);
+            width: 80%;
+            font-size: 15px;
+            height: 100%;
+            color: black;
+            text-decoration: none;
+            border-radius: 10px;
+        }
+        
+        hr {
+            border: 1px solid lightgrey;
+        }
+        /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (also change the direction - make the "cart" column go on top) */
+        
+        @media (max-width: 800px) {
+            .row {
+                flex-direction: column-reverse;
+            }
+            .col-25 {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="row">
+        <div class="col-50">
+            <div class="container">
+                <h1>Creazione Lead</h1>
+                <form>
+                    <div class="flexbox">
+                        <div id="div_toAddTwoSelect" class="item-box">
+                            <h3>Informazioni generali lead</h3>
+                            <label class="formLabel" for="label_chiaveRicerca">Chiave Ricerca</label>
+                            <input type="text" id="input_chiaveRicerca" name="chiaveRicerca" placeholder="Chiave ricerca..">
+
+                            <label class="formLabel" for="label_description">Descrizione</label>
+                            <textarea style="width: 100%;" name="textarea_description" id="description" placeholder="Descrizione.."></textarea>
+
+                        </div>
+                        <div class="item-box">
+                            <h3>Informazioni personali lead</h3>
+                            <label class="formLabel" for="label_name">Nome</label>
+                            <input type="text" id="input_name" name="lastname" placeholder="Nome lead..">
+
+                            <label class="formLabel" for="label_surname">Cognome</label>
+                            <input type="text" id="input_surname" name="surname" placeholder="Cognome lead..">
+
+                            <label class="formLabel" for="label_phone">Telefono</label>
+                            <input type="text" id="input_phone" name="phone" placeholder="Telefono lead..">
+
+                            <label class="formLabel" for="label_phone2">Telefono 2</label>
+                            <input type="text" id="input_phone2" name="phone2" placeholder="Secondo telefono lead..">
+
+                            <label class="formLabel" for="label_url">Sito web</label>
+                            <input type="text" id="input_url" name="url" placeholder="Sito web lead..">
+
+                            <label class="formLabel" for="label_email">Email</label>
+                            <input type="text" id="input_email" name="email" placeholder="Email lead..">
+
+                            <label class="formLabel" for="label_birthday">Compleanno</label>
+                            <input type="date" id="input_birthday" name="Birthday">
+
+                            <label class="formLabel" for="label_BPName">Nome business partner </label>
+                            <input type="text" id="input_BPName" name="BPName" placeholder="Business partner lead..">
+                        </div>
+                    </div>
+
+
+                    <div class="sendButton">
+                        <button id="sendLead">Aggiungi Lead</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <script src="../../js/CRM/CreaLead.js"></script>
+
+</body>
+
+</html>

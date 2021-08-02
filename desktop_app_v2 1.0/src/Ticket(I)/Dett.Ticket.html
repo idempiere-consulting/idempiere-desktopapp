@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <title>Dettaglio ticket</title>
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            font-size: 17px;
+            padding: 8px;
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        .container {
+            background-color: #f2f2f2;
+            padding: 20px 20px 15px 20px;
+            border: 1px solid lightgrey;
+            border-radius: 3px;
+        }
+        
+        .flexbox {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: flex-start;
+            align-content: center;
+            border-bottom: 1px solid black;
+        }
+        
+        .column {
+            height: 100%;
+            width: 40%;
+            padding: 15px;
+        }
+        
+        input[type=text],
+        input[type=number] {
+            width: 100%;
+            margin-bottom: 20px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        
+        label {
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .icon-container {
+            margin-bottom: 20px;
+            padding: 7px 0;
+            font-size: 24px;
+        }
+        
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            width: 100%;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 17px;
+        }
+        
+        .btn:hover {
+            background-color: #45a049;
+        }
+        
+        a {
+            color: #2196F3;
+        }
+        
+        h3,
+        h1 {
+            text-align: center;
+        }
+        
+        hr {
+            border: 1px solid lightgrey;
+        }
+        
+        select {
+            width: 100%;
+            margin-bottom: 20px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            background-color: white;
+        }
+        
+        .item-date {
+            margin-bottom: 20px;
+            width: 100%;
+            border: 1px solid black;
+            padding: 17px;
+            padding-top: 0px;
+        }
+        
+        .item-date input {
+            padding: 12px;
+            width: 100%;
+        }
+        
+        #container-lastLog {
+            background-color: white;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            color: black;
+            padding: 16px;
+            font-size: 16px;
+            width: 100%;
+            border: 1px solid black;
+            cursor: pointer;
+        }
+        
+        .container-log-dropdown {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .content-log-dropdown-content {
+            height: 500px;
+            width: 100%;
+            border: 2px solid black;
+            border-radius: 10px;
+            display: none;
+            position: absolute;
+            bottom: 0px;
+            left: 0px;
+            background-color: white;
+            min-width: 160px;
+            overflow: auto;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+        
+        .show {
+            display: block;
+        }
+        
+        .time-right {
+            text-align: right;
+            color: #aaa;
+        }
+        
+        .div-button {
+            width: 100%;
+            height: 50px;
+            margin-top: 20px;
+            padding: 15px;
+            text-align: right;
+        }
+        
+        span.price {
+            float: right;
+            color: grey;
+        }
+        /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (also change the direction - make the "cart" column go on top) */
+        
+        @media (max-width: 800px) {
+            .row {
+                flex-direction: column;
+            }
+            .col-25 {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Dettaglio Ticket</h1>
+        <div class="row">
+            <h3>Informazioni Utente</h3>
+            <div class="flexbox">
+
+                <div class="column">
+
+                    <div class="item">
+                        <label for="ndoc"><i class="fas fa-file"></i> N° Documento</label>
+                        <input type="text" id="ndoc" name="ndoc" placeholder="" readonly="true">
+                    </div>
+
+
+                    <div class="item">
+                        <label for="bp"><i class="fas fa-handshake"></i> Business Partner</label>
+                        <input type="text" id="bp" name="bp" placeholder="" readonly="true">
+                    </div>
+                    <div class="item">
+                        <label for="User"><i class="fas fa-user"></i> Utente</label>
+                        <input type="text" id="user" name="user" placeholder="" readonly="true">
+                    </div>
+                    <div class="item">
+                        <label for="priority"><i class="fas fa-calendar-alt"></i> Priorità</label>
+                        <input type="text" id="priority" name="priority" placeholder="" readonly="true">
+                    </div>
+
+                    <div class="item">
+                        <label for="scandenzaType"><i class="fas fa-calendar-alt "></i> Tipo Scadenza</label>
+                        <input type="text" id="scandenzaType" name="scandenzaType" placeholder=" " readonly="true">
+                    </div>
+
+
+                </div>
+
+                <div class="column">
+                    <div class="item">
+                        <label for="description"><i class="fas fa-align-justify"></i> Descrizione</label>
+                        <input type="text" id="description" name="description" placeholder="" readonly="true">
+                    </div>
+                    <div class="item">
+                        <label for="help"><i class="fab fa-hire-a-helper"></i></i> Help</label>
+                        <input type="text" id="help" name="help" placeholder="" readonly="true">
+                    </div>
+                    <div class="item">
+                        <label for="summary"> <i class="fas fa-align-justify"></i> Sommario</label>
+                        <input type="text" id="summary" name="summary" placeholder="" readonly="true">
+                    </div>
+                    <div class="item">
+                        <label for="priorityuser"><i class="fas fa-calendar-alt"></i> Priorità Utente</label>
+                        <input type="text" id="priorityuser" name="priorityuser" placeholder="" readonly="true">
+                    </div>
+
+                    <div class="item">
+                        <label for="requestType"><i class="fas fa-calendar-alt"></i> Tipo Richiesta</label>
+                        <input type="text" id="requestType" name="requestType" placeholder="" readonly="true">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <h3>Stato del ticket</h3>
+            <div class="flexbox">
+
+                <div class="column">
+                    <div class="item">
+                        <label for="statusRequest"><i class="fas fa-calendar-alt"></i> Stato Richiesta</label>
+                        <select id="statusRequest" name="statusRequest"></select>
+                    </div>
+                    <div class="item">
+                        <label for="date"><i class="fas fa-calendar-week"></i> Data Prossima Azione</label>
+                        <input type="text" id="input_date" name="input_date" placeholder="" readonly="true">
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="item">
+                        <label for="SalesRep"><i class="fas fa-calendar-alt"></i> Risorsa</label>
+                        <select id="SalesRep" name="SalesRep"></select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="imgdiv">
+            <h3>Screenshot</h3>
+            <div class="flexbox">
+                <div style="width: 100%; height: 600px; position: relative; margin-bottom: 20px;">
+                    <img id="img" style="width:100%; height: 100%; object-fit: contain;" src="">
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <h3>Azioni sui log</h3>
+            <div class="flexbox">
+                <div class="column">
+                    <div class="item">
+                        <label for="date"><i class="fas fa-file"></i> Data Prossima Azione</label>
+                        <form>
+                            <div class="item-date">
+                                <p>Data</p>
+                                <input type="date" id="input_dateNext" name="input_dateNext" placeholder="Inserisci la data della prossima azione" required>
+                                <p> Ora</p>
+                                <input type="time" id="input_timeNext" name="input_timeNext" placeholder="Inserisci la data della prossima azione" required>
+                            </div>
+                        </form>
+                        <div class="item">
+                            <label for="date"><i class="fas fa-file"></i> Quantità</label>
+                            <input type="number" max="10" min="0" step=".5" id="input_qty" name="input_qty" placeholder="Inserisci il tempo speso">
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="item">
+                        <label for="date"><i class="fas fa-align-justify"></i></i> Descrizione</label>
+                        <textarea id="input_textArea" style="width: 100%; height: 170px; max-width: 100%; margin-bottom: 20px;"></textarea>
+                    </div>
+
+                    <div class="item">
+                        <label for="SalesRep"><i class="fas fa-calendar-alt"></i> Log</label>
+                        <div class="container-log-dropdown">
+                            <div onclick="Clicklog()" class="container" id="container-lastLog">
+
+                            </div>
+                            <div id="content-log-myDropdown" class="content-log-dropdown-content">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="div-button">
+                <a href="#" style="text-decoration: none; " id="updateLine" class="btn">Aggiorna ticket</a>
+            </div>
+
+        </div>
+    </div>
+
+
+</body>
+<script src="../../js/Ticket(I)/DettagliTicket.js"></script>
+<script>
+    function Clicklog() {
+        event.preventDefault();
+        document.getElementById("content-log-myDropdown").classList.toggle("show");
+    }
+
+
+    window.onclick = function(event) {
+        if (!event.target.matches('#container-lastLog')) {
+            var dropdowns = document.getElementsByClassName("content-log-dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
+</script>
+
+</html>

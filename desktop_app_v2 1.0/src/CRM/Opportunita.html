@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opportumità</title>
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/normalize.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+    <script src="http://rezitech.github.io/stash/stash.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+    <div id="myNav" class="overlay">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+        <div class="overlay-content" id="menu">
+
+            <div class="logo_idempiere">
+                <div class="content-img">
+                    <a href="../index.html"><img src="../../assets/images/logolast - Copia.png"></a>
+                </div>
+            </div>
+            <ul id="dynamicMenu">
+
+            </ul>
+        </div>
+    </div>
+    <header>
+        <div id="themeHeader" class="header-content">
+            <div class="header-content-box">
+                <div class="header-item">
+                    <span class="button_Nav" onclick="openNav()">&#9776;</span>
+                </div>
+                <div class="header-item">
+                    <span id="title">Opportunità</span>
+                </div>
+                <div style="height: 100%" class="header-item div-right">
+
+                    <div style="width: 100%; height: 100%;" class="dropdown">
+                        <div class="div-logout">
+                            <div class="nameUser" style="text-align: right;">
+                                <span id="span_usernmane_jslogic" class="mr-2 d-lg-inline text-gray-600 small" style=" font-weight: 700; margin-right: 10px;"></span>
+                            </div>
+                            <div class="container-img ">
+                                <img class="img-profile rounded-circle" src="../../assets/images/undraw_profile.svg">
+                            </div>
+
+                        </div>
+                        <div id="Demo" class="dropdown-content">
+                            <a href="#">Profilo</a>
+                            <a href="../MenuUtente/Impostazioni.html">Impostazioni</a>
+                            <hr>
+                            <a href="#" onclick="logOut()">Logout</a>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+    </header>
+    <div id="mainContent" class="content">
+        <p id="refresh"><a id="refreshTheme" href="Opportunita.html"><i class="fas fa-redo-alt"></i></a></p>
+
+        <table id="myTable" class="table-sortable">
+            <thead>
+                <tr>
+                    <th colspan="9">
+                        <div>
+
+                            <input class="filter" type="button" id="All" name="SalesStage" value="All">
+                            <input class="filter" type="button" id="html1" name="Annullato" value="00.Annullato">
+                            <input class="filter" type="button" id="Da Iniziare" name="Da Iniziare" value="10.Da Iniziare">
+                            <input class="filter" type="button" id="Da Contattare" name="Da Contattare" value="New">
+                            <input class="filter" type="button" id="Prep Offerta/To Do" name="Prep Offerta/To Do" value="45.Prep Offerta / To Do">
+
+                            <input class="filter" type="button" id="Cons Offerta/To Do" name="Cons Offerta/To Do" value="50.Cons Offerta/ To Do">
+                            <input class="filter" type="button" id="Da Ricontattare" name="Da Ricontattare" value="60.Da Ricontattare">
+                            <input class="filter" type="button" id="In attesa di Risposta" name="In attesa di Risposta" value="80.In attesa di Risposta">
+
+                            <input class="filter" type="button" id="Fare ODV/Venduto" name="Fare ODV/Venduto" value="98. Fare ODV /Venduto">
+
+                            <input class="filter" type="button" id="Venduto" name="Venduto" value="99.Venduto">
+
+                        </div>
+                    </th>
+                </tr>
+
+                <tr>
+                    <th><input class="FilterLeads filter_input" type="text" id="myInputBP" onkeyup="filterFromInputToTable('myInputBP','myTable',0)" placeholder="Filtra per BP" title="Scrivi un BPartner"></th>
+                    <th><input class="FilterLeads filter_input" type="text" id="myInputCampaign" onkeyup="filterFromInputToTable('myInputCampaign','myTable',1)" placeholder="Filtra per Camp." title="Scrivi una Campagna"></th>
+                    <th><input class="FilterLeads filter_input" type="text" id="myInputAgent" onkeyup="filterFromInputToTable('myInputAgent','myTable',2)" placeholder="Filtra per Agente" title="Scrivi un Agente"></th>
+                    <th><input class="FilterLeads filter_input" type="text" id="myInputSalesState" onkeyup="filterFromInputToTable('myInputSalesState','myTable',3)" placeholder="Filtra per Stato" title="Scrivi uno Stato Vendita"></th>
+                    <th><input class="FilterLeads filter_input" type="text" id="myInputImportAmt" onkeyup="filterFromInputToTable('myInputImportAmt','myTable',4)" placeholder="Filtra per Importo" title="Scrivi un Importo"></th>
+                    <th><input class="FilterLeads filter_input" type="text" id="myInputDescription" onkeyup="filterFromInputToTable('myInputDescription','myTable',4)" placeholder="Filtra per Descrizione" title="Scrivi una Descrizione"></th>
+                    <th><input class="FilterLeads filter_input" type="text" id="myInputCloseData" onkeyup="filterFromInputToTable('myInputCloseData','myTable',5)" placeholder="Filtra per Data Chiusura" title="Scrivi una Data Chiusura"></th>
+                    <th><input class="FilterLeads filter_input" type="text" id="myInputProbability" onkeyup="filterFromInputToTable('myInputProbability','myTable',6)" placeholder="Filtra per Probabilità" title="Scrivi una Probabilità"></th>
+                    <th><a title="Add ODV" id="AddODV" href="#"><i class="fas fa-2x fa-plus"></i></a></th>
+                </tr>
+                <tr>
+                    <th>BPartner</th>
+                    <th>Campagna</th>
+                    <th>Agente</th>
+                    <th>Stato Vendita</th>
+                    <th>Importo Atteso</th>
+                    <th>Descrizione</th>
+                    <th>Data Chiusura</th>
+                    <th>Probabilità</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="opportunityBody">
+            </tbody>
+        </table>
+    </div>
+    <script>
+        if (typeof module === 'object') {
+            window.module = module;
+            module = undefined;
+        }
+    </script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script src="../../js/filejscommon.js"></script>
+    <script src="../../assets/js/jquery.js"></script>
+    <script src="../../js/CRM/Opportunità.js"></script>
+    <script>
+        //window.attachEvent("onload ", closeNav());
+
+        function openNav() {
+
+
+            document.getElementById("myNav").style.width = "350px";
+
+        }
+
+        function closeNav() {
+
+            var nav = document.getElementById("myNav");
+            nav.style.width = "0px";
+
+
+
+        }
+    </script>
+    <script>
+        if (window.module) module = window.module;
+    </script>
+
+
+</body>
+
+</html>

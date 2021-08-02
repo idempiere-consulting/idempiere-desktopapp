@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dettaglio Leads</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            font-size: 17px;
+            padding: 8px;
+            background-color: #000000;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .row {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+            margin: 0 -16px;
+        }
+
+        .list {
+            width: 45%;
+            display: inline-block;
+        }
+
+        .col-25 {
+            -ms-flex: 25%;
+            /* IE10 */
+            flex: 25%;
+        }
+
+        .col-50 {
+            -ms-flex: 50%;
+            /* IE10 */
+            flex: 50%;
+        }
+
+        .col-75 {
+            -ms-flex: 75%;
+            /* IE10 */
+            flex: 75%;
+        }
+
+        .col-100 {
+            -ms-flex: 100%;
+            /* IE10 */
+            flex: 100%;
+        }
+
+        .col-25,
+        .col-50,
+        .col-75,
+        .col-100 {
+            padding: 0 16px;
+        }
+
+        .container {
+            padding: 20px 20px 15px 20px;
+            border: 1px solid lightgrey;
+            border-radius: 3px;
+            background-color: #f1f1f1;
+        }
+
+        input[type=text] {
+            width: 90%;
+            margin-bottom: 20px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        label {
+            margin-bottom: 10px;
+            display: block;
+            width: 70%;
+        }
+
+        .icon-container {
+            margin-bottom: 20px;
+            padding: 7px 0;
+            font-size: 24px;
+        }
+
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            width: 100%;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 17px;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        a {
+            color: #2196F3;
+        }
+
+        hr {
+            border: 1px solid lightgrey;
+        }
+
+        span.price {
+            float: right;
+            color: grey;
+        }
+
+        /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (also change the direction - make the "cart" column go on top) */
+
+        @media (max-width: 800px) {
+            .row {
+                flex-direction: column-reverse;
+            }
+
+            .col-25 {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="row">
+        <div class="col-100">
+            <div class="container" id = "containerTheme">
+                <form>
+
+                    <div class="row">
+                        <div class="col-50">
+                            <h3>DETTAGLIO LEAD</h3>
+
+                            <div class="list">
+                                <label for="name">Nome</label>
+                                <input type="text" id="name" name="name" placeholder="" readonly="true">
+
+                                <label for="description">Descrizione</label>
+                                <input type="text" id="description" name="description" placeholder="" readonly="true">
+
+                                <label for="phone">Telefono</label>
+                                <input type="text" id="phone" name="phone" placeholder="" readonly="true">
+
+                                <label for="phone2">Telefono 2</label>
+                                <input type="text" id="phone2" name="phone2" placeholder="" readonly="true">
+
+                                <label for="email">Email</label>
+                                <input type="text" id="email" name="email" placeholder="" readonly="true">
+
+                                <label for="site">Indirizzo Web</label>
+                                <input type="text" id="site" name="site" placeholder="" readonly="true">
+                            </div>
+
+                            <div class="list">
+                                <label for="birth">Data di Nascita</label>
+                                <input type="text" id="birth" name="birth" placeholder="" readonly="true">
+
+                                <label for="namebp">Nome Business Partner</label>
+                                <input type="text" id="namebp" name="namebp" placeholder="" readonly="true">
+
+                                <label for="cmpg">Campagna</label>
+                                <input type="text" id="cmpg" name="cmpg" placeholder="" readonly="true">
+
+                                <label for="orgl">Origine Lead</label>
+                                <input type="text" id="orgl" name="orgl" placeholder="" readonly="true">
+
+                                <label for="salesreplead">Rappresentante di Vendita</label>
+                                <input type="text" id="salesreplead" name="salesreplead" placeholder="" readonly="true">
+
+                                <label for="leadstate">Stato Lead</label>
+                                <input type="text" id="leadstate" name="leadstate" placeholder="" readonly="true">
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+            </div>
+            </form>
+        </div>
+    </div>
+
+    </div>
+    <script src="../../js/CRM/DettaglioLeads.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+const electron = require('electron');
+const {
+    ipcRenderer
+} = electron;
+
+const authToken = ipcRenderer.sendSync('send:authtoken', 'ping');
+const userBPartner = ipcRenderer.sendSync('send:bp', 'ping');
+const ip = ipcRenderer.sendSync('send:ip', 'ping');
+getTickets();
+
+function getTickets() {
+
+    fetch('http://' + ip + '/api/v1/windows/request', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + authToken
+            }
+        }).then(res => {
+            return res.json()
+        })
+        .then(data => {
+            console.log(data);
+            //var pData = JSON.parse(data)
+            a = data['window-records'];
+            a.forEach((record) => {
+                var table = document.getElementById('ticketBody');
+                var bp = record.C_BPartner_ID;
+                var user = record.AD_User_ID;
+                var req = record.R_RequestType_ID;
+                var prio = record.Priority;
+                var row = `
+                <tr class="dataRow"> 
+                    <td>${record.DocumentNo}</td>
+                    <td>${bp['identifier']}</td>
+                    <td>${user['identifier']}</td>
+                    <td>${req['identifier']}</td>
+                    <td>${prio['identifier']}</td>
+                    <td>${record.Summary}</td>
+                    <td>${record.Created.slice(0,10)}</td>
+                    <td><a href="#" class="iconLinkWebUrl"><i class="fas fa-external-link-alt"></i></td>
+                    <td style="display:none" >${record.id}</td>
+                </tr>`;
+                if ((record.R_Status_ID.identifier == "10_Da Approvare" || record.R_Status_ID.identifier == "50_In Corso" || record.R_Status_ID.identifier == "0_Creato/Da Assegnare") && (record.SalesRep_ID.identifier == "Da Assegnare"))
+                    table.innerHTML += row;
+
+            });
+            //
+            var btns = document.querySelectorAll('.iconLinkWebUrl');
+            Array.prototype.forEach.call(btns, function addClickListener(btn) {
+                btn.addEventListener('click', function(event) {
+                    var ticketId = event.path[3].cells[8].innerHTML;
+                    ipcRenderer.send('save:ticketid', ticketId);
+                    ipcRenderer.send('pageTicketI:TicketI_details_window');
+                });
+            });
+
+
+            OrderTable("ticketBody", 8);
+            backgroundRowTable('ticketBody');
+
+        })
+        .catch(error => console.log(error))
+}
+
+
+
+
+
+
+//test jquery filter
+$(".filter").click(function() {
+    var filter = this.value;
+    if (filter == "All")
+        $("tr.dataRow").css("visibility", "visible");
+    else $("tr.dataRow").css("visibility", "collapse");
+    var matchFound = false;
+    $("tr.dataRow").find("td").each(function() {
+        $this = $(this);
+        if (!matchFound) {
+            if ($this.html() == filter) {
+                $this.parent().css("visibility", "visible");
+            }
+        }
+    });
+});

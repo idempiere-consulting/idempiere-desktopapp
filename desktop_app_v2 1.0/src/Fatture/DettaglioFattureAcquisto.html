@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dettaglio Fatture d'Acquisto</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            font-size: 17px;
+            padding: 8px;
+            background-color: #000000;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .row {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+            margin: 0 -16px;
+        }
+
+        .list {
+            width: 49.7%;
+            display: inline-block;
+            border: 1px solid black;
+            padding: 15px;
+        }
+
+        .col-25 {
+            -ms-flex: 25%;
+            /* IE10 */
+            flex: 25%;
+        }
+
+        .col-50 {
+            -ms-flex: 50%;
+            /* IE10 */
+            flex: 50%;
+        }
+
+        .col-75 {
+            -ms-flex: 75%;
+            /* IE10 */
+            flex: 75%;
+        }
+
+        .col-100 {
+            -ms-flex: 100%;
+            /* IE10 */
+            flex: 100%;
+        }
+
+        .col-25,
+        .col-50,
+        .col-75,
+        .col-100 {
+            padding: 0 16px;
+        }
+
+        .div-center {
+            margin: 0 auto;
+            width: 80%;
+            height: 100%;
+        }
+
+.container {
+            padding: 20px 20px 15px 20px;
+            border: 1px solid lightgrey;
+            border-radius: 3px;
+            background-color: #f1f1f1;
+        }
+
+        input[type=text] {
+            width: 90%;
+            margin-bottom: 20px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        label {
+            margin-bottom: 10px;
+            display: block;
+            width: 70%;
+        }
+
+        .icon-container {
+            margin-bottom: 20px;
+            padding: 7px 0;
+            font-size: 24px;
+        }
+
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            width: 100%;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 17px;
+        }
+
+        h3,
+        h4 {
+            text-align: center
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        a {
+            color: #2196F3;
+        }
+
+        hr {
+            border: 1px solid lightgrey;
+        }
+
+        span.price {
+            float: right;
+            color: grey;
+        }
+
+        .table-details {
+            width: 100%;
+            margin-top: 20px;
+            border: 1px solid black;
+        }
+
+        .table-details td,
+        .table-details th {
+            width: 10%;
+            text-align: center;
+            padding: 5px;
+            color: black;
+            border: 1px solid black;
+        }
+
+        /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (also change the direction - make the "cart" column go on top) */
+
+        @media (max-width: 800px) {
+            .row {
+                flex-direction: column-reverse;
+            }
+
+            .col-25 {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="row">
+        <div class="col-100">
+            <div class="container" id = "containerTheme">
+                <form>
+
+                    <div class="row">
+                        <div class="col-50">
+
+                            <div class="div-center">
+                                <h3>DETTAGLIO FATTURE DI VENDITA</h3>
+                                <div class="list">
+                                    <label for="org">Organizzazione</label>
+                                    <input type="text" id="org" name="org" placeholder="" readonly="true">
+
+                                    <label for="BPLocation">Indirizzo Del Business Partner</label>
+                                    <input type="text" id="BPLocation" name="BPLocation" placeholder="" readonly="true">
+
+                                    <label for="Currency">Valuta</label>
+                                    <input type="text" id="Currency" name="Currency" placeholder="" readonly="true">
+
+                                    <label for="DocType">Tipo Documento</label>
+                                    <input type="text" id="DocType" name="DocType" placeholder="" readonly="true">
+
+                                    <label for="PaymentTerm">Termine Pagamento</label>
+                                    <input type="text" id="PaymentTerm" name="PaymentTerm" placeholder=""
+                                        readonly="true">
+
+                                    <label for="CreatedBy">Creato Da</label>
+                                    <input type="text" id="CreatedBy" name="CreatedBy" placeholder="" readonly="true">
+                                </div>
+
+                                <div class="list">
+                                    <label for="DocStatus">Stato Del Documento</label>
+                                    <input type="text" id="DocStatus" name="DocStatus" placeholder="" readonly="true">
+
+                                    <label for="VATJournal">Registro Iva</label>
+                                    <input type="text" id="VATJournal" name="VATJournal" placeholder="" readonly="true">
+
+                                    <label for="VATPeriod">Periodo Iva</label>
+                                    <input type="text" id="VATPeriod" name="VATPeriod" placeholder="" readonly="true">
+
+                                    <label for="PriceList">Listino Prezzi</label>
+                                    <input type="text" id="PriceList" name="PriceList" placeholder="" readonly="true">
+
+                                    <label for="PaymentRule">Modalità Pagamento</label>
+                                    <input type="text" id="PaymentRule" name="PaymentRule" placeholder=""
+                                        readonly="true">
+
+                                    <label for="Status">Stato</label>
+                                    <input type="text" id="Status" name="Status" placeholder="" readonly="true">
+
+                                </div>
+                                <h4>Linee di Fattura</h4>
+                                <table id="myTable1" class="table-details">
+                                    <thead>
+                                        <tr>
+                                            <th>Codice Articolo</th>
+                                            <th>Descrizione</th>
+                                            <th>Quantità</th>
+                                            <th>Prezzo</th>
+                                            <th>Iva</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="InvoceInlineBody">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+            </div>
+            </form>
+        </div>
+    </div>
+
+    </div>
+    <script src="../../js/Fattura/DettaglioFattureDiAcquisto.js"></script>
+</body>
+
+</html>

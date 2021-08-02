@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Autenticazione</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" type="image/png" href="../../assets/images/favicon.ico" />
+
+    <link rel="stylesheet" type="text/css" href="../../vendor_login/bootstrap_login/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+        integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="../../assets/css/util_login.css">
+    <link rel="stylesheet" type="text/css" href="../../assets/css/main_login.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100 p-t-0 p-b-20">
+                <form class="login100-form validate-form">
+                    <span class="login100-form-avatar">
+                        <img src="../../assets/images/logo.png" alt="AVATAR">
+                    </span>
+
+                    <div class="wrap-input100 validate-input m-t-85 m-b-35" data-validate="Enter username">
+                        <input id="input_username_jslogic" class="input100" type="text" name="username">
+                        <span class="focus-input100" data-placeholder="Username"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input m-b-35" data-validate="Enter password">
+                        <input id="input_password_jslogic" class="input100" type="password" name="pass">
+                        <span class="focus-input100" data-placeholder="Password"></span>
+                    </div>
+                    <div class="wrap-input100 validate-input m-b-35" data-validate="Ip">
+                        <input id="input_ip_jslogic" class="input100" type="Ip" name="Ip">
+                        <span class="focus-input100" data-placeholder="ip"></span>
+                    </div>
+                    <div class="m-b-25">
+                        <input type="checkbox" id="input_rememberMe_jslogic" name="RememberMe" value="RememberMe">
+                        <label for="RememberMe">Remember Me</label><br>
+                    </div>
+                    <div class="m-b-35">
+                        <input type="checkbox" id="changeRole" name="ChangeRole" value="ChangeRole">
+                        <label for="ChangeRole">Change Role</label><br>
+
+                    </div>
+
+
+                    <div class="container-login100-form-btn">
+                        <button class="login100-form-btn" id="btn_login_jslogic">
+                            Login
+                        </button>
+                    </div>
+
+                    <div>
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="dropDownSelect1"></div>
+    <script>
+        if (typeof module === 'object') {
+            window.module = module;
+            module = undefined;
+        }
+    </script>
+
+    <script src="../../vendor_login/jquery_login/jquery-3.2.1.min.js"></script>
+    <script src="../../vendor_login/select2/select2.min.js"></script>
+
+
+
+
+    <script src="../../assets/js/main_login.js"></script>
+    <script src="http://rezitech.github.io/stash/stash.min.js"></script>
+    <script src="../../js/logIn2.js"></script>
+    <script src="../../js/logIn.js"></script>
+
+    <script>
+        if (window.module) module = window.module;
+    </script>
+
+</body>
+
+</html>
