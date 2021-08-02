@@ -36,7 +36,7 @@ let profileImageBase64 = undefined;
 
 app.on('ready', function() {
     // create new window
-    
+
     mainWindow = new BrowserWindow({
         width: 1000,
         height: 700,
@@ -372,7 +372,7 @@ function createLead() {
         modal: true,
         show: false,
         width: 1000,
-        height: 400,
+        height: 850,
         icon: path.join(__dirname, 'assets/images/logo.png'),
         webPreferences: {
             nodeIntegration: true,
@@ -497,9 +497,9 @@ ipcMain.on('save:invoiceId', function(event, invoiceid) {
     invoiceId = invoiceid;
 });
 
- ipcMain.on('save:theme', function(event, theme) {
+ipcMain.on('save:theme', function(event, theme) {
     Theme = theme;
-}); 
+});
 
 
 ipcMain.on('save:imageBase64', function(event, image) {
@@ -593,10 +593,10 @@ ipcMain.on('send:DocInvoice', function(event, arg) {
     event.returnValue = invoiceId;
 });
 
- ipcMain.on('send:theme', function(event, arg) {
-     console.log(Theme);
-     event.returnValue = Theme;
-}); 
+ipcMain.on('send:theme', function(event, arg) {
+    console.log(Theme);
+    event.returnValue = Theme;
+});
 ipcMain.on('send:imageBase64', function(event, arg) {
     if (profileImageBase64 != undefined)
         event.returnValue = "data:image/png;base64," + profileImageBase64;

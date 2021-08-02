@@ -29,7 +29,7 @@ const sendLine = document.getElementById('sendLine');
 /* Events buttons */
 
 if (srcCode != null) {
-    srcCode.addEventListener('click', function (e) {
+    srcCode.addEventListener('click', function(e) {
         flag_ = 0;
         var temp = document.getElementById('productcode').value;
         //Se l'inpunt type contiene un _ significa che ha un attributo di istanza e quindi lo divide in 2 stringhe
@@ -53,7 +53,7 @@ if (srcCode != null) {
 }
 //Ricerca del prodotto se l'utente digita il tasto invio
 if (codeInput != null) {
-    codeInput.addEventListener('keypress', function (e) {
+    codeInput.addEventListener('keypress', function(e) {
         flag_ = 0;
         //Stessa funzione della ricerca per codice
         if (e.key === 'Enter') {

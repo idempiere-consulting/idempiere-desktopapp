@@ -30,7 +30,7 @@
             -ms-flex-wrap: wrap;
             /* IE10 */
             flex-wrap: wrap;
-            margin: 0 -16px;
+            /*             margin: 0 -16px;*/
         }
         
         .col-25 {
@@ -158,15 +158,6 @@
             border: 1px solid lightgrey;
         }
         /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (also change the direction - make the "cart" column go on top) */
-        
-        @media (max-width: 800px) {
-            .row {
-                flex-direction: column-reverse;
-            }
-            .col-25 {
-                margin-bottom: 20px;
-            }
-        }
     </style>
 </head>
 
@@ -179,38 +170,45 @@
                     <div class="flexbox">
                         <div id="div_toAddTwoSelect" class="item-box">
                             <h3>Informazioni generali lead</h3>
-                            <label class="formLabel" for="label_chiaveRicerca">Chiave Ricerca</label>
-                            <input type="text" id="input_chiaveRicerca" name="chiaveRicerca" placeholder="Chiave ricerca..">
 
                             <label class="formLabel" for="label_description">Descrizione</label>
                             <textarea style="width: 100%;" name="textarea_description" id="description" placeholder="Descrizione.."></textarea>
+
+                            <label for="select_statusLead" class="formLabel">Stato Lead</label>
+                            <select id="select_statusLead" name="statusLead" required>
+                                <option value="" disabled selected>Seleziona lo stato</option>
+                            </select>
+
+                            <label for="select_sourceLead" class="formLabel">Sorgente Lead</label>
+                            <select id="select_sourceLead" name="sourceLead" required>
+                                <option value="" disabled selected>Seleziona l'origine</option>
+                            </select>
+
+                            <label for="select_campaign" class="formLabel">Campagna</label>
+                            <select id="select_campaign" name="campaign" required>
+                                <option value="" disabled selected>Seleziona la campagna</option>
+                            </select>
 
                         </div>
                         <div class="item-box">
                             <h3>Informazioni personali lead</h3>
                             <label class="formLabel" for="label_name">Nome</label>
-                            <input type="text" id="input_name" name="lastname" placeholder="Nome lead..">
-
-                            <label class="formLabel" for="label_surname">Cognome</label>
-                            <input type="text" id="input_surname" name="surname" placeholder="Cognome lead..">
+                            <input type="text" id="input_name" name="lastname" placeholder="Nome lead.." required>
 
                             <label class="formLabel" for="label_phone">Telefono</label>
-                            <input type="text" id="input_phone" name="phone" placeholder="Telefono lead..">
-
-                            <label class="formLabel" for="label_phone2">Telefono 2</label>
-                            <input type="text" id="input_phone2" name="phone2" placeholder="Secondo telefono lead..">
+                            <input type="text" id="input_phone" name="phone" placeholder="Telefono lead.." required>
 
                             <label class="formLabel" for="label_url">Sito web</label>
-                            <input type="text" id="input_url" name="url" placeholder="Sito web lead..">
+                            <input type="text" id="input_url" name="url" placeholder="Sito web lead.." required>
 
                             <label class="formLabel" for="label_email">Email</label>
-                            <input type="text" id="input_email" name="email" placeholder="Email lead..">
+                            <input type="text" id="input_email" name="email" placeholder="Email lead.." required>
 
                             <label class="formLabel" for="label_birthday">Compleanno</label>
-                            <input type="date" id="input_birthday" name="Birthday">
+                            <input type="date" id="input_birthday" name="Birthday" required>
 
                             <label class="formLabel" for="label_BPName">Nome business partner </label>
-                            <input type="text" id="input_BPName" name="BPName" placeholder="Business partner lead..">
+                            <input type="text" id="input_BPName" name="BPName" list="list_bp" placeholder="Business partner lead.." required>
                         </div>
                     </div>
 
@@ -218,7 +216,6 @@
                     <div class="sendButton">
                         <button id="sendLead">Aggiungi Lead</button>
                     </div>
-
                 </form>
             </div>
         </div>
