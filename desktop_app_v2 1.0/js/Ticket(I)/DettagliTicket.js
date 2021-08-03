@@ -183,7 +183,7 @@ async function getImageTicket() {
         return res.json()
     }).then(data => {
         //console.log(data)
-        console.log(data.BinaryData);
+        //console.log(data.BinaryData);
         var imgdiv = document.getElementById("img");
         imgdiv.src = "data:image/png;base64," + data.BinaryData;
     })
@@ -233,13 +233,13 @@ async function getSalesRep() {
 var salesrep = document.getElementById("SalesRep");
 var statusreq = document.getElementById("statusRequest");
 
-salesrep.addEventListener('change', function(event) {
+salesrep.addEventListener('change', function (event) {
 
     id_salesrep = event.target.options[event.target.selectedIndex].value;
 
 });
 
-statusreq.addEventListener('change', function(event) {
+statusreq.addEventListener('change', function (event) {
 
     id_statusrequest = event.target.options[event.target.selectedIndex].value;
     console.log(id_statusrequest);
@@ -247,13 +247,29 @@ statusreq.addEventListener('change', function(event) {
 });
 
 async function UpdateLine() {
+    if (document.getElementById("input_dateNext").value == "") {
+        var now = new Date();
 
-    var date = document.getElementById("input_dateNext").value;
-    var time = document.getElementById("input_timeNext").value;
-    var result = document.getElementById("input_textArea").value;
-    var qtySpent = document.getElementById("input_qty").value;
+        var dateNextAction = "" + now.toISOString();
+    } else {
+        var time = document.getElementById("input_timeNext").value;
+        var date = document.getElementById("input_dateNext").value;
+        var dateNextAction = date + "T" + time + ":00" + "Z";
+    }
+
+    if (document.getElementById("input_textArea").value == "") {
+        var result = "-";
+    } else {
+        var result = document.getElementById("input_textArea").value;
+    }
+    if (document.getElementById("input_qty").value == "") {
+        var qtySpent = "0";
+    } else {
+        var qtySpent = document.getElementById("input_qty").value;
+    }
+
     let bodydata;
-    var dateNextAction = date + "T" + time + ":00" + "Z";
+
 
     if (id_salesrep == undefined && id_statusrequest == undefined) {
         bodydata = {

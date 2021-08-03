@@ -47,7 +47,8 @@
                     <div style="width: 100%; height: 100%;" class="dropdown">
                         <div class="div-logout">
                             <div class="nameUser" style="text-align: right;">
-                                <span id="span_usernmane_jslogic" class="mr-2 d-lg-inline text-gray-600 small" style=" font-weight: 700; margin-right: 10px;"></span>
+                                <span id="span_usernmane_jslogic" class="mr-2 d-lg-inline text-gray-600 small"
+                                    style=" font-weight: 700; margin-right: 10px;"></span>
                             </div>
                             <div class="container-img ">
                                 <img class="img-profile rounded-circle" src="../../assets/images/undraw_profile.svg">
@@ -69,7 +70,7 @@
         </div>
     </header>
     <div id="mainContent" class="content">
-        <p id="refresh"><a id="refreshTheme" href="DaSchedulare.html"><i class="fas fa-redo-alt"></i></a></p>
+        <p id="refresh"><a id="refreshTheme" href="DaAssegnare.html"><i class="fas fa-redo-alt"></i></a></p>
 
         <table id="myTable" class="table-sortable">
             <thead>
@@ -87,13 +88,27 @@
                     </th>
                 </tr>
                 <tr>
-                    <th><input type="text" class="filter_input" id="myInputDoc" onkeyup="filterFromInputToTable('myInputDoc','myTable',0)" placeholder="Filtra per Documento" title="Scrivi un nome"></th>
-                    <th><input type="text" class="filter_input" id="myInput" onkeyup="filterFromInputToTable('myInput','myTable',1)" placeholder="Filtra per BPartner" title="Scrivi un nome"></th>
-                    <th><input type="text" class="filter_input" id="myInputUser" onkeyup="filterFromInputToTable('myInputUser','myTable',2)" placeholder="Filtra per Utente" title="Scrivi un nome"></th>
-                    <th><input type="text" class="filter_input" id="myInputReq" onkeyup="filterFromInputToTable('myInputReq','myTable',3)" placeholder="Filtra per Richiesta" title="Scrivi un nome"></th>
-                    <th><input type="text" class="filter_input" id="myInputPriority" onkeyup="filterFromInputToTable('myInputPriority','myTable',4)" placeholder="Filtra per Priorità" title="Scrivi un nome"></th>
-                    <th><input type="text" class="filter_input" id="myInputRiepilogo" onkeyup="filterFromInputToTable('myInputRiepilogo','myTable',5)" placeholder="Filtra per Riepilogo" title="Scrivi un nome"></th>
-                    <th><input type="text" class="filter_input" id="myInputDate" onkeyup="filterFromInputToTable('myInputDate','myTable',6)" placeholder="Filtra per Data" title="Scrivi un nome"></th>
+                    <th><input type="text" class="filter_input" id="myInputDoc"
+                            onkeyup="filterFromInputToTable('myInputDoc','myTable',0)"
+                            placeholder="Filtra per Documento" title="Scrivi un nome"></th>
+                    <th><input type="text" class="filter_input" id="myInput"
+                            onkeyup="filterFromInputToTable('myInput','myTable',1)" placeholder="Filtra per BPartner"
+                            title="Scrivi un nome"></th>
+                    <th><input type="text" class="filter_input" id="myInputUser"
+                            onkeyup="filterFromInputToTable('myInputUser','myTable',2)" placeholder="Filtra per Utente"
+                            title="Scrivi un nome"></th>
+                    <th><input type="text" class="filter_input" id="myInputReq"
+                            onkeyup="filterFromInputToTable('myInputReq','myTable',3)"
+                            placeholder="Filtra per Richiesta" title="Scrivi un nome"></th>
+                    <th><input type="text" class="filter_input" id="myInputPriority"
+                            onkeyup="filterFromInputToTable('myInputPriority','myTable',4)"
+                            placeholder="Filtra per Priorità" title="Scrivi un nome"></th>
+                    <th><input type="text" class="filter_input" id="myInputRiepilogo"
+                            onkeyup="filterFromInputToTable('myInputRiepilogo','myTable',5)"
+                            placeholder="Filtra per Riepilogo" title="Scrivi un nome"></th>
+                    <th><input type="text" class="filter_input" id="myInputDate"
+                            onkeyup="filterFromInputToTable('myInputDate','myTable',6)" placeholder="Filtra per Data"
+                            title="Scrivi un nome"></th>
                     <th></th>
                 </tr>
                 <tr>
