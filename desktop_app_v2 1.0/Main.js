@@ -2,16 +2,23 @@ const electron = require('electron');
 const url = require('url');
 const path = require('path');
 
-const { app, BrowserWindow, Menu, ipcMain } = electron;
+const {
+    app,
+    BrowserWindow,
+    Menu,
+    ipcMain
+} = electron;
 
 let authToken;
 let mainWindow;
 let secondaryWindow;
+let notificationWindow;
 let userName;
 let userId;
 let userBPartner;
 let ip;
 let clientsInfo; //JSON
+let notifyJSON; //JSON
 let clientId;
 let token1;
 let docN;
@@ -34,7 +41,7 @@ let profileImageBase64 = undefined;
 
 //var internetConn = navigator.onLine();
 
-app.on('ready', function() {
+app.on('ready', function () {
     // create new window
 
     mainWindow = new BrowserWindow({
@@ -56,7 +63,7 @@ app.on('ready', function() {
         protocol: 'file:',
         slashes: true
     }));
-    app.on('closed', function() {
+    app.on('closed', function () {
         app.quit();
     });
 
@@ -97,8 +104,41 @@ function createOrderLineWindow() {
         slashes: true
     }));
 
-    secondaryWindow.on('close', function() {
+    secondaryWindow.on('close', function () {
         secondaryWindow = null;
+        mainWindow.reload();
+    });
+
+}
+
+function createNotificationWindow() {
+    notificationWindow = new BrowserWindow({
+        parent: mainWindow,
+        modal: true,
+        show: false,
+        width: 600,
+        height: 700,
+        icon: path.join(__dirname, 'assets/images/logo.png'),
+        webPreferences: {
+            nodeIntegration: true,
+            enableRemoteModule: true,
+            contextIsolation: false,
+        }
+    });
+
+    notificationWindow.once('ready-to-show', () => {
+        notificationWindow.show();
+    })
+
+
+    notificationWindow.loadURL(url.format({
+        pathname: path.join(__dirname, 'src/MenuUtente/Notifiche.html'),
+        protocol: 'file:',
+        slashes: true
+    }));
+
+    notificationWindow.on('close', function () {
+        notificationWindow = null;
         mainWindow.reload();
     });
 
@@ -131,7 +171,7 @@ function createODVWindow() {
         slashes: true
     }));
 
-    secondaryWindow.on('close', function() {
+    secondaryWindow.on('close', function () {
         secondaryWindow = null;
         mainWindow.reload();
     });
@@ -167,7 +207,7 @@ function showODVDetailsWindow() {
         slashes: true
     }));
 
-    secondaryWindow.on('close', function() {
+    secondaryWindow.on('close', function () {
         secondaryWindow = null;
 
     });
@@ -200,7 +240,7 @@ function createTicketP() {
         slashes: true
     }));
 
-    secondaryWindow.on('close', function() {
+    secondaryWindow.on('close', function () {
         secondaryWindow = null;
         mainWindow.reload();
     });
@@ -233,7 +273,7 @@ function DetailtsTicketWindow() {
         slashes: true
     }));
 
-    secondaryWindow.on('close', function() {
+    secondaryWindow.on('close', function () {
         secondaryWindow = null;
         mainWindow.reload();
     });
@@ -263,7 +303,7 @@ function infoLeads() {
         protocol: 'file:',
         slashes: true
     }));
-    secondaryWindow.on('close', function() {
+    secondaryWindow.on('close', function () {
         secondaryWindow = null;
 
     });
@@ -296,7 +336,7 @@ function showInvoiceDetailsWindow() {
         slashes: true
     }));
 
-    secondaryWindow.on('close', function() {
+    secondaryWindow.on('close', function () {
         secondaryWindow = null;
 
     });
@@ -325,7 +365,7 @@ function infoCostumerInvoice() {
         protocol: 'file:',
         slashes: true
     }));
-    secondaryWindow.on('close', function() {
+    secondaryWindow.on('close', function () {
         secondaryWindow = null;
 
     });
@@ -355,7 +395,7 @@ function DetailtsTicketIWindow() {
         protocol: 'file:',
         slashes: true
     }));
-    secondaryWindow.on('close', function() {
+    secondaryWindow.on('close', function () {
         secondaryWindow = null;
 
     });
@@ -393,7 +433,7 @@ function createLead() {
         slashes: true
     }));
 
-    secondaryWindow.on('close', function() {
+    secondaryWindow.on('close', function () {
         secondaryWindow = null;
         mainWindow.reload();
     });
@@ -407,102 +447,105 @@ function createLead() {
 
 /* Save the information from ipcRender  */
 
-ipcMain.on('save:user', function(e, user) {
+ipcMain.on('save:user', function (e, user) {
     userName = user;
 });
 
-ipcMain.on('save:userId', function(event, userid) {
+ipcMain.on('save:userId', function (event, userid) {
     userId = userid;
 });
 
-ipcMain.on('save:clients', function(e, clients) {
+ipcMain.on('save:clients', function (e, clients) {
     clientsInfo = clients;
 });
-ipcMain.on('save:clientId', function(e, clientid) {
+ipcMain.on('save:Notifications', function (e, json) {
+    notifyJSON = json;
+});
+ipcMain.on('save:clientId', function (e, clientid) {
     clientId = clientid;
     e.returnValue = 'test';
 });
 
-ipcMain.on('save:token1', function(e, Token1) {
+ipcMain.on('save:token1', function (e, Token1) {
     token1 = Token1;
 });
 
-ipcMain.on('save:ip', function(e, IP) {
+ipcMain.on('save:ip', function (e, IP) {
     ip = IP;
 });
 
-ipcMain.on('save:changeRole', function(e, changerole) {
+ipcMain.on('save:changeRole', function (e, changerole) {
     changeUserRole = changerole;
 });
 
-ipcMain.on('save:roleid', function(e, roleid) {
+ipcMain.on('save:roleid', function (e, roleid) {
     roleId = roleid;
 });
 
-ipcMain.on('save:organizationid', function(e, organizationid) {
+ipcMain.on('save:organizationid', function (e, organizationid) {
 
     organizationId = organizationid;
 });
 
-ipcMain.on('save:warehouseid', function(e, warehouseid) {
+ipcMain.on('save:warehouseid', function (e, warehouseid) {
     warehouseId = warehouseid;
 });
 
-ipcMain.on('save:roleid', function(e, Language) {
+ipcMain.on('save:roleid', function (e, Language) {
     language = Language;
 });
 
 
-ipcMain.on('save:authtoken', function(e, authtoken) {
+ipcMain.on('save:authtoken', function (e, authtoken) {
     authToken = authtoken;
 });
 
-ipcMain.on('save:bpartner', function(e, bp) {
+ipcMain.on('save:bpartner', function (e, bp) {
     userBPartner = bp;
 });
 
-ipcMain.on('save:docN', function(e, DOCN) {
+ipcMain.on('save:docN', function (e, DOCN) {
     docN = DOCN;
 });
 
-ipcMain.on('save:docid:ODV', function(e, DOCID) {
+ipcMain.on('save:docid:ODV', function (e, DOCID) {
     docID_ODV = DOCID;
 });
 
-ipcMain.on('save:permission', function(e, permission) {
+ipcMain.on('save:permission', function (e, permission) {
     userPermession = permission;
     e.returnValue = userPermession;
 
 });
 
-ipcMain.on('save:permission_settings', function(e, permission_s) {
+ipcMain.on('save:permission_settings', function (e, permission_s) {
     permission_settings = permission_s;
 
 });
 
-ipcMain.on('save:nameLead', function(e, Name) {
+ipcMain.on('save:nameLead', function (e, Name) {
     nameLead = Name;
 
 });
 
-ipcMain.on('save:ticketid', function(event, ticket) {
+ipcMain.on('save:ticketid', function (event, ticket) {
     ticketId = ticket;
 });
-ipcMain.on('save:chartRole', function(event, mobileRole) {
+ipcMain.on('save:chartRole', function (event, mobileRole) {
     chartRolePermission = mobileRole;
     event.returnValue = chartRolePermission;
 });
 
-ipcMain.on('save:invoiceId', function(event, invoiceid) {
+ipcMain.on('save:invoiceId', function (event, invoiceid) {
     invoiceId = invoiceid;
 });
 
-ipcMain.on('save:theme', function(event, theme) {
+ipcMain.on('save:theme', function (event, theme) {
     Theme = theme;
 });
 
 
-ipcMain.on('save:imageBase64', function(event, image) {
+ipcMain.on('save:imageBase64', function (event, image) {
     profileImageBase64 = image;
     event.returnValue = "return";
 });
@@ -511,93 +554,98 @@ ipcMain.on('save:imageBase64', function(event, image) {
 
 
 
-ipcMain.on('send:user', function(event, arg) {
+ipcMain.on('send:user', function (event, arg) {
     event.returnValue = userName;
 });
 
-ipcMain.on('send:userId', function(event, arg) {
+ipcMain.on('send:userId', function (event, arg) {
     event.returnValue = userId;
 })
 
-ipcMain.on('send:clients', function(event, arg) {
+ipcMain.on('send:clients', function (event, arg) {
     event.returnValue = clientsInfo;
 });
-ipcMain.on('send:clientId', function(event, arg) {
+
+ipcMain.on('send:Notifications', function (event, arg) {
+    event.returnValue = notifyJSON;
+});
+
+ipcMain.on('send:clientId', function (event, arg) {
     event.returnValue = clientId;
 });
 
-ipcMain.on('send:token1', function(event, arg) {
+ipcMain.on('send:token1', function (event, arg) {
     event.returnValue = token1;
 });
 
-ipcMain.on('send:ip', function(event, arg) {
+ipcMain.on('send:ip', function (event, arg) {
     event.returnValue = ip;
 });
-ipcMain.on('send:changeRole', function(event, arg) {
+ipcMain.on('send:changeRole', function (event, arg) {
     event.returnValue = changeUserRole;
 });
 
-ipcMain.on('send:roleid', function(event, arg) {
+ipcMain.on('send:roleid', function (event, arg) {
     event.returnValue = roleId;
 });
 
-ipcMain.on('send:organizationid', function(event, arg) {
+ipcMain.on('send:organizationid', function (event, arg) {
     event.returnValue = organizationId;
 });
 
-ipcMain.on('send:warehouseid', function(event, arg) {
+ipcMain.on('send:warehouseid', function (event, arg) {
     event.returnValue = warehouseId;
 });
 
-ipcMain.on('send:bp', function(event, arg) {
+ipcMain.on('send:bp', function (event, arg) {
     event.returnValue = userBPartner;
 });
-ipcMain.on('send:language', function(event, arg) {
+ipcMain.on('send:language', function (event, arg) {
     event.returnValue = language;
 });
 
-ipcMain.on('send:authtoken', function(event, arg) {
+ipcMain.on('send:authtoken', function (event, arg) {
     event.returnValue = authToken;
 });
 
 
-ipcMain.on('send:docN', function(event, arg) {
+ipcMain.on('send:docN', function (event, arg) {
     event.returnValue = docN;
 });
 
-ipcMain.on('send:docid:ODV', function(event, arg) {
+ipcMain.on('send:docid:ODV', function (event, arg) {
     event.returnValue = docID_ODV;
 });
 
-ipcMain.on('send:permission', function(event, arg) {
+ipcMain.on('send:permission', function (event, arg) {
     event.returnValue = userPermession;
 });
 
-ipcMain.on('send:permission_settings', function(event, arg) {
+ipcMain.on('send:permission_settings', function (event, arg) {
     event.returnValue = permission_settings;
 });
 
-ipcMain.on('send:nameLead', function(event, arg) {
+ipcMain.on('send:nameLead', function (event, arg) {
     event.returnValue = nameLead;
 });
 
-ipcMain.on('send:ticketid', function(event, arg) {
+ipcMain.on('send:ticketid', function (event, arg) {
     event.returnValue = ticketId;
 });
 
-ipcMain.on('send:chartRole', function(event, arg) {
+ipcMain.on('send:chartRole', function (event, arg) {
     event.returnValue = chartRolePermission;
 })
 
-ipcMain.on('send:DocInvoice', function(event, arg) {
+ipcMain.on('send:DocInvoice', function (event, arg) {
     event.returnValue = invoiceId;
 });
 
-ipcMain.on('send:theme', function(event, arg) {
+ipcMain.on('send:theme', function (event, arg) {
     console.log(Theme);
     event.returnValue = Theme;
 });
-ipcMain.on('send:imageBase64', function(event, arg) {
+ipcMain.on('send:imageBase64', function (event, arg) {
     if (profileImageBase64 != undefined)
         event.returnValue = "data:image/png;base64," + profileImageBase64;
     else {
@@ -626,7 +674,7 @@ ipcMain.on('send:imageBase64', function(event, arg) {
 
 /* Change the page on the screen  */
 
-ipcMain.on('page:change', function(e, page) {
+ipcMain.on('page:change', function (e, page) {
     switch (page) {
         case 0:
             mainWindow.loadURL(url.format({
@@ -653,7 +701,7 @@ ipcMain.on('page:change', function(e, page) {
 
 });
 
-ipcMain.on('page:ODV', function(e, page) {
+ipcMain.on('page:ODV', function (e, page) {
     switch (page) {
         case 1:
             mainWindow.loadURL(url.format({
@@ -685,44 +733,48 @@ ipcMain.on('page:ODV', function(e, page) {
 
 
 
-ipcMain.on('pageODV:orderLineWindow', function(e, arg) {
+ipcMain.on('pageODV:orderLineWindow', function (e, arg) {
     createOrderLineWindow();
 });
 
-ipcMain.on('page:ODV:odv_details_window', function(e, arg) {
+ipcMain.on('page:ODV:odv_details_window', function (e, arg) {
     showODVDetailsWindow();
 });
 
-ipcMain.on('page:ODV:odv_create_window', function(e, arg) {
+ipcMain.on('page:ODV:odv_create_window', function (e, arg) {
     createODVWindow();
 });
 
-ipcMain.on('pageTicketP:TicketP_create_window', function(e, arg) {
+ipcMain.on('pageTicketP:TicketP_create_window', function (e, arg) {
     createTicketP();
 });
 
-ipcMain.on('pageTicketP:TicketP_details_window', function(e, arg) {
+ipcMain.on('pageTicketP:TicketP_details_window', function (e, arg) {
     DetailtsTicketWindow();
 });
 
-ipcMain.on('pageInfoLeads:Leads_info_window', function(e, arg) {
+ipcMain.on('pageInfoLeads:Leads_info_window', function (e, arg) {
     infoLeads();
 });
 
-ipcMain.on('pageDetailsInvoice:invoice_details_window', function(e, arg) {
+ipcMain.on('pageDetailsInvoice:invoice_details_window', function (e, arg) {
     showInvoiceDetailsWindow();
 });
 
-ipcMain.on('pageCustomerInvoice:details', function(e, arg) {
+ipcMain.on('pageCustomerInvoice:details', function (e, arg) {
     infoCostumerInvoice();
 });
 
-ipcMain.on('pageLeadWindow:create', function(e, arg) {
+ipcMain.on('pageLeadWindow:create', function (e, arg) {
     createLead();
 });
 
-ipcMain.on('pageTicketI:TicketI_details_window', function(e, arg) {
+ipcMain.on('pageTicketI:TicketI_details_window', function (e, arg) {
     DetailtsTicketIWindow();
+});
+
+ipcMain.on('Notification:show', function (e, arg) {
+    createNotificationWindow();
 });
 
 

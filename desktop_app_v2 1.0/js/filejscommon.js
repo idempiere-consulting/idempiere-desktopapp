@@ -1,9 +1,12 @@
-
 const electron_2 = window.require("electron");
 const ipcRender_2 = electron_2.ipcRenderer;
 var path = require('path');
 var filename = path.basename(__filename);
 var base64Image;
+
+const authToken2 = ipcRender_2.sendSync('send:authtoken', 'ping');
+const clientid2 = ipcRender_2.sendSync('send:clientId', 'ping');
+const ip2 = ipcRender_2.sendSync('send:ip', 'ping');
 
 document.getElementById("span_usernmane_jslogic").innerHTML = ipcRender_2.sendSync('send:user');
 if (filename == "index.html")
@@ -475,37 +478,68 @@ function CreateMenu() {
     });
 }
 
-        const Settheme=stash.get('theme');
-        
-        if(Settheme!= undefined){
-            document.getElementById('themeHeader').style.backgroundColor = Settheme[0];
+const Settheme = stash.get('theme');
 
-            document.documentElement.style.backgroundColor = Settheme[1];
+if (Settheme != undefined) {
+    document.getElementById('themeHeader').style.backgroundColor = Settheme[0];
 
-            var paragraphTheme = document.querySelectorAll('#paragraphTheme');
-            for (var i = 0; i < paragraphTheme.length; i++) {
-                var currentEl = paragraphTheme[i];
-                currentEl.style.color = Settheme[2];
+    document.documentElement.style.backgroundColor = Settheme[1];
+
+    var paragraphTheme = document.querySelectorAll('#paragraphTheme');
+    for (var i = 0; i < paragraphTheme.length; i++) {
+        var currentEl = paragraphTheme[i];
+        currentEl.style.color = Settheme[2];
+    }
+
+    var th = document.getElementsByTagName('TH');
+    for (var i = 0; i < th.length; i++) {
+        var thTheme = th[i];
+        thTheme.style.backgroundColor = Settheme[3];
+        thTheme.style.color = Settheme[8];
+    }
+
+    document.getElementById('myNav').style.backgroundColor = Settheme[4];
+
+    var refreshTheme = document.getElementById('refresh');
+    refreshTheme.classList.add(Settheme[5]);
+
+    var refreshHover = document.getElementById('refreshTheme');
+    refreshHover.classList.add(Settheme[6]);
+
+    var backButton = document.getElementById('backButton');
+    if (backButton != undefined) {
+        backButton.classList.add(Settheme[7]);
+    }
+
+}
+
+getCheckRead();
+async function getCheckRead() {
+    await fetch(`http://` + ip2 + `/api/v1/models/lit_mobile_checkread?$filter= AD_Client_ID eq ` + clientid2, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + authToken2
             }
-            
-            var th = document.getElementsByTagName('TH');
-            for (var i = 0; i< th.length; i++) {
-                var thTheme = th[i];
-                thTheme.style.backgroundColor = Settheme[3]; 
-                thTheme.style.color = Settheme[8];               
+        }).then(res => {
+            return res.json()
+        })
+        .then(data => {
+            console.log(data);
+            ipcRender_2.send('save:Notifications', data);
+            var notification = document.getElementById("notifications");
+            notification.innerHTML = "Notifiche (" + data["row-count"] + ")";
+            notification.addEventListener('click', showNotification);
+            var badge = document.getElementById("badge");
+            badge.innerHTML = data["row-count"]
+            if (data["row-count"] != 0) {
+                badge.style.display = "inline";
             }
+        })
+        .catch(error => console.log(error))
+}
 
-            document.getElementById('myNav').style.backgroundColor = Settheme[4];
+function showNotification() {
 
-            var refreshTheme = document.getElementById('refresh');
-            refreshTheme.classList.add(Settheme[5]);
-
-            var refreshHover = document.getElementById('refreshTheme');
-            refreshHover.classList.add(Settheme[6]);
-
-            var backButton = document.getElementById('backButton');
-            if (backButton != undefined) {
-                backButton.classList.add(Settheme[7]);
-            }
-
+    ipcRender_2.send('Notification:show', 'ping');
 }

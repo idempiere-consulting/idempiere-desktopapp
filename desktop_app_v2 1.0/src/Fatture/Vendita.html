@@ -46,15 +46,18 @@
                     <div style="width: 100%; height: 100%;" class="dropdown">
                         <div class="div-logout">
                             <div class="nameUser" style="text-align: right;">
-                                <span id="span_usernmane_jslogic" class="mr-2 d-lg-inline text-gray-600 small" style=" font-weight: 700; margin-right: 10px;"></span>
+                                <span id="span_usernmane_jslogic" class="mr-2 d-lg-inline text-gray-600 small"
+                                    style=" font-weight: 700; margin-right: 10px;"></span>
                             </div>
                             <div class="container-img ">
                                 <img class="img-profile rounded-circle" src="../../assets/images/undraw_profile.svg">
+                                <span id="badge" class="badge">0</span>
                             </div>
 
                         </div>
                         <div id="Demo" class="dropdown-content">
                             <a href="#">Profilo</a>
+                            <a id="notifications" href="#">Notifiche</a>
                             <a href="../MenuUtente/Impostazioni.html">Impostazioni</a>
                             <hr>
                             <a href="#" onclick="logOut()">Logout</a>
@@ -73,10 +76,18 @@
         <table id="myTableInvoice" class="table-sortable">
             <thead>
                 <tr>
-                    <th><input class="filter_input" type="text" id="myInputDoc" onkeyup="filterFromInputToTable('myInputDoc','myTableInvoice',0)" placeholder="Filtra per Doc" title="Scrivi un nome"></th>
-                    <th><input class="filter_input" type="text" id="myInputTotal" onkeyup="filterFromInputToTable('myInputTotal','myTableInvoice',1)" placeholder="Filtra per Totale" title="Scrivi un nome"></th>
-                    <th><input class="filter_input" type="text" id="myInputSelsRep" onkeyup="filterFromInputToTable('myInputSelsRep','myTableInvoice',2)" placeholder="Filtra per Rapp. Vendita." title="Scrivi un nome"></th>
-                    <th><input class="filter_input" type="text" id="myInputData" onkeyup="filterFromInputToTable('myInputData','myTableInvoice',3)" placeholder="Filtra per Data" title="Scrivi un nome"></th>
+                    <th><input class="filter_input" type="text" id="myInputDoc"
+                            onkeyup="filterFromInputToTable('myInputDoc','myTableInvoice',0)"
+                            placeholder="Filtra per Doc" title="Scrivi un nome"></th>
+                    <th><input class="filter_input" type="text" id="myInputTotal"
+                            onkeyup="filterFromInputToTable('myInputTotal','myTableInvoice',1)"
+                            placeholder="Filtra per Totale" title="Scrivi un nome"></th>
+                    <th><input class="filter_input" type="text" id="myInputSelsRep"
+                            onkeyup="filterFromInputToTable('myInputSelsRep','myTableInvoice',2)"
+                            placeholder="Filtra per Rapp. Vendita." title="Scrivi un nome"></th>
+                    <th><input class="filter_input" type="text" id="myInputData"
+                            onkeyup="filterFromInputToTable('myInputData','myTableInvoice',3)"
+                            placeholder="Filtra per Data" title="Scrivi un nome"></th>
                     <th><a title="Add ODV" id="SHOWdetailsInvoice" href="#"><i class="fas fa-2x fa-plus"></i></a></th>
                 </tr>
             </thead>

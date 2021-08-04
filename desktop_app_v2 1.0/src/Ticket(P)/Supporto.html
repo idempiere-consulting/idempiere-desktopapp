@@ -48,15 +48,18 @@
                     <div style="width: 100%; height: 100%;" class="dropdown">
                         <div class="div-logout">
                             <div class="nameUser" style="text-align: right;">
-                                <span id="span_usernmane_jslogic" class="mr-2 d-lg-inline text-gray-600 small" style=" font-weight: 700; margin-right: 10px;"></span>
+                                <span id="span_usernmane_jslogic" class="mr-2 d-lg-inline text-gray-600 small"
+                                    style=" font-weight: 700; margin-right: 10px;"></span>
                             </div>
                             <div class="container-img ">
                                 <img class="img-profile rounded-circle" src="../">
+                                <span id="badge" class="badge">0</span>
                             </div>
 
                         </div>
                         <div id="Demo" class="dropdown-content">
                             <a href="#">Profilo</a>
+                            <a id="notifications" href="#">Notifiche</a>
                             <a href="../MenuUtente/Impostazioni.html">Impostazioni</a>
                             <hr>
                             <a href="#" onclick="logOut()">Logout</a>
@@ -88,20 +91,32 @@
                     </th>
                 </tr>
                 <tr>
-                    <th><input type="text" class="filter_input" id="myInput" onkeyup="filterFromInputToTable('myInput','myTable',0)" placeholder="Filtra per Documento" title="Scrivi un nome"></th>
-                    <th><input type="text" class="filter_input" id="myInputUser" onkeyup="filterFromInputToTable('myInputUser','myTable',1)" placeholder="Filtra per Utente" title="Scrivi un nome"></th>
-                    <th><input type="text" class="filter_input" id="myInputReq" onkeyup="filterFromInputToTable('myInputReq','myTable',2)" placeholder="Filtra per Richiesta" title="Scrivi"></th>
-                    <th><input type="text" class="filter_input" id="myInputPriority" onkeyup="filterFromInputToTable('myInputPriority','myTable',3)" placeholder="Filtra per Priorità" title="Scrivi"></th>
-                    <th><input type="text" class="filter_input" id="myInputRiepilogo" onkeyup="filterFromInputToTable('myInputRiepilogo','myTable',4)" placeholder="Filtra per Riepilogo" title="Scrivi"></th>
-                    <th><input type="text" class="filter_input" id="myInputDate" onkeyup="filterFromInputToTable('myInputDate','myTable',5)" placeholder="Filtra per Data" title="Scrivi una data"></th>
+                    <th><input type="text" class="filter_input" id="myInput"
+                            onkeyup="filterFromInputToTable('myInput','myTable',0)" placeholder="Filtra per Documento"
+                            title="Scrivi un nome"></th>
+                    <th><input type="text" class="filter_input" id="myInputUser"
+                            onkeyup="filterFromInputToTable('myInputUser','myTable',1)" placeholder="Filtra per Utente"
+                            title="Scrivi un nome"></th>
+                    <th><input type="text" class="filter_input" id="myInputReq"
+                            onkeyup="filterFromInputToTable('myInputReq','myTable',2)"
+                            placeholder="Filtra per Richiesta" title="Scrivi"></th>
+                    <th><input type="text" class="filter_input" id="myInputPriority"
+                            onkeyup="filterFromInputToTable('myInputPriority','myTable',3)"
+                            placeholder="Filtra per Priorità" title="Scrivi"></th>
+                    <th><input type="text" class="filter_input" id="myInputRiepilogo"
+                            onkeyup="filterFromInputToTable('myInputRiepilogo','myTable',4)"
+                            placeholder="Filtra per Riepilogo" title="Scrivi"></th>
+                    <th><input type="text" class="filter_input" id="myInputDate"
+                            onkeyup="filterFromInputToTable('myInputDate','myTable',5)" placeholder="Filtra per Data"
+                            title="Scrivi una data"></th>
                     <th><select id="myInputStatus" class="SelectFilterTable">
-                        <option value="" disabled selected>Filtra per Status</option>
-                        <option value="">Tutti</option>
-                    </select></th>
+                            <option value="" disabled selected>Filtra per Status</option>
+                            <option value="">Tutti</option>
+                        </select></th>
                     <th><select id="myInputResource" class="SelectFilterTable">
-                        <option value="" disabled selected>Filtra per Risorsa</option>
-                        <option value="">Tutti</option>
-                    </select></th>
+                            <option value="" disabled selected>Filtra per Risorsa</option>
+                            <option value="">Tutti</option>
+                        </select></th>
                     <th><a title="add TicketP" id="addTicketP" href="#"><i class="fas fa-2x fa-plus"></i></a></th>
                 </tr>
                 <tr>

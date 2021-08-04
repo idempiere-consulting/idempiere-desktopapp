@@ -150,6 +150,17 @@ body {
     left: 0px;
 }
 
+.badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    padding: 5px 10px;
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+    display: none;
+}
+
 #menu {
     margin-top: 10px;
     padding-bottom: 50px;
@@ -731,6 +742,7 @@ td {
     .overlay a {
         font-size: 20px
     }
+
     .overlay .closebtn {
         font-size: 40px;
         top: 15px;
@@ -743,6 +755,7 @@ td {
         overflow-x: auto;
         overflow-y: auto;
     }
+
     .item-first {
         min-height: 40%;
     }
@@ -763,6 +776,7 @@ td {
         flex-flow: column;
         margin-bottom: 100px;
     }
+
     .item-first {
         display: flex;
         flex: 1;
@@ -770,6 +784,7 @@ td {
         width: 100%;
         margin-top: 10px;
     }
+
     #item-box-left-title {
         color: purple;
         font-size: 15px;
@@ -780,45 +795,57 @@ td {
     .overlay a {
         font-size: 20px
     }
+
     .overlay .closebtn {
         font-size: 40px;
         top: 15px;
         right: 35px;
     }
+
     header {
         height: 250px;
     }
+
     .header-content {
         height: 250px;
     }
+
     .header-content-box {
         flex-direction: column;
         align-items: flex-start;
     }
+
     .header-item {
         width: 100%;
         text-align: left;
     }
+
     .content {
         padding-top: 100px;
     }
+
     .div-right .div-logout {
         justify-content: flex-start;
     }
+
     .div-right .div-logout .container-img {
         text-align: center;
         margin-left: 0px;
     }
+
     .div-right .div-logout .nameUser {
         width: 0%;
     }
+
     #span_usernmane_jslogic {
         display: none;
     }
+
     .refresh {
         top: 250px;
         left: -13px;
     }
+
     #Demo {
         top: 90px;
         left: 0px;
