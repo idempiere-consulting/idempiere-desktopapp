@@ -7,6 +7,9 @@ var base64Image;
 const authToken2 = ipcRender_2.sendSync('send:authtoken', 'ping');
 const clientid2 = ipcRender_2.sendSync('send:clientId', 'ping');
 const ip2 = ipcRender_2.sendSync('send:ip', 'ping');
+const user = ipcRender_2.sendSync('send:user', 'ping');
+const userid = ipcRender_2.sendSync('send:userId', 'ping');
+console.log(user);
 
 document.getElementById("span_usernmane_jslogic").innerHTML = ipcRender_2.sendSync('send:user');
 if (filename == "index.html")
@@ -515,7 +518,7 @@ if (Settheme != undefined) {
 
 getCheckRead();
 async function getCheckRead() {
-    await fetch(`http://` + ip2 + `/api/v1/models/lit_mobile_checkread?$filter= AD_Client_ID eq ` + clientid2, {
+    await fetch(`http://` + ip2 + `/api/v1/models/lit_mobile_checkread?$filter= SalesRep_ID eq ` + userid + ` and AD_Client_ID eq ` + clientid2, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

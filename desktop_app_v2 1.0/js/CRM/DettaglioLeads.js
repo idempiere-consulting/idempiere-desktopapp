@@ -4,6 +4,7 @@ const ipcRenderLead = electronLead.ipcRenderer;
 const authTokenLead = ipcRenderLead.sendSync('send:authtoken', 'ping');
 const ipLead = ipcRenderLead.sendSync('send:ip', 'ping');
 const NameLead = ipcRenderLead.sendSync('send:nameLead', 'ping');
+console.log(NameLead);
 LeadsDetails();
 
 function LeadsDetails() {
