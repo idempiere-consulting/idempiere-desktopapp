@@ -12,6 +12,7 @@ var readall = document.getElementById("READALL");
 readall.addEventListener('click', ReadAll);
 var bodyData;
 var a = data.records;
+console.log(data);
 var countLead = 0,
     countOpp = 0,
     countWo = 0,
@@ -35,6 +36,7 @@ a.forEach(record => {
     container2.classList.add("container2");
     var b = document.createElement("b");
     var h4 = document.createElement("h4");
+    h4.id = record.Updated;
     var p = document.createElement("p");
 
     b.innerHTML = record.DocType;
@@ -135,6 +137,7 @@ Array.prototype.forEach.call(leadcards, function addClickListener(leadcard) {
         var text;
         var paths = event.path;
         var id;
+        var date;
         paths.forEach(element => {
 
             if (element.className == "card") {
@@ -145,6 +148,8 @@ Array.prototype.forEach.call(leadcards, function addClickListener(leadcard) {
                 //var text = element.childNodes[1].innerHTML;
                 text = element.childNodes[1].innerHTML;
                 id = element.childNodes[1].id;
+                date = element.childNodes[0].id;
+                console.log(date);
             }
 
         });
@@ -166,7 +171,8 @@ Array.prototype.forEach.call(leadcards, function addClickListener(leadcard) {
             "Record_ID": {
                 "id": id
             },
-            "AD_Table_ID": "642"
+            "AD_Table_ID": "642",
+            "Updated": date
 
         }
         console.log(bodyData);
@@ -182,6 +188,7 @@ Array.prototype.forEach.call(oppcards, function addClickListener(oppcard) {
         var text;
         var paths = event.path;
         var id;
+        var date;
         paths.forEach(element => {
 
             if (element.className == "card") {
@@ -192,6 +199,8 @@ Array.prototype.forEach.call(oppcards, function addClickListener(oppcard) {
                 //var text = element.childNodes[1].innerHTML;
                 text = element.childNodes[1].innerHTML;
                 id = element.childNodes[1].id;
+                date = element.childNodes[0].id;
+                console.log(date);
             }
 
         });
@@ -210,7 +219,8 @@ Array.prototype.forEach.call(oppcards, function addClickListener(oppcard) {
             "Record_ID": {
                 "id": id
             },
-            "AD_Table_ID": "642"
+            "AD_Table_ID": "642",
+            "Updated": date
 
         }
         console.log(bodyData);
@@ -225,6 +235,7 @@ Array.prototype.forEach.call(wocards, function addClickListener(wocard) {
         var text;
         var paths = event.path;
         var id;
+        var date;
         paths.forEach(element => {
 
             if (element.className == "card") {
@@ -235,6 +246,8 @@ Array.prototype.forEach.call(wocards, function addClickListener(wocard) {
                 //var text = element.childNodes[1].innerHTML;
                 text = element.childNodes[1].innerHTML;
                 id = element.childNodes[1].id;
+                date = element.childNodes[0].id;
+                console.log(date);
             }
 
         });
@@ -248,6 +261,7 @@ Array.prototype.forEach.call(fdvcards, function addClickListener(fdvcard) {
         var text;
         var paths = event.path;
         var id;
+        var date;
         paths.forEach(element => {
 
             if (element.className == "card") {
@@ -258,6 +272,8 @@ Array.prototype.forEach.call(fdvcards, function addClickListener(fdvcard) {
                 //var text = element.childNodes[1].innerHTML;
                 text = element.childNodes[1].innerHTML;
                 id = element.childNodes[1].id;
+                date = element.childNodes[0].id;
+                console.log(date);
             }
 
         });
@@ -279,7 +295,8 @@ Array.prototype.forEach.call(fdvcards, function addClickListener(fdvcard) {
             "Record_ID": {
                 "id": id
             },
-            "AD_Table_ID": "642"
+            "AD_Table_ID": "642",
+            "Updated": date
 
         }
         console.log(bodyData);
@@ -294,6 +311,7 @@ Array.prototype.forEach.call(fdacards, function addClickListener(fdacard) {
         var text;
         var paths = event.path;
         var id;
+        var date;
         paths.forEach(element => {
 
             if (element.className == "card") {
@@ -304,6 +322,8 @@ Array.prototype.forEach.call(fdacards, function addClickListener(fdacard) {
                 //var text = element.childNodes[1].innerHTML;
                 text = element.childNodes[1].innerHTML;
                 id = element.childNodes[1].id;
+                date = element.childNodes[0].id;
+                console.log(date);
             }
 
         });
@@ -324,7 +344,8 @@ Array.prototype.forEach.call(fdacards, function addClickListener(fdacard) {
             "Record_ID": {
                 "id": id
             },
-            "AD_Table_ID": "642"
+            "AD_Table_ID": "642",
+            "Updated": date
 
         }
         console.log(bodyData);
@@ -341,6 +362,7 @@ Array.prototype.forEach.call(odvcards, function addClickListener(odvcard) {
         var text;
         var paths = event.path;
         var id;
+        var date;
         paths.forEach(element => {
 
             if (element.className == "card") {
@@ -351,6 +373,8 @@ Array.prototype.forEach.call(odvcards, function addClickListener(odvcard) {
                 //var text = element.childNodes[1].innerHTML;
                 text = element.childNodes[1].innerHTML;
                 id = element.childNodes[1].id;
+                date = element.childNodes[0].id;
+                console.log(date);
             }
 
         });
@@ -373,7 +397,8 @@ Array.prototype.forEach.call(odvcards, function addClickListener(odvcard) {
             "Record_ID": {
                 "id": id
             },
-            "AD_Table_ID": "642"
+            "AD_Table_ID": "642",
+            "Updated": date
 
         }
         console.log(bodyData);
@@ -388,6 +413,7 @@ Array.prototype.forEach.call(ticketcards, function addClickListener(ticketcard) 
         var text;
         var paths = event.path;
         var id;
+        var date;
         paths.forEach(element => {
 
             if (element.className == "card") {
@@ -398,6 +424,8 @@ Array.prototype.forEach.call(ticketcards, function addClickListener(ticketcard) 
 
                 text = element.childNodes[1].innerHTML;
                 id = element.childNodes[1].id;
+                date = element.childNodes[0].id;
+                console.log(date);
             }
 
         });
@@ -419,7 +447,8 @@ Array.prototype.forEach.call(ticketcards, function addClickListener(ticketcard) 
             "Record_ID": {
                 "id": id
             },
-            "AD_Table_ID": "642"
+            "AD_Table_ID": "642",
+            "Updated": date
 
         }
         console.log(bodyData);
@@ -456,6 +485,7 @@ async function ReadAll() {
         console.log(ticketcards);
         ticketcards.forEach(card => {
             let id = card.childNodes[0].childNodes[1].id;
+            let date = card.childNodes[0].childNodes[0].id;
 
             let body = {
                 "AD_Client_ID": {
@@ -471,7 +501,8 @@ async function ReadAll() {
                 "Record_ID": {
                     "id": id
                 },
-                "AD_Table_ID": "642"
+                "AD_Table_ID": "642",
+                "Updated": date
             }
 
 
@@ -500,8 +531,9 @@ async function ReadAll() {
 
     if (countOpp != 0) {
         //console.log(ticketcards);
-        leadcards.forEach(card => {
+        oppcards.forEach(card => {
             let id = card.childNodes[0].childNodes[1].id;
+            let date = card.childNodes[0].childNodes[0].id;
 
             let body = {
                 "AD_Client_ID": {
@@ -513,11 +545,12 @@ async function ReadAll() {
                 "AD_User_ID": {
                     "id": userid
                 },
-                "DocTypeName": "OPPORTUNITA",
+                "DocTypeName": "OPPORTUNITY",
                 "Record_ID": {
                     "id": id
                 },
-                "AD_Table_ID": "642"
+                "AD_Table_ID": "642",
+                "Updated": date
             }
 
 
@@ -548,6 +581,7 @@ async function ReadAll() {
         //console.log(ticketcards);
         wocards.forEach(card => {
             let id = card.childNodes[0].childNodes[1].id;
+            let date = card.childNodes[0].childNodes[0].id;
 
             let body = {
                 "AD_Client_ID": {
@@ -563,7 +597,8 @@ async function ReadAll() {
                 "Record_ID": {
                     "id": id
                 },
-                "AD_Table_ID": "642"
+                "AD_Table_ID": "642",
+                "Updated": date
             }
 
 
@@ -594,6 +629,7 @@ async function ReadAll() {
         //console.log(ticketcards);
         fdvcards.forEach(card => {
             let id = card.childNodes[0].childNodes[1].id;
+            let date = card.childNodes[0].childNodes[0].id;
 
             let body = {
                 "AD_Client_ID": {
@@ -609,7 +645,8 @@ async function ReadAll() {
                 "Record_ID": {
                     "id": id
                 },
-                "AD_Table_ID": "642"
+                "AD_Table_ID": "642",
+                "Updated": date
             }
 
 
@@ -640,6 +677,7 @@ async function ReadAll() {
         //console.log(ticketcards);
         fdacards.forEach(card => {
             let id = card.childNodes[0].childNodes[1].id;
+            let date = card.childNodes[0].childNodes[0].id;
 
             let body = {
                 "AD_Client_ID": {
@@ -655,7 +693,8 @@ async function ReadAll() {
                 "Record_ID": {
                     "id": id
                 },
-                "AD_Table_ID": "642"
+                "AD_Table_ID": "642",
+                "Updated": date
             }
 
 
@@ -686,6 +725,7 @@ async function ReadAll() {
         //console.log(ticketcards);
         odvcards.forEach(card => {
             let id = card.childNodes[0].childNodes[1].id;
+            let date = card.childNodes[0].childNodes[0].id;
             let body = {
                 "AD_Client_ID": {
                     "id": clientid
@@ -700,7 +740,8 @@ async function ReadAll() {
                 "Record_ID": {
                     "id": id
                 },
-                "AD_Table_ID": "642"
+                "AD_Table_ID": "642",
+                "Updated": date
             }
 
 
@@ -731,6 +772,7 @@ async function ReadAll() {
         //console.log(ticketcards);
         leadcards.forEach(card => {
             let id = card.childNodes[0].childNodes[1].id;
+            let date = card.childNodes[0].childNodes[0].id;
 
             let body = {
                 "AD_Client_ID": {
@@ -746,7 +788,8 @@ async function ReadAll() {
                 "Record_ID": {
                     "id": id
                 },
-                "AD_Table_ID": "642"
+                "AD_Table_ID": "642",
+                "Updated": date
             }
 
 
