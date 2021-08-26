@@ -29,7 +29,7 @@ const sendLine = document.getElementById('sendLine');
 /* Events buttons */
 
 if (srcCode != null) {
-    srcCode.addEventListener('click', function(e) {
+    srcCode.addEventListener('click', function (e) {
         flag_ = 0;
         var temp = document.getElementById('productcode').value;
         //Se l'inpunt type contiene un _ significa che ha un attributo di istanza e quindi lo divide in 2 stringhe
@@ -53,7 +53,7 @@ if (srcCode != null) {
 }
 //Ricerca del prodotto se l'utente digita il tasto invio
 if (codeInput != null) {
-    codeInput.addEventListener('keypress', function(e) {
+    codeInput.addEventListener('keypress', function (e) {
         flag_ = 0;
         //Stessa funzione della ricerca per codice
         if (e.key === 'Enter') {
@@ -131,7 +131,7 @@ async function searchByCode() {
     document.getElementById('product').value = '';
     document.getElementById('attributo').value = '';
 
-    fetch(`http://` + ip + `/api/v1/models/m_product?$filter=Name eq '` + idCode + `'`, {
+    fetch(`http://` + ip + `/api/v1/models/m_product?$filter=Value eq '` + idCode + `'`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -378,7 +378,7 @@ function getInstAttr() {
         .then(data => {
 
             var optionList = data['records'];
-
+            console.log(optionList);
             var container = document.getElementById('attributo');
             i = 0;
             len = optionList.length;
@@ -386,7 +386,7 @@ function getInstAttr() {
             dl.id = 'attributes';
             for (; i < len; i += 1) {
                 var option = document.createElement('option');
-                option.value = optionList[i].Description;
+                option.value = optionList[i].Lot;
                 option.setAttribute("data-id", optionList[i].id);
                 dl.appendChild(option);
             }

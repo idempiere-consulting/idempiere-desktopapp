@@ -38,6 +38,7 @@ let Theme;
 let profileDefaultImagePath = "../assets/images/undraw_profile.svg";
 let profileImageBase64 = undefined;
 
+//process.env.NODE_ENV = 'production';
 
 //var internetConn = navigator.onLine();
 

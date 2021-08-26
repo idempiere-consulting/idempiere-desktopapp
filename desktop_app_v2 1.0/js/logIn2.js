@@ -30,7 +30,7 @@ async function authRoles() {
                     selectRole.appendChild(opt);
 
                 }
-                selectRole.onchange = function() {
+                selectRole.onchange = function () {
                     roleId = this.options[this.selectedIndex].getAttribute("value");
                     stash.set('roleid', roleId);
                     authOrganization();
@@ -66,7 +66,7 @@ async function authOrganization() {
                     selectOrg.appendChild(opt);
                 }
 
-                selectOrg.onchange = function() {
+                selectOrg.onchange = function () {
                     organizationId = this.options[this.selectedIndex].getAttribute("value");
                     stash.set('organizationid', organizationId);
                     authWarehouse();
@@ -104,7 +104,7 @@ async function authWarehouse() {
                     selectWarehouse.appendChild(opt);
                 }
 
-                selectWarehouse.onchange = function() {
+                selectWarehouse.onchange = function () {
                     warehouseId = this.options[this.selectedIndex].getAttribute("value");
                     stash.set('warehouseid', warehouseId);
                     authLanguage();
@@ -238,8 +238,8 @@ async function getImage(imageId) {
             console.log('test');
             ipcRender_login2.sendSync('save:imageBase64', data.BinaryData);
             const page = 2;
-             ipcRender_login2.send('page:change', page);
-         })
+            ipcRender_login2.send('page:change', page);
+        })
         .catch(error => console.log(error));
 }
 
@@ -272,7 +272,7 @@ async function getUserData() {
                     } else {
                         const page = 2;
                         ipcRender_login2.send('page:change', page);
-                        ipcRender_login2.sendSync('save:imageBase64', undefined);  
+                        ipcRender_login2.sendSync('save:imageBase64', undefined);
                     }
 
 
@@ -286,46 +286,46 @@ async function getUserData() {
 }
 
 
-async function themeDefault(){
+async function themeDefault() {
 
-    await fetch('http://' + ip + '/api/v1/models/AD_SysConfig?$filter=AD_SysConfig_ID eq 1000079', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + token
-        }
-    }).then(res => {
-        return res.json()
-    })
-    .then(data => {
-        a = data['records'];
+    await fetch(`http://` + ip + `/api/v1/models/AD_SysConfig?$filter=Name eq 'LIT_MOBILE_THEME'`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }
+        }).then(res => {
+            return res.json()
+        })
+        .then(data => {
+            a = data['records'];
 
-        var themeDefault = a[0].Value;
-        setTheme(themeDefault)
+            var themeDefault = a[0].Value;
+            setTheme(themeDefault)
 
-    })
+        })
 
-    .catch(error => {
+        .catch(error => {
 
-    })
-} 
+        })
+}
 
-function setTheme(arg){
+function setTheme(arg) {
     switch (arg) {
         case "BLACK":
-                //stash.cut('theme');
-                theme1();
+            //stash.cut('theme');
+            theme1();
             break;
 
         case "GREEN":
-                //stash.cut('theme');
-                theme2();
-                
+            //stash.cut('theme');
+            theme2();
+
             break;
-        
+
         case "RED":
-                //stash.cut('theme');
-                theme3();
+            //stash.cut('theme');
+            theme3();
             break;
         default:
             break;
@@ -333,22 +333,22 @@ function setTheme(arg){
 }
 
 
-function theme1(){
-    var theme = ["#909090", "#404040", "#F0F8FF", "grey", "black","refresh1", "refreshHover1", "back1", "white"];
+function theme1() {
+    var theme = ["#909090", "#404040", "#F0F8FF", "grey", "black", "refresh1", "refreshHover1", "back1", "white"];
     stash.set('theme', theme);
     //location.reload();
 }
 
-function theme2(){
+function theme2() {
 
-    var theme = ["#008080", "#F0F8FF", "black", "#097969", "black", "refresh1","refreshHover2", "back2", "white"];
+    var theme = ["#008080", "#F0F8FF", "black", "#097969", "black", "refresh1", "refreshHover2", "back2", "white"];
     stash.set('theme', theme);
     //location.reload();
 }
 
-function theme3(){
+function theme3() {
 
-    var theme = ["#FA8072", "#FAEBD7", "black", "#cd5c5c", "black", "refresh1","refreshHover3", "back3", "black"];
+    var theme = ["#FA8072", "#FAEBD7", "black", "#cd5c5c", "black", "refresh1", "refreshHover3", "back3", "black"];
     stash.set('theme', theme);
-   // location.reload();
+    // location.reload();
 }

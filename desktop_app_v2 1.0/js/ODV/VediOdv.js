@@ -30,7 +30,7 @@ function getODV() {
             return res.json()
         })
         .then(data => {
-
+            console.log(data);
             a = data['records'];
             var table;
             a.forEach((record) => {

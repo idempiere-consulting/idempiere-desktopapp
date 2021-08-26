@@ -535,7 +535,7 @@ async function getCheckRead() {
             notification.addEventListener('click', showNotification);
             var badge = document.getElementById("badge");
             badge.innerHTML = data["row-count"]
-            if (data["row-count"] != 0) {
+            if (data["row-count"] != 0 && data["row-count"] != undefined) {
                 badge.style.display = "inline";
             }
         })
